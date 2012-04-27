@@ -1,0 +1,31 @@
+<%
+	header ||= false
+	item = site_list_item unless header
+%>
+
+<% if header %>
+
+	<tr>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'id' %> </th>
+		 <th style="width: 12em;" class=""> <%= wake_click_order_by 'host' %> </th>
+		 <th style="width: 12em;" class=""> <%= wake_click_order_by 'title' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'locales' %> </th>
+		 <th style="width: 1em;"> </th>
+	</tr>
+
+<% else %>
+
+	<tr id="<%=dom_id item %>" class="hover-parent hilite pointer">
+			
+			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
+			<td <%=wo item %> class=""> <%=whl item.host %> </td>
+			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
+			<td <%=wo item %> class=""> <%=whl item.locales_str %> </td>				
+			
+			<td class="hover-child right"> 			
+			    <%= wake_button_destroy item %>
+			</td>
+	</tr>
+
+<% end %>
+

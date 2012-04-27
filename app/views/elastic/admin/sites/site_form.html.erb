@@ -1,0 +1,57 @@
+<% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
+
+<%= form_for @item, :url=>url do |f| %>
+
+	<%= submit_tag %>
+	
+
+	<h3>General configuration</h3>
+
+	<table class="wakeThemeForm" class="">
+		<tr>
+			<th> Host (address): </th>
+			<td> <%= f.text_field 'host', :class=>'' %>  </td>
+		</tr>
+		<tr>
+			<th> Title: </th>
+			<td> <%= f.text_field 'title', :class=>'' %>  </td>
+		</tr>
+		<tr>
+			<th> Locales: </th>
+			<td>  <%= f.text_field 'locales_str', :class=>'' %>  <span class="em80">separated by comas</span> </td>
+		</tr>
+		<tr>
+			<th> Theme (directory): </th>
+			<td> 
+				<% if @item.new_record? %>
+				  Save new record first.
+			  <% else %>
+				  <%= f.select 'theme', @item.theme_list %> 
+				  &nbsp;&nbsp;
+				  <%= f.check_box 'is_force_reload_theme' %> reloading theme? <span class="em80">(theme development mode)</span>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+		
+	<br/>
+	
+	<h3>Landing page configuration</h3>
+
+	<table class="wakeThemeForm" class="">
+		<tr>
+			<th> Index locale: </th>
+			<td> <%= f.select 'index_locale', @item.locales||[] %></td>
+		</tr>
+		
+		<% for l in @item.locales||[] %>
+			<tr>
+				<th> Index node for <%= l.upcase %>: </th> 
+				<td> <%= f.text_field "locale_to_index_hash[#{l}]", :value=>(@item.locale_to_index_hash||{})[l] %> </td>
+			</tr>
+		<% end %>
+	</table>
+
+	<br/>	
+
+<% end %>
