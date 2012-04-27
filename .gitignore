@@ -1,0 +1,7 @@
+.bundle/
+log/*.log
+pkg/
+elastic_app/db/*.sqlite3
+elastic_app/dummy/log/*.log
+elastic_app/dummy/tmp/
+elastic_app/dummy/.sass-cache
