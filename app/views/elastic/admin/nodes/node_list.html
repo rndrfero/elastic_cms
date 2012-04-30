@@ -1,0 +1,59 @@
+<%= link_to ico('plus')+' new node', new_admin_section_node_path(@section) %>
+
+<br/><br/>
+
+<table class="wakeThemeList" style="width: 100%;">
+	<tr>
+		<td class="left" colspan="100" style="border: none;">
+			<%= render :partial=>'/wake/list_header' %>
+		</td>
+	</tr>
+	
+	<tr><td colspan="8" style="height: 4px; border: none;"></td></td>
+	<tr><td colspan="8" style="height: 4px; "></td></td>
+		
+	<tr>
+		<td class="center" colspan="100" style="border: none;"> 
+			<%#= render :partial=>'employee_filter' %>
+		</td>
+	</tr>
+	
+
+	<tr><td colspan="8" style="height: 4px; border: none;"></td></td>
+			
+	<%= render :partial=>'node_list_item', :locals=>{:header=>true} %>
+
+	<tr><td colspan="8" style="height: 4px;"></td></tr>
+
+
+	<% if false %>
+
+		<%= render :partial=>'node_list_item', :collection=>@items.ordered, :locals=>{:level=>0} %>	
+
+	<% else %>
+		<% 
+			
+		  #@all_nodes #= @section.nodes.all
+		  stack = @items.select{ |x| x.is_root? }.map{ |x| [x,0] }
+		  while not stack.empty?
+				node, level = stack.pop
+		%>
+		<%= render :partial=>'node_list_item', :object=>node, :locals=>{:level=>level} %>
+
+		<%
+				@items.each{ |x| stack.push [x,level+1] if x.parent_id==node.id } #unless @folding[node.id]
+			end
+		%>
+	<% end %>
+
+
+
+	
+	
+	
+
+	<tr><td colspan="8" style="height: 6px;"></td></tr>
+
+	<tr><td class="center" colspan="6"> <%= paginate @items %> </td> </tr>
+
+</table>

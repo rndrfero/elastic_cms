@@ -1,0 +1,6 @@
+<div>
+	<h4 class="inline"><%= content_config.title %>: </h4>
+
+	<%= form_helper.text_field 'text', :value=>(content ? content.text : nil), 
+  	:size=>content_config.meta['size'] %>
+</div>

@@ -1,7 +1,9 @@
 #require_dependency 'strip_diacritic'
+require 'iconv'
 
 module Elastic
   class Node < ActiveRecord::Base
+    attr_accessible :section
   
     serialize :title_loc
   
@@ -23,7 +25,7 @@ module Elastic
   
     scope :published, where(:is_published=>true).order('ancestry_depth,position DESC')
     scope :roots, where(:ancestry=>nil).order('ancestry_depth,position DESC')
-    scope :localized, lambda { where(:locale=>CurrentContext.locale) }
+    scope :localized, lambda { where(:locale=>Context.locale) }
     scope :ordered, :order => "ancestry_depth,position DESC"
   
     # scope :localized, lambda do |user_ids| 
@@ -59,7 +61,7 @@ module Elastic
     # -- localized title --
   
     def title
-      section.localization == 'mirrored' ? (title_loc||{})[CurrentContext.locale] : super
+      section.localization == 'mirrored' ? (title_loc||{})[Context.locale] : super
     end
   
     def title=(x)
@@ -91,7 +93,9 @@ module Elastic
   
     def generate_key
       return unless key.blank?
-      ret = title.strip_diactritic.downcase.gsub(/ /, '-').gsub(/[^\-\_a-z0-9]*/,'') 
+#      ret = title.strip_diactritic.downcase.gsub(/ /, '-').gsub(/[^\-\_a-z0-9]*/,'') 
+      ret = Iconv.new("ascii//TRANSLIT","utf-8").iconv(title).downcase.gsub(/ /, '-').gsub(/[^\-\_a-z0-9]*/,'') 
+                  
       ret.gsub!(/--/,'-') # double dash
       # ret << "-1" if Node.exists?(['configuration_id = ? AND hardlink = ?',CurrentContext.cfg.id,ret])
       # while Node.exists?(['configuration_id = ? AND hardlink = ?',CurrentContext.cfg.id,ret])
@@ -128,7 +132,7 @@ module Elastic
   
   
     def keep_context
-      self.site_id = CurrentContext.site.id
+      self.site_id = Context.site.id
     end
 
     # -- wake --
