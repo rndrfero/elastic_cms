@@ -1,0 +1,62 @@
+.field_with_errors { outline: 2px solid red !important; }
+
+a img { border: none; }
+
+html, body { margin: 0; padding: 0; border: none; } /*??????? preco je to cele odsadene zhora ?????????*/
+body {
+	font-family: Verdana; word-spacing: normal; letter-spacing: 0; line-height: 1.2em; font-size: 12px;
+	background-color: snow; color: #444; padding: 0; margin: 0;
+}
+textarea { font-family: Verdana; }
+
+h1,h2,h3,h4 { font-family: 'Trebuchet MS'; color: #00528D;}
+h4 { margin-bottom: 0.3em; }
+
+hr { border: none; background: #888; height: 2px; border-top: 1px solid #eee; }
+
+a, a:visited { color: #00528D; font-weight: bold; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+
+#OuterWrapper { width: 1000px; margin: auto; }
+
+#Flash { text-align: center; font-size: 1.5em; width: 600px; color: #00528D; /*color: #3D5E76; */
+	margin-top: 20px; padding: 5px; border-bottom: 2px solid #D6EEFF; }
+	
+#InnerWrapper { padding-top: 2em; }
+
+
+/* menu */
+
+#MenuWrapper { margin: 0px; margin-bottom: 2em;  }
+
+.usual {
+  background: #555; color: #111; width:1000px; margin: auto;
+	font-family: Verdana,sans-serif; letter-spacing: 0.5pt; font-variant: small-caps;
+	padding-top: 10px;
+}
+
+.usual ul { margin: 0px; padding-left: 20px;  }
+.usual li {  list-style:none; float:left; }
+.usual ul a { display:block;
+  padding: 6px 15px; text-decoration:none!important;
+  margin-left:0; color:#FFF;  font-weight: normal;
+}
+.usual ul a:hover { color: #77C02E; background:#111; }
+.usual ul a.selected { margin-bottom:0; color:#000; background: #EEE; cursor:default; }
+.usual ul a.selected.active { color: #77C02E; }
+.usual div { padding-left: 20px; padding-right: 20px; padding-top: 10px;
+  *padding-top:3px; *margin-top:-15px; clear:left; background: #EEE; height: 26px;}
+.usual .active { color: #92EC37; }
+
+@-moz-document url-prefix() {
+    .usual div { height: 27px; }
+}
+
+.usual div a { padding: 6px 15px; background: #EEE; display: block; float: left; color: #555;  font-weight: normal; }
+.usual div a.active { color: #00528D; font-weight:bold; background: snow; }
+.usual div a:hover { color: #77C02E; text-decoration: none;}
+
+.userNavigator { border: 0px solid red; position: relative; top: 4px; height: 1em !important; padding: 0px !important;}
+.userNavigator a { float: none !important; display: inline !important; 
+	color: white !important; background: #555 !important;  font-weight: bold !important;}

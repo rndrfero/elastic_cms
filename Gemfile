@@ -9,6 +9,10 @@ gemspec
 gem "jquery-rails"
 gem 'mysql2'
 
+group :assets do
+  gem 'sass-rails' #,   '~> 3.2.3'
+end
+
 gem 'acts_as_list'
 gem 'ancestry'
 gem 'rmagick'

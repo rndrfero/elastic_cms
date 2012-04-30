@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGE TITLE HERE !!!</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+	<%= stylesheet_link_tag "wake/application.css" %>
+	<%= stylesheet_link_tag "wake/themes/default.css" %>
+  <%= javascript_include_tag "wake/application" %>
+	
+  <%= stylesheet_link_tag "iconic/iconic_fill", :media => 'all' %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CHANGE TITLE HERE !!!</title>
+  <!-- main app -->
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+  <!-- Elastic CMS -->
+  <%= stylesheet_link_tag    "elastic/application", :media => "all" %>
+  <%= javascript_include_tag "elastic/application" %>
+
+  <!-- Wake extensions -->
+	<%= stylesheet_link_tag "wake/application.css" %>
+	<%= stylesheet_link_tag "wake/themes/default.css" %>
+  <%= javascript_include_tag "wake/application" %>
+	
+  <!-- Iconic -->
+  <%= stylesheet_link_tag "iconic/iconic_fill", :media => 'all' %>
+</head>
+<body>
+
+
+
+	<div id="MenuWrapper">
+				
+		<div id="MainMenu" class="usual">
+			<div class="userNavigator" style="float: right; color: white; background: #555; ">
+								
+				<%# if current_user %>
+					<%#= current_user.name  %>
+					<%#= link_to('Sign out', destroy_user_session_path) %>
+				<%# end %>
+				
+				<% if controller.is_testing? %>
+					<span style="color: #F11; font-weight: bold;">T E S T I N G</span> &nbsp;
+				<% end %>
+				<%= Elastic::Context.site.title %>&nbsp;&nbsp;
+				
+			</div>
+			
+		  <ul> 
+					<li>
+						<%
+						  address = if @node
+							  NodeDrop.new(@node).path
+							elsif @section
+								SectionDrop.new(@section).path
+							else
+								'/'
+							end
+						%>
+					  <%= link_to 'The Site', address %> 
+					</li>
+					<li><a class="<%= 'selected' if menu_match Elastic::Section.all.map{ |x| admin_section_nodes_path(x) } %>" href="#tabs1">Edit</a></li>
+			    <li><a class="<%= 'selected' if menu_match '/', admin_sections_path, admin_sites_path %>" href="#tabs2">Admin</a></li>
+
+		  </ul> 
+
+			<div style="float: right">
+				<% for l in Elastic::Context.site.locales||[] %>
+					<%= link_to l.upcase, params.merge(:locale=>l), :class=>"#{'active' if Elastic::Context.locale==l}" %>
+				<% end %>
+			</div>
+		
+		  <div id="tabs1">
+				<% for x in Elastic::Context.site.sections %>
+				  <%= menu_link_to x.title, admin_section_nodes_path(x) %>
+				<% end %>
+			</div> 
+		  <div id="tabs2">
+				<%= menu_link_to 'Sections', admin_sections_path %>
+				<%= menu_link_to 'Sites', admin_sites_path %>
+			</div>
+			
+					
+		
+		</div>
+		<script type="text/javascript"> $("#MainMenu ul").idTabs(); 
+		</script>
+	</div>
+	
+	<div id="OuterWrapper">		
+		<%= render :partial=>'/wake/flash', :object=>flash %>
+		<div id="InnerWrapper">		
+			<%= yield %>			
+		<div>
+	</div>
+
+</body>
+</html>

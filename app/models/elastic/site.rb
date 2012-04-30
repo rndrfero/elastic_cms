@@ -1,10 +1,9 @@
-module Elastic
-  
+module Elastic  
   class Site < ActiveRecord::Base
       
-    # has_many :sections
-    # has_many :nodes
-    # has_many :template_caches
+    has_many :sections
+    has_many :nodes
+    has_many :template_caches
   
     validates_presence_of :title, :host
     validates_presence_of :locales_str
@@ -54,6 +53,5 @@ module Elastic
     #   nodes.empty?
     # end
 
-  end
-  
+  end  
 end
