@@ -7,7 +7,7 @@ Elastic::Engine.routes.draw do
       
       resources :sections do
         get 'new_content_config', :on=>:member
-        get 'cc_toggle_published/:content_config_id', :on=>:member, :action=>'cc_toggle_published'
+        get 'cc_toggle_published/:content_config_id', :on=>:member, :action=>'cc_toggle_published', :as=>'cc_toggle_published'
         # get 'cc_move_higher/:content_config_id', :on=>:member, :action=>'cc_move_higher'                 
         # get 'cc_move_lower/:content_config_id', :on=>:member, :action=>'cc_move_higher'                 
         

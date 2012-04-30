@@ -3,7 +3,7 @@ module Elastic
     
     def menu_link_to(label, path)
       options = {}
-      options[:class]= "active" if request.path.starts_with? path
+      options[:class]= "active" if request.path.gsub(/\/\//, "/").starts_with? path
       raw link_to label, path, options
     end
 

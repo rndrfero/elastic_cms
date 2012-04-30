@@ -1,3 +1,5 @@
+require_dependency "wake.rb"
+
 module Elastic
   class ApplicationController < ActionController::Base
     

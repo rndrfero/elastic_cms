@@ -10,7 +10,7 @@ class CreateElasticContentConfigs < ActiveRecord::Migration
       t.string :mime
       t.text :meta
       
-      t.boolean :is_offline
+      t.boolean :is_published
 
       t.timestamps
     end

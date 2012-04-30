@@ -1,5 +1,7 @@
 module Elastic
   class ContentConfig < ActiveRecord::Base
+    
+    attr_accessible :position, :title, :form, :meta
   
     FORMS = {
       :textfield => %w{ size },

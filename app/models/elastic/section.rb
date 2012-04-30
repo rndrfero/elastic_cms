@@ -21,7 +21,7 @@ module Elastic
     # -- kontext --
 
     def keep_context
-      self.site_id = CurrentContext.site.id
+      self.site_id = Context.site.id
     end
   
     # -- wake --

@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     elastic (0.0.1)
-      rails (~> 3.2.3)
+      rails (~> 3.2.3.rc2)
 
 PATH
   remote: ~/rails_gems/wake
