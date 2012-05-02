@@ -13,6 +13,7 @@ module Elastic
   
     serialize :locales
     serialize :locale_to_index_hash
+    serialize :galleries_meta
 
     before_destroy :wake_destroyable? 
     after_save :integrity!
@@ -34,7 +35,7 @@ module Elastic
     end
     
     def theme_dir
-      home_dir + 'themes/' + theme.to_filename + '/'
+      home_dir + 'themes/' + theme.gsub(/^[^a-z0-9.]/,'') + '/'
     end
   
     def theme_list
@@ -49,6 +50,8 @@ module Elastic
       for x in %w{ themes/hello_world static galleries }
         FileUtils.mkdir_p File.join(home_dir,x)
       end
+      FileUtils.remove_entry_secure File.join(home_dir, 'themes/hello_world')
+      FileUtils.cp_r File.join(Rails.root, '../themes/hello_world'), File.join(home_dir, 'themes')
     end
   
   

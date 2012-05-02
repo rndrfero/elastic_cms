@@ -45,9 +45,14 @@ GEM
     ancestry (1.2.5)
       activerecord (>= 2.2.2)
     arel (3.0.2)
+    bcrypt-ruby (3.0.1)
     builder (3.0.0)
     erubis (2.7.0)
+    faraday (0.8.0)
+      multipart-post (~> 1.1)
+    hashie (1.2.0)
     hike (1.2.1)
+    httpauth (0.1)
     i18n (0.6.0)
     journey (1.0.3)
     jquery-rails (2.0.2)
@@ -65,7 +70,23 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.18)
     multi_json (1.3.2)
+    multipart-post (1.1.5)
     mysql2 (0.3.11)
+    oauth2 (0.6.1)
+      faraday (~> 0.7)
+      httpauth (~> 0.1)
+      multi_json (~> 1.3)
+    omniauth (1.1.0)
+      hashie (~> 1.2)
+      rack
+    omniauth-github (1.0.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
+    omniauth-identity (1.0.0)
+      omniauth (~> 1.0)
+    omniauth-oauth2 (1.0.2)
+      oauth2 (~> 0.6.0)
+      omniauth (~> 1.0)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -116,10 +137,13 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   ancestry
+  bcrypt-ruby
   elastic!
   jquery-rails
   liquid
   mysql2
+  omniauth-github
+  omniauth-identity
   rmagick
   sass-rails
   sqlite3

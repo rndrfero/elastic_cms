@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.3.rc2"
+    
  # s.add_dependency "rails", :git => "git://github.com/rails/rails.git"
   
   # s.add_dependency "jquery-rails"

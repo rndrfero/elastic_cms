@@ -1,5 +1,19 @@
 Elastic::Engine.routes.draw do
   
+  match '/auth/:provider/callback', :to => 'sessions#create'
+  match '/logout', to: 'sessions#destroy'  
+  
+  # -- frontend --
+
+  root :to => 'elastic#index'
+  match '/:locale' => 'elastic#index'
+  match '/:locale/show/:key' => 'elastic#show'
+  match '/:locale/section/:key' => 'elastic#section'
+  match '/:locale/access_denied' => 'elastic#access_denied', :as=>'access_denied'
+  match '/x/*filepath' => 'elastic#static'
+  
+  # -- backend --
+  
   scope "/:locale" do  
   
     namespace 'admin' do

@@ -17,6 +17,6 @@ class CreateElasticGalleries < ActiveRecord::Migration
     end
     add_index :elastic_galleries, :site_id
     
-    add_column :elastic_sites, :galleries_meta
+    add_column :elastic_sites, :galleries_meta, :text
   end
 end

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">		
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+	
+		<!-- Elastic-CMS html5 rails LAYOUT -->
+		<meta name="keywords" content="<%= (@node and !@node.meta_keywords.blank?) ? @node.meta_keywords : Elastic::Context.site.meta_keywords %>" />
+		<meta name="description" content="<%= (@node and !@node.meta_description.blank?) ? @node.meta_description : Elastic::Context.site.meta_description %>" />
+	
+		<link type="text/css" rel="Stylesheet" media="all" href="/x/<%= @site.theme%>.css"/>		
+		
+	</head>
+
+	<body>		
+		<%= yield %>
+		
+		<% if true # CurrentContext.user %>
+		  <%= render :partial=>'elastic/public/controls' %>
+		<% end %>
+	</body>
+	
+</html>

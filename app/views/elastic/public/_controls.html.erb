@@ -1,0 +1,19 @@
+<style>
+	#ElasticControls { position: fixed; height: 25px; top: 0px; left: 0px; background: black; width: 100%; 
+		padding: 6px 30px 2px 30px; }
+	#ElasticControls a { color: white; text-decoration: none; }
+	#ElasticControls a:hover { text-decoration: underline; }
+	body { position: relative; top: 25px; left: 0px; }
+</style>
+		
+<div id="ElasticControls" style="">
+	
+	<% if @node %>
+		<%= link_to 'Elastic CMS', edit_editor_section_node_path(@section, @node) %>
+	<% elsif @section %>
+		<%= link_to 'Elastic CMS', editor_section_nodes_path(@section) %>
+	<% else %>
+		<%= link_to 'Elastic CMS', edit_admin_site_path(@site) %>
+	<% end %>
+	
+</div>

@@ -1,0 +1,137 @@
+<h2>Congratulations, you are running the <b>Elastic CMS</b> site!</h2>
+
+<h5>This is a Liquid Markup Language template.</h5>
+
+<h3>Navigation menu <span class="note">(with highliting)</span></h3>
+
+<div>
+	<div>
+		<i>Menu:</i>
+		{% for l in site.locales %}
+		  <a href="/{{l}}" class="{% if l == locale %}active{% endif %}">{{ l | upcase }}</a>
+		{% endfor %}
+	</div>
+	{% for s in site.sections %}
+	  <div>
+			<i>Menu:</i>
+		  <b><a href="{{s.path}}" class="{% if s == section %}active{% endif %}">{{ s.title }}</a></b>:
+			{% for n in s.roots %}
+			  <a href="{{n.path}}" class="{% if n == node %}active{% endif %}">{{n.title}}</a>
+			{% endfor %}
+		</div>
+	{% endfor %}
+	
+	{% if node %}
+		<div>
+			<i>Tree navigator:</i>
+			{% for n in node.ancestors %}
+			  <a href="{{n.path}}">{{n.title}}</a> &rarr;
+			{% endfor %}
+			<b>{{node.title}}</b> &rarr;
+			
+		  {% for n in node.children %}
+				<a href="{{n.path}}">{{n.title}}</a> 
+		  {% endfor %}
+						
+		</div>
+	{% endif %}
+</div>	
+	
+<h3>Global drops</h3>
+
+<table>
+		<tr> <th> params </th> <td> {{ params }} </td> </tr>
+		<tr> <th> locale </th> <td> {{ locale }} </td> </tr>
+		<tr> <th> action </th> <td> {{ action }} </td> </tr>
+		<tr> <th> key </th> <td> {{ key }} </td> </tr>
+		
+		<tr> 
+			<th> section_[key] </th> 
+			<td> <i>Section is available directly by its key. In this context there are 
+				{% for x in site.section_keys %}<b>section_{{x}}</b> {% endfor %}.</i> </td> 
+		</tr>
+</table>
+
+
+<h3>Site drops</h3>
+
+<table>
+	<tr> <th> site.title </th> <td> {{ site.title }} </td> </tr>
+	<tr> <th> site.locales </th> <td> <i>array:</i> {{ site.locales }} </td> </tr>	
+	<tr> <th> site.sections </th> <td> <i>array of SectionDrops:</i> {{ site.sections }} </td> </tr>
+	<tr> <th> site.section_keys </th> <td> {{ site.section_keys }} </td> </tr>
+	<tr> <th> site.sections.first.title </th> <td> {{ site.sections.first.title }} </td> </tr>
+</table>
+
+	
+<h3>Section drops (current section)</h3>
+
+{% if section %}
+<table>
+	<tr> <th> section.title </th> <td> {{ section.title }} </td> </tr>
+	<tr> <th> section.key </th> <td> {{ section.key }} </td> </tr>
+	<tr> <th> section.localization </th> <td> {{ section.localization }} </td> </tr>
+	<tr> <th> section.roots </th> <td> <i>array of NodeDrops:</i> {{ section.roots }}  </td> </tr>
+	<tr> <th> section.nodes </th> <td> <i>array of NodeDrops:</i> {{ section.nodes }}  </td> </tr>
+	<tr> <th> section.nodes.first.title </th> <td> {{ section.nodes.first.title }} </td> </tr>
+</table>
+{% else %}
+  <i>We are in no section right now.</i>
+{% endif %}
+
+
+<h3>Node drops (current node)</h3>
+
+{% if node %}
+<table>
+	<tr> <th> node.title </th> <td> {{ node.title }} </td> </tr>
+	<tr> <th> node.id </th> <td> {{ node.id }} </td> </tr>
+	<tr> <th> node.key </th> <td> {{ node.key }} </td> </tr>
+	<tr> <th> node.path </th> <td> {{ node.path }} </td> </tr>
+	<tr> <th> node.section </th> <td> <i>SectionDrop:</i> {{ node.section }} </td> </tr>
+</table>
+{% else %}
+  We are viewing no node right now.
+{% endif %}
+
+<h3>Node contents (current node)</h3>
+
+{% if node %}
+	<table>
+		<tr> <th> node.contents </th> <td> <i>array of ContentDrops:</i> {{ node.contents }}  </td> </tr>
+		<tr> <th> node.content1 </th> <td> <i>ContentDrop:</i> {{ node.content1 }} </td> </tr>
+		<tr> <th> node.content1.form </th> <td> {{ node.content1.form }} </td> </tr>
+		<tr> <th> node.content1.meta </th> <td> {{ node.content1.meta }} </td> </tr>
+		<tr> <th> node.content1.text </th> <td> {{ node.content1.text }} </td> </tr>
+  </table>
+{% else %}
+  We are not showing node right now.
+{% endif %}
+
+<h3>Node navigation (current node)</h3>
+{% if node %}
+	<table>
+		<tr> <th colspan="2" class="note"> Single </th> </tr>
+		<tr> <th> node.parent </th> <td> <i>SectionDrop:</i> {{ node.parent }} </td> </tr>
+		<tr> <th> node.root </th> <td> <i>SectionDrop:</i> {{ node.root }} </td> </tr>
+		
+		<tr> <th colspan="2" class="note"> Array </th> </tr>
+		<tr> <th> node.children </th> <td> <i>array of SectionDrop:</i> {{ node.children }} </td> </tr>
+		<tr> <th> node.ancestors </th> <td> <i>array of SectionDrops:</i> {{ node.ancestors }} </td> </tr>
+		<tr> <th> node.siblings </th> <td> <i>array of SectionDrops:</i> {{ node.siblings }} </td> </tr>
+		<tr> <th> node.descendants </th> <td> <i>array of SectionDrops:</i> {{ node.descendants }} </td> </tr>
+		<tr> <th> node.subtree </th> <td> <i>array of SectionDrops:</i> {{ node.subtree }} </td> </tr>
+		
+		<tr> <th colspan="2" class="note"> Boolean </th> </tr>
+		<tr> <th> node.is_root? </th> <td> {{ node.is_root? }} </td> </tr>
+		<tr> <th> node.has_children? </th> <td> {{ node.has_children? }} </td> </tr>
+		<tr> <th> node.is_childless? </th> <td> {{ node.is_childless? }} </td> </tr>
+		<tr> <th> node.has_siblings? </th> <td> {{ node.has_siblings? }} </td> </tr>
+		<tr> <th> node.is_only_child? </th> <td> {{ node.is_only_child? }} </td> </tr>
+		
+	</table>
+{% else %}
+  Hey, you are looking at no node right now.
+{% endif %}
+
+<br/><br/>

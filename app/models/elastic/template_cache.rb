@@ -1,10 +1,11 @@
 module Elastic
   class TemplateCache < ActiveRecord::Base
+    attr_accessible :key
   
     belongs_to :site
   
-    validates_presence_of :ident
-    validates_uniqueness_of :ident
+    validates_presence_of :key
+    validates_uniqueness_of :key
 
     def template
       self[:template] ? Marshal.load(self[:template]) : nil
@@ -15,11 +16,11 @@ module Elastic
     end
   
     def self.init(name)        
-      Liquid::Template.file_system = Liquid::LocalFileSystem.new CurrentContext.site.theme_dir
+      Liquid::Template.file_system = Liquid::LocalFileSystem.new Context.site.theme_dir
       
-      ret = TemplateCache.new :ident=>"#{CurrentContext.site.id}-#{name}"
+      ret = TemplateCache.new :key=>"#{Context.site.id}-#{name}"
     
-      filepath = CurrentContext.site.theme_dir + name + '.liquid'
+      filepath = Context.site.theme_dir + name + '.liquid'
       ret.template = File.open(filepath, 'r') do |f| 
         Liquid::Template.parse f.read
       end
@@ -28,10 +29,10 @@ module Elastic
     end  
   
     def self.render(name, drops)
-      row = TemplateCache.where(:ident=> "#{CurrentContext.site.id}-#{name}").first    
-      Liquid::Template.file_system = Liquid::LocalFileSystem.new CurrentContext.site.theme_dir      
+      row = TemplateCache.where(:key=> "#{Context.site.id}-#{name}").first    
+      Liquid::Template.file_system = Liquid::LocalFileSystem.new Context.site.theme_dir      
     
-      if CurrentContext.site.is_force_reload_theme?
+      if Context.site.is_force_reload_theme?
         row.destroy if row
         row = TemplateCache.init name 
       end

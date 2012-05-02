@@ -1,0 +1,17 @@
+# require 'omniauth'
+# require 'omniauth-identity'
+# require 'omniauth-github'
+
+Rails.application.config.middleware.use OmniAuth::Builder do
+  
+   provider :identity, :fields => [:email], :model => Elastic::Identity
+#   provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
+   
+  # provider :twitter, 'CONSUMER_KEY', 'CONSUMER_SECRET'
+  # provider :facebook, 'APP_ID', 'APP_SECRET'
+  # provider :linked_in, 'CONSUMER_KEY', 'CONSUMER_SECRET'
+end
+
+# OmniAuth.on_failure do |env|
+#   [200, {}, [env['omniauth.error'].inspect]]
+# end

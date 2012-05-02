@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120427161020) do
+ActiveRecord::Schema.define(:version => 20120502114552) do
 
   create_table "elastic_content_configs", :force => true do |t|
     t.string   "title"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(:version => 20120427161020) do
     t.string   "form"
     t.string   "mime"
     t.text     "meta"
-    t.boolean  "is_offline"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "is_published"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "elastic_contents", :force => true do |t|
@@ -35,6 +35,30 @@ ActiveRecord::Schema.define(:version => 20120427161020) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  create_table "elastic_galleries", :force => true do |t|
+    t.string   "title"
+    t.string   "ident"
+    t.integer  "site_id"
+    t.integer  "node_id"
+    t.boolean  "is_star"
+    t.boolean  "is_watermarked"
+    t.text     "meta"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "elastic_galleries", ["site_id"], :name => "index_elastic_galleries_on_site_id"
+
+  create_table "elastic_identities", :force => true do |t|
+    t.string   "uid"
+    t.string   "provider"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "elastic_identities", ["user_id"], :name => "index_elastic_identities_on_user_id"
 
   create_table "elastic_nodes", :force => true do |t|
     t.string   "title"
@@ -85,6 +109,8 @@ ActiveRecord::Schema.define(:version => 20120427161020) do
     t.boolean  "is_locked"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.string   "key"
+    t.text     "galleries_meta"
   end
 
   add_index "elastic_sites", ["host"], :name => "index_elastic_sites_on_host"
@@ -97,5 +123,12 @@ ActiveRecord::Schema.define(:version => 20120427161020) do
   end
 
   add_index "elastic_template_caches", ["ident"], :name => "index_elastic_template_caches_on_ident"
+
+  create_table "elastic_users", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
