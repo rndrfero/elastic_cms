@@ -53,7 +53,7 @@
 						%>
 					  <%= link_to 'The Site', address %> 
 					</li>
-					<li><a class="<%= 'selected' if menu_match Elastic::Section.all.map{ |x| editor_section_nodes_path(x) } %>" href="#tabs1">Editor</a></li>
+					<li><a class="<%= 'selected' if menu_match Elastic::Section.all.map{ |x| editor_section_nodes_path(x) }+[editor_galleries_path] %>" href="#tabs1">Editor</a></li>
 			    <li><a class="<%= 'selected' if menu_match '/', admin_sections_path, admin_sites_path %>" href="#tabs2">Webmaster</a></li>
 
 		  </ul> 
@@ -68,6 +68,7 @@
 				<% for x in Elastic::Context.site.sections %>
 				  <%= menu_link_to x.title, editor_section_nodes_path(x) %>
 				<% end %>
+				<%= menu_link_to 'Galleries', editor_galleries_path %>
 			</div> 
 		  <div id="tabs2">
 				<%= menu_link_to 'Sections', admin_sections_path %>

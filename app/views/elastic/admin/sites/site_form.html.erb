@@ -25,6 +25,8 @@
 			<td> 
 				<% if @item.new_record? %>
 				  Save new record first.
+				<% elsif not @item.valid? %>
+				  Record is not valid.
 			  <% else %>
 				  <%= f.select 'theme', @item.theme_list %> 
 				  &nbsp;&nbsp;

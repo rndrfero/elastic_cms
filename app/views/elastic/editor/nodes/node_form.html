@@ -1,36 +1,38 @@
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
 
-<%= form_for @item, :url=>url do |f| %>
+<div class="wakeThemeCleanForm">
+	<%= form_for @item, :url=>url do |f| %>
 
-	<%= submit_tag %> <br/><br/>
+		<%= submit_tag %> <br/><br/>
 
-  Title: <%= f.text_field 'title', :value=>@item.title, :class=>'title' %><br/>
-  Key: <%= f.text_field 'key', :class=>'title' %><br/>
-	<%= f.check_box 'is_published' %>Published?
-	<%= f.check_box 'is_star' %>Star?</br>
-	Parent: <%= f.select 'parent_id', [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
-  Position: <%= f.text_field 'position', :class=>'title' %><br/>
+	  Title: <%= f.text_field 'title', :value=>@item.title, :class=>'title' %><br/>
+	  Key: <%= f.text_field 'key', :class=>'title' %><br/>
+		<%= f.check_box 'is_published' %>Published?
+		<%= f.check_box 'is_star' %>Star?</br>
+		Parent: <%= f.select 'parent_id', [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
+	  Position: <%= f.text_field 'position', :class=>'title' %><br/>
 
-	<br/> 
-	<!-- Section id: <%#= f.text_field 'section_id', :value=>@section.id, :size=>3 %> -->
-	<%#= f.text_field 'site_id', :value=>@section.id, :size=>3 %>
+		<br/> 
+		<!-- Section id: <%#= f.text_field 'section_id', :value=>@section.id, :size=>3 %> -->
+		<%#= f.text_field 'site_id', :value=>@section.id, :size=>3 %>
 	
-	<br/><br/>
-	<% for cc in @section.content_configs.published.all %>
-	  <h4><%= cc.title %></h4>
-	  <% c = @item.content_getter cc %>
+		<br/><br/>
+		<% for cc in @section.content_configs.published.all %>
+		  <h4><%= cc.title %></h4>
+		  <% c = @item.content_getter cc %>
 	
-		<%= f.fields_for "contents_setter[#{cc.id}]" do |f2| %>
-			<%= f2.text_area 'text', :value=>(c ? c.text : nil), :rows=>5, :cols=>60 %>
-		<% end %>
+			<%= f.fields_for "contents_setter[#{cc.id}]" do |f2| %>
+				<%= f2.text_area 'text', :value=>(c ? c.text : nil), :rows=>5, :cols=>60 %>
+			<% end %>
 		
-	<% end %>
+		<% end %>
 	
-	<br/><br/>
+		<br/><br/>
 
 
-<% end %>
+	<% end %>
 
-<%=debug @item.errors %>
+	<%=debug @item.errors %>
 
-<%=debug @item.section_id %>
+	<%=debug @item.section_id %>
+</div>

@@ -22,6 +22,7 @@ Elastic::Engine.routes.draw do
           post 'move_lower', :on=>:member
         end      
       end
+      resources :galleries
     end
       
   end

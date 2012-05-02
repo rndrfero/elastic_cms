@@ -1,11 +1,14 @@
 module Elastic  
   class Site < ActiveRecord::Base
+    include Elastic::WithDirectory
       
     has_many :sections
     has_many :nodes
     has_many :template_caches
+    has_many :galleries
   
-    validates_presence_of :title, :host
+    validates_presence_of :title
+    validates_format_of :host, :with=>/^[a-z0-9.]*$/
     validates_presence_of :locales_str
   
     serialize :locales
@@ -27,7 +30,7 @@ module Elastic
     # -- directories --
   
     def home_dir
-      File.join Rails.root, "home/#{id}/"
+      File.join Rails.root, "home/#{id}-#{host}/"
     end
     
     def theme_dir
@@ -42,8 +45,9 @@ module Elastic
     # ensure site integrity
     def integrity!
       return if new_record?
-      for x in %w{ themes/hello_world static data }
-        FileUtils.mkdir_p File.join(Rails.root,'home',"#{self.id}", x)
+      create_or_rename_dir! home_dir
+      for x in %w{ themes/hello_world static galleries }
+        FileUtils.mkdir_p File.join(home_dir,x)
       end
     end
   

@@ -24,15 +24,15 @@
 			</td>				
 			<td <%=wo item %> class="hi-visible"> 
 			  <%=link_to (item.is_published? ? ico(:check_alt, :green) : ico(:x_alt, :red)), 
-  			     toggle_published_admin_section_node_path(@section, item), :method=>:post %>
+  			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
 			<td <%=wo item %> class="hi-visible"> 
 				<%= item.position %>
 			</td>				
 			
 			<td class="hover-child right"> 			
-					<%= link_to ico(:arrow_up), move_higher_admin_section_node_path(@section,item), :method=>:post %>
-					<%= link_to ico(:arrow_down), move_lower_admin_section_node_path(@section,item), :method=>:post %>
+					<%= link_to ico(:arrow_up), move_higher_editor_section_node_path(@section,item), :method=>:post %>
+					<%= link_to ico(:arrow_down), move_lower_editor_section_node_path(@section,item), :method=>:post %>
 			    <%= wake_button_destroy item %>
 			</td>
 	</tr>

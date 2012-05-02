@@ -27,6 +27,8 @@ a:hover { text-decoration: underline; }
 
 .iconic { font-size: 1.5em; }
 
+.galleryItem { float: left; padding: 10px; width: 150px; height: 160px; }
+
 
 /* menu */
 

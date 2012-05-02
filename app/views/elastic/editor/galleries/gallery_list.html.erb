@@ -1,0 +1,14 @@
+<%= link_to ico('plus')+' new gallery', new_editor_gallery_path %>
+
+<br/><br/>
+
+<div class="wakeThemeList">
+	
+	<% for item in Elastic::Context.site.galleries %>
+		<div <%=wo item %> class="galleryItem">
+			<%= item.title %>
+		</div>
+
+	<% end %>
+	
+</div>

@@ -40,6 +40,7 @@ Dummy::Application.configure do
 
   # GEM DEV: reloading gems
   config.autoload_paths += %W(#{config.root}/../lib/)  
+  config.autoload_paths += %W(#{config.root}/../lib/elastic/)  
   config.autoload_paths += %W(#{config.root}/../app/**/)  
   
   config.autoload_paths += %W(#{config.root}/../../rails_gems/lib/)  

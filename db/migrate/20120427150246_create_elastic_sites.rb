@@ -3,6 +3,7 @@ class CreateElasticSites < ActiveRecord::Migration
     create_table :elastic_sites do |t|
       t.string :host
       t.string :title
+      t.string :key
       t.text :locales
       
       t.string :theme
