@@ -36,7 +36,11 @@ Elastic::Engine.routes.draw do
           post 'move_lower', :on=>:member
         end      
       end
-      resources :galleries
+      resources :galleries do
+        get 'f_edit/:index', :on=>:member, :action=>'f_edit', :as=>'f_edit'
+        post 'f_update/:index', :on=>:member, :action=>'f_update', :as=>'f_update'
+        post 'f_destroy/:index', :on=>:member, :action=>'f_destroy', :as=>'f_destroy'
+      end
     end
       
   end

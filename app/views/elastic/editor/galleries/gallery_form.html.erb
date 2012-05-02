@@ -8,11 +8,45 @@
 			
 	<%= submit_tag 'OK', :class=>'button' %>
 	<a href="#" onclick="" class="button">UPLOAD FILE</a>
+	<%= link_to 'DESTROY', '' %>
+	<%= link_to 'RESCAN FOLDER', '' %>
 	
 	<div>
 		<h4>File upload</h4>		
 		<%= f.file_field 'file' %>
 	</div>
+	
+	<br/>
+	
+	<% if @filename %>
+	  <h4>File details</h4>
+	  <%= @filename %>
+	  <%= @index %>
+		<br/>
+			Ino: <%= File.stat( File.join(@item.dir,'orig',@filename) ).ino %>
+		<br/>
+		<%= debug File.stat( File.join(@item.dir,'orig',@filename) ) %>
+	<% end %>
+	
+	<%# if not @item.non_images.empty? %>
+		<h4>Files</h4>
+	
+		<% for x in @item.non_images %>
+		  <div class="item">
+			  <%= link_to x, f_edit_editor_gallery_path(@item,@item.files.index(x)) %>
+			</div>
+		<% end %>
+	<%# end %>
+	
+	<%# if not @item.images.empty? %>
+		<h4>Images</h4>
+		<% for x in @item.images %>
+		  <div class="item">
+			  <%= x %>
+			</div>
+		<% end %>
+	<%# end %>
+	
 	
 	<br/>
 
