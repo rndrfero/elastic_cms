@@ -3,7 +3,7 @@ require 'iconv'
 
 module Elastic
   class Node < ActiveRecord::Base
-    attr_accessible :section
+    attr_accessible :section, :locale
   
     serialize :title_loc
   
@@ -36,7 +36,7 @@ module Elastic
       cc_id = cc_id.id if cc_id.is_a? ContentConfig
       cc_id = cc_id.to_i if cc_id.is_a? String
       if section.localization == 'mirrored'
-        contents.select{ |x| x.content_config_id==cc_id and x.locale==CurrentContext.locale }.first
+        contents.select{ |x| x.content_config_id==cc_id and x.locale==Context.locale }.first
       else
         contents.select{ |x| x.content_config_id==cc_id }.first
       end
@@ -46,13 +46,13 @@ module Elastic
       if section.localization == 'mirrored'
         for cc_id, attrs in cc_id_to_attrs_hash
           c = content_getter cc_id 
-          c = Content.new :content_config_id=>cc_id, :node_id=>self.id, :locale=>CurrentContext.locale if not c
+          c = Content.new :content_config_id=>cc_id, :node=>self, :locale=>Context.locale if not c
           c.update_attributes attrs
         end
       else
         for cc_id, attrs in cc_id_to_attrs_hash
           c = content_getter cc_id 
-          c = Content.new :content_config_id=>cc_id, :node_id=>self.id if not c
+          c = Content.new :content_config_id=>cc_id, :node=>self if not c
           c.update_attributes attrs
         end      
       end
@@ -67,7 +67,7 @@ module Elastic
     def title=(x)
       if section.localization == 'mirrored'
         self.title_loc ||= {}
-        self.title_loc[CurrentContext.locale] = x
+        self.title_loc[Context.locale] = x
       else
         super
       end

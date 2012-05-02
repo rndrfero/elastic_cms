@@ -1,5 +1,5 @@
 module Elastic
-  class Admin::NodesController < ApplicationController
+  class Editor::NodesController < ApplicationController
   
     wake :within_module=>'Elastic'
   

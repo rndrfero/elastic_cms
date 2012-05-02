@@ -1,0 +1,19 @@
+
+body { color: #333; font-family: 'Arial'; font-size: 13px; }
+
+a { color: #3539C5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+a.active { background: lightgreen; }
+
+i { color: #22ADA9; }
+
+fieldset, legend { background: #EEE; border: 1px solid #DDD; }
+legend {  color: green; font-weight: bold; background: #FFF; margin-bottom: 0.5em; }
+
+h3 { color: green; }
+
+table { border-collapse: collapse; }
+td, th { border: 1px solid #DDD; padding: 0px 10px;  }
+th { background-color: #EEE; text-align: left; }
+
+.note { font-size: 70%; }
