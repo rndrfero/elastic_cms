@@ -1,0 +1,22 @@
+<% f = gallery_meta %>
+
+<tr>
+	<th> Image: </th>
+	<td> 
+	  <%= f.text_field "meta[img_w]", :value=>(@item.meta||{})['img_h'], :size=>3, :class=>'' %> 
+	  <small>x</small>
+	  <%= f.text_field "meta[img_h]", :value=>(@item.meta||{})['img_h'], :size=>3, :class=>'' %>
+	  <small>magick:</small>
+	  <%= f.text_field "meta[img_processing]", :value=>(@item.meta||{})['img_processing'], :size=>30, :class=>'' %>
+	</td>
+</tr>
+<tr>
+	<th> Thumbnail A: </th>
+	<td> 
+	  <%= f.text_field "meta[tna_w]", :value=>(@item.meta||{})['tna_h'], :size=>3, :class=>'' %> 
+	  <small>x</small>
+	  <%= f.text_field "meta[tna_h]", :value=>(@item.meta||{})['tna_h'], :size=>3, :class=>'' %>
+	  <small>magick:</small>
+	  <%= f.text_field "meta[tna_processing]", :value=>(@item.meta||{})['tna_processing'], :size=>30, :class=>'' %>
+	</td>
+</tr>

@@ -55,5 +55,30 @@
 	</table>
 
 	<br/>	
+	
+	<h3>Galleries configuration</h3>
+	
+	<table class="wakeThemeForm">
+		<tr>
+			<th> Image: </th>
+			<td> 
+			  <%= f.text_field "gallery_meta[img_w]", :value=>(@item.gallery_meta||{})['img_h'], :size=>3, :class=>'' %> 
+			  <small>x</small>
+			  <%= f.text_field "gallery_meta[img_h]", :value=>(@item.gallery_meta||{})['img_h'], :size=>3, :class=>'' %>
+			  <small>magick:</small>
+			  <%= f.text_field "gallery_meta[img_processing]", :value=>(@item.gallery_meta||{})['img_processing'], :size=>30, :class=>'' %>
+			</td>
+		</tr>
+		<tr>
+			<th> Thumbnail A: </th>
+			<td> 
+			  <%= f.text_field "gallery_meta[tna_w]", :value=>(@item.gallery_meta||{})['tna_h'], :size=>3, :class=>'' %> 
+			  <small>x</small>
+			  <%= f.text_field "gallery_meta[tna_h]", :value=>(@item.gallery_meta||{})['tna_h'], :size=>3, :class=>'' %>
+			  <small>magick:</small>
+			  <%= f.text_field "gallery_meta[tna_processing]", :value=>(@item.gallery_meta||{})['tna_processing'], :size=>30, :class=>'' %>
+			</td>
+		</tr>
+	</table>
 
 <% end %>

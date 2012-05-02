@@ -67,6 +67,7 @@ module Elastic
     private
     def prepare
       @site = Context.site
+      @site.integrity!
     end
 
     def render_liquid(template_name, add_drops={})

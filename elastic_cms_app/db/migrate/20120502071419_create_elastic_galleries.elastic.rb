@@ -3,7 +3,7 @@ class CreateElasticGalleries < ActiveRecord::Migration
   def change
     create_table :elastic_galleries do |t|
       t.string :title
-      t.string :ident
+      t.string :key
       
       t.integer :site_id
       t.integer :node_id

@@ -1,30 +1,37 @@
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
 
-	<%= form_for @item, :url=>url, :html => {:multipart => true} do |f| %>
+<%= form_for @item, :url=>url, :html => {:multipart => true} do |f| %>
 
-	<%= submit_tag %>
-	 <br/><br/>
+<div class="wakeThemeCleanForm">
+
+	<%= f.text_field 'title', :value=>@item.title, :class=>'title' %> &nbsp; 
+			
+	<%= submit_tag 'OK', :class=>'button' %>
+	<a href="#" onclick="" class="button">UPLOAD FILE</a>
 	
-	<div class="wakeThemeCleanForm">
-
-		<%= f.text_field 'title', :value=>@item.title, :class=>'title' %> &nbsp; 
-		
-		<br/>
-		Key: <%= f.text_field 'key', :class=>'' %>
-		
-		<br/><br/>
-		
+	<div>
+		<h4>File upload</h4>		
 		<%= f.file_field 'file' %>
-
-		<h3>Meta</h3>
-		<% for m in Elastic::Gallery::META %>
-			<table class="wakeThemeForm" class="">
-				<tr>
-					<th> <%= m %> </th>
-					<td> <%= f.text_field "meta[#{m}]", :value=>(@item.meta||{})[m], :class=>'' %>  </td>
-				</tr>
-		  </table>
-		<% end %>
-
 	</div>
-	<% end %>
+	
+	<br/>
+
+	<h4>Advanced configuration</h4>
+		<table class="wakeThemeForm" class="">
+			<tr>
+				<th> Key: </th>
+				<td> 
+				  <%= f.text_field 'key', :size=>10, :class=>'' %> 
+				  <%= f.check_box 'is_watermarked' %> <small>Watermarked?</small>
+				</td>
+			</tr>
+			<%= render :partial=>'gallery_meta', :object=>f %>
+	  </table>
+
+  <% end %>
+</div>
+
+
+<hr/>
+
+<%=debug @item.files %>

@@ -7,3 +7,8 @@ section with bound gallery
 site.key --- je niekde pouzity?
 
 fotky ako na googli (tzn. len width maju rovnaky)
+
+why to limit ourselves to liquid?
+hello_world.html.liquid
+hello_world.md.liquid
+hello_world.rdoc.liquid

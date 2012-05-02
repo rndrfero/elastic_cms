@@ -17,6 +17,8 @@ class CreateElasticSites < ActiveRecord::Migration
       t.boolean :is_force_reload_theme
       t.boolean :is_locked
       
+      t.text :gallery_meta
+      
       t.timestamps
     end
     add_index :elastic_sites, :host

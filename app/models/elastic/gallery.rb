@@ -21,20 +21,17 @@ module Elastic
     
     def integrity!
       create_or_rename_dir! dir
-      for x in %w{ img tna tnb }
+      for x in %w{ orig img tna tnb }
         FileUtils.mkdir_p File.join(dir,x)
       end
     end
     
+    def files
+      Dir.entries(File.join(dir,'orig')).reject!{ |x| x.starts_with? '.' }
+    end
+    
     def file=(x)
-#      raise x.tempfile.inspect
-      FileUtils.cp x.tempfile.path, File.join(dir,x.original_filename)
-      # dest = 
-      # tmp.path
-      # file = File.join("public", params[:file_upload][:my_file].original_filename)
-      # tmp = params[:file_upload][:my_file].tempfile
-      # file = File.join("public", params[:file_upload][:my_file].original_filename)
-      # File.cp tmp.path, file
+      FileUtils.cp x.tempfile.path, File.join(dir,'orig',x.original_filename)
     end
     
     def keep_context
