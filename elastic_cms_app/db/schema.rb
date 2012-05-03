@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120502114552) do
+ActiveRecord::Schema.define(:version => 20120502220140) do
 
   create_table "elastic_content_configs", :force => true do |t|
     t.string   "title"
@@ -36,9 +36,29 @@ ActiveRecord::Schema.define(:version => 20120502114552) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "elastic_file_records", :force => true do |t|
+    t.string   "title"
+    t.text     "text"
+    t.integer  "gallery_id"
+    t.string   "ino"
+    t.string   "filename"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "elastic_files", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "gallery_id"
+    t.integer  "ino"
+    t.string   "filename"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "elastic_galleries", :force => true do |t|
     t.string   "title"
-    t.string   "ident"
+    t.string   "key"
     t.integer  "site_id"
     t.integer  "node_id"
     t.boolean  "is_star"
@@ -54,8 +74,10 @@ ActiveRecord::Schema.define(:version => 20120502114552) do
     t.string   "uid"
     t.string   "provider"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "password_digest"
+    t.string   "email"
   end
 
   add_index "elastic_identities", ["user_id"], :name => "index_elastic_identities_on_user_id"
@@ -110,19 +132,19 @@ ActiveRecord::Schema.define(:version => 20120502114552) do
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
     t.string   "key"
-    t.text     "galleries_meta"
+    t.text     "gallery_meta"
   end
 
   add_index "elastic_sites", ["host"], :name => "index_elastic_sites_on_host"
 
   create_table "elastic_template_caches", :force => true do |t|
-    t.string   "ident"
+    t.string   "key"
     t.binary   "template"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "elastic_template_caches", ["ident"], :name => "index_elastic_template_caches_on_ident"
+  add_index "elastic_template_caches", ["key"], :name => "index_elastic_template_caches_on_ident"
 
   create_table "elastic_users", :force => true do |t|
     t.string   "name"

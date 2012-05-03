@@ -17,6 +17,10 @@ class SiteDrop < Liquid::Drop
     @site.sections.map{ |x| SectionDrop.new(x) }
   end
   
+  def galleries
+    @site.galleries.map{ |x| GalleryDrop.new(x) }
+  end
+  
   def section_keys
     @site.sections.map{ |x| x.key }
   end

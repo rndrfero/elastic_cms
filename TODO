@@ -12,3 +12,10 @@ why to limit ourselves to liquid?
 hello_world.html.liquid
 hello_world.md.liquid
 hello_world.rdoc.liquid
+
+
+mozno by nebolo az take zle, aby FileRecordy nejaky ten piatok pockaly pred vymazanim
+
+Site.file_record_timeout
+
+ElasticCms.logger

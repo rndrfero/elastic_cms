@@ -1,5 +1,7 @@
 module Elastic  
   class Site < ActiveRecord::Base
+    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta
+ 
     include Elastic::WithDirectory
       
     has_many :sections
@@ -13,7 +15,7 @@ module Elastic
   
     serialize :locales
     serialize :locale_to_index_hash
-    serialize :galleries_meta
+    serialize :gallery_meta
 
     before_destroy :wake_destroyable? 
     after_save :integrity!

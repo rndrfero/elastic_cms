@@ -1,8 +1,27 @@
+<div class="wakeThemeCleanForm">
+
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
+
+<% if @file_record %>
+
+	<h4>File record - Edit</h4>
+
+	<%= form_for @file_record, :url=>f_update_editor_gallery_path(@item,@file_record.id) do |f| %>
+
+		<%= f.text_field 'filename' %>
+		<%= f.text_field 'title' %>
+		<%= f.text_field 'id' %>
+		
+		<%= submit_tag 'OK'%>
+		
+	<% end %>
+	<br/>
+
+<% end %>
+
 
 <%= form_for @item, :url=>url, :html => {:multipart => true} do |f| %>
 
-<div class="wakeThemeCleanForm">
 
 	<%= f.text_field 'title', :value=>@item.title, :class=>'title' %> &nbsp; 
 			
@@ -14,43 +33,37 @@
 	<div>
 		<h4>File upload</h4>		
 		<%= f.file_field 'file' %>
-	</div>
+	</div>	
 	
 	<br/>
+
+	<% if @item.new_record? %>
+	<% else %>
+		<%# if not @item.non_images.empty? %>
+			<h4>Files</h4>
 	
-	<% if @filename %>
-	  <h4>File details</h4>
-	  <%= @filename %>
-	  <%= @index %>
-		<br/>
-			Ino: <%= File.stat( File.join(@item.dir,'orig',@filename) ).ino %>
-		<br/>
-		<%= debug File.stat( File.join(@item.dir,'orig',@filename) ) %>
+			<% for fr in @item.file_records %>
+			  <div class="item">
+				  <%= link_to fr.filename, f_edit_editor_gallery_path(@item,fr) %>
+				</div>
+			<% end %>
+		<%# end %>
+	
+		<%# if not @item.images.empty? %>
+			<h4>Images</h4>
+			<% for fr in @item.file_records.images %>
+			  <div class="item">
+				  <%= fr.filename %>
+				</div>
+			<% end %>
+		<%# end %>
 	<% end %>
-	
-	<%# if not @item.non_images.empty? %>
-		<h4>Files</h4>
-	
-		<% for x in @item.non_images %>
-		  <div class="item">
-			  <%= link_to x, f_edit_editor_gallery_path(@item,@item.files.index(x)) %>
-			</div>
-		<% end %>
-	<%# end %>
-	
-	<%# if not @item.images.empty? %>
-		<h4>Images</h4>
-		<% for x in @item.images %>
-		  <div class="item">
-			  <%= x %>
-			</div>
-		<% end %>
-	<%# end %>
 	
 	
 	<br/>
 
-	<h4>Advanced configuration</h4>
+	<div id="TheConfiguration" style="">
+		<h4>Advanced configuration</h4>
 		<table class="wakeThemeForm" class="">
 			<tr>
 				<th> Key: </th>
@@ -61,11 +74,14 @@
 			</tr>
 			<%= render :partial=>'gallery_meta', :object=>f %>
 	  </table>
+	</div>
 
   <% end %>
-</div>
 
 
 <hr/>
 
-<%=debug @item.files %>
+<%=debug @item.files if not @item.new_record? %>
+
+
+</div>

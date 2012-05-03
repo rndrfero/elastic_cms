@@ -1,22 +1,14 @@
 <% f = gallery_meta %>
 
-<tr>
-	<th> Image: </th>
-	<td> 
-	  <%= f.text_field "meta[img_w]", :value=>(@item.meta||{})['img_h'], :size=>3, :class=>'' %> 
-	  <small>x</small>
-	  <%= f.text_field "meta[img_h]", :value=>(@item.meta||{})['img_h'], :size=>3, :class=>'' %>
-	  <small>magick:</small>
-	  <%= f.text_field "meta[img_processing]", :value=>(@item.meta||{})['img_processing'], :size=>30, :class=>'' %>
-	</td>
-</tr>
-<tr>
-	<th> Thumbnail A: </th>
-	<td> 
-	  <%= f.text_field "meta[tna_w]", :value=>(@item.meta||{})['tna_h'], :size=>3, :class=>'' %> 
-	  <small>x</small>
-	  <%= f.text_field "meta[tna_h]", :value=>(@item.meta||{})['tna_h'], :size=>3, :class=>'' %>
-	  <small>magick:</small>
-	  <%= f.text_field "meta[tna_processing]", :value=>(@item.meta||{})['tna_processing'], :size=>30, :class=>'' %>
-	</td>
-</tr>
+<% for v in Elastic::Gallery::VARIANTS %>
+	<tr>
+		<th> <%=v %> </th>
+		<td> 
+		  <%= f.text_field "meta[#{v}][w]", :value=>@item.meta[v]['w'], :size=>3, :class=>'' %> 
+		  <small>x</small>
+		  <%= f.text_field "meta[#{v}][h]", :value=>@item.meta[v]['h'], :size=>3, :class=>'' %>
+		  <small>magick:</small>
+		  <%= f.text_field "meta[#{v}][p]", :value=>@item.meta[v]['p'], :size=>30, :class=>'' %>
+		</td>
+	</tr>
+<% end %>

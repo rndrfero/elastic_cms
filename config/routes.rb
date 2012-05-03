@@ -37,9 +37,8 @@ Elastic::Engine.routes.draw do
         end      
       end
       resources :galleries do
-        get 'f_edit/:index', :on=>:member, :action=>'f_edit', :as=>'f_edit'
-        post 'f_update/:index', :on=>:member, :action=>'f_update', :as=>'f_update'
-        post 'f_destroy/:index', :on=>:member, :action=>'f_destroy', :as=>'f_destroy'
+        get 'f_edit/:file_record_id', :on=>:member, :action=>'f_edit', :as=>'f_edit'
+        put 'f_update/:file_record_id', :on=>:member, :action=>'f_update', :as=>'f_update'
       end
     end
       

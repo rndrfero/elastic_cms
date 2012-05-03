@@ -58,11 +58,20 @@
 <table>
 	<tr> <th> site.title </th> <td> {{ site.title }} </td> </tr>
 	<tr> <th> site.locales </th> <td> <i>array:</i> {{ site.locales }} </td> </tr>	
-	<tr> <th> site.sections </th> <td> <i>array of SectionDrops:</i> {{ site.sections }} </td> </tr>
+	<tr> <th> site.sections </th> <td> <i>array of SectionDrop:</i> {{ site.sections }} </td> </tr>
 	<tr> <th> site.section_keys </th> <td> {{ site.section_keys }} </td> </tr>
 	<tr> <th> site.sections.first.title </th> <td> {{ site.sections.first.title }} </td> </tr>
+	<tr> <th> site.galleries </th> <td> <i>array of GalleryDrop:</i> {{ site.galleries }} </td> </tr>
 </table>
 
+<h3>Gallery drops (site.galleries.first)</h3>
+<table>
+	<tr> <th> site.galleries.first.title </th> <td> {{ site.galleries.first.title }} </td> </tr>
+	<tr> <th> site.galleries.first.path </th> <td> {{ site.galleries.first.path }} </td> </tr>
+	<tr> <th> site.galleries.first.files </th> <td><i>array:</i> {{ site.galleries.first.files }} </td> </tr>
+	<tr> <th> site.galleries.first.images </th> <td><i>array:</i> {{ site.galleries.first.images }} </td> </tr>
+	<tr> <th> site.galleries.first.non_images </th> <td><i>array:</i> {{ site.galleries.first.non_images }} </td> </tr>
+</table>
 	
 <h3>Section drops (current section)</h3>
 

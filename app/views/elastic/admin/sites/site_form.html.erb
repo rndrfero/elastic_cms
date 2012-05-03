@@ -62,7 +62,7 @@
 		<tr>
 			<th> Image: </th>
 			<td> 
-			  <%= f.text_field "gallery_meta[img_w]", :value=>(@item.gallery_meta||{})['img_h'], :size=>3, :class=>'' %> 
+			  <%= f.text_field "gallery_meta[img_w]", :value=>(@item.gallery_meta||{})['img_w'], :size=>3, :class=>'' %> 
 			  <small>x</small>
 			  <%= f.text_field "gallery_meta[img_h]", :value=>(@item.gallery_meta||{})['img_h'], :size=>3, :class=>'' %>
 			  <small>magick:</small>
@@ -72,7 +72,7 @@
 		<tr>
 			<th> Thumbnail A: </th>
 			<td> 
-			  <%= f.text_field "gallery_meta[tna_w]", :value=>(@item.gallery_meta||{})['tna_h'], :size=>3, :class=>'' %> 
+			  <%= f.text_field "gallery_meta[tna_w]", :value=>(@item.gallery_meta||{})['tna_w'], :size=>3, :class=>'' %> 
 			  <small>x</small>
 			  <%= f.text_field "gallery_meta[tna_h]", :value=>(@item.gallery_meta||{})['tna_h'], :size=>3, :class=>'' %>
 			  <small>magick:</small>
@@ -80,5 +80,6 @@
 			</td>
 		</tr>
 	</table>
+	
 
 <% end %>

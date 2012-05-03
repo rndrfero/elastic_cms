@@ -33,14 +33,20 @@ Dummy::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+#  config.assets.debug = true
+  config.assets.debug = false
+
+  # db logger
+  ActiveRecord::Base.logger = Logger.new("#{Rails.root}/log/#{Rails.env}_database.log")
+  
+  # asset logger
+  config.assets.logger = false
   
   # GEM DEV: gem development
   config.reload_classes_only_on_change = false
 
   # GEM DEV: reloading gems
-  config.autoload_paths += %W(#{config.root}/../lib/)  
-  config.autoload_paths += %W(#{config.root}/../lib/elastic/)  
+  config.autoload_paths += %W(#{config.root}/../lib/**/)  
   config.autoload_paths += %W(#{config.root}/../app/**/)  
   
   config.autoload_paths += %W(#{config.root}/../../rails_gems/lib/)  
