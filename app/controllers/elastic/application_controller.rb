@@ -5,22 +5,26 @@ module Elastic
     
     layout 'elastic/backend'
 
-    before_filter :prepare_context
+    before_filter :prepare_context_site
+    before_filter :prepare_context_locale, :except=>[:static, :data, :not_found]
     after_filter :log_current_context
-
-    def prepare_context
-      Context.locale = params[:locale] || I18n.default_locale
+    
+    def prepare_context_site
       Context.site = Site.find_by_host request.host
       if not Context.site
         render :inline=>"404: No site for host '#{request.host}' found.", :status=>404
         return false
       end
+      logger.debug "--> TU TREBA DOROBIT CI MU PATRI DANA SITE ALEBO NIE"
+    end
+
+    def prepare_context_locale
+      Context.locale = params[:locale] || I18n.default_locale
       if not Context.site.locales.include? Context.locale
         redirect_to params.merge! :locale=>Context.site.locales.first
         return false
       end if Context.site.locales
 #      Context.user = current_user
-      logger.debug "--> TU TREBA DOROBIT CI MU PATRI DANA SITE ALEBO NIE"
     end
 
     def default_url_options(options={})

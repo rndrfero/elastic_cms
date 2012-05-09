@@ -19,3 +19,13 @@ mozno by nebolo az take zle, aby FileRecordy nejaky ten piatok pockaly pred vyma
 Site.file_record_timeout
 
 ElasticCms.logger
+
+locked
+
+hidden
+
+ked chce mat webdesigner nejake casti stranky editovatelne priamo so systemu, spravy si sekciu, ktora nie je pristupna klientovi - pouzije ju ako fragmenty, ktore moze menit len webmaster
+
+tzn. admin - webmaster - client
+
+- koncepty: star, locked, hidden

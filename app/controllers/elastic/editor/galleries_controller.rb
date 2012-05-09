@@ -32,6 +32,12 @@ module Elastic
     end
     
     def f_destroy
+      indexes = params[:index].map!{ |x| x.to_i }
+      for fr in @item.file_records
+        fr.destroy if indexes.include? fr.id 
+      end
+      redirect_to editor_gallery_path(@item)
+      
       # if @file_record.destroy
       #   flash[:hilite] = "wake.file_record.destroy_ok"
       #   redirect_to editor_gallery_path(@item)

@@ -1,3 +1,14 @@
+<script>
+function get_the_indexes(){
+  arr = $('.wakeThemeGallery > .active');
+	arr = jQuery.map( arr, function(n,i){
+		return( 'index[]='+$(n).attr('index') );
+	});
+	return arr.join('&');
+}
+</script>
+
+
 <div class="wakeThemeCleanForm">
 
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
@@ -13,6 +24,7 @@
 		<%= f.text_field 'id' %>
 		
 		<%= submit_tag 'OK'%>
+    <%= link_to 'DOWNLOAD', f_edit_editor_gallery_path(@item,@file_record) %> 					  
 		
 	<% end %>
 	<br/>
@@ -26,9 +38,11 @@
 	<%= f.text_field 'title', :value=>@item.title, :class=>'title' %> &nbsp; 
 			
 	<%= submit_tag 'OK', :class=>'button' %>
-	<a href="#" onclick="" class="button">UPLOAD FILE</a>
-	<%= link_to 'DESTROY', '' %>
-	<%= link_to 'RESCAN FOLDER', '' %>
+	<a href="#" class="button" onclick="">UPLOAD</a>
+	<% path = f_destroy_editor_gallery_path(@item) %>
+	<a href="#" class="button" onclick="if( confirm('<%= 'general.confirm_destroy' %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
+	<%= link_to 'RESCAN', '' %>
+	<%= link_to 'DUPLICATE', ''%>
 	
 	<div>
 		<h4>File upload</h4>		
@@ -39,24 +53,33 @@
 
 	<% if @item.new_record? %>
 	<% else %>
-		<%# if not @item.non_images.empty? %>
-			<h4>Files</h4>
+		<% if not @item.non_images.empty? %>
+			<div class="wakeThemeGallery">
+				<% for fr in @item.file_records.non_images %>
+				  <% extname = File.extname(fr.filename).upcase %>
+				  <div class="fileItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
+					  <%= link_to fr.filename.gsub(/\..*$/,''), f_edit_editor_gallery_path(@item,fr) %>
+					  &nbsp;
+  					<b><%= extname.gsub(/^\./,'') %></b>
+					</div>
+				<% end %>
+				<div class="clear"></div>
+			</div>
+			
+		<% end %>
 	
-			<% for fr in @item.file_records %>
-			  <div class="item">
-				  <%= link_to fr.filename, f_edit_editor_gallery_path(@item,fr) %>
-				</div>
-			<% end %>
-		<%# end %>
-	
-		<%# if not @item.images.empty? %>
-			<h4>Images</h4>
-			<% for fr in @item.file_records.images %>
-			  <div class="item">
-				  <%= fr.filename %>
-				</div>
-			<% end %>
-		<%# end %>
+		<% if not @item.images.empty? %>			
+			<div class="wakeThemeGallery">
+				<% for fr in @item.file_records.images %>
+				  <div class="imageItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
+						<img src="<%= fr.path('tna') %>" />
+					  <%#= fr.path %>
+					  <%#= fr.filename %> <%#= link_to 'show', fr.path('tna') %>
+					</div>
+				<% end %>
+				<div class="clear"></div>
+			</div>
+		<% end %>
 	<% end %>
 	
 	

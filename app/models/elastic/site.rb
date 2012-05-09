@@ -39,7 +39,7 @@ module Elastic
     def theme_dir
       home_dir + 'themes/' + theme.gsub(/^[^a-z0-9.]/,'') + '/'
     end
-  
+      
     def theme_list
       return nil if new_record?
       Dir.entries(home_dir+'themes').reject!{ |x| x.starts_with? '.' or !File.directory?(home_dir+'themes/'+x) }

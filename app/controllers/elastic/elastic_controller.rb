@@ -45,6 +45,7 @@ module Elastic
     # serve static content
     def static
       filepath = params[:filepath]+'.'+params[:format]
+      # priority:
 
       # # first find in /static
       # x = File.join @site.home_dir+'static/'+filepath
@@ -57,12 +58,24 @@ module Elastic
       x = File.join @site.theme_dir + filepath
       if File.exists? x
         render :file=>x, :formats=>params[:format], :layout=>false, :content_type=>'text/css'
-        return
+      else
+        redirect_to '/404'
       end
-
-      render :inline=>"elastic#static: file not found #{filepath}", :status=>404
     end
-
+    
+    def data
+      filepath = params[:filepath]+'.'+params[:format]
+      x = File.join @site.home_dir, 'galleries', filepath
+      if File.exists? x
+        send_file x, :formats=>params[:format], :disposition=>'inline'# , :content_type=>'text/css'
+      else
+        redirect_to '/404'
+      end
+    end
+    
+    def not_found
+      render :inline=>"404: NOT FOUND", :status=>404
+    end
 
     private
     def prepare

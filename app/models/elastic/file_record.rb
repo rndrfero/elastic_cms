@@ -24,6 +24,10 @@ module Elastic
       filename =~ REGEXP_IMAGE
     end
         
+    def filepath(which='orig')
+      File.join gallery.filepath, which, filename
+    end
+    
     def path(which='orig')
       File.join gallery.path, which, filename
     end
@@ -36,17 +40,17 @@ module Elastic
 #      File.rename *filename_change.map!{ |x| File.join(gallery.path, 'orig', x) }
       
       for which in %w{ orig img tna tnb }
-        next if not File.exists? File.join(gallery.path, which, filename_was)
+        next if not File.exists? File.join(gallery.filepath, which, filename_was)
 #        raise filename_change.inspect
 #          raise filename_change.map!{ |x| File.join(gallery.path, which, x) }.inspect
-        File.rename *filename_change.map!{ |x| File.join(gallery.path, which, x) }
+        File.rename *filename_change.map!{ |x| File.join(gallery.filepath, which, x) }
       end
 
     end  
     
     def remove_files!
       for which in %w{ orig img tna tnb }
-        FileUtils.remove_entry_secure path(which) if File.exists? path(which) 
+        FileUtils.remove_entry_secure filepath(which) if File.exists? filepath(which) 
       end      
     end
     
@@ -66,12 +70,12 @@ module Elastic
         if not File.exists? path(v) or options[:force]
            # we have to copy           
           if (w and h) or p
-             FileUtils.cp path('orig'), path(v) 
+             FileUtils.cp filepath('orig'), filepath(v) 
           end
           # we have to generate thumbnails
           if w and h            
 #            raise "#{w} #{h}"
-            gallery_tn path(v), path(v), w, h 
+            gallery_tn filepath(v), filepath(v), w, h 
           end
           # we have to process them
           raise 'TODO' if p

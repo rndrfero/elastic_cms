@@ -6,11 +6,15 @@ Elastic::Engine.routes.draw do
   # -- frontend --
 
   root :to => 'elastic#index'
+  
+  match '/x/*filepath' => 'elastic#static' #, :as=>'static'
+  match '/data/*filepath' => 'elastic#data' #, :as=>'data'
+  match '/404' => 'elastic#not_found'# , :as=>'not_found'
+  
   match '/:locale' => 'elastic#index'
   match '/:locale/show/:key' => 'elastic#show'
   match '/:locale/section/:key' => 'elastic#section'
   match '/:locale/access_denied' => 'elastic#access_denied', :as=>'access_denied'
-  match '/x/*filepath' => 'elastic#static'
   
   # -- backend --
   
@@ -37,6 +41,7 @@ Elastic::Engine.routes.draw do
         end      
       end
       resources :galleries do
+        get 'f_destroy', :on=>:member, :action=>'f_destroy', :as=>'f_destroy'
         get 'f_edit/:file_record_id', :on=>:member, :action=>'f_edit', :as=>'f_edit'
         put 'f_update/:file_record_id', :on=>:member, :action=>'f_update', :as=>'f_update'
       end

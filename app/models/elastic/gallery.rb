@@ -27,20 +27,24 @@ module Elastic
     end
     
     def path
+      "/data/#{dir}"
+    end
+    
+    def filepath
       File.join site.home_dir, "galleries", dir
     end
     
     def integrity!
-      create_or_rename_dir! path
+      create_or_rename_dir! filepath
       for x in %w{ orig img tna tnb }
-        FileUtils.mkdir_p File.join(path,x)
+        FileUtils.mkdir_p File.join(filepath,x)
       end
     end
         
     def sync!
       Elastic.logger.debug "Elastic CMS: Gallery.sync! for #{dir}"
       for f in files
-        ino = File.stat(File.join(path,'orig',f)).ino
+        ino = File.stat(File.join(filepath,'orig',f)).ino
         fr = file_records.where(:filename=>f).first
         if fr        
           fr.update_attribute :ino, ino
@@ -58,14 +62,14 @@ module Elastic
       end
       # remove non-valid records
       for fr in file_records
-        fr.destroy if not File.exists?(fr.path)
+        fr.destroy if not File.exists?(fr.filepath)
       end  
       file_records.reload
     end
     
     
     def files
-      Dir.entries(File.join(path,'orig')).reject!{ |x| x.starts_with? '.' }
+      Dir.entries(File.join(filepath,'orig')).reject!{ |x| x.starts_with? '.' }
     end
     
     def images
@@ -96,10 +100,10 @@ module Elastic
         
         if (w and h) or p # we have to copy
           for fr in records
-            File.cp fr.path('orig'), fr.path(v)
+            File.cp fr.filepath('orig'), fr.filepath(v)
 
             if (w and h) # we have to generate thumbnails
-              gallery_tn fr.path(v), fr.path(v), w, h
+              gallery_tn fr.filepath(v), fr.filepath(v), w, h
             end
             
             if p # we have to process them
@@ -112,7 +116,7 @@ module Elastic
     
         
     def file=(x)
-      FileUtils.cp x.tempfile.path, File.join(path,'orig',x.original_filename)
+      FileUtils.cp x.tempfile.path, File.join(filepath,'orig',x.original_filename)
       sync!
     end
         
