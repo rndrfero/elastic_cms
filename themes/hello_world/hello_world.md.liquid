@@ -1,0 +1,13 @@
+Markdown post-processing
+========================
+
+For site: {{ site.title }}
+------------------------
+
+This is an markdown postprocessed file. You can use markdown instead of html to build your websites.
+
+### Section list:
+{% for s in site.sections %}
+  * [{{ s.title }}]({{s.path}})
+{% endfor %}
+

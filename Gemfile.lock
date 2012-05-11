@@ -46,6 +46,7 @@ GEM
       activerecord (>= 2.2.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    bluecloth (2.2.0)
     builder (3.0.0)
     erubis (2.7.0)
     faraday (0.8.0)
@@ -138,6 +139,7 @@ DEPENDENCIES
   acts_as_list
   ancestry
   bcrypt-ruby
+  bluecloth
   elastic!
   jquery-rails
   liquid

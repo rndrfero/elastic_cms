@@ -7,6 +7,8 @@ class CreateElasticSites < ActiveRecord::Migration
       t.text :locales
       
       t.string :theme
+      t.string :theme_index
+      t.string :theme_layout
       
       t.text :meta_keywords
       t.text :meta_description

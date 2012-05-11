@@ -43,6 +43,7 @@ function get_the_indexes(){
 	<a href="#" class="button" onclick="if( confirm('<%= 'general.confirm_destroy' %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
 	<%= link_to 'RESCAN', '' %>
 	<%= link_to 'DUPLICATE', ''%>
+	<a href="#" class="button" onclick="$('.fileItem').toggleClass('active');$('.imageItem').toggleClass('active');">SELECT</a>
 	
 	<div>
 		<h4>File upload</h4>		
@@ -57,7 +58,7 @@ function get_the_indexes(){
 			<div class="wakeThemeGallery">
 				<% for fr in @item.file_records.non_images %>
 				  <% extname = File.extname(fr.filename).upcase %>
-				  <div class="fileItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
+				  <div id="<%=dom_id fr%>" class="fileItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
 					  <%= link_to fr.filename.gsub(/\..*$/,''), f_edit_editor_gallery_path(@item,fr) %>
 					  &nbsp;
   					<b><%= extname.gsub(/^\./,'') %></b>
@@ -71,8 +72,9 @@ function get_the_indexes(){
 		<% if not @item.images.empty? %>			
 			<div class="wakeThemeGallery">
 				<% for fr in @item.file_records.images %>
-				  <div class="imageItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
+				  <div id="<%=dom_id fr%>" class="imageItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
 						<img src="<%= fr.path('tna') %>" />
+						<%= fr.path('tna') %>
 					  <%#= fr.path %>
 					  <%#= fr.filename %> <%#= link_to 'show', fr.path('tna') %>
 					</div>

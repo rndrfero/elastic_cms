@@ -27,7 +27,8 @@ module Elastic
     end
     
     def path
-      "/data/#{dir}"
+#      "#{site.path}/galleries/#{dir}"
+      "/data/galleries/#{dir}"
     end
     
     def filepath

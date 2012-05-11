@@ -18,7 +18,7 @@
 		</tr>
 		<tr>
 			<th> Locales: </th>
-			<td>  <%= f.text_field 'locales_str', :class=>'' %>  <span class="em80">separated by comas</span> </td>
+			<td>  <%= f.text_field 'locales_str', :class=>'' %>  <small>separated by comas</small> </td>
 		</tr>
 		<tr>
 			<th> Theme (directory): </th>
@@ -29,15 +29,13 @@
 				  Record is not valid.
 			  <% else %>
 				  <%= f.select 'theme', @item.theme_list %> 
-				  &nbsp;&nbsp;
-				  <%= f.check_box 'is_force_reload_theme' %> reloading theme? <span class="em80">(theme development mode)</span>
 				<% end %>
 			</td>
 		</tr>
 	</table>
-		
-	<br/>
 	
+	<br />
+		
 	<h3>Landing page configuration</h3>
 
 	<table class="wakeThemeForm" class="">
@@ -54,7 +52,7 @@
 		<% end %>
 	</table>
 
-	<br/>	
+	<br />	
 	
 	<h3>Galleries configuration</h3>
 	
@@ -80,6 +78,33 @@
 			</td>
 		</tr>
 	</table>
+	
+	<br />
+
+	<h3>Theme (<%= @item.theme%>) configuration</h3>
+
+	<table class="wakeThemeForm" class="">
+		<tr>
+			<th> Index: </th>
+			<td>
+				<%= f.select 'theme_index', ([nil]+@item.theme_liquids.reject{ |x| x=~/layout/ }) %> &nbsp;&nbsp;
+				<small>Default: '<%= @item.theme %>.liquid'</small>
+			</td>
+		</tr>
+		<tr>
+			<th> Layout: </th>
+			<td>
+				<%= f.select 'theme_layout', ([nil]+@item.theme_liquids.select{ |x| x=~/layout/ }) %> &nbsp;&nbsp;
+				<small>Default: Renders a standard HTML5 document.</small>
+			</td>
+		</tr>
+		<tr>
+			<th> Development: </th>
+			<td> <%= f.check_box 'is_force_reload_theme' %> reloading theme?</td>
+		</tr>
+	</table>
+		
+	<br/>
 	
 
 <% end %>

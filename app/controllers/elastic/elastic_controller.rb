@@ -15,7 +15,9 @@ module Elastic
         end
       end
 
-      render_liquid @site.theme
+#      raise 'fuck'
+      render_liquid 
+#      render_liquid @site.theme
     end
 
     # show node
@@ -23,7 +25,7 @@ module Elastic
       @node = Node.where(:site_id=>@site.id, :key=>params[:key]).first
       if @node 
         @section = @node.section
-        render_liquid @site.theme
+        render_liquid
       else
         render_404
       end
@@ -32,7 +34,7 @@ module Elastic
     def section
       @section = Section.where(:site_id=>@site.id, :key=>params[:key]).first
       if @section
-        render_liquid @site.theme
+        render_liquid
       else
         render_404
       end
@@ -44,16 +46,17 @@ module Elastic
 
     # serve static content
     def static
+      raise 'TODO !!!!'
       filepath = params[:filepath]+'.'+params[:format]
       # priority:
-
+    
       # # first find in /static
       # x = File.join @site.home_dir+'static/'+filepath
       # if File.exists? x
       #   render :file=>x, :layout=>false
       #   return
       # end
-
+    
       # then find in /themes/$CURRENT_THEME 
       x = File.join @site.theme_dir + filepath
       if File.exists? x
@@ -62,17 +65,7 @@ module Elastic
         redirect_to '/404'
       end
     end
-    
-    def data
-      filepath = params[:filepath]+'.'+params[:format]
-      x = File.join @site.home_dir, 'galleries', filepath
-      if File.exists? x
-        send_file x, :formats=>params[:format], :disposition=>'inline'# , :content_type=>'text/css'
-      else
-        redirect_to '/404'
-      end
-    end
-    
+      
     def not_found
       render :inline=>"404: NOT FOUND", :status=>404
     end
@@ -83,14 +76,10 @@ module Elastic
       @site.integrity!
     end
 
-    def render_liquid(template_name, add_drops={})
+    def render_liquid(template_name=nil, add_drops={})
       # node_drop = NodeDrop.new @node
       # section_drop = SectionDrop.new @node.section
-
-      if template_name.blank?
-        render_error 'Dont know what to render. Check your theme configuration.'
-        return
-      end
+      template_name ||= @site.theme_index.blank? ? @site.theme : @site.theme_index
 
       drops = {
         'test' => "This is a test.",
@@ -110,11 +99,22 @@ module Elastic
       for s in @site.sections
         drops.merge!( { "section_#{s.key}" => SectionDrop.new(s) })
       end
-
-      out = TemplateCache.render template_name, drops.merge!(add_drops)
-      render :text=>out, :layout=>"/elastic/public/html5"
+      drops.merge! add_drops
+      
+      out = TemplateCache.render template_name, drops
+      out = postprocess out, template_name
+      
+      @head = TemplateCache.render 'head' , drops
+      
+      if @site.theme_layout
+        controls = render_to_string :partial=>'/elastic/public/controls'
+        out = TemplateCache.render @site.theme_layout, { 'head'=>@head, 'body'=>out, 'controls'=>controls }
+        render :text=>out, :layout=>false        
+      else      
+        render :text=>out, :layout=>"/elastic/public/html5"
+      end
     end
-
+    
     def render_error(error)
       render :inline=>"ERROR: #{error}"
     end
@@ -126,5 +126,12 @@ module Elastic
     def render_access_denied
       render :inline=>"Sorry, access denied. Request with context logged."
     end
+    
+    def postprocess(out, template_name)
+      return BlueCloth.new(out).to_html if template_name.ends_with? '.md'
+      return out = `echo '#{out}' | php` if template_name.ends_with? '.php'
+      out
+    end
+    
   end
 end
