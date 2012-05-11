@@ -8,8 +8,7 @@ Elastic::Engine.routes.draw do
   root :to => 'elastic#index'
   
   match '/x/*filepath' => 'elastic#static' #, :as=>'static'
-  # match '/data/*filepath' => 'elastic#data' #, :as=>'data'
-  # match '/404' => 'elastic#not_found'# , :as=>'not_found'
+  match '/404' => 'elastic#not_found'# , :as=>'not_found'
   
   match '/:locale' => 'elastic#index'
   match '/:locale/show/:key' => 'elastic#show'

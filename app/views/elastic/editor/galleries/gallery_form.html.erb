@@ -7,6 +7,9 @@ function get_the_indexes(){
 	return arr.join('&');
 }
 </script>
+<style>
+.imageItem { width: <%= @item.get_meta(:tna,:w) %>px; height: <%= @item.get_meta(:tna,:h) %>px; }
+</style>
 
 
 <div class="wakeThemeCleanForm">
@@ -72,9 +75,9 @@ function get_the_indexes(){
 		<% if not @item.images.empty? %>			
 			<div class="wakeThemeGallery">
 				<% for fr in @item.file_records.images %>
-				  <div id="<%=dom_id fr%>" class="imageItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
-						<img src="<%= fr.path('tna') %>" />
-						<%= fr.path('tna') %>
+				  <div id="<%=dom_id fr%>" class="imageItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>" alt="<%= fr.filename %>">
+						<img src="<%= fr.path(:tna) %>" />
+						<%= fr.filename %>
 					  <%#= fr.path %>
 					  <%#= fr.filename %> <%#= link_to 'show', fr.path('tna') %>
 					</div>

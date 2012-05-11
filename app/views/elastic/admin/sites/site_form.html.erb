@@ -85,14 +85,14 @@
 
 	<table class="wakeThemeForm" class="">
 		<tr>
-			<th> Index: </th>
+			<th> Custom index: </th>
 			<td>
-				<%= f.select 'theme_index', ([nil]+@item.theme_liquids.reject{ |x| x=~/layout/ }) %> &nbsp;&nbsp;
+				<%= f.select 'theme_index', ([nil]+@item.theme_liquids.reject{ |x| x=~/layout/ or x=='head' }) %> &nbsp;&nbsp;
 				<small>Default: '<%= @item.theme %>.liquid'</small>
 			</td>
 		</tr>
 		<tr>
-			<th> Layout: </th>
+			<th> Custom layout: </th>
 			<td>
 				<%= f.select 'theme_layout', ([nil]+@item.theme_liquids.select{ |x| x=~/layout/ }) %> &nbsp;&nbsp;
 				<small>Default: Renders a standard HTML5 document.</small>

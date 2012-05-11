@@ -68,11 +68,32 @@
 <table>
 	<tr> <th> site.galleries.first.title </th> <td> {{ site.galleries.first.title }} </td> </tr>
 	<tr> <th> site.galleries.first.path </th> <td> {{ site.galleries.first.path }} </td> </tr>
+	<tr> <th colspan="2" class="note"> Strings </th> </tr>
 	<tr> <th> site.galleries.first.files </th> <td><i>array:</i> {{ site.galleries.first.files }} </td> </tr>
 	<tr> <th> site.galleries.first.images </th> <td><i>array:</i> {{ site.galleries.first.images }} </td> </tr>
 	<tr> <th> site.galleries.first.non_images </th> <td><i>array:</i> {{ site.galleries.first.non_images }} </td> </tr>
+	<tr> <th colspan="2" class="note"> FileRecordDrops </th> </tr>
+	<tr> <th> site.galleries.first.file_records </th> 
+		<td><i>array of FileRecordDrops:</i> {{ site.galleries.first.file_records }} </td> </tr>
+	<tr> <th> site.galleries.first.fr_images </th> 
+		<td><i>array of FileRecordDrops:</i> {{ site.galleries.first.fr_images }} </td> </tr>
+	<tr> <th> site.galleries.first.fr_non_images </th> 
+		<td><i>array of FileRecordDrops:</i> {{ site.galleries.first.fr_non_images }} </td> </tr>
 </table>
-	
+
+<h3>FileRecord drops (assign x = site.galleries.first.fr_images.first)</h3>
+{% assign x = site.galleries.first.fr_images.first %}
+<table>
+	<tr> <th> x.title </th> 
+		<td> {{ site.galleries.first.fr_images.first.title }} </td> </tr>
+	<tr> <th> x.filename </th> <td> {{ x.filename }} </td> </tr>
+	<tr> <th> x.path </th> <td> {{ x.path }} </td> </tr>
+	<tr> <th> x.path_orig </th> <td> {{ x.path_orig }} </td> </tr>
+	<tr> <th> x.path_img </th> <td> {{ x.path_img }} </td> </tr>
+	<tr> <th> x.path_tna </th> <td> {{ x.path_tna }} </td> </tr>
+	<tr> <th> x.path_tnb </th> <td> {{ x.path_tnb }} </td> </tr>
+</table>
+
 <h3>Section drops (current section)</h3>
 
 {% if section %}

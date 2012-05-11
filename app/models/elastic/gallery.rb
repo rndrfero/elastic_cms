@@ -28,7 +28,7 @@ module Elastic
     
     def path
 #      "#{site.path}/galleries/#{dir}"
-      "/data/galleries/#{dir}"
+      "/x/galleries/#{dir}"
     end
     
     def filepath
@@ -43,7 +43,7 @@ module Elastic
     end
         
     def sync!
-      Elastic.logger.debug "Elastic CMS: Gallery.sync! for #{dir}"
+      Elastic.logger_info "Gallery.sync! for #{dir}"
       for f in files
         ino = File.stat(File.join(filepath,'orig',f)).ino
         fr = file_records.where(:filename=>f).first
@@ -82,8 +82,9 @@ module Elastic
     end
     
     def get_meta(variant,meta_attr)
+      variant, meta_attr = variant.to_s, meta_attr.to_s
       ret = (meta[variant]||{})[meta_attr]
-      ret = (site.gallery_meta[variant]||{})[meta_attr] if ret.blank?
+      ret = ((site||Context.site).gallery_meta[variant]||{})[meta_attr] if ret.blank?
       ret = nil if ret.blank?
       ret
     end

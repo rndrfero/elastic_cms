@@ -25,11 +25,11 @@ module Elastic
     end
         
     def filepath(which='orig')
-      File.join gallery.filepath, which, filename
+      File.join gallery.filepath, which.to_s, filename
     end
     
     def path(which='orig')
-      File.join gallery.path, which, filename
+      File.join gallery.path, which.to_s, filename
     end
     
     def rename_files!

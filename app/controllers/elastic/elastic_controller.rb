@@ -46,23 +46,14 @@ module Elastic
 
     # serve static content
     def static
-      raise 'TODO !!!!'
+      Elastic.logger_info "POZOR! You are using ElasticController.static Setup your web server instead."
       filepath = params[:filepath]+'.'+params[:format]
-      # priority:
-    
-      # # first find in /static
-      # x = File.join @site.home_dir+'static/'+filepath
-      # if File.exists? x
-      #   render :file=>x, :layout=>false
-      #   return
-      # end
-    
-      # then find in /themes/$CURRENT_THEME 
-      x = File.join @site.theme_dir + filepath
+      
+      x = File.join @site.home_dir + filepath
       if File.exists? x
-        render :file=>x, :formats=>params[:format], :layout=>false, :content_type=>'text/css'
+        send_file x, :disposiotion=>'inline' #:formats=>params[:format], :layout=>false, :content_type=>'text/css'
       else
-        redirect_to '/404'
+        render_404
       end
     end
       
@@ -80,6 +71,7 @@ module Elastic
       # node_drop = NodeDrop.new @node
       # section_drop = SectionDrop.new @node.section
       template_name ||= @site.theme_index.blank? ? @site.theme : @site.theme_index
+      
 
       drops = {
         'test' => "This is a test.",
@@ -106,12 +98,12 @@ module Elastic
       
       @head = TemplateCache.render 'head' , drops
       
-      if @site.theme_layout
+      if @site.theme_layout.blank?
+        render :text=>out, :layout=>"/elastic/public/html5"
+      else      
         controls = render_to_string :partial=>'/elastic/public/controls'
         out = TemplateCache.render @site.theme_layout, { 'head'=>@head, 'body'=>out, 'controls'=>controls }
         render :text=>out, :layout=>false        
-      else      
-        render :text=>out, :layout=>"/elastic/public/html5"
       end
     end
     
@@ -119,8 +111,8 @@ module Elastic
       render :inline=>"ERROR: #{error}"
     end
 
-    def render_404(error)
-      render :inline=>"404 - not found: #{error}", :status=>404
+    def render_404(error=nil)
+      render :inline=>"404 - not found #{error}", :status=>404
     end
 
     def render_access_denied

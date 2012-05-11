@@ -4,7 +4,7 @@ require "elastic/with_directory"
 require "elastic/thumbnail_generators"
 
 module Elastic
-  def self.logger
-    Rails.logger
+  def self.logger_info(x)
+    Rails.logger.info "* Elastic CMS: #{x}"
   end
 end

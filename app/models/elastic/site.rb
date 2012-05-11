@@ -32,8 +32,9 @@ module Elastic
   
     # -- directories --
     
-    def home_dir
-      File.join Rails.root, "/home/#{host}/"
+    def home_dir(x=nil)
+      x ||= host
+      File.join Rails.root, "/home/#{x}/"
     end      
     
     def theme_dir
@@ -63,6 +64,14 @@ module Elastic
     # ensure site integrity
     def integrity!
       return if new_record?
+      
+      if host_changed? and File.exists? home_dir(host_was)
+        x = home_dir(host_was)+'current_theme'
+        FileUtils.remove_entry_secure x if File.exists? x
+        File.rename home_dir(host_was), home_dir
+      end
+      
+      
       create_or_rename_dir! home_dir
       for x in %w{ themes/hello_world static galleries }
         FileUtils.mkdir_p File.join(home_dir,x)
@@ -73,8 +82,10 @@ module Elastic
       
       # create symlink to current_theme
       x = home_dir+'current_theme'
-      FileUtils.remove_entry_secure x  if File.exists? x
-      FileUtils.symlink theme_dir, home_dir+'current_theme'
+#     File.unlink x if File.exists? x
+     FileUtils.remove_entry_secure x if File.exists? x
+#     raise "#{theme_dir} -> #{home_dir}"
+     FileUtils.symlink theme_dir, home_dir+'current_theme'
     end
   
   
