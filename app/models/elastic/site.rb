@@ -58,6 +58,7 @@ module Elastic
     end
     
     def theme_liquids
+      return [] if theme.blank?
       Dir.entries(theme_dir).reject!{ |x| not x.ends_with? '.liquid' }.map!{ |x| x.gsub! /\.liquid$/, '' }
     end
   

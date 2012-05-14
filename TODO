@@ -35,3 +35,18 @@ tzn. admin - webmaster - client
 - renaming gallery KEY by ftp
 
 - file records prerobit do wake schemy - s ajaxom
+
+- configuration:
+  file_record_timeout
+
+do 5 minut zrobti sajtu ala railscasts
+
+file records:
+	ked prepise ten subor - zmeni sa timestamp, je nutna aktualizacia
+	
+	
+	
+active
+hi-visible
+lo-visible
+hilite
