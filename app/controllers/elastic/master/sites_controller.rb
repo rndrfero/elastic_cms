@@ -1,6 +1,5 @@
-module Elastic
-  
-  class Admin::SitesController < ApplicationController
+module Elastic  
+  class Master::SitesController < ApplicationController
     
     wake :within_module=>'Elastic'
       
@@ -9,6 +8,5 @@ module Elastic
       super
     end
           
-  end
-  
+  end  
 end

@@ -6,7 +6,7 @@ module Elastic
     # ---===--- thumbnail generators ---====---
  
     def gallery_tn(src, dest, tn_w=75, tn_h=75)
-      Elastic.logger.debug "gallery_tn: #{src.inspect}"
+      Rails.logger.debug "gallery_tn: #{src.inspect}"
   
       GC.start
       large = Magick::ImageList.new(src)
@@ -33,7 +33,7 @@ module Elastic
     end
   
     def max_tn(src, dest, max_w, max_h)
-      Elastic.logger.debug.info "max_tn: #{src.inspect}"
+      Rails.logger.debug.info "max_tn: #{src.inspect}"
     
       GC.start
       orig = Magick::ImageList.new( src)

@@ -1,0 +1,18 @@
+module Elastic
+  module WithKey
+    
+    def self.included(base)
+      base.send :validates_format_of, :key, :with=>/^[a-zA-Z0-9\-_]*$/
+      base.send :before_validation, :generate_key
+    end
+    
+    def generate_key
+      return unless key.blank?
+      ret = Iconv.new("ascii//TRANSLIT","utf-8").iconv(title).downcase.gsub(/ /, '-').gsub(/[^\-\_a-z0-9]*/,'') 
+
+      ret.gsub!(/--/,'-') # double dash
+      self.key = ret
+    end  
+    
+  end
+end

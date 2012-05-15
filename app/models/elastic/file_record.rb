@@ -13,6 +13,7 @@ module Elastic
     belongs_to :gallery
     
     validates_presence_of :gallery
+    validates_presence_of :filename
     #validates_format_of :filename, :with=>/^[a-zA-Z0-9\-._ ]*$/
     
     before_validation :saturate
@@ -31,6 +32,17 @@ module Elastic
     def path(which='orig')
       File.join gallery.path, which.to_s, filename
     end
+    
+    def image_ok?(which)
+      File.exists?(filepath which)
+    end
+    
+    # def images_ok?(which)
+    # end
+    # 
+    # def size
+    #   File.size(filepath)
+    # end
     
     def rename_files!
       return if not filename_changed? # not changed at all
@@ -57,15 +69,16 @@ module Elastic
     # :force => true
     def process!(options={})
       return if not is_image?
-      Elastic.logger.debug "Elastic CMS: FileRecord.process! for #{path}"
+      Rails.logger.debug "Elastic CMS: FileRecord.process! for #{path}"
       for v in Gallery::VARIANTS
         w = gallery.get_meta(v,'w').to_i
         h = gallery.get_meta(v,'h').to_i
-        p = gallery.get_meta(v,'p')
+        efx = gallery.get_meta(v,'efx')
+        params = gallery.get_meta(v,'params')
       
         w = nil if w<=0
         h = nil if h<=0
-        p = nil if p.blank?
+        efx = nil if efx.blank?
         
         if not File.exists? path(v) or options[:force]
            # we have to copy           
@@ -78,7 +91,12 @@ module Elastic
             gallery_tn filepath(v), filepath(v), w, h 
           end
           # we have to process them
-          raise 'TODO' if p
+#            Efx.process! filepath(v), filepath(v), 'sepia', :intensity=>20
+
+          if efx            
+            Efx.process! filepath(v), filepath(v), efx, params
+#            %x{convert "#{filepath(v)}" #{p} "#{filepath(v)}"} #if not cfg.efx_image.blank?
+          end
         end
       end      
     end  

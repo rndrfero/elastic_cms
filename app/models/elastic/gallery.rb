@@ -2,17 +2,20 @@ require_dependency 'elastic/thumbnail_generators'
 
 module Elastic
   class Gallery < ActiveRecord::Base
-    include Elastic::WithDirectory
-    include Elastic::ThumbnailGenerators
+    include WithDirectory
+    include WithKey
+    include ThumbnailGenerators
+    extend WithToggles
     
     VARIANTS = %w{ img tna tnb }
-    META = %w{ w h p }
+    META = %w{ w h efx params }
     
     attr_accessible :title, :key, :is_star, :is_watermarked, :meta, :file #, :file_records_attributes
     serialize :meta
     
     belongs_to :site
     has_many :file_records
+    alias :frs :file_records
 #    accepts_nested_attributes_for :file_records
     
     validates_presence_of :title, :site_id
@@ -21,6 +24,9 @@ module Elastic
     before_validation :keep_context
     before_validation :saturate
     after_save :integrity!
+    after_save(:if=>lambda{ |x| x.meta_changed? }) { process! :force=>true}
+    
+    with_toggles :star, :locked, :hidden, :watermarked    
     
     def dir
       "#{id}-#{key.blank? ? 'untitled' : key}"
@@ -44,6 +50,7 @@ module Elastic
         
     def sync!
       Elastic.logger_info "Gallery.sync! for #{dir}"
+      integrity!
       for f in files
         ino = File.stat(File.join(filepath,'orig',f)).ino
         fr = file_records.where(:filename=>f).first
@@ -89,32 +96,38 @@ module Elastic
       ret
     end
     
-    
-    def process!(records)
-      for v in Gallery::VARIANTS
-        w = get_meta(v,'w').to_i
-        h = get_meta(v,'h').to_i
-        p = get_meta(v,'p')
-        
-        w = nil if w<=0
-        h = nil if h<=0
-        p = nil if p.blank?
-        
-        if (w and h) or p # we have to copy
-          for fr in records
-            File.cp fr.filepath('orig'), fr.filepath(v)
-
-            if (w and h) # we have to generate thumbnails
-              gallery_tn fr.filepath(v), fr.filepath(v), w, h
-            end
-            
-            if p # we have to process them
-              raise 'TODO'
-            end
-          end
-        end
-      end      
+    def process!(options={})
+      for x in file_records.images
+        x.process! options
+      end
     end
+        
+    # # rebuild all image variants
+    # def process!(options={})
+    #   for v in Gallery::VARIANTS
+    #     w = get_meta(v,'w').to_i
+    #     h = get_meta(v,'h').to_i
+    #     p = get_meta(v,'p')
+    #     
+    #     w = nil if w<=0
+    #     h = nil if h<=0
+    #     p = nil if p.blank?
+    #     
+    #     if (w and h) or p # we have to copy
+    #       for fr in file_records.images
+    #         File.cp fr.filepath('orig'), fr.filepath(v)
+    # 
+    #         if (w and h) # we have to generate thumbnails
+    #           gallery_tn fr.filepath(v), fr.filepath(v), w, h
+    #         end
+    #         
+    #         if p # we have to process them
+    #           raise 'TODO'
+    #         end
+    #       end
+    #     end
+    #   end      
+    # end
     
         
     def file=(x)

@@ -16,6 +16,13 @@ module Elastic
       flash[:hilite] = 'Yes!'
       redirect_to :back
     end
+
+    def toggle_locked
+      @item.toggle_locked!
+#      raise 'fuck'
+      flash[:hilite] = 'Yes!'
+      redirect_to :back
+    end
   
     def move_higher
       @item.move_higher

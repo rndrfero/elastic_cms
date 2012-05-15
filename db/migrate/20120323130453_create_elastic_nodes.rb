@@ -15,6 +15,7 @@ class CreateElasticNodes < ActiveRecord::Migration
       t.string :key
       
       t.boolean :is_star
+      t.boolean :is_locked
       t.boolean :is_published
       t.integer :node_id
       t.integer :position

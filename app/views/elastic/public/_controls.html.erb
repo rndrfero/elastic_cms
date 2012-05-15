@@ -11,11 +11,11 @@
 	<div id="ElasticControls" style="">
 
 		<% if @node %>
-			<%= link_to 'Elastic CMS', edit_editor_section_node_path(@section, @node) %>
+			<%= link_to 'Elastic CMS', editor_section_node_path(@section, @node) %>
 		<% elsif @section %>
 			<%= link_to 'Elastic CMS', editor_section_nodes_path(@section) %>
 		<% else %>
-			<%= link_to 'Elastic CMS', edit_admin_site_path(@site) %>
+			<%= link_to 'Elastic CMS', master_site_path(@site) %>
 		<% end %>
 
 	</div>

@@ -1,0 +1,53 @@
+<% fr = item = file_record_list_item %>
+
+<% extname = File.extname(fr.filename).upcase %>
+
+<div id="<%=dom_id fr%>" class="<%=fr.is_image? ? 'imageItem' : 'fileItem' %>" onclick="<!-- $(this).toggleClass('active'); -->" index="<%= fr.id %>">
+
+	<% if fr.is_image? %>	
+		<!-- <div class="controls">
+			<%= link_to 'EDIT', '' %>
+			<br/>
+			<%= link_to 'ROTATE LEFT', '' %>
+			<br/>
+			<%= link_to 'ROTATE RIGHT', '' %>
+			<br/>
+			<%= link_to 'DOWNLOAD', '' %>
+			<br/>
+			<%= link_to 'DELETE', '' %>
+		</div>
+	 -->
+	  <%
+	   html = raw("<img src=\"#{fr.path(:tna)}?#{rand}\" 
+	     onmouseover=\"$(this).attr('src','#{fr.path(:tnb)}?#{rand}');\"
+			 onmouseout=\"$(this).attr('src','#{fr.path(:tna)}?#{rand}');\"
+	     />")
+	  %>
+	
+		<%#= fr.path(:tnb) %>
+	  <%= html %>
+	
+		<%#= link_to html, edit_editor_gallery_file_record_path(@gallery||@item,item), :remote=>true %>
+		
+		
+	<% else %>
+	  <%= link_to fr.filename.gsub(/\..*$/,''), edit_editor_gallery_file_record_path(@gallery||@item,item), :remote=>true %>
+	  &nbsp;
+		<b><%= extname.gsub(/^\./,'') %></b>
+	<% end %>
+
+
+	<div id="<%=dom_id fr%>-inside" class="popup">
+		<% if @item and item.id == @item.id %>
+			<div id="<%=dom_id item %>-form" class="form-container">
+				<%#= render :partial=>'file_record_inline_form' %>
+			</div>
+		<% else %>	
+			<div id="<%=dom_id item%>-form"  class="form-container">
+			</div>
+		<% end %>
+	</div>
+
+	
+</div>
+

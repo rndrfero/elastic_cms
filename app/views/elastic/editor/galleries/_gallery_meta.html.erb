@@ -7,8 +7,40 @@
 		  <%= f.text_field "meta[#{v}][w]", :value=>@item.meta[v]['w'], :size=>3, :class=>'' %> 
 		  <small>x</small>
 		  <%= f.text_field "meta[#{v}][h]", :value=>@item.meta[v]['h'], :size=>3, :class=>'' %>
-		  <small>magick:</small>
-		  <%= f.text_field "meta[#{v}][p]", :value=>@item.meta[v]['p'], :size=>30, :class=>'' %>
+		  <small>efx:</small>
+		  <select name="gallery[meta[<%=v%>][efx]]">
+		    <option value=""> - none - </option>
+		    <% for key,value in Elastic::Efx::LIST %>
+			    <option value="<%= key %>" <% if key.to_s == @item.get_meta(v,:efx) %>selected="selected"<% end %>>
+				    <%= key.upcase %> - <%= value[:description] %>
+					</option>
+		    <% end %>
+			</select>		
+			
+		  <%#= f.select "meta[#{v}][efx]", Elastic::Efx::LIST.keys, :selected=>@item.meta[v]['efx']  %>
 		</td>
 	</tr>
+	
+	<% efx_name = @item.get_meta(v,:efx) %>
+	
+	<% if not efx_name.blank? %>
+  	<% efx = Elastic::Efx::LIST[@item.get_meta(v,:efx).to_sym] %>
+	  <tr>
+		  <th> Effect: </th>
+		  <td>
+			  <% for pk,pv in efx[:parameters] %>
+			    <%= pk %>: 
+			    	<%= f.text_field "meta[#{v}][params][#{pk}]", 
+			         :value=>(@item.get_meta(v,'params')||{})[pk.to_s], :size=>2, :class=>'right' %>
+			    <small><%= pv.to_s.gsub(/percentage/,'%').gsub(/color/,'') %></small>
+			      &nbsp;
+					<% end %>
+			</td>
+	
+			<%#= efx[:parameters] %>
+
+	
+  <% end %>
+	
+	
 <% end %>

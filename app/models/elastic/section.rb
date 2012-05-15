@@ -1,6 +1,9 @@
 module Elastic
-  class Section < ActiveRecord::Base
-  
+  class Section < ActiveRecord::Base  
+    extend WithToggles
+    
+    attr_accessible :title, :key, :localization, :content_configs_attributes
+    
     LOCALIZATIONS = %w{ free mirrored none }
 
     belongs_to :site
@@ -17,6 +20,8 @@ module Elastic
   
     before_destroy :wake_destroyable?
     before_validation :keep_context
+    
+    with_toggles :star, :hidden, :locked
 
     # -- kontext --
 

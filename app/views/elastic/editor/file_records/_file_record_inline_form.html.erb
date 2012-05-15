@@ -1,0 +1,40 @@
+<%= form_for @item, :url=>editor_gallery_file_record_path(@gallery,@item), :remote=>true do |f| %>
+
+<table class="wakeThemeForm">
+	<tr>
+		<th colspan="2"><h3 style="margin: 0px; ">The file on disk</h3></th>
+	</tr>
+	<tr>
+		<th> Filename: </th>
+		<td> <%= f.text_field 'filename' %> </td>
+	</tr>
+	<tr>
+		<th> Title: </th>
+		<td> <%= f.text_field 'title' %> </td>
+	</tr>
+	<tr>
+		<th> Size: </th>
+		<td> <%=number_to_human_size @item.size %> </td>
+	</tr>
+	<% if @item.is_image? %>
+		<tr/>
+		  <th> Rotate: </th>
+			<th> 
+				<%= link_to 'LEFT', '' %>
+				<%= link_to 'RIGHT', '' %>
+			</th>
+		</tr>
+	<% end %>
+	<tr/>
+	  <th> Actions: </th>
+		<th> 
+		  <%= submit_tag 'OK' %> &nbsp; 
+		  <%= link_to 'DOWNLOAD', editor_gallery_file_record_path(@gallery,@item) %>
+		  <%= link_to 'DESTROY', editor_gallery_file_record_path(@gallery,@item), :method=>:delete %>
+		</th>
+	</tr>
+</table>
+	
+  
+	
+<% end %>

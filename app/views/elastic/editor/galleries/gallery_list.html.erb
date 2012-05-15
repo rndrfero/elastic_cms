@@ -1,3 +1,10 @@
+<style>
+.galleryItem { float: left; overflow: hidden; height: 150px; padding: 5px; }
+.galleryItem .inner { height: 130px;  }
+.galleryItem .inner img { height: 130px; display: block; margin: auto; }
+.galleryItem .desc { overflow: hidden; height: 2em; margin-top: 4px;  }
+</style>
+
 <%= link_to ico('plus')+' new gallery', new_editor_gallery_path %>
 
 <br/><br/>
@@ -6,7 +13,28 @@
 	
 	<% for item in Elastic::Context.site.galleries %>
 		<div <%=wo item %> class="galleryItem">
-			<%= item.title %>
+			<div class="inner">
+				<% if item.frs.images.empty? %>
+					<% for fr in item.frs %>
+					  <%= fr.filename %><br/>
+					<% end %>
+				<% else %>
+				  <% x = item.frs.images.first  %>
+				  <%= image_tag x.path('tna') %> 
+				<% end %>
+			</div>
+			<div class="desc">
+				<%= ico(:umbrella, :darkblue) if item.is_hidden? %>
+				<%= ico(:lock_fill, :darkred) if item.is_locked? %>
+			  <%#=link_to (item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
+				     toggle_hidden_editor_gallery_path(item), :method=>:post %>
+			  <%#=link_to (item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
+				     toggle_locked_editor_gallery_path(item), :method=>:post %>
+			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
+				     toggle_star_editor_gallery_path(item), :method=>:post %>
+				<b><%= item.title.truncate(30) %></b>
+			</div>
+
 		</div>
 
 	<% end %>

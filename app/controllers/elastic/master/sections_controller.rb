@@ -1,5 +1,5 @@
 module Elastic
-  class Admin::SectionsController < ApplicationController
+  class Master::SectionsController < ApplicationController
   
     wake :within_module=>'Elastic'
 

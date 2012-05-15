@@ -41,6 +41,10 @@ module Elastic
       home_dir + 'themes/' + theme.gsub(/^[^a-z0-9.]/,'') + '/'
     end
     
+    def du
+      `du -s #{home_dir}`.to_i
+    end
+    
     # paths
     
     # def path

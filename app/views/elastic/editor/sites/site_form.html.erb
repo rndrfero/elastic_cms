@@ -30,6 +30,29 @@
 			</tr>
 		<% end %>
 	</table>
+
+	<br />
+
+	<h3>Statistics</h3>
+
+	<table class="wakeThemeForm" class="">
+		<tr>
+			<th> Disk usage: </th>
+			<td> <%=number_to_human_size @item.du %></td>
+		</tr>
+	</table>
 	
+	<br />
 
 <% end %>
+
+	<h3>Import / Export</h3>
+	
+	<%= form_for @item, :url=>import_editor_site_path(@item) do |f| %>
+	
+	  Import .zip: <%= f.file_field 'file' %>
+		&nbsp;&nbsp;
+	  <%= link_to 'EXPORT .ZIP', :url=>export_editor_site_path(@item), :method=>:post, :class=>'button' %>
+
+	<% end %>
+	

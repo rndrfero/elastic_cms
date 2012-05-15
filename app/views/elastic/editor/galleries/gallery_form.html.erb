@@ -11,6 +11,8 @@ function get_the_indexes(){
 .imageItem { width: <%= @item.get_meta(:tna,:w) %>px; height: <%= @item.get_meta(:tna,:h) %>px; }
 </style>
 
+<div id="PopUp">
+</dvi>
 
 <div class="wakeThemeCleanForm">
 
@@ -20,16 +22,16 @@ function get_the_indexes(){
 
 	<h4>File record - Edit</h4>
 
-	<%= form_for @file_record, :url=>f_update_editor_gallery_path(@item,@file_record.id) do |f| %>
+	<%#= form_for @file_record, :url=>f_update_editor_gallery_path(@item,@file_record.id) do |f| %>
 
-		<%= f.text_field 'filename' %>
-		<%= f.text_field 'title' %>
-		<%= f.text_field 'id' %>
+		<%#= f.text_field 'filename' %>
+		<%#= f.text_field 'title' %>
+		<%#= f.text_field 'id' %>
 		
-		<%= submit_tag 'OK'%>
-    <%= link_to 'DOWNLOAD', f_edit_editor_gallery_path(@item,@file_record) %> 					  
+		<%#= submit_tag 'OK'%>
+    <%#= link_to 'DOWNLOAD', f_edit_editor_gallery_path(@item,@file_record) %> 					  
 		
-	<% end %>
+	<%# end %>
 	<br/>
 
 <% end %>
@@ -42,16 +44,58 @@ function get_the_indexes(){
 			
 	<%= submit_tag 'OK', :class=>'button' %>
 	<a href="#" class="button" onclick="">UPLOAD</a>
-	<% path = f_destroy_editor_gallery_path(@item) %>
+	<% path = 'x' #f_destroy_editor_gallery_path(@item) %>
 	<a href="#" class="button" onclick="if( confirm('<%= 'general.confirm_destroy' %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
-	<%= link_to 'RESCAN', '' %>
+	<%= link_to 'REGENERATE', regenerate_editor_gallery_path(@item), :method=>:post, :confirm=>'Sure?' %>
 	<%= link_to 'DUPLICATE', ''%>
 	<a href="#" class="button" onclick="$('.fileItem').toggleClass('active');$('.imageItem').toggleClass('active');">SELECT</a>
+
+
+  <%=link_to (@item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
+	     toggle_star_editor_gallery_path(@item), :method=>:post %>
+  <%=link_to (@item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
+	     toggle_hidden_editor_gallery_path(@item), :method=>:post %>
+  <%=link_to (@item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
+	     toggle_locked_editor_gallery_path(@item), :method=>:post %>
+
 	
 	<div>
 		<h4>File upload</h4>		
 		<%= f.file_field 'file' %>
 	</div>	
+	
+	<br/>
+
+	<div id="TheConfiguration" style="">
+		<h4>Advanced configuration</h4>
+		<table class="wakeThemeForm" class="">
+			<tr>
+				<th> Key: </th>
+				<td> 
+				  <%= f.text_field 'key', :size=>10, :class=>'' %> 
+				  <%= f.check_box 'is_watermarked' %> <small>Watermarked?</small>
+				</td>
+			</tr>
+			<%= render :partial=>'gallery_meta', :object=>f %>
+	  </table>
+	</div>
+
+<% end %>
+</div>
+
+<hr/>
+
+
+<div class="wakeThemeGallery">
+	
+	<%= render :partial=>'/elastic/editor/file_records/file_record_list_item', :collection=>@item.file_records.non_images %>
+	<div class="clear"></div>
+	<%= render :partial=>'/elastic/editor/file_records/file_record_list_item', :collection=>@item.file_records.images %>
+	<div class="clear"></div>
+</div>
+
+
+<!-- 
 	
 	<br/>
 
@@ -62,10 +106,12 @@ function get_the_indexes(){
 				<% for fr in @item.file_records.non_images %>
 				  <% extname = File.extname(fr.filename).upcase %>
 				  <div id="<%=dom_id fr%>" class="fileItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
-					  <%= link_to fr.filename.gsub(/\..*$/,''), f_edit_editor_gallery_path(@item,fr) %>
+					  <%#= link_to fr.filename.gsub(/\..*$/,''), f_edit_editor_gallery_path(@item,fr) %>
+					  <%= link_to fr.filename.gsub(/\..*$/,''), editor_gallery_file_record_path(@item,fr), :remote=>true %>
 					  &nbsp;
   					<b><%= extname.gsub(/^\./,'') %></b>
 					</div>
+					<div id="<%=dom_id fr%>-form"></div>
 				<% end %>
 				<div class="clear"></div>
 			</div>
@@ -86,30 +132,8 @@ function get_the_indexes(){
 			</div>
 		<% end %>
 	<% end %>
-	
-	
-	<br/>
-
-	<div id="TheConfiguration" style="">
-		<h4>Advanced configuration</h4>
-		<table class="wakeThemeForm" class="">
-			<tr>
-				<th> Key: </th>
-				<td> 
-				  <%= f.text_field 'key', :size=>10, :class=>'' %> 
-				  <%= f.check_box 'is_watermarked' %> <small>Watermarked?</small>
-				</td>
-			</tr>
-			<%= render :partial=>'gallery_meta', :object=>f %>
-	  </table>
-	</div>
-
-  <% end %>
-
+	 -->
 
 <hr/>
 
-<%=debug @item.files if not @item.new_record? %>
-
-
-</div>
+<%#=debug @item.files if not @item.new_record? %>

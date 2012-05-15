@@ -1,12 +1,26 @@
+1. users
+admin - webmaster - editor
+
+2. versions - paper trail
+
+3. search - sphinx, thinking sphinx
+
+
+
+locked - lock_fill - to je s cim editor nemoze hybat
+hidden - umbrella - to je to co editor nevidi
+star   - star - oznacenie hviezdickou (vseobecne)
+
+toto patri:
+galerii a sekcii
+
+
+
 iconic - gemify
 
 wake - mass assingment
 
 section with bound gallery
-
-site.key --- je niekde pouzity?
-
-fotky ako na googli (tzn. len width maju rovnaky)
 
 why to limit ourselves to liquid?
 hello_world.html.liquid
@@ -14,23 +28,12 @@ hello_world.md.liquid
 hello_world.rdoc.liquid
 
 
+
 mozno by nebolo az take zle, aby FileRecordy nejaky ten piatok pockaly pred vymazanim
+Configuration.file_record_timeout
 
-Site.file_record_timeout
+EDITOR: import export konkretnej sajty
 
-ElasticCms.logger
-
-locked
-
-hidden
-
-ked chce mat webdesigner nejake casti stranky editovatelne priamo so systemu, spravy si sekciu, ktora nie je pristupna klientovi - pouzije ju ako fragmenty, ktore moze menit len webmaster
-
-tzn. admin - webmaster - client
-
-- koncepty: star, locked, hidden
-
-- rename dummy application
 
 - renaming gallery KEY by ftp
 
@@ -38,15 +41,45 @@ tzn. admin - webmaster - client
 
 - configuration:
   file_record_timeout
-
-do 5 minut zrobti sajtu ala railscasts
-
-file records:
-	ked prepise ten subor - zmeni sa timestamp, je nutna aktualizacia
 	
-	
+Galerky:
+	file records:
+		ked prepise ten subor - zmeni sa timestamp, je nutna aktualizacia
+		
+PROPAGANDA
+  do 5 minut zrobti sajtu ala railscasts
+
 	
 active
 hi-visible
 lo-visible
 hilite
+
+tag a tagroup
+
+
+
+
+
+
+
+
+
+
+SEPIA: -sepia-tone 80% 
+REDUCE TO 8 COLOR: -dither [Riemersma|FloydSteinberg|None] 
+DESATURATE: -quantize Gray -colors 256 
+LEVELS/GAMMA (contrast): -level 20% 80% 
+COMIX STYLE: -ordered-dither h8x8a (can be combined with color reduction) 
+TV SCREEN EFFECT: -virtual-pixel white -distort Barrel "0.2 0.0 0.0 1.0" 
+ROTATE: -virtual-pixel white -rotate 2 
+OIL PAINT: -paint 4 
+COLORIZE: -fill "#18C212" -colorize 20% 
+DESATURATE+COLORIZE: -fill "#18C212" -quantize Gray -colors 256 -colorize 20%
+TINT (COLORIZE TO EXACT COLOR): -fill "#18C212" -tint 100 
+BRIGHTNESS/SATURATION: -modulate 150%,30% 
+ADVANCED COMIC STYLE: -modulate 150%,200% -ordered-dither h4x4a BLUR: -gaussian-blur 10,5 
+OVERLAY: public/themes/sacfest/images/overlay-foto.png -composite suggestions: 
+DISTORT PERSPECTIVE: USE -map TO MAP/COLORIZE IMAGE 
+Rounded and Shaped Corners -resize 90% -virtual-pixel white -rotate -2 -ordered-dither h4x4a -crop 120x120-0-0 -resize 90% -virtual-pixel white -rotate %RANDOM% -crop 120x120-0-0
+

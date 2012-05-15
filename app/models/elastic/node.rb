@@ -3,6 +3,9 @@ require 'iconv'
 
 module Elastic
   class Node < ActiveRecord::Base
+    include WithKey
+    extend WithToggles
+    
     attr_accessible :section, :locale
   
     serialize :title_loc
@@ -16,7 +19,7 @@ module Elastic
     acts_as_list :scope=>'section_id = #{section_id} AND #{ancestry ? "ancestry = \'#{ancestry}\'" : \'ancestry IS NULL\'}'
   
     validates_presence_of :title, :section, :key
-    validates_format_of :key, :with=>/^[a-zA-Z0-9\-_]*$/
+#    validates_format_of :key, :with=>/^[a-zA-Z0-9\-_]*$/
     validates_uniqueness_of :key, :scope=>:site_id
   
     before_validation :generate_key
@@ -27,6 +30,10 @@ module Elastic
     scope :roots, where(:ancestry=>nil).order('ancestry_depth,position DESC')
     scope :localized, lambda { where(:locale=>Context.locale) }
     scope :ordered, :order => "ancestry_depth,position DESC"
+    scope :starry, where(:is_star=>true)
+    
+    with_toggles :star, :locked, :published
+    
   
     # scope :localized, lambda do |user_ids| 
     #   section.localization == 'free' ? where(:locale=>CurrentContext.locale) unless user_ids.empty?
@@ -83,26 +90,14 @@ module Elastic
     #   raise 'kokot'
     # end
   
-    def toggle_published!
-      update_attribute :is_published, !is_published
-    end
+    # def toggle_published!
+    #   update_attribute :is_published, !is_published
+    # end
+    #   
+    # def toggle_star!
+    #   update_attribute :is_star, !is_star
+    # end
   
-    def toggle_star!
-      update_attribute :is_star, !is_star
-    end
-  
-    def generate_key
-      return unless key.blank?
-#      ret = title.strip_diactritic.downcase.gsub(/ /, '-').gsub(/[^\-\_a-z0-9]*/,'') 
-      ret = Iconv.new("ascii//TRANSLIT","utf-8").iconv(title).downcase.gsub(/ /, '-').gsub(/[^\-\_a-z0-9]*/,'') 
-                  
-      ret.gsub!(/--/,'-') # double dash
-      # ret << "-1" if Node.exists?(['configuration_id = ? AND hardlink = ?',CurrentContext.cfg.id,ret])
-      # while Node.exists?(['configuration_id = ? AND hardlink = ?',CurrentContext.cfg.id,ret])
-      #   ret = ret.next
-      # end
-      self.key = ret
-    end  
   
     def fix_positions
       return if ancestry_changed?

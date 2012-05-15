@@ -7,6 +7,7 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 
+
   <!-- Elastic CMS -->
   <%= stylesheet_link_tag    "elastic/application", :media => "all" %>
   <%= javascript_include_tag "elastic/application" %>
@@ -54,7 +55,7 @@
 					  <%= link_to 'The Site', address %> 
 					</li>
 					<li><a class="<%= 'selected' if menu_match Elastic::Section.all.map{ |x| editor_section_nodes_path(x) }+[editor_galleries_path, editor_site_path] %>" href="#tabs1">Editor</a></li>
-			    <li><a class="<%= 'selected' if menu_match '/', admin_sections_path, admin_sites_path %>" href="#tabs2">Webmaster</a></li>
+			    <li><a class="<%= 'selected' if menu_match '/', master_sections_path, master_sites_path %>" href="#tabs2">Webmaster</a></li>
 
 		  </ul> 
 
@@ -72,8 +73,8 @@
 				<%= menu_link_to 'Configure', editor_site_path %>
 			</div> 
 		  <div id="tabs2">
-				<%= menu_link_to 'Sections', admin_sections_path %>
-				<%= menu_link_to 'Sites', admin_sites_path %>
+				<%= menu_link_to 'Sections', master_sections_path %>
+				<%= menu_link_to 'Sites', master_sites_path %>
 			</div>
 			
 					
@@ -89,7 +90,8 @@
 			<%= yield %>			
 			
 			<br/><hr/>
-			<%=debug current_user %>
+			current user: <%=debug current_user %>
+			<%#= link_to 'fuck', 'off', :remote=>true %>
 		<div>
 	</div>
 
