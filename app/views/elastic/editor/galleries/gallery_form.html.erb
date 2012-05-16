@@ -19,19 +19,6 @@ function get_the_indexes(){
 
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
 
-<h4>File record - Edit</h4>
-
-<!-- <% for item in @item.file_records %>
-	<div id="<%=dom_id item%>-form"  class="form-container">
-		<% if @item and @item.id == item.id %>
-		  <%= render :partial=>'file_record_inline_form', :object=>@item %>
-		<% end %>
-	</div>
-<% end %> -->
-
-<br/>
-
-
 <%= form_for @item, :url=>url, :html => {:multipart => true} do |f| %>
 
 

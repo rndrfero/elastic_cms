@@ -6,7 +6,7 @@ module Elastic
     include WithKey
     extend WithToggles
 
-    has_paper_trail    
+    has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :is_locked, :parent_id, :position]
     
     attr_accessible :section, :locale, :title, :key, :is_published, :is_star, :parent_id, :position, :contents_setter
   
@@ -14,6 +14,7 @@ module Elastic
   
     has_many :contents
     belongs_to :section
+    belongs_to :site
   
     #accepts_nested_attributes_for :contents
   
@@ -23,6 +24,7 @@ module Elastic
     validates_presence_of :title, :section, :key
 #    validates_format_of :key, :with=>/^[a-zA-Z0-9\-_]*$/
     validates_uniqueness_of :key, :scope=>:site_id
+    validates_inclusion_of :locale, :in=>lambda{ |x| x.site.locales }, :if=>lambda{ |x| x.section.localization=='free' }
   
     before_validation :generate_key
     before_validation :keep_context
@@ -141,6 +143,7 @@ module Elastic
   
     def keep_context
       self.site_id = Context.site.id
+      self.locale = Context.locale if section.localization == 'free' if locale.blank?
     end
 
     # -- wake --

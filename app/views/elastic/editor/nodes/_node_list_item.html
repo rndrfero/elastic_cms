@@ -7,11 +7,12 @@
 
 	<tr>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'id' %> </th>
-		 <th style="width: 12em;" class=""> <%= wake_click_order_by 'title' %> </th>
-		 <th style="width: 12em;" class=""> <%= wake_click_order_by 'is_published', 'Pub?' %> </th>
-		 <th style="width: 12em;" class=""> <%= wake_click_order_by 'position', 'Pos' %> </th>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_published', 'Pub' %> </th>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_star', '*' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'position', 'Pos' %> </th>
 		 <th> </th>
-		 <th style="width: 10em;"> </th>
+		 <th style="width: 5em;"> </th>
 	</tr>
 
 <% else %>
@@ -20,19 +21,23 @@
 			
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
 			<td <%=wo item %> class="hi-visible"> 
-			  <%=raw '&nbsp;&nbsp&nbsp;'*level %> <%=whl item.title %>
-			  <% if item.title.blank? %><span class="em80">key: <%= item.key%></span><% end %>
+			  <%=link_to (item.is_published? ? ico(:check_alt, :lightgray) : ico(:x_alt, :red)), 
+  			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
 			<td <%=wo item %> class="hi-visible"> 
-			  <%=link_to (item.is_published? ? ico(:check_alt, :green) : ico(:x_alt, :red)), 
-  			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
+			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
+				     toggle_star_editor_section_node_path(@section, item), :method=>:post %>
+			</td>				
+			
+			
+			<td <%=wo item %> class="hi-visible"> 
+			  <%=raw '&nbsp;&nbsp&nbsp;'*level %> <%=whl item.title %>
+			  <% if item.title.blank? %><span class="em80">key: <%= item.key%></span><% end %>
 			</td>				
 			<td <%=wo item %> class="hi-visible"> 
 				<%= item.position %>
 			</td>
 			<td>
-			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
-				     toggle_star_editor_section_node_path(@section, item), :method=>:post %>
 			  <%=link_to (item.is_locked? ? ico(:lock_fill, :black) : ico(:lock_fill, :lightgray)), 
 				     toggle_locked_editor_section_node_path(@section, item), :method=>:post %>
 					  <%#=link_to (item.is_hidden? ? ico(:umbrella, :black) : ico(:umbrella, :lightgray)), 

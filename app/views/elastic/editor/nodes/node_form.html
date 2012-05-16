@@ -3,24 +3,53 @@
 <div class="wakeThemeCleanForm">
 	<%= form_for @item, :url=>url do |f| %>
 
-		<%= submit_tag %> <br/><br/>
+		<% unless @item.new_record? %>
+		  <%=link_to (@item.is_published? ? ico(:check_alt, :green) : ico(:x_alt, :red)), 
+			     toggle_published_editor_section_node_path(@section, @item), :method=>:post %>
+		  <%=link_to (@item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
+			     toggle_star_editor_section_node_path(@section, @item), :method=>:post %>
+		  <%=link_to (@item.is_locked? ? ico(:lock_fill, :black) : ico(:lock_fill, :lightgray)), 
+			     toggle_locked_editor_section_node_path(@section, @item), :method=>:post %>
+		<% end %>
 
-	  Title: <%= f.text_field 'title', :value=>@item.title, :class=>'title' %><br/>
-	  Key: <%= f.text_field 'key', :class=>'title' %><br/>
-	  Version-cnt: <%= @item.version_cnt %><br/>
+	  <%= f.text_field 'title', :value=>@item.title, :size=>50, :class=>'title' %>
+		<%= f.submit 'SAVE', :class=>'button' %> 
+		
+		<% unless @item.new_record? %>
+			<%= link_to 'NEW', url_for(:action=>'new', :section_id=>@section.id, :node=>{:parent_id=>@item.id}), :class=>'button' %>
+			<%= link_to 'DUPLICATE', '', :class=>'button' %>
+			<%= link_to 'META', '', :class=>'button' %>
+			<%= link_to 'VERSIONS', '', :class=>'button' %>
+		<% end %>
+
+		<br/>
+		
+		<% if @section.localization == 'free' %>
+	  	<small>http://<%= Elastic::Context.site.host %>/<%= f.text_field 'locale', :size=>1 %>/show/</small><%= f.text_field 'key', :class=>'' %>
+	  <% else %>
+	  	<small>http://<%= Elastic::Context.site.host %>/<%= Elastic::Context.locale %>/show/</small><%= f.text_field 'key', :class=>'' %>
+    <% end %>
+		
+		<br/><br/>
+
+	
+	  <br/><br/>
 	
 		<h3>Versions</h3>
 		<%#= link_to 'RECENT', edit_editor_section_node_path(@section,@node) %>
-	  <% for v in @item.versions.reverse %>
-	    <%= link_to v.created_at, reify_editor_section_node_path(@section,@item,v), 
-	     :class=>"#{'active' if v==@version}" %> &nbsp;
+	  <% day=Date.today+1; for v in @item.versions.reverse %>
+			<% if day != v.created_at.to_date %>
+		  	<% day = v.created_at.to_date %>
+			  <%= l(day, :format=>:long) %>: 
+			<% end %>
+	
+	    <%= link_to v.created_at.strftime('%H:%M'), reify_editor_section_node_path(@section,@item,v), 
+	     :class=>"#{'active' if v==@version}" %>
 	  <% end %>
 	
   	<br/><br/>
 	
 	
-		<%= f.check_box 'is_published' %>Published?
-		<%= f.check_box 'is_star' %>Star?</br>
 		Parent: <%= f.select 'parent_id', [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
 	  Position: <%= f.text_field 'position', :class=>'title' %><br/>
 
