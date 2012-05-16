@@ -5,8 +5,10 @@ module Elastic
   class Node < ActiveRecord::Base
     include WithKey
     extend WithToggles
+
+    has_paper_trail    
     
-    attr_accessible :section, :locale
+    attr_accessible :section, :locale, :title, :key, :is_published, :is_star, :parent_id, :position, :contents_setter
   
     serialize :title_loc
   
@@ -24,6 +26,7 @@ module Elastic
   
     before_validation :generate_key
     before_validation :keep_context
+    before_save :inc_version_cnt
     before_save :fix_positions
   
     scope :published, where(:is_published=>true).order('ancestry_depth,position DESC')
@@ -38,6 +41,10 @@ module Elastic
     # scope :localized, lambda do |user_ids| 
     #   section.localization == 'free' ? where(:locale=>CurrentContext.locale) unless user_ids.empty?
     # end
+    
+    def inc_version_cnt
+      self.version_cnt = (self.version_cnt||0)+1 if @changed
+    end
   
     def content_getter(cc_id)
       cc_id = cc_id.id if cc_id.is_a? ContentConfig
@@ -53,14 +60,20 @@ module Elastic
       if section.localization == 'mirrored'
         for cc_id, attrs in cc_id_to_attrs_hash
           c = content_getter cc_id 
-          c = Content.new :content_config_id=>cc_id, :node=>self, :locale=>Context.locale if not c
-          c.update_attributes attrs
+          c ||= Content.new :content_config_id=>cc_id, :node=>self, :locale=>Context.locale
+#          c.update_attributes attrs
+          c.attributes= attrs
+          @changed = true if c.text_changed? or c.binary_changed?
+          c.save
         end
       else
         for cc_id, attrs in cc_id_to_attrs_hash
           c = content_getter cc_id 
-          c = Content.new :content_config_id=>cc_id, :node=>self if not c
-          c.update_attributes attrs
+          c ||= Content.new :content_config_id=>cc_id, :node=>self
+          c.attributes= attrs
+          @changed = true if c.text_changed? or c.binary_changed?
+          c.save
+#          c.update_attributes attrs
         end      
       end
     end  

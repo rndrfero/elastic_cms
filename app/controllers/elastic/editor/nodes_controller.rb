@@ -35,6 +35,23 @@ module Elastic
       flash[:hilite] = 'Yes!'
       redirect_to :back
     end
+    
+    def reify
+#      raise params.inspect
+      @version = Version.find params[:version_id]
+      if @version
+        @item = Version.find(params[:version_id]).reify
+        for c in @item.contents
+          old_c = c.version_at @version.created_at
+          c.text, c.binary = old_c.text, old_c.binary
+        end
+        flash.now[:hilite] = 'Ressurection...'
+      else
+        flash.now[:error] = 'Cannot ressurect ...'
+      end
+      
+      render :action=>'node_form'
+    end
   
   
     def new

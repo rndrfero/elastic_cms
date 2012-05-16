@@ -1,5 +1,7 @@
 module Elastic  
   class Content < ActiveRecord::Base
+
+    has_paper_trail    
     
     attr_accessible :content_config, :node, :content_config_id, :node_id, :text, :locale
   

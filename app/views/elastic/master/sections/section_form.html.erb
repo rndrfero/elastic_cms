@@ -1,16 +1,29 @@
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
 
 <%= form_for @item, :url=>url do |f| %>
+	
+	<div class="wakeThemeCleanForm">
+	  <%=link_to (@item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
+		     toggle_star_master_section_path(@item), :method=>:post %>
+	  <%=link_to (@item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
+		     toggle_hidden_master_section_path(@item), :method=>:post %>
+	  <%=link_to (@item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
+		     toggle_locked_master_section_path(@item), :method=>:post %>				
+		
+		<%= f.text_field 'title', :class=>'title' %> 
 
-	<%= submit_tag %>
+		<%= submit_tag %>
+		
+		<br/><br/>
+		
+	</div>
 
-	<h3>Section configuration</h3>
-
+	<h3>Configuration</h3>
   <table class="wakeThemeForm">
-  	<tr>
+  	<!-- <tr>
 	    <th>Title:</th>
 	 		<td> <%= f.text_field 'title', :class=>'' %> </td>
-		</tr>
+		</tr> -->
   	<tr>
 	    <th>Key:</th>
 	 		<td> <%= f.text_field 'key', :class=>'' %> <span class="em80">To generate Liquid drops within template. </td>
@@ -56,7 +69,7 @@
 						<% end if cc.form %>		
 					</td>
 					<td> <%= link_to (cc.is_published? ? ico(:check_alt,:green) : ico(:x_alt,:red)),
-					  cc_toggle_published_admin_section_path(@item, cc) if not cc.new_record? %>
+					  cc_toggle_published_master_section_path(@item, cc) if not cc.new_record? %>
 					 	<!-- :action=>'cc_toggle_published', :id=>@item.id, :content_config_id=>cc.id  --></td>
 					<td>
 						<% if f2.object.wake_destroyable? %>
@@ -69,7 +82,7 @@
 			<% if @item.content_configs.select{ |x| x.new_record? }.empty? %>
 				<tr>
 					<td> <%= ico('plus') %></td>
-					<td colspan="10"> <%= link_to  'add new content', new_content_config_admin_section_path(@item) %> </td>
+					<td colspan="10"> <%= link_to  'add new content', new_content_config_master_section_path(@item) %> </td>
 				</tr>
 			<% end %>
 		

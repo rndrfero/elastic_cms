@@ -2,9 +2,6 @@
 
 <table class="wakeThemeForm">
 	<tr>
-		<th colspan="2"><h3 style="margin: 0px; ">The file on disk</h3></th>
-	</tr>
-	<tr>
 		<th> Filename: </th>
 		<td> <%= f.text_field 'filename' %> </td>
 	</tr>
@@ -12,27 +9,33 @@
 		<th> Title: </th>
 		<td> <%= f.text_field 'title' %> </td>
 	</tr>
-	<tr>
-		<th> Size: </th>
-		<td> <%=number_to_human_size File.size(@item.filepath) %> </td>
-	</tr>
 	<% if @item.is_image? %>
 		<tr/>
 		  <th> Rotate: </th>
 			<th> 
 				<%= link_to 'LEFT', '' %>
+				&nbsp;
 				<%= link_to 'RIGHT', '' %>
 			</th>
 		</tr>
+		<tr/>
+		  <th> Download: </th>
+			<th>
+				<% for x in ['orig']+Elastic::Gallery::VARIANTS %>
+				  <%= link_to x.upcase, @item.path(x) %>&nbsp;
+				<% end %>
+				<%=number_to_human_size File.size(@item.filepath)%>
+			</th>
+		</tr>
+		<tr/>
+		  <th> </th>
+			<th> 
+			  <%= submit_tag 'OK' %> &nbsp; 
+			  <%#= link_to 'DOWNLOAD', editor_gallery_file_record_path(@gallery,@item) %>
+			  <%#= link_to 'DESTROY', editor_gallery_file_record_path(@gallery,@item), :method=>:delete %>
+			</th>
+		</tr>
 	<% end %>
-	<tr/>
-	  <th> Actions: </th>
-		<th> 
-		  <%= submit_tag 'OK' %> &nbsp; 
-		  <%= link_to 'DOWNLOAD', editor_gallery_file_record_path(@gallery,@item) %>
-		  <%= link_to 'DESTROY', editor_gallery_file_record_path(@gallery,@item), :method=>:delete %>
-		</th>
-	</tr>
 </table>
 	
   

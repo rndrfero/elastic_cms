@@ -3,22 +3,22 @@
 
 <% extname = File.extname(fr.filename).upcase %>
 
-<div id="<%=dom_id fr%>" class="<%=fr.is_image? ? 'imageItem' : 'fileItem' %>" index="<%= fr.id %>">
+<div id="<%=dom_id fr%>" class="<%='active' if @item and @item.id == item.id %> <%=fr.is_image? ? 'imageItem' : 'fileItem' %>" index="<%= fr.id %>">
+
+	<div id="<%=dom_id item%>-inside"></div>
+	<div id="<%=dom_id item%>-form"  class="popup form-container">
+		<%#= render :partial=>'file_record_inline_form' if @item and item.id == @item.id%>
+	</div>
 
 	<% if fr.is_image? %>	
 		<div class="controls">
 			<%= link_to ico(:pen)+'EDIT', edit_editor_gallery_file_record_path(gallery,item), :remote=>true %>
-			<%= link_to ico(:eye)+'SHOW', item.path('img') %>
+			<%= link_to ico(:eye)+'SHOW', item.path('orig') %>
 		</div>
 		
 	
 	  <% 
 	   if gallery.has_variant? :tnb
-		   # html = raw("<img src=\"#{fr.path(:tna)}?#{rand}\" 
-		   #   onmouseover=\"$(this).attr('src','#{fr.path(:tnb)}?#{rand}');\"
-		   # 				 onmouseout=\"$(this).attr('src','#{fr.path(:tna)}?#{rand}');\"
-		   # 				 onclick=\"$('##{dom_id fr}').toggleClass('active');\"
-		   #   />")
 		   html = raw("
 		     <img class=\"tna\" src=\"#{fr.path(:tna)}?#{rand}\" 
 				   onclick=\"$('##{dom_id fr}').toggleClass('active');\"/>
@@ -45,7 +45,7 @@
 	<% end %>
 
 
-	<div id="<%=dom_id fr%>-inside" class="popup">
+	<!-- <div id="<%=dom_id fr%>-inside" class="popup">
 		<% if @item and item.id == @item.id %>
 			<div id="<%=dom_id item %>-form" class="form-container">
 				<%#= render :partial=>'file_record_inline_form' %>
@@ -55,7 +55,7 @@
 			</div>
 		<% end %>
 	</div>
-
+ -->
 	
 </div>
 

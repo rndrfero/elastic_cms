@@ -9,6 +9,7 @@ function get_the_indexes(){
 </script>
 <style>
 .imageItem { width: <%= @item.get_meta(:tna,:w) %>px; height: <%= @item.get_meta(:tna,:h) %>px; }
+.popup table { position: relative; left: <%= @item.get_meta(:tna,:w).to_i+5 %>px; }
 </style>
 
 <div id="PopUp">
@@ -18,23 +19,17 @@ function get_the_indexes(){
 
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
 
-<% if @file_record %>
+<h4>File record - Edit</h4>
 
-	<h4>File record - Edit</h4>
+<!-- <% for item in @item.file_records %>
+	<div id="<%=dom_id item%>-form"  class="form-container">
+		<% if @item and @item.id == item.id %>
+		  <%= render :partial=>'file_record_inline_form', :object=>@item %>
+		<% end %>
+	</div>
+<% end %> -->
 
-	<%#= form_for @file_record, :url=>f_update_editor_gallery_path(@item,@file_record.id) do |f| %>
-
-		<%#= f.text_field 'filename' %>
-		<%#= f.text_field 'title' %>
-		<%#= f.text_field 'id' %>
-		
-		<%#= submit_tag 'OK'%>
-    <%#= link_to 'DOWNLOAD', f_edit_editor_gallery_path(@item,@file_record) %> 					  
-		
-	<%# end %>
-	<br/>
-
-<% end %>
+<br/>
 
 
 <%= form_for @item, :url=>url, :html => {:multipart => true} do |f| %>
@@ -69,10 +64,17 @@ function get_the_indexes(){
 		
 	<% end %>
 
+	</div>
 	
-	<div>
-		<h4>File upload</h4>		
-		<%= f.file_field 'file' %>
+	<br/>
+	
+	<div id="FileUpload">		
+		<table class="wakeThemeForm">
+			<tr>
+				<th> File upload: </th>
+				<td> <%= f.file_field 'file' %> <%= submit_tag 'OK' %></td>
+			</tr>
+		</table>
 	</div>	
 	
 	<br/>

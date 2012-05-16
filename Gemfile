@@ -28,7 +28,7 @@ gem 'rmagick'
 gem 'bluecloth'
 
 gem 'thinking-sphinx', '2.0.10'
-
+gem 'paper_trail', '~> 2'
 
 
 # Declare any dependencies that are still in development here instead of in

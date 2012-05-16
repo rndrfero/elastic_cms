@@ -7,6 +7,18 @@
 
 	  Title: <%= f.text_field 'title', :value=>@item.title, :class=>'title' %><br/>
 	  Key: <%= f.text_field 'key', :class=>'title' %><br/>
+	  Version-cnt: <%= @item.version_cnt %><br/>
+	
+		<h3>Versions</h3>
+		<%#= link_to 'RECENT', edit_editor_section_node_path(@section,@node) %>
+	  <% for v in @item.versions.reverse %>
+	    <%= link_to v.created_at, reify_editor_section_node_path(@section,@item,v), 
+	     :class=>"#{'active' if v==@version}" %> &nbsp;
+	  <% end %>
+	
+  	<br/><br/>
+	
+	
 		<%= f.check_box 'is_published' %>Published?
 		<%= f.check_box 'is_star' %>Star?</br>
 		Parent: <%= f.select 'parent_id', [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>

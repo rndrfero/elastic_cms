@@ -3,10 +3,23 @@ module Elastic
   
     wake :within_module=>'Elastic'
 
-  #  def new
-  #    @item = Section.new :site=>CurrentContext.site
-  #    super
-  #  end
+    def toggle_star
+      @item.toggle_star!
+      flash[:hilite] = 'simply_yes'
+      redirect_to :back
+    end
+
+    def toggle_hidden
+      @item.toggle_hidden!
+      flash[:hilite] = 'simply_yes'
+      redirect_to :back
+    end
+
+    def toggle_locked
+      @item.toggle_locked!
+      flash[:hilite] = 'simply_yes'
+      redirect_to :back
+    end
 
     def wake_list
       super

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120502220140) do
+ActiveRecord::Schema.define(:version => 20120516194107) do
 
   create_table "elastic_content_configs", :force => true do |t|
     t.string   "title"
@@ -46,16 +46,6 @@ ActiveRecord::Schema.define(:version => 20120502220140) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "elastic_files", :force => true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.integer  "gallery_id"
-    t.integer  "ino"
-    t.string   "filename"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "elastic_galleries", :force => true do |t|
     t.string   "title"
     t.string   "key"
@@ -66,6 +56,8 @@ ActiveRecord::Schema.define(:version => 20120502220140) do
     t.text     "meta"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.boolean  "is_hidden"
+    t.boolean  "is_locked"
   end
 
   add_index "elastic_galleries", ["site_id"], :name => "index_elastic_galleries_on_site_id"
@@ -100,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20120502220140) do
     t.datetime "updated_at",       :null => false
     t.string   "ancestry"
     t.integer  "ancestry_depth"
+    t.integer  "is_locked"
   end
 
   add_index "elastic_nodes", ["ancestry"], :name => "index_elastic_nodes_on_ancestry"
@@ -114,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20120502220140) do
     t.boolean  "is_locked"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.boolean  "is_hidden"
+    t.boolean  "is_star"
   end
 
   add_index "elastic_sections", ["key"], :name => "index_elastic_sections_on_key"
@@ -123,6 +118,8 @@ ActiveRecord::Schema.define(:version => 20120502220140) do
     t.string   "title"
     t.text     "locales"
     t.string   "theme"
+    t.string   "theme_index"
+    t.string   "theme_layout"
     t.text     "meta_keywords"
     t.text     "meta_description"
     t.string   "index_locale"
@@ -152,5 +149,16 @@ ActiveRecord::Schema.define(:version => 20120502220140) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end
