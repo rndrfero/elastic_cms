@@ -96,6 +96,10 @@ module Elastic
       ret
     end
     
+    def has_variant?(variant)
+      get_meta(variant,:w) and get_meta(variant,:h)
+    end
+    
     def process!(options={})
       for x in file_records.images
         x.process! options

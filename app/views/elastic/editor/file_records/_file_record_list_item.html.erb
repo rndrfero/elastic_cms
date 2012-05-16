@@ -1,27 +1,35 @@
 <% fr = item = file_record_list_item %>
+<% gallery = @gallery||@item %>
 
 <% extname = File.extname(fr.filename).upcase %>
 
-<div id="<%=dom_id fr%>" class="<%=fr.is_image? ? 'imageItem' : 'fileItem' %>" onclick="<!-- $(this).toggleClass('active'); -->" index="<%= fr.id %>">
+<div id="<%=dom_id fr%>" class="<%=fr.is_image? ? 'imageItem' : 'fileItem' %>" index="<%= fr.id %>">
 
 	<% if fr.is_image? %>	
-		<!-- <div class="controls">
-			<%= link_to 'EDIT', '' %>
-			<br/>
-			<%= link_to 'ROTATE LEFT', '' %>
-			<br/>
-			<%= link_to 'ROTATE RIGHT', '' %>
-			<br/>
-			<%= link_to 'DOWNLOAD', '' %>
-			<br/>
-			<%= link_to 'DELETE', '' %>
+		<div class="controls">
+			<%= link_to ico(:pen)+'EDIT', edit_editor_gallery_file_record_path(gallery,item), :remote=>true %>
+			<%= link_to ico(:eye)+'SHOW', item.path('img') %>
 		</div>
-	 -->
-	  <%
-	   html = raw("<img src=\"#{fr.path(:tna)}?#{rand}\" 
-	     onmouseover=\"$(this).attr('src','#{fr.path(:tnb)}?#{rand}');\"
-			 onmouseout=\"$(this).attr('src','#{fr.path(:tna)}?#{rand}');\"
-	     />")
+		
+	
+	  <% 
+	   if gallery.has_variant? :tnb
+		   # html = raw("<img src=\"#{fr.path(:tna)}?#{rand}\" 
+		   #   onmouseover=\"$(this).attr('src','#{fr.path(:tnb)}?#{rand}');\"
+		   # 				 onmouseout=\"$(this).attr('src','#{fr.path(:tna)}?#{rand}');\"
+		   # 				 onclick=\"$('##{dom_id fr}').toggleClass('active');\"
+		   #   />")
+		   html = raw("
+		     <img class=\"tna\" src=\"#{fr.path(:tna)}?#{rand}\" 
+				   onclick=\"$('##{dom_id fr}').toggleClass('active');\"/>
+				 <img class=\"tnb\" src=\"#{fr.path(:tnb)}?#{rand}\" 
+				   onclick=\"$('##{dom_id fr}').toggleClass('active');\"/>
+				")
+			else
+		   html = raw("<img src=\"#{fr.path(:tna)}?#{rand}\" 		     
+				 onclick=\"$('##{dom_id fr}').toggleClass('active');\"
+		     />")
+			end
 	  %>
 	
 		<%#= fr.path(:tnb) %>

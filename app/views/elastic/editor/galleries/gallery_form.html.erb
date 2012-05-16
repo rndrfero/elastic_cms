@@ -40,23 +40,34 @@ function get_the_indexes(){
 <%= form_for @item, :url=>url, :html => {:multipart => true} do |f| %>
 
 
+	<% if not @item.new_record? %>
+	  <%=link_to (@item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
+		     toggle_star_editor_gallery_path(@item), :method=>:post %>
+	  <%=link_to (@item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
+		     toggle_hidden_editor_gallery_path(@item), :method=>:post %>
+	  <%=link_to (@item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
+		     toggle_locked_editor_gallery_path(@item), :method=>:post %>
+	<% end %>
 	<%= f.text_field 'title', :value=>@item.title, :class=>'title' %> &nbsp; 
 			
 	<%= submit_tag 'OK', :class=>'button' %>
-	<a href="#" class="button" onclick="">UPLOAD</a>
-	<% path = 'x' #f_destroy_editor_gallery_path(@item) %>
-	<a href="#" class="button" onclick="if( confirm('<%= 'general.confirm_destroy' %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
-	<%= link_to 'REGENERATE', regenerate_editor_gallery_path(@item), :method=>:post, :confirm=>'Sure?' %>
-	<%= link_to 'DUPLICATE', ''%>
-	<a href="#" class="button" onclick="$('.fileItem').toggleClass('active');$('.imageItem').toggleClass('active');">SELECT</a>
 
-
-  <%=link_to (@item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
-	     toggle_star_editor_gallery_path(@item), :method=>:post %>
-  <%=link_to (@item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
-	     toggle_hidden_editor_gallery_path(@item), :method=>:post %>
-  <%=link_to (@item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
-	     toggle_locked_editor_gallery_path(@item), :method=>:post %>
+	<% if not @item.new_record? %>
+	  &nbsp;&nbsp;
+		<small>Files:</small>
+		<a href="#" class="button" onclick="">UPLOAD</a>
+		
+		<% path = f_destroy_editor_gallery_path(@item) %>
+		<a href="#" class="button" onclick="if( confirm('<%= 'general.confirm_destroy' %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
+		<a href="#" class="button" onclick="$('.fileItem').toggleClass('active');$('.imageItem').toggleClass('active');">SELECT</a>
+		<%= link_to 'RE-PROCESS', regenerate_editor_gallery_path(@item), :method=>:post, :confirm=>'Sure?' %>
+		
+		&nbsp;
+		
+		<small>Gallery:</small>
+		<%= link_to 'DUPLICATE', ''%>
+		
+	<% end %>
 
 	
 	<div>
@@ -72,7 +83,7 @@ function get_the_indexes(){
 			<tr>
 				<th> Key: </th>
 				<td> 
-				  <%= f.text_field 'key', :size=>10, :class=>'' %> 
+				  <%= f.text_field 'key', :size=>30, :class=>'' %> 
 				  <%= f.check_box 'is_watermarked' %> <small>Watermarked?</small>
 				</td>
 			</tr>

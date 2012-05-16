@@ -76,6 +76,17 @@ a:hover { text-decoration: underline; }
 .wakeThemeGallery .imageItem {  margin: 10px; overflow: hidden; word-wrap: break-word; }
 .wakeThemeGallery .imageItem img { margin: 0px; padding: 0px; border: none; }
 .wakeThemeGallery .imageItem.active { padding: 1px; margin: 5px; border: 4px solid #77C02E; }
+
+.wakeThemeGallery .imageItem .controls { display: none; position: absolute;}
+.wakeThemeGallery .imageItem .controls a { display: block; background: white; padding: 2px 2px; margin-bottom: 4px; }
+.wakeThemeGallery .imageItem .controls .iconic { margin-right: 0.5em; }
+.wakeThemeGallery .imageItem.active .controls { display: block; }
+
+.wakeThemeGallery .imageItem .tna { display: block; }
+.wakeThemeGallery .imageItem .tnb { display: none; }
+.wakeThemeGallery .imageItem.active .tna { display: none; }
+.wakeThemeGallery .imageItem.active .tnb { display: block; }
+
 /*
 .imageItem { position: relative; }
 .imageItem .controls { position: absolute; left: 0px; }

@@ -24,11 +24,19 @@
 	<% efx_name = @item.get_meta(v,:efx) %>
 	
 	<% if not efx_name.blank? %>
-  	<% efx = Elastic::Efx::LIST[@item.get_meta(v,:efx).to_sym] %>
+  	<% efx = Elastic::Efx.new @item.get_meta(v,:efx), @item.get_meta(v,:params) %>
 	  <tr>
-		  <th> Effect: </th>
+		  <th> 
+				<% if efx.valid? %>
+				  <%= ico(:check_alt, :green) %>
+				<% else %>
+				  <%= ico(:x_alt, :red) %>
+				<% end %>
+				&nbsp;
+			  EFX params: 
+			</th>
 		  <td>
-			  <% for pk,pv in efx[:parameters] %>
+			  <% for pk,pv in efx.parameters %>
 			    <%= pk %>: 
 			    	<%= f.text_field "meta[#{v}][params][#{pk}]", 
 			         :value=>(@item.get_meta(v,'params')||{})[pk.to_s], :size=>2, :class=>'right' %>

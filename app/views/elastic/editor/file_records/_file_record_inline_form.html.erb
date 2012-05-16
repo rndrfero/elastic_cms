@@ -14,7 +14,7 @@
 	</tr>
 	<tr>
 		<th> Size: </th>
-		<td> <%=number_to_human_size @item.size %> </td>
+		<td> <%=number_to_human_size File.size(@item.filepath) %> </td>
 	</tr>
 	<% if @item.is_image? %>
 		<tr/>

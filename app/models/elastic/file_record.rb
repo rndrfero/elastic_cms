@@ -91,11 +91,10 @@ module Elastic
             gallery_tn filepath(v), filepath(v), w, h 
           end
           # we have to process them
-#            Efx.process! filepath(v), filepath(v), 'sepia', :intensity=>20
-
-          if efx            
-            Efx.process! filepath(v), filepath(v), efx, params
-#            %x{convert "#{filepath(v)}" #{p} "#{filepath(v)}"} #if not cfg.efx_image.blank?
+#            Efx.process! filepath(v), filepath(v), 'sepia', :intensity=>2
+          if efx
+            the_efx = Efx.new efx, params            
+            the_efx.process! filepath(v), filepath(v) if the_efx.valid? 
           end
         end
       end      

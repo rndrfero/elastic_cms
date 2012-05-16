@@ -1,5 +1,5 @@
 module Elastic
-  module Efx
+  class Efx
     LIST = {
       :sepia => {
         :description => "Generates sepia tone.",
@@ -27,29 +27,52 @@ module Elastic
         :command => Proc.new{ |x| "-level #{x[:black_point]}%,#{x[:white_point]}%  +dither -colors #{x[:colors]} " }, 
         :parameters => { :black_point => :percentage, :white_point => :percentage, :colors => :number }
       },
-
-      
-      
-      
+            
     }    
+
+    def initialize(x, values)
+      @efx = LIST[x.to_sym]
+      @values = sanitize_values values
+#      raise @values.inspect
+    end
+
+    def description
+      @efx[:description]
+    end
     
+    def command
+      @efx[:command]
+    end
     
-    def self.process!(src, dest, effect, parameters={})
-      efx = LIST[effect.to_sym]
-      
-      # saturate parameters      
-      safe = {}
-      for k,v in parameters||{}
-        safe.merge!({ k.to_sym => v.to_i }) if efx[:parameters][k.to_sym] == :percentage        
-        safe.merge!({ k.to_sym => v.to_i }) if efx[:parameters][k.to_sym] == :number        
-        safe.merge!({ k.to_sym => v.upcase.gsub(/[^0-9A-F]/,'') }) if efx[:parameters][k.to_sym] == :color        
+    def parameters
+      @efx[:parameters]
+    end
+    
+    def valid?
+      for k,v in parameters
+        return false if @values[k].blank?
       end
-      
-      cmd = efx[:command] if efx[:command].is_a? String
-      cmd = efx[:command].call safe if efx[:command].is_a? Proc
+      return true
+    end
+        
+    def process!(src, dest)
+      raise 'INVALID' unless valid?
+      cmd = command if command.is_a? String
+      cmd = command.call @values if command.is_a? Proc
       
       Elastic.logger_info "EFX: #{cmd}"     
       %x{convert "#{src}" #{cmd} "#{dest}"} 
+    end
+
+    private
+    def sanitize_values(values)
+      safe = {}
+      for k,v in values||{}
+        safe.merge!({ k.to_sym => v.to_i }) if parameters[k.to_sym] == :percentage        
+        safe.merge!({ k.to_sym => v.to_i }) if parameters[k.to_sym] == :number        
+        safe.merge!({ k.to_sym => v.upcase.gsub(/[^0-9A-F]/,'') }) if parameters[k.to_sym] == :color        
+      end
+      safe
     end
     
   end
