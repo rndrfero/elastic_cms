@@ -11,6 +11,8 @@ class CreateElasticSections < ActiveRecord::Migration
       t.boolean :is_star
       t.boolean :is_hidden
       t.boolean :is_locked
+      
+      t.string :form
 
       t.timestamps
     end

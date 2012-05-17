@@ -1,0 +1,9 @@
+<% for n in @nodes %>
+  <h3><%= n.title %> <%= n.id %> </h3>
+
+	<%#= link_to n.title, new_editor_section_node_path(@section,:node=>n.build_)%>
+
+	<%=debug n.reifyied_contents %>
+	
+  <hr/>
+<% end %>

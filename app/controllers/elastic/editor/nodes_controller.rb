@@ -36,6 +36,18 @@ module Elastic
       redirect_to :back
     end
     
+    def drop
+      to_node = @section.nodes.find(params[:node_id])
+      if @item.subtree_ids.include? to_node.id
+        flash[:error] = 'No.'
+      else
+        @item.update_attribute :parent_id, to_node.id
+        @section.fix_positions!
+        flash[:hilite] = 'Yes!'
+      end
+      redirect_to :back
+    end
+    
     def reify
 #      raise params.inspect
       @version = Version.find params[:version_id]
@@ -53,6 +65,11 @@ module Elastic
       
       @item ||= Node.find params[:id]
       render :action=>'node_form'
+    end
+    
+    def restore      
+      flash[:notice] = 'May you find what you seek, my friend ...'      
+      @nodes = @section.reify_nodes
     end
   
   

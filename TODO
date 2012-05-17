@@ -5,20 +5,27 @@ admin - webmaster - editor
 
 3. search - sphinx, thinking sphinx
 
+REIFYING:
+  metadata
+	reify destroyed
+	
+	
+	
+robots, sitemap
 
+meta_tags, lepsie jednoducho
 
-locked - lock_fill - to je s cim editor nemoze hybat
-hidden - umbrella - to je to co editor nevidi
-star   - star - oznacenie hviezdickou (vseobecne)
+widgets
 
-toto patri:
-galerii a sekcii
+theme-specs
 
+contents & wisiwyg
 
+import/export
 
-iconic - gemify
+snippet -> ale so setkymi dropmi
+pri pisani temy, ako chytat exceptiony zrozumitelne?
 
-wake - mass assingment
 
 section with bound gallery
 
@@ -57,6 +64,8 @@ hilite
 
 tag a tagroup
 
+
+RESTORE DELETED NODE
 
 
 

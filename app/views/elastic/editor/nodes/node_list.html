@@ -1,6 +1,18 @@
-<%= link_to ico('plus')+' new node', new_editor_section_node_path(@section) %>
+<script>
+$(document).ready(function(){
+	$('.draggable').draggable( {revert: true} );
+   $(".droppable").droppable({
+     drop: function(event, ui) { document.location='nodes/'+$(ui.draggable).attr('toid')+'/drop/'+$(this).attr('toid'); }
+   });
+});
+</script>
 
-<br/><br/>
+<div class="wakeThemeCleanForm">
+	<%= link_to ico('plus')+' CREATE NEW', new_editor_section_node_path(@section), :class=>'button' %>
+	<small><%= link_to 'RESTORE', restore_editor_section_nodes_path(@section) %></small>
+</div>
+
+<br/>
 
 <table class="wakeThemeList" style="width: 100%;">
 	<tr>
@@ -52,8 +64,8 @@
 	
 	
 
-	<tr><td colspan="8" style="height: 6px;"></td></tr>
+	<tr><td colspan="100" style="height: 6px;"></td></tr>
 
-	<tr><td class="center" colspan="6"> <%= paginate @items %> </td> </tr>
+	<tr><td class="center" colspan="100"> <%= paginate @items %> </td> </tr>
 
 </table>

@@ -12,13 +12,13 @@
 		
 		<%= f.text_field 'title', :class=>'title' %> 
 
-		<%= submit_tag %>
+		<%= f.submit 'SAVE', :class=>'button' %>
 		
 		<br/><br/>
 		
 	</div>
 
-	<h3>Configuration</h3>
+	<h4>Configuration</h4>
   <table class="wakeThemeForm">
   	<!-- <tr>
 	    <th>Title:</th>
@@ -26,22 +26,24 @@
 		</tr> -->
   	<tr>
 	    <th>Key:</th>
-	 		<td> <%= f.text_field 'key', :class=>'' %> <span class="em80">To generate Liquid drops within template. </td>
+	 		<td colspan="3"> <%= f.text_field 'key', :class=>'', :size=>16 %> <span class="em80">To generate Liquid drops within template. </td>
 		</tr>
   	<tr>
+	    <th>Form:</th>
+	 		<td> <%= f.select 'form', Elastic::Section::FORMS %> </td>
 	    <th>Localization:</th>
 	 		<td> <%= f.select 'localization', Elastic::Section::LOCALIZATIONS %> </td>
 		</tr>
 	</table>
 
 
-	<br/><br/>
+	<br/>
 	
 	<% if @item.new_record? %>
 	
 	<% else %>
 
-		<h3>Contents configuration</h3>
+		<h4>Contents configuration</h4>
 	
 	  <table class="wakeThemeForm">
 			<thead>

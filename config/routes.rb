@@ -40,7 +40,11 @@ Elastic::Engine.routes.draw do
     
     namespace 'editor' do      
       resources :sections do
+#        get ':id/to/:to_id'
+        
         resources :nodes do
+
+          get 'drop/:node_id', :on=>:member, :action=>'drop', :as=>'drop'
           post 'toggle_published', :on=>:member
           post 'toggle_star', :on=>:member
           post 'toggle_hidden', :on=>:member
@@ -48,6 +52,8 @@ Elastic::Engine.routes.draw do
           post 'move_higher', :on=>:member
           post 'move_lower', :on=>:member
           get 'reify/:version_id', :on=>:member, :action=>'reify', :as=>'reify'
+          
+          get 'restore', :on=>:collection, :action=>'restore', :as=>'restore'
           
           resources :contents
         end      

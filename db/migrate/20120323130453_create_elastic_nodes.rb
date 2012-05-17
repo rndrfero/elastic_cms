@@ -4,6 +4,7 @@ class CreateElasticNodes < ActiveRecord::Migration
       t.string :title
       t.string :title_loc
       t.string :link
+      t.string :redirect
       
       t.integer :section_id
       t.integer :site_id

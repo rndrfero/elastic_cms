@@ -23,7 +23,9 @@ module Elastic
     # show node
     def show
       @node = Node.where(:site_id=>@site.id, :key=>params[:key]).first
-      if @node 
+      if @node and !@node.redirect.blank?
+        redirect_to @node.redirect #if @node.redirect =~ /(http|https|ftp).*/
+      elsif @node
         @section = @node.section
         render_liquid
       else

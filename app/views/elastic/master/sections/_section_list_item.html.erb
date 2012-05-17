@@ -7,9 +7,10 @@
 
 	<tr>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'id' %> </th>
-		 <th style="width: 12em;" class=""> <%= wake_click_order_by 'title' %> </th>
-		 <th style="width: 12em;" class=""> <%= wake_click_order_by 'key' %> </th>
-		 <th style="width: 12em;" class=""> <%= wake_click_order_by 'localization' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'elastic_sections.key' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'form' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'localization' %> </th>
 		 <th> </th>
 		 <th style="width: 1em;"> </th>
 	</tr>
@@ -21,6 +22,7 @@
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
 			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
 			<td <%=wo item %> class="b"> <%=whl item.key %> </td>				
+			<td <%=wo item %> class=""> <%=whl item.form %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.localization %> </td>				
 			<td>
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 

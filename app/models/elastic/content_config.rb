@@ -12,6 +12,7 @@ module Elastic
   
     belongs_to :section  
     has_many :contents
+    before_destroy :wake_destroyable?
   
     acts_as_list :scope=>:section_id # 'section_id = #{section_id}'
   

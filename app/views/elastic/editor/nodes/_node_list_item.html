@@ -20,19 +20,25 @@
 	<tr id="<%=dom_id item %>" class="hover-parent hilite pointer">
 			
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
-			<td <%=wo item %> class="hi-visible"> 
+			<td <%=wo item %> class=""> 
 			  <%=link_to (item.is_published? ? ico(:check_alt, :lightgray) : ico(:x_alt, :red)), 
   			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
-			<td <%=wo item %> class="hi-visible"> 
+			<td <%=wo item %> class=""> 
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
 				     toggle_star_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
 			
 			
 			<td <%=wo item %> class="hi-visible"> 
-			  <%=raw '&nbsp;&nbsp&nbsp;'*level %> <%=whl item.title %>
-			  <% if item.title.blank? %><span class="em80">key: <%= item.key%></span><% end %>
+			  <%=raw '&nbsp;&nbsp&nbsp;'*level %> 
+			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title %></span>
+				<!-- 
+				  <span class="hover-child draggable" toid="<%=item.id%>"> under </span>
+				  <span class="hover-child draggable" toid="<%=item.id%>"> ontop </span> 
+				-->
+			
+			  <% if item.title.blank? %><span class="em80">key: <%= item.key %></span><% end %>
 			</td>				
 			<td <%=wo item %> class="hi-visible"> 
 				<%= item.position %>

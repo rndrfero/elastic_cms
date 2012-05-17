@@ -6,13 +6,13 @@ module Elastic
     include WithKey
     extend WithToggles
 
-    has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :is_locked, :parent_id, :position]
+    has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :is_locked, :parent_id, :position, :redirect]
     
-    attr_accessible :section, :locale, :title, :key, :is_published, :is_star, :parent_id, :position, :contents_setter
+    attr_accessible :section, :locale, :title, :key, :is_published, :is_star, :parent_id, :position, :contents_setter, :redirect
   
     serialize :title_loc
   
-    has_many :contents
+    has_many :contents, :dependent=>:destroy
     belongs_to :section
     belongs_to :site
   
@@ -29,7 +29,9 @@ module Elastic
     before_validation :generate_key
     before_validation :keep_context
     before_save :inc_version_cnt
-    before_save :fix_positions
+#    before_save :cache_contents
+    after_save
+#    before_save :fix_positions
   
     scope :published, where(:is_published=>true).order('ancestry_depth,position DESC')
     scope :roots, where(:ancestry=>nil).order('ancestry_depth,position DESC')
@@ -38,15 +40,26 @@ module Elastic
     scope :starry, where(:is_star=>true)
     
     with_toggles :star, :locked, :published
-    
   
-    # scope :localized, lambda do |user_ids| 
-    #   section.localization == 'free' ? where(:locale=>CurrentContext.locale) unless user_ids.empty?
-    # end
+    # -- versioning --
+      
+    attr :reifyied_contents, true
+    
+    def reify_contents(timestamp)
+      ret = []
+      for v in Version.where(:event=>'destroy',:created_at=>timestamp, :item_type=>'Elastic::Content').all
+        c = v.reify
+        next unless c and c.node_id == id
+        ret << c
+      end
+      self.reifyied_contents = ret
+    end
     
     def inc_version_cnt
       self.version_cnt = (self.version_cnt||0)+1 if @changed
     end
+    
+    # -- contents --
   
     def content_getter(cc_id)
       cc_id = cc_id.id if cc_id.is_a? ContentConfig
@@ -114,32 +127,9 @@ module Elastic
     # end
   
   
-    def fix_positions
-      return if ancestry_changed?
-    
-      # TOOT NEJAK ROZUMNE RIESIT
-    
-  #    self.position= siblings.where(:section_id=>section_id).size if ancestry_changed?
-  #    true
-      # index = 1
-      # tmp = self_and_siblings.reject{ |x| x.section_name!=section_name or x.configuration_id!=configuration_id }
-      # for node in tmp.sort{ |x,y| x.position<=>y.position }
-      #   logger.debug "----------- #{node.position} #{node.title}"
-      #   node.update_attribute :position, index if node.position != index
-      #   index+=1
-      # end
-    end
-  
     # def fix_positions
-    #   index = 1
-    #   tmp = self_and_siblings.reject{ |x| x.section_name!=section_name or x.configuration_id!=configuration_id }
-    #   for node in tmp.sort{ |x,y| x.position<=>y.position }
-    #     logger.debug "----------- #{node.position} #{node.title}"
-    #     node.update_attribute :position, index if node.position != index
-    #     index+=1
-    #   end
-    # end  
-  
+    #   return if ancestry_changed?
+    # end
   
     def keep_context
       self.site_id = Context.site.id

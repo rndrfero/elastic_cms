@@ -1,4 +1,5 @@
 require_dependency "wake.rb"
+require_dependency "elastic/liquid_tags"
 
 module Elastic
   class ApplicationController < ActionController::Base
