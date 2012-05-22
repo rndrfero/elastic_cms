@@ -30,11 +30,13 @@ Elastic::Engine.routes.draw do
         post 'toggle_star', :on=>:member
         post 'toggle_hidden', :on=>:member
         post 'toggle_locked', :on=>:member
+
         
         get 'new_content_config', :on=>:member
         get 'cc_toggle_published/:content_config_id', :on=>:member, :action=>'cc_toggle_published', :as=>'cc_toggle_published'
         # get 'cc_move_higher/:content_config_id', :on=>:member, :action=>'cc_move_higher'                 
         # get 'cc_move_lower/:content_config_id', :on=>:member, :action=>'cc_move_higher'                         
+#        resources :content_configs
       end      
     end
     
@@ -52,6 +54,8 @@ Elastic::Engine.routes.draw do
           post 'move_higher', :on=>:member
           post 'move_lower', :on=>:member
           get 'reify/:version_id', :on=>:member, :action=>'reify', :as=>'reify'
+          post 'publish_version/:version_id', :on=>:member, :action=>'publish_version', :as=>'publish_version'
+          post 'publish_recent', :on=>:member #, :action=>'commit', :as=>'commit'
           
           get 'restore', :on=>:collection, :action=>'restore', :as=>'restore'
           

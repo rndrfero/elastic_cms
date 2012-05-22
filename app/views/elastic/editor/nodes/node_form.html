@@ -1,7 +1,7 @@
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
 
 <div class="wakeThemeCleanForm">
-	<%= form_for @item, :url=>url do |f| %>
+	<%= form_for @item, :url=>url, :html => {:multipart => true} do |f| %>
 
 		<% unless @item.new_record? %>
 		  <%=link_to (@item.is_published? ? ico(:check_alt, :green) : ico(:x_alt, :red)), 
@@ -17,7 +17,10 @@
 		<%= f.submit 'SAVE', :class=>'button' %> 
 		
 		<% unless @item.new_record? %>
-			<%= link_to 'NEW', url_for(:action=>'new', :section_id=>@section.id, :node=>{:parent_id=>@item.id}), :class=>'button' %>
+		  <% new_url = url_for(:action=>'new', :section_id=>@section.id, :node=>(@section.form == 'tree' ? {:parent_id=>@item.id} : nil))%>
+		
+			<%= link_to 'NEW', new_url, :class=>'button' %>
+			
 			<%= link_to 'DUPLICATE', '', :class=>'button' %>
 			<%= link_to 'META', '', :class=>'button' %>
 			<%= link_to 'RESTORE', '#', :class=>'button', :onclick=>'$("#Versions").toggle("blind", { direction: "vertical" }, 500);' %> 
@@ -26,13 +29,24 @@
 			
 		<% end %>
 
-		&nbsp;&nbsp; <small>Parent:</small> 
-		<% if @section.localization == 'free' %>
-		  <% choices = [[nil,nil]]+@section.nodes.localized.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
-		<% else %>
-	  	<% choices = [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
+		&nbsp;&nbsp; 
+		
+		
+		<% if @section.form == 'tree' %>
+			<small>Parent:</small> 
+		
+			<% if @section.localization == 'free' %>
+			  <% choices = [[nil,nil]]+@section.nodes.localized.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
+			<% else %>
+		  	<% choices = [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
+			<% end %>
+			<%= f.select 'parent_id', choices, {}, :style=>"width: 16em;" %>
+		<% elsif @section.form == 'blog' %>
+		  <small>Published at:</small>
+		  <%= f.text_field 'published_at', :value=>@item.published_at||Time.now, :size=>20 %>
 		<% end %>
-		<%= f.select 'parent_id', choices, {}, :style=>"width: 16em;" %>
+		
+		
 
 		<br/>
 		
@@ -46,40 +60,61 @@
 
 		<%= f.text_field 'redirect', :size=>16, :class=>'' %>
 
-		<br/><br/>
+		<br/><br/><br/>
+
+		<% if @item.published_version %>
+	  	<%= link_to 'REIFY PUBLISHED VERSION FROM '+l(@item.published_version.created_at, :format=>:short), 
+	       reify_editor_section_node_path(@section,@node,@item.published_version), :class=>'button' %>
+	    &nbsp;&nbsp;
+		  <%= link_to 'PUBLISH THE RECENT EDIT', publish_recent_editor_section_node_path(@section,@item), 
+		      :method=>:post, :class=>'button' %>
+		  <br/><br/>
+		<% end %>
+		
+		<%#= debug @item.published_version %>
 		
 	
 		<div id="Versions" style="<%= 'display: none;' unless @version %>">
-			<h3>Restore version from:</h3>
-			<%#= link_to 'RECENT', edit_editor_section_node_path(@section,@node) %>
+			<% if not @item.published_version %>
+				<h3>Restore version from:</h3>
+			<% end %>
+			<%#= link_to 'RECENT', edit_editor_section_node_path(@section,@node) %>			
 		  <% day=Date.today+1; for v in @item.versions.reverse %>
 				<% if day != v.created_at.to_date %>
 			  	<% day = v.created_at.to_date %>
 				  <%= l(day, :format=>:long) %>: 
 				<% end %>
 	
+				<% if @item.published_version_id == v.id %> <%= ico(:arrow_right,:green) %><% end %>
 		    <%= link_to v.created_at.strftime('%H:%M'), reify_editor_section_node_path(@section,@item,v), 
 		     :class=>"#{'active' if v==@version}" %>
+				<% if @item.published_version_id == v.id %><%= ico(:arrow_left,:green) %> <% end %>
 		  <% end %>
 	  	<br/><br/>
+			<%= link_to 'PUBLISH SELECTED VERSION', publish_version_editor_section_node_path(@section,@node,@version),
+			  :method=>:post, :class=>'button' if @version and @version.id != @item.published_version_id  %>
+			
+			 <!--  -->
+	
 	  </div>
 	
 		
 		<% for cc in @section.content_configs.published.all %>
-		  <h4><%= cc.title %></h4>
 		  <% c = @item.content_getter cc %>
-	
-			<%= f.fields_for "contents_setter[#{cc.id}]" do |f2| %>
-				<%= f2.text_area 'text', :value=>(c ? c.text : nil), :rows=>5, :cols=>60 %>
+			<%=wdbg "cc.id: #{cc ? cc.id : 'N/A'} c.id: #{c ? c.id : 'N/A'}" %>
+			<% if not cc %>
+		  	<%=werror "Content config is not present."%>
+			<%# elsif not c %>
+			  <%#=werror "Content is not present."%>
+			<% else %>
+		
+				<%= f.fields_for "contents_setter[#{cc.id}]" do |f2| %>
+					<%#= f2.text_area 'text', :value=>(c ? c.text : nil), :rows=>5, :cols=>60 %>
+				  <%= render :partial=>'elastic/editor/nodes/content_forms/'+cc.form,
+				        :locals=>{:form_helper=>f2, :content_config=>cc, :content=>c} %>
+				<% end %>		
 			<% end %>
-		
 		<% end %>
-	
-		<br/><br/>
-		
-		<hr/>
-
-	  Position: <%= f.text_field 'position', :class=>'title' %><br/>
 
 
 	<% end %>

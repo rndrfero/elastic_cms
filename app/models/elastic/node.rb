@@ -6,15 +6,16 @@ module Elastic
     include WithKey
     extend WithToggles
 
-    has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :is_locked, :parent_id, :position, :redirect]
+    has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :is_locked, :parent_id, :position, :redirect, :published_version_id]
     
-    attr_accessible :section, :locale, :title, :key, :is_published, :is_star, :parent_id, :position, :contents_setter, :redirect
+    attr_accessible :section, :locale, :title, :key, :is_published, :is_star, :parent_id, :position, :contents_setter, :redirect, :published_at
   
     serialize :title_loc
   
     has_many :contents, :dependent=>:destroy
     belongs_to :section
     belongs_to :site
+    belongs_to :published_version, :class_name=>'Version', :foreign_key=>'published_version_id'    
   
     #accepts_nested_attributes_for :contents
   
@@ -25,19 +26,20 @@ module Elastic
 #    validates_format_of :key, :with=>/^[a-zA-Z0-9\-_]*$/
     validates_uniqueness_of :key, :scope=>:site_id
     validates_inclusion_of :locale, :in=>lambda{ |x| x.site.locales }, :if=>lambda{ |x| x.section.localization=='free' }
+    validates_presence_of :published_at, :if=>lambda{ |x| x.section.form == 'blog' }
   
     before_validation :generate_key
     before_validation :keep_context
     before_save :inc_version_cnt
-#    before_save :cache_contents
-    after_save
-#    before_save :fix_positions
+    before_destroy :wake_destroyable?
+
   
     scope :published, where(:is_published=>true).order('ancestry_depth,position DESC')
     scope :roots, where(:ancestry=>nil).order('ancestry_depth,position DESC')
     scope :localized, lambda { where(:locale=>Context.locale) }
     scope :ordered, :order => "ancestry_depth,position DESC"
     scope :starry, where(:is_star=>true)
+    scope :in_public, lambda { includes(:contents=>:content_config).where(:site_id=>Context.site.id) }
     
     with_toggles :star, :locked, :published
   
@@ -78,7 +80,7 @@ module Elastic
           c ||= Content.new :content_config_id=>cc_id, :node=>self, :locale=>Context.locale
 #          c.update_attributes attrs
           c.attributes= attrs
-          @changed = true if c.text_changed? or c.binary_changed?
+          @changed = true if c.text_changed? # or c.binary_changed?
           c.save
         end
       else
@@ -86,7 +88,7 @@ module Elastic
           c = content_getter cc_id 
           c ||= Content.new :content_config_id=>cc_id, :node=>self
           c.attributes= attrs
-          @changed = true if c.text_changed? or c.binary_changed?
+          @changed = true if c.text_changed? # or c.binary_changed?
           c.save
 #          c.update_attributes attrs
         end      
@@ -107,30 +109,38 @@ module Elastic
         super
       end
     end
-  
-  
-    # def initialize(*args)
-    #   super *args
-    #   raise 'section should be known when doing Node.new'
+    
+    def publish_version!(the_version)
+      self.update_attribute :published_version_id, the_version.id
+      timestamp = the_version.created_at
+      for c in contents
+        the_c = c.version_at(timestamp)
+        c.update_attribute :published_text, the_c.text
+#        raise c.published_text.inspect
+      end
+#      contents true
+#      self.save!
+#      raise self[:published_version_id].inspect
+#      raise self.published_version.inspect
+    end
+    
+    def publish_recent!
+      self.published_version = nil
+      for c in contents
+        c.update_attribute :published_text, nil
+      end
+      self.save!
+    end
+    
+    # def published_at_str 
+    #   published_at.to_s
+    # end
+    # 
+    # def published_at_str=(x)
+    #   DateTime.parse x
     # end
   
-    # def move_lower
-    #   raise 'kokot'
-    # end
-  
-    # def toggle_published!
-    #   update_attribute :is_published, !is_published
-    # end
-    #   
-    # def toggle_star!
-    #   update_attribute :is_star, !is_star
-    # end
-  
-  
-    # def fix_positions
-    #   return if ancestry_changed?
-    # end
-  
+    
     def keep_context
       self.site_id = Context.site.id
       self.locale = Context.locale if section.localization == 'free' if locale.blank?
@@ -143,7 +153,7 @@ module Elastic
     end
   
     def wake_destroyable?
-      true
+      children.empty? and !is_locked?
     end
     
   end

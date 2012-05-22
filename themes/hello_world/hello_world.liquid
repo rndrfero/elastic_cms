@@ -37,9 +37,12 @@
 	{% endif %}
 </div>	
 
-<h3>Snippets</h3>
+<h3>Structure</h3>
 
-{% snippet fakof disko %}
+<code> include 'current_theme/partial' the_str: 'nice string' the_int: 16 the_object: site </code>
+
+{% include 'current_theme/partial' the_str: 'nice string' the_int: 16 the_object: site %}
+
 	
 <h3>Global drops</h3>
 

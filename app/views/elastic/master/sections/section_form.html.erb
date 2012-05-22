@@ -76,6 +76,8 @@
 					<td>
 						<% if f2.object.wake_destroyable? %>
 					  	<%= f2.check_box '_destroy' %> destroy 
+						<% else %>
+						  <%= link_to 'clean', '' if cc.nodes.empty? and !cc.contents.empty? %>
 						<% end %>
 					</td>
 				</tr>
@@ -89,6 +91,9 @@
 			<% end %>
 		
 		</table>
+		
+		<br/><br/>
+		<%=wnote "Cannot destroy content configs, if there are nodes/contents. Destroy nodes/contents first." %>
 
 	<% end %>
 

@@ -4,12 +4,14 @@ module Elastic
     wake :within_module=>'Elastic'
     
     before_filter :prepare
+    after_filter :wake_referer_params
     
     def edit
       @item.sync!
       super
     end
-    
+
+        
     def toggle_star
       @item.toggle_star!
       flash[:hilite] = 'simply_yes'

@@ -3,7 +3,7 @@
 <table class="wakeThemeForm">
 	<tr>
 		<th> Filename: </th>
-		<td> <%= f.text_field 'filename' %> </td>
+		<td> <%= f.text_field 'basename', :size=>24 %> <%= f.text_field 'extname', :size=>2 %> </td>
 	</tr>
 	<tr>
 		<th> Title: </th>
@@ -27,15 +27,15 @@
 				<%=number_to_human_size File.size(@item.filepath)%>
 			</th>
 		</tr>
-		<tr/>
-		  <th> </th>
-			<th> 
-			  <%= submit_tag 'OK' %> &nbsp; 
-			  <%#= link_to 'DOWNLOAD', editor_gallery_file_record_path(@gallery,@item) %>
-			  <%#= link_to 'DESTROY', editor_gallery_file_record_path(@gallery,@item), :method=>:delete %>
-			</th>
-		</tr>
 	<% end %>
+	<tr/>
+	  <th> </th>
+		<th> 
+		  <%= submit_tag 'OK' %> &nbsp; 
+		  <%#= link_to 'DOWNLOAD', editor_gallery_file_record_path(@gallery,@item) %>
+		  <%#= link_to 'DESTROY', editor_gallery_file_record_path(@gallery,@item), :method=>:delete %>
+		</th>
+	</tr>
 </table>
 	
   

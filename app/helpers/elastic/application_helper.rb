@@ -1,6 +1,18 @@
 module Elastic
   module ApplicationHelper
     
+    def wdbg(x)
+      false ? raw("<div class=\"wakeDebug\">#{x}</div>") : ''
+    end
+
+    def wnote(x)
+      true ? raw("<div class=\"wakeNote\">NOTE: #{x}</div>") : ''
+    end
+
+    def werror(x)
+      true ? raw("<div class=\"wakeError\">ERROR: #{x}</div>") : ''
+    end
+    
     def menu_link_to(label, path)
       req_path = request.path.gsub(/\/\//, "/")
       options = {}

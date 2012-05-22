@@ -49,27 +49,49 @@ module Elastic
     end
     
     def reify
-#      raise params.inspect
-      @version = Version.find params[:version_id]
-      @item = Version.find(params[:version_id]).reify if @version
+      xchg = @item.published_version_id
+      @item = @version.reify if @version
+      @item.published_version_id = xchg
       
       if @item and @version        
         for c in @item.contents
           old_c = c.version_at @version.created_at
-          c.text, c.binary = old_c.text, old_c.binary
+          old_c ||= c.versions.last.reify
+          c.text = old_c.text
         end
         flash.now[:hilite] = 'Ressurection...'
       else
         flash.now[:error] = 'Cannot ressurect ...'
+        @version = nil
+        @item ||= Node.find params[:id]
       end
-      
-      @item ||= Node.find params[:id]
+            
       render :action=>'node_form'
+    end
+    
+    def publish_version
     end
     
     def restore      
       flash[:notice] = 'May you find what you seek, my friend ...'      
       @nodes = @section.reify_nodes
+    end
+    
+    def publish_version
+      if @item and @version
+        @item.publish_version! @version
+        flash[:hilite] = 'Published'
+        redirect_to :action=>'reify', :id=>@item.id, :version_id=>@version.id
+      else
+        flash.now[:error] = 'Sorry, failed.'
+        render :action=>'node_form'
+      end
+    end
+    
+    def publish_recent
+      @item.publish_recent!
+      flash[:hilite] = 'You are back in the recent edit.'
+      redirect_to :action=>'edit', :id=>@item.id
     end
   
   

@@ -37,17 +37,18 @@ function get_the_indexes(){
 	<% if not @item.new_record? %>
 	  &nbsp;&nbsp;
 		<small>Files:</small>
-		<a href="#" class="button" onclick="">UPLOAD</a>
+		<a href="#" class="button" onclick="$('#FileUpload').toggleClass('hidden');">UPLOAD</a>
 		
 		<% path = f_destroy_editor_gallery_path(@item) %>
-		<a href="#" class="button" onclick="if( confirm('<%= 'general.confirm_destroy' %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
 		<a href="#" class="button" onclick="$('.fileItem').toggleClass('active');$('.imageItem').toggleClass('active');">SELECT</a>
+		<a href="#" class="button" onclick="if( confirm('<%= 'general.confirm_destroy' %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
 		<%= link_to 'RE-PROCESS', regenerate_editor_gallery_path(@item), :method=>:post, :confirm=>'Sure?' %>
 		
 		&nbsp;
 		
 		<small>Gallery:</small>
 		<%= link_to 'DUPLICATE', ''%>
+		<a href="#" class="button" onclick="$('#TheConfig').toggleClass('hidden');">CONFIG</a>
 		
 	<% end %>
 
@@ -55,18 +56,20 @@ function get_the_indexes(){
 	
 	<br/>
 	
-	<div id="FileUpload">		
+	<div id="FileUpload" class="<%= 'hidden' unless wake_referer_param? :gallery, :file %>">		
 		<table class="wakeThemeForm">
 			<tr>
 				<th> File upload: </th>
-				<td> <%= f.file_field 'file' %> <%= submit_tag 'OK' %></td>
+				<td> <%= f.file_field 'file' %> <%= submit_tag 'UPLOAD', :class=>'button' %></td>
 			</tr>
 		</table>
+		<br/><br/>
 	</div>	
 	
-	<br/>
 
-	<div id="TheConfiguration" style="">
+	<div id="TheConfig" class="<%= 'hidden' unless wake_referer_param? :visible_cfg %>"
+	  onclick="$('#VisibleCfg').attr('value','true')">
+		<input id="VisibleCfg" type="hidden" name="visible_cfg" value="" />
 		<h4>Advanced configuration</h4>
 		<table class="wakeThemeForm" class="">
 			<tr>
@@ -78,12 +81,15 @@ function get_the_indexes(){
 			</tr>
 			<%= render :partial=>'gallery_meta', :object=>f %>
 	  </table>
+
+		<br/><br/>
 	</div>
+	
 
 <% end %>
 </div>
 
-<hr/>
+
 
 
 <div class="wakeThemeGallery">
@@ -95,45 +101,9 @@ function get_the_indexes(){
 </div>
 
 
-<!-- 
-	
-	<br/>
-
-	<% if @item.new_record? %>
-	<% else %>
-		<% if not @item.non_images.empty? %>
-			<div class="wakeThemeGallery">
-				<% for fr in @item.file_records.non_images %>
-				  <% extname = File.extname(fr.filename).upcase %>
-				  <div id="<%=dom_id fr%>" class="fileItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>">
-					  <%#= link_to fr.filename.gsub(/\..*$/,''), f_edit_editor_gallery_path(@item,fr) %>
-					  <%= link_to fr.filename.gsub(/\..*$/,''), editor_gallery_file_record_path(@item,fr), :remote=>true %>
-					  &nbsp;
-  					<b><%= extname.gsub(/^\./,'') %></b>
-					</div>
-					<div id="<%=dom_id fr%>-form"></div>
-				<% end %>
-				<div class="clear"></div>
-			</div>
-			
-		<% end %>
-	
-		<% if not @item.images.empty? %>			
-			<div class="wakeThemeGallery">
-				<% for fr in @item.file_records.images %>
-				  <div id="<%=dom_id fr%>" class="imageItem" onclick="$(this).toggleClass('active');" index="<%= fr.id %>" alt="<%= fr.filename %>">
-						<img src="<%= fr.path(:tna) %>" />
-						<%= fr.filename %>
-					  <%#= fr.path %>
-					  <%#= fr.filename %> <%#= link_to 'show', fr.path('tna') %>
-					</div>
-				<% end %>
-				<div class="clear"></div>
-			</div>
-		<% end %>
-	<% end %>
-	 -->
-
-<hr/>
-
 <%#=debug @item.files if not @item.new_record? %>
+
+<%#=debug wake_referer_param?(:gallery) %>
+<%#=debug wake_referer_param?(:gallery,:title) %>
+
+<%#=debug session[:wake_referer_params] %>

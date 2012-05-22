@@ -14,8 +14,7 @@
 		<div class="controls">
 			<%= link_to ico(:pen)+'EDIT', edit_editor_gallery_file_record_path(gallery,item), :remote=>true %>
 			<%= link_to ico(:eye)+'SHOW', item.path('orig') %>
-		</div>
-		
+		</div>		
 	
 	  <% 
 	   if gallery.has_variant? :tnb
@@ -32,30 +31,22 @@
 			end
 	  %>
 	
-		<%#= fr.path(:tnb) %>
 	  <%= html %>
-	
-		<%#= link_to html, edit_editor_gallery_file_record_path(@gallery||@item,item), :remote=>true %>
-		
-		
+			
 	<% else %>
-	  <%= link_to fr.filename.gsub(/\..*$/,''), edit_editor_gallery_file_record_path(@gallery||@item,item), :remote=>true %>
-	  &nbsp;
-		<b><%= extname.gsub(/^\./,'') %></b>
+		<div class="controls">
+			<%= link_to ico(:pen), edit_editor_gallery_file_record_path(gallery,item), :remote=>true %>
+			&nbsp;
+			<%= link_to ico(:download), item.path('orig') %>
+		</div>
+
+		<div class="details" onclick="$('#<%=dom_id fr%>').toggleClass('active');">			
+		  <%= fr.basename %>
+		  &nbsp;
+			<b><%= extname.gsub(/^\./,'') %></b>
+		</div>		
 	<% end %>
 
-
-	<!-- <div id="<%=dom_id fr%>-inside" class="popup">
-		<% if @item and item.id == @item.id %>
-			<div id="<%=dom_id item %>-form" class="form-container">
-				<%#= render :partial=>'file_record_inline_form' %>
-			</div>
-		<% else %>	
-			<div id="<%=dom_id item%>-form"  class="form-container">
-			</div>
-		<% end %>
-	</div>
- -->
 	
 </div>
 

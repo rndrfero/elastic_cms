@@ -8,7 +8,7 @@ module Elastic
 
     before_filter :prepare_context_site
     before_filter :prepare_context_locale, :except=>[:static, :data, :not_found]
-    after_filter :log_current_context
+    after_filter :log_current_context    
     
     def prepare_context_site
       Context.site = Site.find_by_host request.host

@@ -11,7 +11,7 @@ module Elastic
 
       if not where_to_go.blank?
         if where_to_go.to_i != 0
-          @node = Node.find.where(:site_id=>@site.id,:id=>where_to_go)
+          @node = Node.in_public.find_by_id where_to_go
         end
       end
 
@@ -22,7 +22,7 @@ module Elastic
 
     # show node
     def show
-      @node = Node.where(:site_id=>@site.id, :key=>params[:key]).first
+      @node = Node.in_public.find_by_key params[:key]
       if @node and !@node.redirect.blank?
         redirect_to @node.redirect #if @node.redirect =~ /(http|https|ftp).*/
       elsif @node
@@ -108,6 +108,8 @@ module Elastic
         render :text=>out, :layout=>false        
       end
     end
+    
+    
     
     def render_error(error)
       render :inline=>"ERROR: #{error}"

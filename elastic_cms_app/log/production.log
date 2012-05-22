@@ -1,0 +1,537 @@
+Creating scope :roots. Overwriting existing method Elastic::Node.roots.
+Creating scope :roots. Overwriting existing method Elastic::Node.roots.
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:53:02 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (1.9ms)
+System context: 
+Completed 200 OK in 1283ms (Views: 199.9ms | ActiveRecord: 195.8ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:53:07 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (1.0ms)
+System context: 
+Completed 200 OK in 172ms (Views: 2.6ms | ActiveRecord: 29.9ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:53:09 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (0.7ms)
+System context: 
+Completed 200 OK in 103ms (Views: 2.0ms | ActiveRecord: 14.7ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:53:10 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (0.8ms)
+System context: 
+Completed 200 OK in 187ms (Views: 2.1ms | ActiveRecord: 37.6ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:53:12 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (0.7ms)
+System context: 
+Completed 200 OK in 146ms (Views: 2.0ms | ActiveRecord: 41.0ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:53:37 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (0.7ms)
+System context: 
+Completed 200 OK in 251ms (Views: 2.1ms | ActiveRecord: 99.8ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:53:38 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (0.7ms)
+System context: 
+Completed 200 OK in 103ms (Views: 2.1ms | ActiveRecord: 16.4ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:54:09 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (0.8ms)
+System context: 
+Completed 200 OK in 199ms (Views: 2.1ms | ActiveRecord: 50.7ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/show/kokotina-po-nemecky" for 127.0.0.1 at 2012-05-21 11:54:14 +0200
+Processing by Elastic::ElasticController#show as HTML
+  Parameters: {"locale"=>"de", "key"=>"kokotina-po-nemecky"}
+  Rendered text template within layouts//elastic/public/html5 (0.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/public/_controls.html.erb (0.8ms)
+System context: 
+Completed 200 OK in 132ms (Views: 2.1ms | ActiveRecord: 33.2ms | Sphinx: 0.0ms)
+
+
+Started PUT "/de/master/sites/1" for 127.0.0.1 at 2012-05-21 11:54:39 +0200
+Processing by Elastic::Master::SitesController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"bULaT8EW7KHNnVDh1xGykdfxJjhpg5d5dqSi5+2VqXY=", "commit"=>"Save changes", "site"=>{"host"=>"bodymindrelax.local", "locales_str"=>"en, de", "theme"=>"hello_world", "gallery_meta"=>{"img_w"=>"", "img_h"=>"", "img_processing"=>"", "tna_w"=>"100", "tna_h"=>"100", "tna_processing"=>""}, "theme_index"=>"_partial", "theme_layout"=>"", "is_force_reload_theme"=>"1"}, "locale"=>"de", "id"=>"1"}
+Redirected to http://bodymindrelax.local/de/master/sites/1/edit
+System context: Elastic::Site:1
+Completed 302 Found in 21ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/de/master/sites/1/edit" for 127.0.0.1 at 2012-05-21 11:54:39 +0200
+Processing by Elastic::Master::SitesController#edit as HTML
+  Parameters: {"locale"=>"de", "id"=>"1"}
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/master/sites/site_form.html.erb within layouts/elastic/backend (9.8ms)
+Completed 500 Internal Server Error in 181ms
+
+ActionView::Template::Error (application.css isn't precompiled):
+    3: <head>
+    4:   <title>CHANGE TITLE HERE !!!</title>
+    5:   <!-- main app -->
+    6:   <%= stylesheet_link_tag    "application", :media => "all" %>
+    7:   <%= javascript_include_tag "application" %>
+    8:   <%= csrf_meta_tags %>
+    9: 
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:142:in `digest_for'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:150:in `rewrite_asset_path'
+  actionpack (3.2.3) lib/action_view/asset_paths.rb:27:in `compute_public_path'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:56:in `asset_path'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:49:in `block in stylesheet_link_tag'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:43:in `collect'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:43:in `stylesheet_link_tag'
+  /Users/teo/rails_gems/elastic_cms/app/views/layouts/elastic/backend.html.erb:6:in `___sers_teo_rails_gems_elastic_cms_app_views_layouts_elastic_backend_html_erb__189110920099912778_2171087760'
+  actionpack (3.2.3) lib/action_view/template.rb:143:in `block in render'
+  activesupport (3.2.3) lib/active_support/notifications.rb:125:in `instrument'
+  actionpack (3.2.3) lib/action_view/template.rb:141:in `render'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:59:in `render_with_layout'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:45:in `render_template'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:18:in `render'
+  actionpack (3.2.3) lib/action_view/renderer/renderer.rb:36:in `render_template'
+  actionpack (3.2.3) lib/action_view/renderer/renderer.rb:17:in `render'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:110:in `_render_template'
+  actionpack (3.2.3) lib/action_controller/metal/streaming.rb:225:in `_render_template'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:103:in `render_to_body'
+  actionpack (3.2.3) lib/action_controller/metal/renderers.rb:28:in `render_to_body'
+  actionpack (3.2.3) lib/action_controller/metal/compatibility.rb:50:in `render_to_body'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:88:in `render'
+  actionpack (3.2.3) lib/action_controller/metal/rendering.rb:16:in `render'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+  activesupport (3.2.3) lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/benchmark.rb:310:in `realtime'
+  activesupport (3.2.3) lib/active_support/core_ext/benchmark.rb:5:in `ms'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:83:in `cleanup_view_runtime'
+  activerecord (3.2.3) lib/active_record/railties/controller_runtime.rb:24:in `cleanup_view_runtime'
+  thinking-sphinx (2.0.10) lib/thinking_sphinx/action_controller.rb:12:in `cleanup_view_runtime'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:39:in `render'
+  /Users/teo/rails_gems/wake/lib/wake.rb:132:in `block (2 levels) in edit'
+  actionpack (3.2.3) lib/action_controller/metal/mime_responds.rb:196:in `call'
+  actionpack (3.2.3) lib/action_controller/metal/mime_responds.rb:196:in `respond_to'
+  /Users/teo/rails_gems/wake/lib/wake.rb:130:in `edit'
+  /Users/teo/rails_gems/elastic_cms/app/controllers/elastic/master/sites_controller.rb:8:in `edit'
+  actionpack (3.2.3) lib/action_controller/metal/implicit_render.rb:4:in `send_action'
+  actionpack (3.2.3) lib/abstract_controller/base.rb:167:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/rendering.rb:10:in `process_action'
+  actionpack (3.2.3) lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:469:in `_run__4064048566610858528__process_action__1629219158580326705__callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:385:in `_run_process_action_callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.3) lib/abstract_controller/callbacks.rb:17:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/rescue.rb:29:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+  activesupport (3.2.3) lib/active_support/notifications.rb:123:in `block in instrument'
+  activesupport (3.2.3) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (3.2.3) lib/active_support/notifications.rb:123:in `instrument'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/params_wrapper.rb:205:in `process_action'
+  activerecord (3.2.3) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+  actionpack (3.2.3) lib/abstract_controller/base.rb:121:in `process'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:45:in `process'
+  actionpack (3.2.3) lib/action_controller/metal.rb:203:in `dispatch'
+  actionpack (3.2.3) lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+  actionpack (3.2.3) lib/action_controller/metal.rb:246:in `block in action'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:73:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:73:in `dispatch'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:36:in `call'
+  journey (1.0.3) lib/journey/router.rb:68:in `block in call'
+  journey (1.0.3) lib/journey/router.rb:56:in `each'
+  journey (1.0.3) lib/journey/router.rb:56:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:600:in `call'
+  railties (3.2.3) lib/rails/engine.rb:479:in `call'
+  railties (3.2.3) lib/rails/railtie/configurable.rb:30:in `method_missing'
+  journey (1.0.3) lib/journey/router.rb:68:in `block in call'
+  journey (1.0.3) lib/journey/router.rb:56:in `each'
+  journey (1.0.3) lib/journey/router.rb:56:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:600:in `call'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:392:in `call_app!'
+  omniauth-identity (1.0.0) lib/omniauth/strategies/identity.rb:36:in `other_phase'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:176:in `call!'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:157:in `call'
+  omniauth (1.1.0) lib/omniauth/builder.rb:48:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+  rack (1.4.1) lib/rack/etag.rb:23:in `call'
+  rack (1.4.1) lib/rack/conditionalget.rb:25:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/head.rb:14:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/flash.rb:242:in `call'
+  rack (1.4.1) lib/rack/session/abstract/id.rb:205:in `context'
+  rack (1.4.1) lib/rack/session/abstract/id.rb:200:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/cookies.rb:338:in `call'
+  activerecord (3.2.3) lib/active_record/query_cache.rb:64:in `call'
+  activerecord (3.2.3) lib/active_record/connection_adapters/abstract/connection_pool.rb:467:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `_run__3402801203342864072__call__871366816068603120__callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.3) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.3) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.3) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.3) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.3) lib/rails/engine.rb:479:in `call'
+  railties (3.2.3) lib/rails/application.rb:220:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.3) lib/rails/rack/log_tailer.rb:14:in `call'
+  rack (1.4.1) lib/rack/handler/webrick.rb:59:in `service'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+
+
+
+Started GET "/de/master/sections" for 127.0.0.1 at 2012-05-21 11:55:11 +0200
+Processing by Elastic::Master::SectionsController#index as HTML
+  Parameters: {"locale"=>"de"}
+  Rendered /Users/teo/rails_gems/wake/app/views/wake/_list_header.html.erb (1.7ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/master/sections/_section_list_item.html.erb (3.7ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/master/sections/_section_list_item.html.erb (17.0ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/master/sections/section_list.html.erb within layouts/elastic/backend (62.7ms)
+Completed 500 Internal Server Error in 96ms
+
+ActionView::Template::Error (application.css isn't precompiled):
+    3: <head>
+    4:   <title>CHANGE TITLE HERE !!!</title>
+    5:   <!-- main app -->
+    6:   <%= stylesheet_link_tag    "application", :media => "all" %>
+    7:   <%= javascript_include_tag "application" %>
+    8:   <%= csrf_meta_tags %>
+    9: 
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:142:in `digest_for'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:150:in `rewrite_asset_path'
+  actionpack (3.2.3) lib/action_view/asset_paths.rb:27:in `compute_public_path'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:56:in `asset_path'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:49:in `block in stylesheet_link_tag'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:43:in `collect'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:43:in `stylesheet_link_tag'
+  /Users/teo/rails_gems/elastic_cms/app/views/layouts/elastic/backend.html.erb:6:in `___sers_teo_rails_gems_elastic_cms_app_views_layouts_elastic_backend_html_erb__189110920099912778_2171087760'
+  actionpack (3.2.3) lib/action_view/template.rb:143:in `block in render'
+  activesupport (3.2.3) lib/active_support/notifications.rb:125:in `instrument'
+  actionpack (3.2.3) lib/action_view/template.rb:141:in `render'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:59:in `render_with_layout'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:45:in `render_template'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:18:in `render'
+  actionpack (3.2.3) lib/action_view/renderer/renderer.rb:36:in `render_template'
+  actionpack (3.2.3) lib/action_view/renderer/renderer.rb:17:in `render'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:110:in `_render_template'
+  actionpack (3.2.3) lib/action_controller/metal/streaming.rb:225:in `_render_template'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:103:in `render_to_body'
+  actionpack (3.2.3) lib/action_controller/metal/renderers.rb:28:in `render_to_body'
+  actionpack (3.2.3) lib/action_controller/metal/compatibility.rb:50:in `render_to_body'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:88:in `render'
+  actionpack (3.2.3) lib/action_controller/metal/rendering.rb:16:in `render'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+  activesupport (3.2.3) lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/benchmark.rb:310:in `realtime'
+  activesupport (3.2.3) lib/active_support/core_ext/benchmark.rb:5:in `ms'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:83:in `cleanup_view_runtime'
+  activerecord (3.2.3) lib/active_record/railties/controller_runtime.rb:24:in `cleanup_view_runtime'
+  thinking-sphinx (2.0.10) lib/thinking_sphinx/action_controller.rb:12:in `cleanup_view_runtime'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:39:in `render'
+  /Users/teo/rails_gems/wake/lib/wake.rb:84:in `index'
+  actionpack (3.2.3) lib/action_controller/metal/implicit_render.rb:4:in `send_action'
+  actionpack (3.2.3) lib/abstract_controller/base.rb:167:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/rendering.rb:10:in `process_action'
+  actionpack (3.2.3) lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:469:in `_run__2375082208313595465__process_action__1325119754342764108__callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:385:in `_run_process_action_callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.3) lib/abstract_controller/callbacks.rb:17:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/rescue.rb:29:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+  activesupport (3.2.3) lib/active_support/notifications.rb:123:in `block in instrument'
+  activesupport (3.2.3) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (3.2.3) lib/active_support/notifications.rb:123:in `instrument'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/params_wrapper.rb:205:in `process_action'
+  activerecord (3.2.3) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+  actionpack (3.2.3) lib/abstract_controller/base.rb:121:in `process'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:45:in `process'
+  actionpack (3.2.3) lib/action_controller/metal.rb:203:in `dispatch'
+  actionpack (3.2.3) lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+  actionpack (3.2.3) lib/action_controller/metal.rb:246:in `block in action'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:73:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:73:in `dispatch'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:36:in `call'
+  journey (1.0.3) lib/journey/router.rb:68:in `block in call'
+  journey (1.0.3) lib/journey/router.rb:56:in `each'
+  journey (1.0.3) lib/journey/router.rb:56:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:600:in `call'
+  railties (3.2.3) lib/rails/engine.rb:479:in `call'
+  railties (3.2.3) lib/rails/railtie/configurable.rb:30:in `method_missing'
+  journey (1.0.3) lib/journey/router.rb:68:in `block in call'
+  journey (1.0.3) lib/journey/router.rb:56:in `each'
+  journey (1.0.3) lib/journey/router.rb:56:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:600:in `call'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:392:in `call_app!'
+  omniauth-identity (1.0.0) lib/omniauth/strategies/identity.rb:36:in `other_phase'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:176:in `call!'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:157:in `call'
+  omniauth (1.1.0) lib/omniauth/builder.rb:48:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+  rack (1.4.1) lib/rack/etag.rb:23:in `call'
+  rack (1.4.1) lib/rack/conditionalget.rb:25:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/head.rb:14:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/flash.rb:242:in `call'
+  rack (1.4.1) lib/rack/session/abstract/id.rb:205:in `context'
+  rack (1.4.1) lib/rack/session/abstract/id.rb:200:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/cookies.rb:338:in `call'
+  activerecord (3.2.3) lib/active_record/query_cache.rb:64:in `call'
+  activerecord (3.2.3) lib/active_record/connection_adapters/abstract/connection_pool.rb:467:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `_run__3402801203342864072__call__871366816068603120__callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.3) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.3) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.3) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.3) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.3) lib/rails/engine.rb:479:in `call'
+  railties (3.2.3) lib/rails/application.rb:220:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.3) lib/rails/rack/log_tailer.rb:14:in `call'
+  rack (1.4.1) lib/rack/handler/webrick.rb:59:in `service'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+
+
+
+Started GET "/currentsetting.htm" for 78.128.187.59 at 2012-05-21 12:13:50 +0200
+Processing by Elastic::ElasticController#index as 
+  Parameters: {"locale"=>"currentsetting"}
+  Rendered inline template (0.3ms)
+Filter chain halted as :prepare_context_site rendered or redirected
+Completed 404 Not Found in 4ms (Views: 1.0ms | ActiveRecord: 0.6ms | Sphinx: 0.0ms)
+
+
+Started GET "/currentsetting.htm" for 78.128.187.59 at 2012-05-21 12:23:51 +0200
+Processing by Elastic::ElasticController#index as 
+  Parameters: {"locale"=>"currentsetting"}
+  Rendered inline template (0.3ms)
+Filter chain halted as :prepare_context_site rendered or redirected
+Completed 404 Not Found in 3ms (Views: 0.9ms | ActiveRecord: 0.6ms | Sphinx: 0.0ms)
+
+
+Started GET "/currentsetting.htm" for 78.128.187.59 at 2012-05-21 12:34:46 +0200
+Processing by Elastic::ElasticController#index as 
+  Parameters: {"locale"=>"currentsetting"}
+  Rendered inline template (0.3ms)
+Filter chain halted as :prepare_context_site rendered or redirected
+Completed 404 Not Found in 3ms (Views: 0.9ms | ActiveRecord: 0.6ms | Sphinx: 0.0ms)
+
+
+Started GET "/currentsetting.htm" for 78.128.187.59 at 2012-05-21 12:46:11 +0200
+Processing by Elastic::ElasticController#index as 
+  Parameters: {"locale"=>"currentsetting"}
+  Rendered inline template (0.3ms)
+Filter chain halted as :prepare_context_site rendered or redirected
+Completed 404 Not Found in 3ms (Views: 0.9ms | ActiveRecord: 0.6ms | Sphinx: 0.0ms)
+
+
+Started GET "/currentsetting.htm" for 78.128.187.59 at 2012-05-21 12:58:07 +0200
+Processing by Elastic::ElasticController#index as 
+  Parameters: {"locale"=>"currentsetting"}
+  Rendered inline template (0.4ms)
+Filter chain halted as :prepare_context_site rendered or redirected
+Completed 404 Not Found in 3ms (Views: 1.0ms | ActiveRecord: 0.6ms | Sphinx: 0.0ms)
+
+
+Started GET "/de/editor/sections/2/nodes/9" for 127.0.0.1 at 2012-05-21 12:58:43 +0200
+Processing by Elastic::Editor::NodesController#show as HTML
+  Parameters: {"locale"=>"de", "section_id"=>"2", "id"=>"9"}
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/editor/nodes/content_forms/_textarea.html.erb (1.5ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/editor/nodes/content_forms/_textarea.html.erb (0.6ms)
+  Rendered /Users/teo/rails_gems/elastic_cms/app/views/elastic/editor/nodes/node_form.html within layouts/elastic/backend (242.9ms)
+Completed 500 Internal Server Error in 281ms
+
+ActionView::Template::Error (application.css isn't precompiled):
+    3: <head>
+    4:   <title>CHANGE TITLE HERE !!!</title>
+    5:   <!-- main app -->
+    6:   <%= stylesheet_link_tag    "application", :media => "all" %>
+    7:   <%= javascript_include_tag "application" %>
+    8:   <%= csrf_meta_tags %>
+    9: 
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:142:in `digest_for'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:150:in `rewrite_asset_path'
+  actionpack (3.2.3) lib/action_view/asset_paths.rb:27:in `compute_public_path'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:56:in `asset_path'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:49:in `block in stylesheet_link_tag'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:43:in `collect'
+  actionpack (3.2.3) lib/sprockets/helpers/rails_helper.rb:43:in `stylesheet_link_tag'
+  /Users/teo/rails_gems/elastic_cms/app/views/layouts/elastic/backend.html.erb:6:in `___sers_teo_rails_gems_elastic_cms_app_views_layouts_elastic_backend_html_erb__189110920099912778_2171087760'
+  actionpack (3.2.3) lib/action_view/template.rb:143:in `block in render'
+  activesupport (3.2.3) lib/active_support/notifications.rb:125:in `instrument'
+  actionpack (3.2.3) lib/action_view/template.rb:141:in `render'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:59:in `render_with_layout'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:45:in `render_template'
+  actionpack (3.2.3) lib/action_view/renderer/template_renderer.rb:18:in `render'
+  actionpack (3.2.3) lib/action_view/renderer/renderer.rb:36:in `render_template'
+  actionpack (3.2.3) lib/action_view/renderer/renderer.rb:17:in `render'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:110:in `_render_template'
+  actionpack (3.2.3) lib/action_controller/metal/streaming.rb:225:in `_render_template'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:103:in `render_to_body'
+  actionpack (3.2.3) lib/action_controller/metal/renderers.rb:28:in `render_to_body'
+  actionpack (3.2.3) lib/action_controller/metal/compatibility.rb:50:in `render_to_body'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:88:in `render'
+  actionpack (3.2.3) lib/action_controller/metal/rendering.rb:16:in `render'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+  activesupport (3.2.3) lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/benchmark.rb:310:in `realtime'
+  activesupport (3.2.3) lib/active_support/core_ext/benchmark.rb:5:in `ms'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:83:in `cleanup_view_runtime'
+  activerecord (3.2.3) lib/active_record/railties/controller_runtime.rb:24:in `cleanup_view_runtime'
+  thinking-sphinx (2.0.10) lib/thinking_sphinx/action_controller.rb:12:in `cleanup_view_runtime'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:39:in `render'
+  /Users/teo/rails_gems/wake/lib/wake.rb:132:in `block (2 levels) in edit'
+  actionpack (3.2.3) lib/action_controller/metal/mime_responds.rb:196:in `call'
+  actionpack (3.2.3) lib/action_controller/metal/mime_responds.rb:196:in `respond_to'
+  /Users/teo/rails_gems/wake/lib/wake.rb:130:in `edit'
+  /Users/teo/rails_gems/wake/lib/wake.rb:123:in `show'
+  actionpack (3.2.3) lib/action_controller/metal/implicit_render.rb:4:in `send_action'
+  actionpack (3.2.3) lib/abstract_controller/base.rb:167:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/rendering.rb:10:in `process_action'
+  actionpack (3.2.3) lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:480:in `_run__4020358130083635168__process_action__179197197781729144__callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:385:in `_run_process_action_callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.3) lib/abstract_controller/callbacks.rb:17:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/rescue.rb:29:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+  activesupport (3.2.3) lib/active_support/notifications.rb:123:in `block in instrument'
+  activesupport (3.2.3) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (3.2.3) lib/active_support/notifications.rb:123:in `instrument'
+  actionpack (3.2.3) lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+  actionpack (3.2.3) lib/action_controller/metal/params_wrapper.rb:205:in `process_action'
+  activerecord (3.2.3) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+  actionpack (3.2.3) lib/abstract_controller/base.rb:121:in `process'
+  actionpack (3.2.3) lib/abstract_controller/rendering.rb:45:in `process'
+  actionpack (3.2.3) lib/action_controller/metal.rb:203:in `dispatch'
+  actionpack (3.2.3) lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+  actionpack (3.2.3) lib/action_controller/metal.rb:246:in `block in action'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:73:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:73:in `dispatch'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:36:in `call'
+  journey (1.0.3) lib/journey/router.rb:68:in `block in call'
+  journey (1.0.3) lib/journey/router.rb:56:in `each'
+  journey (1.0.3) lib/journey/router.rb:56:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:600:in `call'
+  railties (3.2.3) lib/rails/engine.rb:479:in `call'
+  railties (3.2.3) lib/rails/railtie/configurable.rb:30:in `method_missing'
+  journey (1.0.3) lib/journey/router.rb:68:in `block in call'
+  journey (1.0.3) lib/journey/router.rb:56:in `each'
+  journey (1.0.3) lib/journey/router.rb:56:in `call'
+  actionpack (3.2.3) lib/action_dispatch/routing/route_set.rb:600:in `call'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:392:in `call_app!'
+  omniauth-identity (1.0.0) lib/omniauth/strategies/identity.rb:36:in `other_phase'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:176:in `call!'
+  omniauth (1.1.0) lib/omniauth/strategy.rb:157:in `call'
+  omniauth (1.1.0) lib/omniauth/builder.rb:48:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+  rack (1.4.1) lib/rack/etag.rb:23:in `call'
+  rack (1.4.1) lib/rack/conditionalget.rb:25:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/head.rb:14:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/flash.rb:242:in `call'
+  rack (1.4.1) lib/rack/session/abstract/id.rb:205:in `context'
+  rack (1.4.1) lib/rack/session/abstract/id.rb:200:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/cookies.rb:338:in `call'
+  activerecord (3.2.3) lib/active_record/query_cache.rb:64:in `call'
+  activerecord (3.2.3) lib/active_record/connection_adapters/abstract/connection_pool.rb:467:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `_run__3402801203342864072__call__871366816068603120__callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.3) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.3) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.3) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.3) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.3) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.3) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.3) lib/rails/engine.rb:479:in `call'
+  railties (3.2.3) lib/rails/application.rb:220:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.3) lib/rails/rack/log_tailer.rb:14:in `call'
+  rack (1.4.1) lib/rack/handler/webrick.rb:59:in `service'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/teo/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+

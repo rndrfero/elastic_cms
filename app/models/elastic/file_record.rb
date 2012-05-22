@@ -9,7 +9,7 @@ module Elastic
     scope :images, where("filename REGEXP ?", '.*\.(jpg|jpeg|png|gif)$')
     scope :non_images, where("filename NOT REGEXP ?", '.*\.(jpg|jpeg|png|gif)$')
     
-    attr_accessible :title, :text, :filename, :ino, :gallery_id    
+    attr_accessible :title, :text, :filename, :ino, :gallery_id, :basename, :extname
     belongs_to :gallery
     
     validates_presence_of :gallery
@@ -35,6 +35,22 @@ module Elastic
     
     def image_ok?(which)
       File.exists?(filepath which)
+    end
+    
+    def basename
+      filename.chomp extname
+    end
+    
+    def extname
+      File.extname filename
+    end
+    
+    def basename=(x)
+      self.filename = x+extname
+    end
+    
+    def extname=(x)
+      self.filename = basename+x
     end
     
     # def images_ok?(which)

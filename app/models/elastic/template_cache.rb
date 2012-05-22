@@ -16,7 +16,7 @@ module Elastic
     end
   
     def self.init(name)        
-      Liquid::Template.file_system = Liquid::LocalFileSystem.new Context.site.theme_dir
+      Liquid::Template.file_system = Liquid::LocalFileSystem.new Context.site.home_dir
       
       ret = TemplateCache.new :key=>"#{Context.site.id}-#{name}"
     
@@ -30,7 +30,7 @@ module Elastic
   
     def self.render(name, drops)
       row = TemplateCache.where(:key=> "#{Context.site.id}-#{name}").first    
-      Liquid::Template.file_system = Liquid::LocalFileSystem.new Context.site.theme_dir      
+      Liquid::Template.file_system = Liquid::LocalFileSystem.new Context.site.home_dir      
     
       if Context.site.is_force_reload_theme?
         row.destroy if row

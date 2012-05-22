@@ -1,0 +1,21 @@
+<div>
+	<h4 class=""><%= content_config.title %></h4>
+	
+	<% if not content_config.gallery %>
+  	<%=werror 'Linked gallery not present. Contact your webmaster.' %>
+	<% elsif content_config.meta['variant'].blank? %>
+		<%=werror 'Which variant to use?. Check content config.' %>
+	<% else %> 
+	  <% if content and not content.text.blank? %>
+			<% src = File.join content_config.gallery.path, content_config.meta['variant'], content.text.to_s %>
+			<img src="<%= src %>" alt="<%= content.text %>"/><br/>
+		<% else %>
+		<% end %>
+	
+		Upload the image:  <%= form_helper.file_field 'file' %> 
+		&nbsp;&nbsp;
+		<%= link_to ico(:link)+'GALLERY', editor_gallery_path(content_config.gallery), :class=>'button' %>
+	<% end %>
+
+</div>
+

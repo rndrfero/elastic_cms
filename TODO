@@ -8,8 +8,26 @@ admin - webmaster - editor
 REIFYING:
   metadata
 	reify destroyed
-	
-	
+
+/x/path/to/file.txt -> is file 
+
+template_cache:
+  - should cache every file inside home_path
+  - force_reload option
+
+{% include 'partial.liquid' %} -> includes ./_partial.liquid
+{% include '/current_theme/partial.liquid' %} -> includes absolute path
+{% include 'file.html' %} 
+{% include '/static/file.html' %} 
+
+{% insert_fragment /x/fragmets/gallery parameter1 parameter2 } -> inserts file /x/fragments/gallery.liquid
+  with parameters array
+{% insert_content key_or_id drop_method=content1 %}	- insert content, for footers etc	
+
+{% insert_partial forum %} -> renders app/views/elastic/partials/this partial
+
+root je stale root
+
 	
 robots, sitemap
 
