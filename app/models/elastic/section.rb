@@ -11,7 +11,7 @@ module Elastic
     belongs_to :section
   
     has_many :content_configs, :dependent=>:destroy, :order=>:position
-    has_many :nodes  
+    has_many :nodes, :order=>lambda{ |x| raise x.inspect }  
   
     accepts_nested_attributes_for :content_configs, :allow_destroy => true
 

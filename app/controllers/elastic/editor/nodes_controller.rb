@@ -56,8 +56,8 @@ module Elastic
       if @item and @version        
         for c in @item.contents
           old_c = c.version_at @version.created_at
-          old_c ||= c.versions.last.reify
-          c.text = old_c.text
+#          old_c ||= c.versions.last.reify
+          c.text = old_c ? old_c.text : nil
         end
         flash.now[:hilite] = 'Ressurection...'
       else
@@ -123,7 +123,11 @@ module Elastic
   
     def wake_list
       super
-      @items = @items.ordered.where(:section_id=>@section.id)
+      if @section.form == 'tree'
+        @items = @items.tree_ordered.where(:section_id=>@section.id)
+      elsif @section.form == 'blog'
+        @items = @items.date_ordered.where(:section_id=>@section.id)
+      end
       @items = @items.localized if @section.localization == 'free'
     end
 

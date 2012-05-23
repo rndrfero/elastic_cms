@@ -37,7 +37,9 @@ module Elastic
     scope :published, where(:is_published=>true).order('ancestry_depth,position DESC')
     scope :roots, where(:ancestry=>nil).order('ancestry_depth,position DESC')
     scope :localized, lambda { where(:locale=>Context.locale) }
-    scope :ordered, :order => "ancestry_depth,position DESC"
+    scope :tree_ordered, :order=>"ancestry_depth,position DESC"
+    scope :date_ordered, :order=>"published_at"
+#    .section.form=='blog' ? reorder("published_at") : reorder("ancestry_depth,position DESC"
     scope :starry, where(:is_star=>true)
     scope :in_public, lambda { includes(:contents=>:content_config).where(:site_id=>Context.site.id) }
     

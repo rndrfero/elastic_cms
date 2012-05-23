@@ -1,5 +1,6 @@
 <%
 	header ||= false
+	level ||= false
 	item = node_list_item unless header
 %>
 
@@ -9,8 +10,11 @@
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'id' %> </th>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_published', 'Pub' %> </th>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_star', '*' %> </th>
+		 <% if not level %>
+		 	<th style="width: 10em;" class=""> <%= wake_click_order_by 'published_at', 'Pub' %> </th>
+		 <% end %>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
-		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'position', 'Pos' %> </th>
+		 <!-- <th style="width: 1em;" class=""> <%#= wake_click_order_by 'position', 'Pos' %> </th> -->
 		 <th> </th>
 		 <th style="width: 5em;"> </th>
 	</tr>
@@ -19,7 +23,7 @@
 
 	<tr id="<%=dom_id item %>" class="hover-parent hilite pointer">
 			
-			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
+			<td <%=wo item %> class="lo-visible"> <%=whl item.id %></td>				
 			<td <%=wo item %> class=""> 
 			  <%=link_to (item.is_published? ? ico(:check_alt, :lightgray) : ico(:x_alt, :red)), 
   			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
@@ -29,20 +33,18 @@
 				     toggle_star_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
 			
+			<% if not level %>
+				<td <%=wo item %> class=""> <%=l item.published_at, :format=>:short %> </td>
+			<% end %>
 			
 			<td <%=wo item %> class="hi-visible"> 
-			  <%=raw '&nbsp;&nbsp&nbsp;'*level %> 
-			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title %></span>
-				<!-- 
-				  <span class="hover-child draggable" toid="<%=item.id%>"> under </span>
-				  <span class="hover-child draggable" toid="<%=item.id%>"> ontop </span> 
-				-->
-			
+			  <%=raw '&nbsp;&nbsp&nbsp;'*level if level %> 
+			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title %></span>			
 			  <% if item.title.blank? %><span class="em80">key: <%= item.key %></span><% end %>
 			</td>				
-			<td <%=wo item %> class="hi-visible"> 
-				<%= item.position %>
-			</td>
+			<!-- <td <%=wo item %> class="hi-visible"> 
+				<%#= item.position %>
+			</td> -->
 			<td>
 			  <%=link_to (item.is_locked? ? ico(:lock_fill, :black) : ico(:lock_fill, :lightgray)), 
 				     toggle_locked_editor_section_node_path(@section, item), :method=>:post %>
@@ -50,9 +52,11 @@
 						     toggle_hidden_editor_section_node_path(@section, item), :method=>:post %>
 			</td>
 			
-			<td class="hover-child right"> 			
-					<%= link_to ico(:arrow_up), move_higher_editor_section_node_path(@section,item), :method=>:post %>
-					<%= link_to ico(:arrow_down), move_lower_editor_section_node_path(@section,item), :method=>:post %>
+			<td class="hover-child right">
+				  <% if level %>
+						<%= link_to ico(:arrow_up), move_higher_editor_section_node_path(@section,item), :method=>:post %>
+						<%= link_to ico(:arrow_down), move_lower_editor_section_node_path(@section,item), :method=>:post %>
+					<% end %>
 			    <%= wake_button_destroy item %>
 			</td>
 	</tr>

@@ -38,9 +38,9 @@ $(document).ready(function(){
 	<tr><td colspan="8" style="height: 4px;"></td></tr>
 
 
-	<% if false %>
+	<% if @section.form == 'blog' %>
 
-		<%= render :partial=>'node_list_item', :collection=>@items.ordered, :locals=>{:level=>0} %>	
+		<%= render :partial=>'node_list_item', :collection=>@items, :locals=>{:level=>nil} %>	
 
 	<% else %>
 		<% 
@@ -51,11 +51,11 @@ $(document).ready(function(){
 				node, level = stack.pop
 		%>
 		<%= render :partial=>'node_list_item', :object=>node, :locals=>{:level=>level} %>
-
 		<%
 				@items.each{ |x| stack.push [x,level+1] if x.parent_id==node.id } #unless @folding[node.id]
 			end
 		%>
+		
 	<% end %>
 
 
