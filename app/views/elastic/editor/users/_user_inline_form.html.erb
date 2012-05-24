@@ -8,19 +8,23 @@
 	  <table class="wakeThemeForm w100 ">
 			<tr>
 				<th> Name: </td>
-				<td> <%= f.text_field :name %> <%=raw wfe :str %></td>
+				<td> <%= f.text_field :name %> <%=raw wfe :name %></td>
 			</tr>
 			<tr>
 				<th> Email: </td>
-				<td> <%= f.text_field :email %> <%=raw wfe :str %></td>
+				<td> <%= f.text_field :email %> <%=raw wfe :email %></td>
 			</tr>
 			<tr>
 				<th> Password: </td>
-				<td> <%= f.password_field :password %> <%=raw wfe :int %></td>
+				<td> <%= f.password_field :password %> <%=raw wfe :password %></td>
 			</tr>
 			<tr>
 				<th> Confirm pwd: </td>
-				<td> <%= f.password_field :password_confirmation %> <%=raw wfe :int %></td>
+				<td> <%= f.password_field :password_confirmation %> <%=raw wfe :password_confirmation %></td>
+			</tr>
+			<tr>
+				<th> Site: </td>
+				<td> <%= f.select :site_id, Elastic::Context.user.sites.map{ |x| [x.host,x.id] } %> <%=raw wfe :int %></td>
 			</tr>
 			<tr>
 				<th></th>

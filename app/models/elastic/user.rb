@@ -14,17 +14,17 @@ module Elastic
       
     # elastic
     belongs_to :site
-    has_many :sites
+    has_many :sites, :foreign_key=>'master_id'
   
     attr_accessible :name, :site_id
     
-    def editor_of?(the_site)
+    def editor?(the_site=Context.site)
       self.site_id == the_site.id or master_of? the_site.id
     end
     
-    def master_of?(the_site)
+    def master?(the_site=Context.site)
       self.site_id == the_site.master_id
     end
-    
+        
   end
 end

@@ -1,3 +1,9 @@
+porozmyslat poriadne nad pravami, popr. deklarativnymi pravami.
+
+teraz jak je to urobene, skor minimalisticky. nejake role + dzivy deklarativny system.
+
+
+
 elastic.current_user_helper = :current_user
 Context.user.editor_of? Site
 Context.user.master_of? Site

@@ -21,7 +21,8 @@ img { box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-b
 		<div id="OuterWrapper">
 			
 			<%= image_tag '/elastic-cms-logo.png' %>
-			<br/><br/>
+			<br/>
+			<h4><%= Elastic::Context.site.title %></h4>
 			
 			<h3><%= flash[:alert] %></h3>
 			

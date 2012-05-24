@@ -96,17 +96,22 @@ module Elastic
       end
       drops.merge! add_drops
       
-      out = TemplateCache.render template_name, drops
-      out = postprocess out, template_name
+      begin # rendering block
+        
+        out = TemplateCache.render template_name, drops
+        out = postprocess out, template_name
       
-      @head = TemplateCache.render 'head' , drops
+        @head = TemplateCache.render 'head' , drops if File.exists?(@site.theme_dir+'head.liquid')
       
-      if @site.theme_layout.blank?
-        render :text=>out, :layout=>"/elastic/public/html5"
-      else      
-        controls = render_to_string :partial=>'/elastic/public/controls'
-        out = TemplateCache.render @site.theme_layout, { 'head'=>@head, 'body'=>out, 'controls'=>controls }
-        render :text=>out, :layout=>false        
+        if @site.theme_layout.blank?
+          render :text=>out, :layout=>"/elastic/public/html5"
+        else      
+          controls = render_to_string :partial=>'/elastic/public/controls'
+          out = TemplateCache.render @site.theme_layout, { 'head'=>@head, 'body'=>out, 'controls'=>controls }
+          render :text=>out, :layout=>false        
+        end
+      rescue Liquid::SyntaxError=>x
+        render :inline=>"<h3>Liquid syntax error:</h3> <p>#{x}</p>"
       end
     end
     

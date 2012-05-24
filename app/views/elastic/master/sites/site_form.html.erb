@@ -9,13 +9,17 @@
 
 	<table class="wakeThemeForm" class="">
 		<tr>
+			<th> Master: </th>
+			<td> <%= @item.master.name %>  </td>
+		</tr>
+		<tr>
 			<th> Host (address): </th>
 			<td> <%= f.text_field 'host', :class=>'' %>  </td>
 		</tr>
-		<!-- <tr>
+		<tr>
 			<th> Title: </th>
 			<td> <%= f.text_field 'title', :class=>'' %>  </td>
-		</tr> -->
+		</tr>
 		<tr>
 			<th> Locales: </th>
 			<td>  <%= f.text_field 'locales_str', :class=>'' %>  <small>separated by comas</small> </td>

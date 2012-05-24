@@ -1,6 +1,6 @@
 module Elastic  
   class Site < ActiveRecord::Base
-    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout
+    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout, :master_id
  
     include Elastic::WithDirectory
       
@@ -72,6 +72,8 @@ module Elastic
     # ensure site integrity
     def integrity!
       return if new_record?
+      
+      self.theme ||= 'hello_world'
       
       if host_changed? and File.exists? home_dir(host_was)
         x = home_dir(host_was)+'current_theme'

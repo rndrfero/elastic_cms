@@ -3,12 +3,14 @@
 <%= form_for @item, :url=>url do |f| %>
 	
 	<div class="wakeThemeCleanForm">
-	  <%=link_to (@item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
-		     toggle_star_master_section_path(@item), :method=>:post %>
-	  <%=link_to (@item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
-		     toggle_hidden_master_section_path(@item), :method=>:post %>
-	  <%=link_to (@item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
-		     toggle_locked_master_section_path(@item), :method=>:post %>				
+		<% if not @item.new_record? %>
+		  <%=link_to (@item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
+			     toggle_star_master_section_path(@item), :method=>:post %>
+		  <%=link_to (@item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
+			     toggle_hidden_master_section_path(@item), :method=>:post %>
+		  <%=link_to (@item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
+			     toggle_locked_master_section_path(@item), :method=>:post %>
+		<% end %>
 		
 		<%= f.text_field 'title', :class=>'title' %> 
 

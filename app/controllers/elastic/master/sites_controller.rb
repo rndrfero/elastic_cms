@@ -7,6 +7,11 @@ module Elastic
       @item.integrity!
       super
     end
+    
+    def wake_constraints
+      { :master_id=>Context.user.id }
+    end
+    
           
   end  
 end

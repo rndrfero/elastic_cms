@@ -23,14 +23,14 @@ class NodeDrop < Liquid::Drop
   # -- contents --
   
   def contents
-    @node.contents.map{ |x| ContentDrop.new x }
+    @contents ||= @node.contents.map{ |x| ContentDrop.new x }
   end
 
-  def content1
-    index = 1-1
-    return nil if index >= @node.contents.size
-    ContentDrop.new @node.contents[index]
-  end
+  # def content1
+  #   index = 1-1
+  #   return nil if index >= @node.contents.size
+  #   ContentDrop.new @node.contents[index]
+  # end
   
   # -- navigation --
   

@@ -1,0 +1,21 @@
+<h1>Hello from test1 theme</h1>
+
+<h3>{{ section_hukot.nodes }}</h3>
+
+<h3>{{ site..title }}</h3>
+
+ty vole
+
+<br/>
+
+{% for n in section_hukot.nodes %}
+
+  <div style="float: left; background: cyan; margin: 1em; padding: 1em;">
+	
+	   <h3>1: {{ n.contents[0] }}</h3>
+	   <h3>2: {{ n.contents[1] }}</h3>
+	   <h3>3: {{ n.contents[2] }}</h3>
+	
+	</div>
+	
+{% endfor %}
