@@ -21,6 +21,8 @@ class CreateElasticSites < ActiveRecord::Migration
       
       t.text :gallery_meta
       
+      t.integer :master_id
+      
       t.timestamps
     end
     add_index :elastic_sites, :host

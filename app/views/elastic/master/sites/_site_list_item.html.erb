@@ -9,6 +9,7 @@
 		 <th style="" class=""> <%= wake_click_order_by 'id' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'host' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'master' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'locales' %> </th>
 		 <th style="width: 1em;"> </th>
 	</tr>
@@ -20,6 +21,7 @@
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.host %> </td>
 			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
+			<td <%=wo item %> class=""> <%=whl item.master ? item.master.name : 'N/A' %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.locales_str %> </td>				
 			
 			<td class="hover-child right"> 			

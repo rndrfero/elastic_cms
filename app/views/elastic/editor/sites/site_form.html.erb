@@ -37,6 +37,10 @@
 
 	<table class="wakeThemeForm" class="">
 		<tr>
+			<th> Webmaster: </th>
+			<td> <%= @item.master ? @item.master.email : 'N/A' %>
+		</tr>
+		<tr>
 			<th> Disk usage: </th>
 			<td> <%=number_to_human_size @item.du %></td>
 		</tr>

@@ -6,6 +6,8 @@ module Elastic
     
     layout 'elastic/backend'
 
+    before_filter :authenticate_user! 
+
     before_filter :prepare_context_site
     before_filter :prepare_context_locale, :except=>[:static, :data, :not_found]
     after_filter :log_current_context    
@@ -16,7 +18,6 @@ module Elastic
         render :inline=>"404: No site for host '#{request.host}' found.", :status=>404
         return false
       end
-      logger.debug "--> TU TREBA DOROBIT CI MU PATRI DANA SITE ALEBO NIE"
     end
 
     def prepare_context_locale
@@ -25,7 +26,14 @@ module Elastic
         redirect_to params.merge! :locale=>Context.site.locales.first
         return false
       end if Context.site.locales
-#      Context.user = current_user
+      
+      Context.user = current_user
+      
+      # site own protection      
+      # if Context.user and Context.user.elastic_site_id != Context.site.id and Context.site.master_id != Context.user.id
+      #   render :text=>'access violation - TODO IN SESSIONS CONTROLLER'
+      #   return false
+      # end      
     end
 
     def default_url_options(options={})
@@ -64,19 +72,19 @@ module Elastic
     
     # --- users ---
     
-    def current_user
-      @current_user ||= User.find_by_id(session[:user_id])
-    end
-
-    def signed_in?
-      !!current_user
-    end
-
-    helper_method :current_user, :signed_in?
-
-    def current_user=(user)
-      @current_user = user
-      session[:user_id] = user.nil? ? user : user.id
-    end
+    # def current_user
+    #   @current_user ||= User.find_by_id(session[:user_id])
+    # end
+    # 
+    # def signed_in?
+    #   !!current_user
+    # end
+    # 
+    # helper_method :current_user, :signed_in?
+    # 
+    # def current_user=(user)
+    #   @current_user = user
+    #   session[:user_id] = user.nil? ? user : user.id
+    # end
   end
 end

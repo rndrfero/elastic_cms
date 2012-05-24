@@ -1,0 +1,35 @@
+
+<div class="wakeInlineFormWrapper">
+
+	<% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
+
+	<%= form_for @item, :url=>url, :remote=>true do |f| %>
+
+	  <table class="wakeThemeForm w100 ">
+			<tr>
+				<th> Name: </td>
+				<td> <%= f.text_field :name %> <%=raw wfe :str %></td>
+			</tr>
+			<tr>
+				<th> Email: </td>
+				<td> <%= f.text_field :email %> <%=raw wfe :str %></td>
+			</tr>
+			<tr>
+				<th> Password: </td>
+				<td> <%= f.password_field :password %> <%=raw wfe :int %></td>
+			</tr>
+			<tr>
+				<th> Confirm pwd: </td>
+				<td> <%= f.password_field :password_confirmation %> <%=raw wfe :int %></td>
+			</tr>
+			<tr>
+				<th></th>
+				<th> <%= f.submit %> </th>
+			</tr>
+	
+		</table>
+	
+	<% end %>
+
+</div>
+

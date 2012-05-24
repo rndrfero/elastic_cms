@@ -21,8 +21,7 @@ gem 'liquid'
 gem 'wake', :path => '~/rails_gems/wake'
 
 gem 'bcrypt-ruby'
-gem 'omniauth-github'
-gem 'omniauth-identity'
+gem 'devise'
 
 gem 'rmagick'
 gem 'bluecloth'

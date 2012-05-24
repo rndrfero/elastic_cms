@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120516194107) do
+ActiveRecord::Schema.define(:version => 20120523114350) do
 
   create_table "elastic_content_configs", :force => true do |t|
     t.string   "title"
@@ -27,9 +27,8 @@ ActiveRecord::Schema.define(:version => 20120516194107) do
 
   create_table "elastic_contents", :force => true do |t|
     t.text     "text"
-    t.binary   "binary"
+    t.text     "published_text"
     t.integer  "content_config_id"
-    t.text     "meta"
     t.text     "locale"
     t.integer  "node_id"
     t.datetime "created_at",        :null => false
@@ -88,11 +87,15 @@ ActiveRecord::Schema.define(:version => 20120516194107) do
     t.boolean  "is_published"
     t.integer  "node_id"
     t.integer  "position"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "ancestry"
     t.integer  "ancestry_depth"
     t.integer  "is_locked"
+    t.integer  "version_cnt"
+    t.string   "redirect"
+    t.datetime "published_at"
+    t.integer  "published_version_id"
   end
 
   add_index "elastic_nodes", ["ancestry"], :name => "index_elastic_nodes_on_ancestry"
@@ -109,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20120516194107) do
     t.datetime "updated_at",   :null => false
     t.boolean  "is_hidden"
     t.boolean  "is_star"
+    t.string   "form"
   end
 
   add_index "elastic_sections", ["key"], :name => "index_elastic_sections_on_key"
@@ -149,6 +153,26 @@ ActiveRecord::Schema.define(:version => 20120516194107) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false

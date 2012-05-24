@@ -1,4 +1,4 @@
-<% if true # CurrentContext.user %>
+<% if Elastic::Context.user %>
 
 	<style>
 		#ElasticControls { position: fixed; height: 25px; top: 0px; left: 0px; background: black; width: 100%; 
@@ -6,6 +6,7 @@
 		#ElasticControls a { color: white; text-decoration: none; }
 		#ElasticControls a:hover { text-decoration: underline; }
 		body { position: relative; top: 25px; left: 0px; }
+		#ElasticControls  form.button_to, #ElasticControls form.button_to div { display: inline; }
 	</style>
 	
 	<div id="ElasticControls" style="">
@@ -16,6 +17,12 @@
 			<%= link_to 'Elastic CMS', editor_section_nodes_path(@section) %>
 		<% else %>
 			<%= link_to 'Elastic CMS', master_site_path(@site) %>
+		<% end %>
+		
+		&nbsp;
+
+		<% if Elastic::Context.user %>
+		  <%= link_to "Sign out #{current_user.email}", logout_path %>
 		<% end %>
 
 	</div>

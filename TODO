@@ -1,3 +1,8 @@
+elastic.current_user_helper = :current_user
+Context.user.editor_of? Site
+Context.user.master_of? Site
+
+
 integracia tweetnutie o clanku, resp publikovanie na zed
 
 company (master) logo
@@ -115,3 +120,10 @@ OVERLAY: public/themes/sacfest/images/overlay-foto.png -composite suggestions:
 DISTORT PERSPECTIVE: USE -map TO MAP/COLORIZE IMAGE 
 Rounded and Shaped Corners -resize 90% -virtual-pixel white -rotate -2 -ordered-dither h4x4a -crop 120x120-0-0 -resize 90% -virtual-pixel white -rotate %RANDOM% -crop 120x120-0-0
 
+
+
+
+iconic:
+  warning
+  rotate left
+  rotate right

@@ -1,8 +1,5 @@
 Elastic::Engine.routes.draw do
-  
-  match '/auth/:provider/callback', :to => 'sessions#create'
-  match '/logout', to: 'sessions#destroy'  
-  
+      
   # -- frontend --
 
   root :to => 'elastic#index'
@@ -14,6 +11,11 @@ Elastic::Engine.routes.draw do
   match '/:locale/show/:key' => 'elastic#show'
   match '/:locale/section/:key' => 'elastic#section'
   match '/:locale/access_denied' => 'elastic#access_denied', :as=>'access_denied'
+  
+  # -- devise --
+
+  devise_for :users, :class_name=>'Elastic::User', #, :module=>:elastic,
+    :controllers => { :sessions => "elastic/devise/sessions" } #, :skip=>'sessions' #, :controller=>'elastic/devise/sessions'
   
   # -- backend --
   
@@ -41,11 +43,8 @@ Elastic::Engine.routes.draw do
     end
     
     namespace 'editor' do      
-      resources :sections do
-#        get ':id/to/:to_id'
-        
+      resources :sections do        
         resources :nodes do
-
           get 'drop/:node_id', :on=>:member, :action=>'drop', :as=>'drop'
           post 'toggle_published', :on=>:member
           post 'toggle_star', :on=>:member
@@ -55,8 +54,7 @@ Elastic::Engine.routes.draw do
           post 'move_lower', :on=>:member
           get 'reify/:version_id', :on=>:member, :action=>'reify', :as=>'reify'
           post 'publish_version/:version_id', :on=>:member, :action=>'publish_version', :as=>'publish_version'
-          post 'publish_recent', :on=>:member #, :action=>'commit', :as=>'commit'
-          
+          post 'publish_recent', :on=>:member #, :action=>'commit', :as=>'commit'          
           get 'restore', :on=>:collection, :action=>'restore', :as=>'restore'
           
           resources :contents
@@ -72,6 +70,8 @@ Elastic::Engine.routes.draw do
         # get 'f_edit/:file_record_id', :on=>:member, :action=>'f_edit', :as=>'f_edit'
         # put 'f_update/:file_record_id', :on=>:member, :action=>'f_update', :as=>'f_update'
         resources :file_records
+      end
+      resources :users do
       end
       resource :site do
         post 'import'

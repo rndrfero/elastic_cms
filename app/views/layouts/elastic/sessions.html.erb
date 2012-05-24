@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">		
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />	
+		<style>
+body { font-family: 'Verdana'; font-size: 12px; }
+#OuterWrapper { width: 300px; margin: auto; text-align: center; margin-top: 50px; }
+table { border-collapse: collapse;  border: 1px solid #DDD; background: #F6F6F6; 
+	box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-box-shadow: 3px 3px 7px #AAA; }
+td { text-align: left; padding: 5px 10px; }
+input { border: 1px solid #DDD; }
+h3 { color: red; }
+img { box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-box-shadow: 3px 3px 7px #AAA; }
+
+	  </style>
+	</head>
+
+	<body>
+		
+		<div id="OuterWrapper">
+			
+			<%= image_tag '/elastic-cms-logo.png' %>
+			<br/><br/>
+			
+			<h3><%= flash[:alert] %></h3>
+			
+			<%= yield %>		
+		</div>
+		
+	</body>
+	
+</html>

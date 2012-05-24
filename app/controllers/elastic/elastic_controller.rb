@@ -1,6 +1,7 @@
 module Elastic
-  class ElasticController < ApplicationController
+  class ElasticController < Elastic::ApplicationController
     
+    skip_before_filter :authenticate_user!
     before_filter :prepare
 
     # index page

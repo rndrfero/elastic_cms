@@ -35,9 +35,12 @@
 				<%# end %>
 				
 				<% if controller.is_testing? %>
-					<span style="color: #F11; font-weight: bold;">T E S T I N G</span> &nbsp;
+				  <%=raw ico(:bolt,:red)*3 %> &nbsp;
 				<% end %>
 				<%= Elastic::Context.site.title %>&nbsp;&nbsp;
+				<% if Elastic::Context.user %>
+				  <%= link_to "Sign out #{Elastic::Context.user.email}", logout_path %>
+				<% end %>
 				
 			</div>
 			
@@ -54,7 +57,7 @@
 						%>
 					  <%= link_to 'The Site', address %> 
 					</li>
-					<li><a class="<%= 'selected' if menu_match Elastic::Section.all.map{ |x| editor_section_nodes_path(x) }+[editor_galleries_path, editor_site_path] %>" href="#tabs1">Editor</a></li>
+					<li><a class="<%= 'selected' if menu_match Elastic::Section.all.map{ |x| editor_section_nodes_path(x) }+[editor_galleries_path, editor_users_path, editor_site_path] %>" href="#tabs1">Editor</a></li>
 			    <li><a class="<%= 'selected' if menu_match '/', master_sections_path, master_sites_path %>" href="#tabs2">Webmaster</a></li>
 
 		  </ul> 
@@ -70,6 +73,7 @@
 				  <%= menu_link_to x.title, editor_section_nodes_path(x) %>
 				<% end %>
 				<%= menu_link_to 'Galleries', editor_galleries_path %>
+				<%= menu_link_to 'Users', editor_users_path %>
 				<%= menu_link_to 'Configure', editor_site_path %>
 			</div> 
 		  <div id="tabs2">
@@ -90,7 +94,8 @@
 			<%= yield %>			
 			
 			<br/><br/><br/><br/><br/><hr/>
-			current user: <%=debug current_user %>
+			<%=debug current_user %>
+			<%=debug user_signed_in? %>
 			<%#= link_to 'fuck', 'off', :remote=>true %>
 		<div>
 	</div>

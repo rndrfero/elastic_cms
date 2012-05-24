@@ -8,6 +8,9 @@ module Elastic
     has_many :nodes
     has_many :template_caches
     has_many :galleries
+    
+    belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
+    has_many :users
   
     validates_presence_of :title
     validates_format_of :host, :with=>/^[a-z0-9.]*$/
