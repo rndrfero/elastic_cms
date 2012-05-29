@@ -15,7 +15,7 @@ module Elastic
     
     belongs_to :site
     has_many :file_records
-    alias :frs :file_records
+   alias :frs :file_records
 #    accepts_nested_attributes_for :file_records
     
     validates_presence_of :title, :site_id

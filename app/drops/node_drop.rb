@@ -23,15 +23,28 @@ class NodeDrop < Liquid::Drop
   # -- contents --
   
   def contents
-    @contents ||= @node.contents.map{ |x| ContentDrop.new x }
+    @contents ||= @node.contents.map do |x| 
+      ref = Elastic::Context.user ? x.reference : (x.published_reference||x.reference)
+      case ref.class.to_s
+        when 'Elastic::FileRecord' then FileRecordDrop.new ref
+        when 'Elastic::Gallery' then GalleryDrop.new ref
+        when 'Elastic::Node' then NodeDrop.new ref
+        else ContentDrop.new x
+      end
+        
+      # if x.reference.is_a? 
+      #   FileRecordDrop.new x.reference
+      # elsif x.reference.is_a? Elastic::Gallery
+      #   GalleryDrop.new x.reference
+      # elsif x.reference.is_a? Elastic::Node
+      #   NodeDrop.new x.reference
+      # else
+      #   ContentDrop.new x
+      # end
+    end
   end
-
-  # def content1
-  #   index = 1-1
-  #   return nil if index >= @node.contents.size
-  #   ContentDrop.new @node.contents[index]
-  # end
   
+    
   # -- navigation --
   
   def parent
@@ -49,13 +62,6 @@ class NodeDrop < Liquid::Drop
   for x in %w{ ancestors children siblings descendants subtree }
     module_eval "def #{x}; @node.#{x}.published.map{ |x| NodeDrop.new x }; end"    
   end  
-  # 
-  # def children
-  #   @node.children.map{ |x| NodeDrop.new x }
-  # end
-    
-  
-  
   
   def to_s
     @node ? @node.title : nil

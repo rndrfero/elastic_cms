@@ -12,7 +12,8 @@ module Elastic
   
     serialize :title_loc
   
-    has_many :contents, :dependent=>:destroy
+    has_many :contents, :dependent=>:destroy, :include=>:content_config, :order=>'elastic_content_configs.position'
+#    has_many :content_configs, :through=>:content
     belongs_to :section
     belongs_to :site
     belongs_to :published_version, :class_name=>'Version', :foreign_key=>'published_version_id'    
@@ -83,7 +84,7 @@ module Elastic
           c ||= Content.new :content_config_id=>cc_id, :node=>self, :locale=>Context.locale
 #          c.update_attributes attrs
           c.attributes= attrs
-          @changed = true if c.text_changed? # or c.binary_changed?
+          @changed = true if c.text_changed? or c.reference_id_changed? or c.reference_type_changed?
           c.save
         end
       else
@@ -91,7 +92,8 @@ module Elastic
           c = content_getter cc_id 
           c ||= Content.new :content_config_id=>cc_id, :node=>self
           c.attributes= attrs
-          @changed = true if c.text_changed? # or c.binary_changed?
+          @changed = true if c.text_changed? or c.reference_id_changed? or c.reference_type_changed?
+#           if c.text_changed?  or c.binary_changed?
           c.save
 #          c.update_attributes attrs
         end      
@@ -119,18 +121,17 @@ module Elastic
       for c in contents
         the_c = c.version_at(timestamp)
         c.update_attribute :published_text, the_c.text
-#        raise c.published_text.inspect
+        c.update_attribute :published_reference_id, the_c.reference_id
+        c.update_attribute :published_reference_type, the_c.reference_type
       end
-#      contents true
-#      self.save!
-#      raise self[:published_version_id].inspect
-#      raise self.published_version.inspect
     end
     
     def publish_recent!
       self.published_version = nil
       for c in contents
         c.update_attribute :published_text, nil
+        c.update_attribute :published_reference_id, nil
+        c.update_attribute :published_reference_type, nil
       end
       self.save!
     end

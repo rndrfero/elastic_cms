@@ -126,7 +126,7 @@ module Elastic
     end
 
     def render_access_denied
-      render :inline=>"Sorry, access denied. Request with context logged."
+      render :inline=>"Sorry, access denied."
     end
     
     def postprocess(out, template_name)

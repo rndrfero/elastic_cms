@@ -4,6 +4,7 @@ module Elastic
     wake :within_module=>'Elastic'
   
     before_filter :prepare
+    
 
     def toggle_published
       @item.toggle_published!
@@ -58,6 +59,8 @@ module Elastic
           old_c = c.version_at @version.created_at
 #          old_c ||= c.versions.last.reify
           c.text = old_c ? old_c.text : nil
+          c.reference_id = old_c ? old_c.reference_id : nil
+          c.reference_type = old_c ? old_c.reference_type : nil
         end
         flash.now[:hilite] = 'Ressurection...'
       else
@@ -136,10 +139,11 @@ module Elastic
     def prepare        
       logger.debug "NodesController PREPARE"
       # not my section
-      if not @section or not Context.site.section_ids.include? @section.id
-        redirect_to access_denied_path 
-        return false
-      end
+#       if not @section or not Context.site.section_ids.include? @section.id
+# #        raise rereferer.to_yaml
+#         redirect_to access_denied_path 
+#         return false
+#       end
       if @item
         @item.section ||= @section
         @item.locale ||= Context.locale if @section.localization == 'free'

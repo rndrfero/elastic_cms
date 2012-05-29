@@ -16,4 +16,6 @@ table { border-collapse: collapse; }
 td, th { border: 1px solid #DDD; padding: 0px 10px;  }
 th { background-color: #EEE; text-align: left; }
 
+code, pre { background: #F6F6F6; border: 1px solid #DDD; padding: 2px; }
+
 .note { font-size: 70%; }

@@ -12,6 +12,7 @@ module Elastic
   
     has_many :content_configs, :dependent=>:destroy, :order=>:position
     has_many :nodes #, :order=>lambda{ |x| raise 'fuck' }  
+#    has_many :contents, :through => :nodes
   
     accepts_nested_attributes_for :content_configs, :allow_destroy => true
 

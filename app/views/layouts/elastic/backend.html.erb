@@ -39,7 +39,7 @@
 				<% end %>
 				<%= Elastic::Context.site.title %>&nbsp;&nbsp;
 				<% if Elastic::Context.user %>
-				  <%= link_to "Sign out #{Elastic::Context.user.email}", logout_path %>
+				  <%= link_to "Sign out #{Elastic::Context.user.email}",  destroy_user_session_path, :method=>:delete %>
 				<% end %>
 				
 			</div>

@@ -17,7 +17,7 @@ class FileRecordDrop < Liquid::Drop
   end
     
   def to_s
-    @file_record.title
+    @file_record.filename
   end
   
 end

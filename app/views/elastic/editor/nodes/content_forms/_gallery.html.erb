@@ -1,0 +1,5 @@
+<h4 class="inline"><%= content_config.title %>:</h4>
+
+<%= form_helper.select 'reference_id', [['',nil]]+Elastic::Context.site.galleries.map{ |x| [x.title,x.id] }, :selected=>content.reference_id %>
+
+<%= form_helper.hidden_field 'reference_type', :value=>'Elastic::Gallery' %>

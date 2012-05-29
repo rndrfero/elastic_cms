@@ -1,4 +1,18 @@
-porozmyslat poriadne nad pravami, popr. deklarativnymi pravami.
+- editacia na frontende
+
+- preklady 
+
+- timestamping option v galeriach = versioning suborov
+- dedenie hlavneho nastavenia v galerie
+
+- import / export 
+
+- theme.spec.yaml
+- theme.data.yaml -> import export
+
+- urobit poriadok v prihlasovani a devise
+- porozmyslat poriadne nad pravami, popr. deklarativnymi pravami.
+
 
 teraz jak je to urobene, skor minimalisticky. nejake role + dzivy deklarativny system.
 

@@ -17,15 +17,23 @@
 		</div>		
 	
 	  <% 
-	   if gallery.has_variant? :tnb
+	   if gallery.has_variant? :tna and gallery.has_variant? :tnb
 		   html = raw("
 		     <img class=\"tna\" src=\"#{fr.path(:tna)}?#{rand}\" 
 				   onclick=\"$('##{dom_id fr}').toggleClass('active');\"/>
 				 <img class=\"tnb\" src=\"#{fr.path(:tnb)}?#{rand}\" 
 				   onclick=\"$('##{dom_id fr}').toggleClass('active');\"/>
 				")
-			else
+			elsif gallery.has_variant? :tna
 		   html = raw("<img src=\"#{fr.path(:tna)}?#{rand}\" 		     
+				 onclick=\"$('##{dom_id fr}').toggleClass('active');\"
+		     />")
+		  elsif gallery.has_variant? :img
+		   html = raw("<img src=\"#{fr.path(:img)}?#{rand}\" 		     
+				 onclick=\"$('##{dom_id fr}').toggleClass('active');\"
+		     />")
+			else
+		   html = raw("<img class=\"variantOrig\" src=\"#{fr.path(:orig)}?#{rand}\" 		     
 				 onclick=\"$('##{dom_id fr}').toggleClass('active');\"
 		     />")
 			end

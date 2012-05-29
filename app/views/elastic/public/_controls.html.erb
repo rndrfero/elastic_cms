@@ -19,12 +19,6 @@
 			<%= link_to 'Elastic CMS', master_site_path(@site) %>
 		<% end %>
 		
-		&nbsp;
-
-		<% if Elastic::Context.user %>
-		  <%= link_to "Sign out #{current_user.email}", logout_path %>
-		<% end %>
-
 	</div>
 
 <% end %>

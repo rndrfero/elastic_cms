@@ -1,6 +1,4 @@
-<div>
 	<h4 class="inline"><%= content_config.title %>:</h4>
 
 	<%= form_helper.select 'text', content_config.meta['values'].split(',').map!{|x| x.strip }, 
 	  :selected=>(content ? content.text : nil) %>
-</div>

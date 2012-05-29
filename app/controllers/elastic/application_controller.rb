@@ -27,13 +27,17 @@ module Elastic
         return false
       end if Context.site.locales
       
-      Context.user = current_user
-      
-      # site own protection      
-      # if Context.user and Context.user.elastic_site_id != Context.site.id and Context.site.master_id != Context.user.id
-      #   render :text=>'access violation - TODO IN SESSIONS CONTROLLER'
-      #   return false
-      # end      
+      Context.user = current_user      
+    end
+    
+    def ensure_ownership
+      for x in %w{ item node gallery section }
+        var = instance_variable_get '@'+x
+        if var and var.respond_to? :site_id and var.site_id!=Context.site.id
+          redirect_to access_denied_path
+          return false
+        end
+      end      
     end
 
     def default_url_options(options={})

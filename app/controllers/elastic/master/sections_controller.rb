@@ -1,5 +1,7 @@
 module Elastic
   class Master::SectionsController < ApplicationController
+    
+    before_filter :ensure_ownership
   
     wake :within_module=>'Elastic'
 

@@ -110,8 +110,10 @@
 		
 				<%= f.fields_for "contents_setter[#{cc.id}]" do |f2| %>
 					<%#= f2.text_area 'text', :value=>(c ? c.text : nil), :rows=>5, :cols=>60 %>
-				  <%= render :partial=>'elastic/editor/nodes/content_forms/'+cc.form,
-				        :locals=>{:form_helper=>f2, :content_config=>cc, :content=>c} %>
+					<div>
+					  <%= render :partial=>'elastic/editor/nodes/content_forms/'+cc.form,
+					        :locals=>{:form_helper=>f2, :content_config=>cc, :content=>c||Elastic::Content.new} %>
+				  </div>
 				<% end %>		
 			<% end %>
 		<% end %>

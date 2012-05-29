@@ -5,6 +5,7 @@ module Elastic
     
     before_filter :prepare
     after_filter :wake_referer_params
+    before_filter :ensure_ownership
     
     def edit
       @item.sync!

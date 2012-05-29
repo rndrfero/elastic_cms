@@ -39,9 +39,48 @@
 
 <h3>Structure</h3>
 
-<code> include 'current_theme/partial' the_str: 'nice string' the_int: 16 the_object: site </code>
+{% raw %}
+	<code>
+	  {% give_me node 16 %}
+  	{{ the_node.title }}
+	</code>
+{% endraw %}
+
+{% give_me node 16 %} {{ the_node.title }}
+{% give_me gallery the_node.title %}
+
+<p>the_node.title: {{ the_node.title }}</p>
+<p>the_node.contents[0]: {{ the_node.contents[0] }}</p>
+
+<p>the_gallery.title: {{ the_gallery.title }}</p>
+
+<h4>Parials - inside theme</h4>
+
+{% raw %}<code>{% include 'current_theme/partial' the_str: 'nice string' the_int: 16 the_object: site %}</code>{% endraw %}
+
+<br/><br/>
 
 {% include 'current_theme/partial' the_str: 'nice string' the_int: 16 the_object: site %}
+
+<h4>Partials - outside theme</h4>
+
+<a href="/{{locale}}/editor/galleries/{{site.galleries.id}}/edit">EDIT GALLERY</a>
+
+{% raw %}<pre>
+{% give_me gallery site.galleries.first %}
+{% include 'fragments/rndrfero/gallery_classic' %}
+</pre>{% endraw %}
+
+{% give_me gallery site.galleries.first %}
+{% include 'fragments/rndrfero/gallery_classic' %}
+
+{% raw %}<pre>
+{% give_me gallery site.galleries.first %}
+{% include 'fragments/rndrfero/gallery_ad' %}
+</pre>{% endraw %}
+
+{% give_me gallery site.galleries.first %}
+{% include 'fragments/rndrfero/gallery_ad' %}
 
 	
 <h3>Global drops</h3>
@@ -75,24 +114,16 @@
 <table>
 	<tr> <th> site.galleries.first.title </th> <td> {{ site.galleries.first.title }} </td> </tr>
 	<tr> <th> site.galleries.first.path </th> <td> {{ site.galleries.first.path }} </td> </tr>
-	<tr> <th colspan="2" class="note"> Strings </th> </tr>
-	<tr> <th> site.galleries.first.files </th> <td><i>array:</i> {{ site.galleries.first.files }} </td> </tr>
-	<tr> <th> site.galleries.first.images </th> <td><i>array:</i> {{ site.galleries.first.images }} </td> </tr>
-	<tr> <th> site.galleries.first.non_images </th> <td><i>array:</i> {{ site.galleries.first.non_images }} </td> </tr>
 	<tr> <th colspan="2" class="note"> FileRecordDrops </th> </tr>
-	<tr> <th> site.galleries.first.file_records </th> 
-		<td><i>array of FileRecordDrops:</i> {{ site.galleries.first.file_records }} </td> </tr>
-	<tr> <th> site.galleries.first.fr_images </th> 
-		<td><i>array of FileRecordDrops:</i> {{ site.galleries.first.fr_images }} </td> </tr>
-	<tr> <th> site.galleries.first.fr_non_images </th> 
-		<td><i>array of FileRecordDrops:</i> {{ site.galleries.first.fr_non_images }} </td> </tr>
+	<tr> <th> site.galleries.first.files </th> <td><i>array of FileRecordDrops:</i> {{ site.galleries.first.files }} </td> </tr>
+	<tr> <th> site.galleries.first.images </th> <td><i>array of FileRecordDrops:</i> {{ site.galleries.first.images }} </td> </tr>
+	<tr> <th> site.galleries.first.non_images </th> <td><i>array of FileRecordDrops:</i> {{ site.galleries.first.non_images }} </td> </tr>	
 </table>
 
 <h3>FileRecord drops (assign x = site.galleries.first.fr_images.first)</h3>
-{% assign x = site.galleries.first.fr_images.first %}
+{% assign x = site.galleries.first.images.first %}
 <table>
-	<tr> <th> x.title </th> 
-		<td> {{ site.galleries.first.fr_images.first.title }} </td> </tr>
+	<tr> <th> x.title </th> <td> {{ x.title }} </td> </tr>
 	<tr> <th> x.filename </th> <td> {{ x.filename }} </td> </tr>
 	<tr> <th> x.path </th> <td> {{ x.path }} </td> </tr>
 	<tr> <th> x.path_orig </th> <td> {{ x.path_orig }} </td> </tr>

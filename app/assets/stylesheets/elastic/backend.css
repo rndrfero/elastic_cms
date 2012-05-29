@@ -79,6 +79,8 @@ a:hover { text-decoration: underline; }
 .wakeThemeGallery .imageItem img { margin: 0px; padding: 0px; border: none; }
 .wakeThemeGallery .imageItem.active { padding: 1px; margin: 5px; border: 4px solid #77C02E; }
 
+.wakeThemeGallery .imageItem img.variantOrig { width: 120px; height: 120px; }
+
 .wakeThemeGallery .imageItem .controls { display: none; position: absolute;}
 .wakeThemeGallery .imageItem .controls a { display: block; background: white; padding: 2px 2px; margin-bottom: 4px; }
 .wakeThemeGallery .imageItem.active .controls { display: block; }

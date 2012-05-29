@@ -10,12 +10,20 @@ ty vole
 
 {% for n in section_hukot.nodes %}
 
-  <div style="float: left; background: cyan; margin: 1em; padding: 1em;">
+  <div style="background: cyan; margin: 1em; ">
 	
-	   <h3>1: {{ n.contents[0] }}</h3>
-	   <h3>2: {{ n.contents[1] }}</h3>
-	   <h3>3: {{ n.contents[2] }}</h3>
+	   <p>1: {{ n.contents[0] }} </p>
+	   <p>2: {{ n.contents[1] }}</p>
+	   <p>3: {{ n.contents[2] }}</p>
+	   <p>4: {{ n.contents[3] }}</p>
+	   <p>5: {{ n.contents[4] }}</p>
 	
 	</div>
 	
 {% endfor %}
+
+
+<h3>The gallery</h3>
+
+{% give_me gallery site.galleries.first %}
+

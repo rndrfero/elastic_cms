@@ -14,7 +14,7 @@ Elastic::Engine.routes.draw do
   
   # -- devise --
 
-  devise_for :users, :class_name=>'Elastic::User', #, :module=>:elastic,
+  devise_for :users, :class_name=>'Elastic::User', :module=>:devise,
     :controllers => { :sessions => "elastic/devise/sessions" } #, :skip=>'sessions' #, :controller=>'elastic/devise/sessions'
   
   # -- backend --
