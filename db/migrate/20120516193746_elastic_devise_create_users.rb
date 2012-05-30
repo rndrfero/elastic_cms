@@ -1,6 +1,6 @@
-class DeviseCreateUsers < ActiveRecord::Migration
+class ElasticDeviseCreateUsers < ActiveRecord::Migration
   def change
-    create_table(:users) do |t|
+    create_table(:elastic_users) do |t|
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
@@ -36,14 +36,15 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # elastic-cms
       t.string :name
       t.integer :site_id
+      t.string :locale
 
       t.timestamps
     end
 
-    add_index :users, :email,                :unique => true
-    add_index :users, :reset_password_token, :unique => true
+    add_index :elastic_users, :email,                :unique => true
+    add_index :elastic_users, :reset_password_token, :unique => true
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
-    add_index :users, :authentication_token, :unique => true
+    add_index :elastic_users, :authentication_token, :unique => true
   end
 end

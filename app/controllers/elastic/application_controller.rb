@@ -1,3 +1,4 @@
+require_dependency "elastic/string"
 require_dependency "wake.rb"
 require_dependency "elastic/liquid_tags"
 
@@ -27,7 +28,10 @@ module Elastic
         return false
       end if Context.site.locales
       
-      Context.user = current_user      
+      Context.user = current_user
+      if Context.user
+        I18n.locale = current_user.locale.blank? ? :en : current_user.locale
+      end
     end
     
     def ensure_ownership

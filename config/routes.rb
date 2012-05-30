@@ -6,6 +6,9 @@ Elastic::Engine.routes.draw do
   
   match '/x/*filepath' => 'elastic#static' #, :as=>'static'
   match '/404' => 'elastic#not_found'# , :as=>'not_found'
+
+  match "/login" => redirect("/users/sign_in")  
+  match "/logout" => redirect("/users/sign_out")  
   
   match '/:locale' => 'elastic#index'
   match '/:locale/show/:key' => 'elastic#show'
@@ -16,6 +19,7 @@ Elastic::Engine.routes.draw do
 
   devise_for :users, :class_name=>'Elastic::User', :module=>:devise,
     :controllers => { :sessions => "elastic/devise/sessions" } #, :skip=>'sessions' #, :controller=>'elastic/devise/sessions'
+    
   
   # -- backend --
   
@@ -82,3 +86,4 @@ Elastic::Engine.routes.draw do
   end
   
 end
+  

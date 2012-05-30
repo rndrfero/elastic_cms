@@ -10,39 +10,44 @@ module Elastic
     VARIANTS = %w{ img tna tnb }
     META = %w{ w h efx params }
     
-    attr_accessible :title, :key, :is_star, :is_watermarked, :meta, :file #, :file_records_attributes
+    attr_accessible :title, :key, :is_star, :is_watermarked, :meta, :file, :is_timestamped, :site_id #, :file_records_attributes
     serialize :meta
     
     belongs_to :site
     has_many :file_records
-   alias :frs :file_records
+    alias :frs :file_records
 #    accepts_nested_attributes_for :file_records
     
     validates_presence_of :title, :site_id
-#    validates_format_of :key, :allow_blank=>true, :with=>/^[a-z]*$/
+    validates_uniqueness_of :key, :scope=>:site_id
     
-    before_validation :keep_context
+#    before_validation :keep_context
     before_validation :saturate
+    before_validation :generate_key
     after_save :integrity!
+    
     after_save(:if=>lambda{ |x| x.meta_changed? }) { process! :force=>true}
     
     with_toggles :star, :locked, :hidden, :watermarked    
     
-    def dir
-      "#{id}-#{key.blank? ? 'untitled' : key}"
+    def dir(the_key=key)
+      "#{the_key.blank? ? "#{id}-untitled" : the_key}"
+    end
+
+    def filepath(the_key=key)
+      File.join site.home_dir, "galleries", dir(the_key)
     end
     
     def path
 #      "#{site.path}/galleries/#{dir}"
       "/x/galleries/#{dir}"
     end
-    
-    def filepath
-      File.join site.home_dir, "galleries", dir
-    end
-    
+        
     def integrity!
-      create_or_rename_dir! filepath
+      if dir != dir(key_was) and File.exists? filepath(key_was)
+        FileUtils.mv filepath(key_was), filepath
+      end      
+#      create_or_rename_dir! filepath            
       for x in %w{ orig img tna tnb }
         FileUtils.mkdir_p File.join(filepath,x)
       end
@@ -90,8 +95,10 @@ module Elastic
     
     def get_meta(variant,meta_attr)
       variant, meta_attr = variant.to_s, meta_attr.to_s
-      ret = (meta[variant]||{})[meta_attr]
-      ret = ((site||Context.site).gallery_meta[variant]||{})[meta_attr] if ret.blank?
+      ret = ((meta||{})[variant]||{})[meta_attr]
+#      raise site.to_yaml
+#      ret = site.gallery.meta[variant][meta_attr] if ret.blank?
+#      ret = ((site||Context.site).gallery_meta[variant]||{})[meta_attr] if ret.blank?
       ret = nil if ret.blank?
       ret
     end
@@ -139,14 +146,14 @@ module Elastic
       sync!
     end
         
-    def keep_context
-      self.site_id = Context.site.id
-    end
+    # def keep_context
+    #   self.site_id = Context.site.id
+    # end
     
-    def initialize(attributes = nil)
-      super attributes
-      saturate
-    end
+    # def initialize(attributes = nil)
+    #   super attributes
+    #   saturate
+    # end
     
     def saturate
       self.meta = {} if not meta

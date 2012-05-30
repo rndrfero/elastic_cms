@@ -5,7 +5,7 @@ module Elastic
     
     attr_accessible :content_config, :node, :content_config_id, :node_id, :text, :locale, :file, :reference_id, :reference_type
   
-    belongs_to :content_config
+    belongs_to :content_config, :readonly=>true
     belongs_to :node
       
     def file=(x)

@@ -16,7 +16,7 @@ module Elastic
     belongs_to :site
     has_many :sites, :foreign_key=>'master_id'
   
-    attr_accessible :name, :site_id
+    attr_accessible :name, :site_id, :locale
     
     def editor?(the_site=Context.site)
       self.site_id == the_site.id or master_of? the_site.id

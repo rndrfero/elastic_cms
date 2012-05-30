@@ -8,7 +8,7 @@ class CreateElasticIdentities < ActiveRecord::Migration
       t.integer :user_id
       t.string :password_digest
       t.string :email
-
+      
       t.timestamps
     end
     add_index :elastic_identities, :user_id

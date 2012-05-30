@@ -10,6 +10,10 @@ class CreateElasticGalleries < ActiveRecord::Migration
       
       t.boolean :is_star
       t.boolean :is_watermarked
+      t.boolean :is_timestamped
+      
+      t.boolean :is_hidden
+      t.boolean :is_locked
       
       t.text :meta
       

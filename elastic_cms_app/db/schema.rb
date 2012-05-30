@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120523114350) do
+ActiveRecord::Schema.define(:version => 20120530084812) do
 
   create_table "elastic_content_configs", :force => true do |t|
     t.string   "title"
@@ -27,12 +27,16 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
 
   create_table "elastic_contents", :force => true do |t|
     t.text     "text"
+    t.integer  "reference_id"
+    t.string   "reference_type"
     t.text     "published_text"
+    t.integer  "published_reference_id"
+    t.string   "published_reference_type"
     t.integer  "content_config_id"
     t.text     "locale"
     t.integer  "node_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   create_table "elastic_file_records", :force => true do |t|
@@ -52,11 +56,12 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
     t.integer  "node_id"
     t.boolean  "is_star"
     t.boolean  "is_watermarked"
+    t.boolean  "is_timestamped"
+    t.boolean  "is_hidden"
+    t.boolean  "is_locked"
     t.text     "meta"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.boolean  "is_hidden"
-    t.boolean  "is_locked"
   end
 
   add_index "elastic_galleries", ["site_id"], :name => "index_elastic_galleries_on_site_id"
@@ -65,10 +70,10 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
     t.string   "uid"
     t.string   "provider"
     t.integer  "user_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
     t.string   "password_digest"
     t.string   "email"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "elastic_identities", ["user_id"], :name => "index_elastic_identities_on_user_id"
@@ -77,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
     t.string   "title"
     t.string   "title_loc"
     t.string   "link"
+    t.string   "redirect"
     t.integer  "section_id"
     t.integer  "site_id"
     t.text     "meta_keywords"
@@ -84,18 +90,16 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
     t.string   "locale"
     t.string   "key"
     t.boolean  "is_star"
+    t.boolean  "is_locked"
     t.boolean  "is_published"
     t.integer  "node_id"
     t.integer  "position"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.integer  "version_cnt"
+    t.datetime "published_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "ancestry"
     t.integer  "ancestry_depth"
-    t.integer  "is_locked"
-    t.integer  "version_cnt"
-    t.string   "redirect"
-    t.datetime "published_at"
-    t.integer  "published_version_id"
   end
 
   add_index "elastic_nodes", ["ancestry"], :name => "index_elastic_nodes_on_ancestry"
@@ -107,12 +111,12 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
     t.string   "localization"
     t.integer  "site_id"
     t.string   "key"
+    t.boolean  "is_star"
+    t.boolean  "is_hidden"
     t.boolean  "is_locked"
+    t.string   "form"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.boolean  "is_hidden"
-    t.boolean  "is_star"
-    t.string   "form"
   end
 
   add_index "elastic_sections", ["key"], :name => "index_elastic_sections_on_key"
@@ -120,6 +124,7 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
   create_table "elastic_sites", :force => true do |t|
     t.string   "host"
     t.string   "title"
+    t.string   "key"
     t.text     "locales"
     t.string   "theme"
     t.string   "theme_index"
@@ -130,31 +135,25 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
     t.text     "locale_to_index_hash"
     t.boolean  "is_force_reload_theme"
     t.boolean  "is_locked"
+    t.integer  "gallery_id"
+    t.integer  "master_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
-    t.string   "key"
-    t.text     "gallery_meta"
+    t.text     "galleries_meta"
   end
 
   add_index "elastic_sites", ["host"], :name => "index_elastic_sites_on_host"
 
   create_table "elastic_template_caches", :force => true do |t|
-    t.string   "key"
+    t.string   "ident"
     t.binary   "template"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "elastic_template_caches", ["key"], :name => "index_elastic_template_caches_on_ident"
+  add_index "elastic_template_caches", ["ident"], :name => "index_elastic_template_caches_on_ident"
 
   create_table "elastic_users", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
@@ -166,13 +165,16 @@ ActiveRecord::Schema.define(:version => 20120523114350) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
+    t.string   "name"
+    t.integer  "site_id"
+    t.string   "locale"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
   end
 
-  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "elastic_users", ["authentication_token"], :name => "index_elastic_users_on_authentication_token", :unique => true
+  add_index "elastic_users", ["email"], :name => "index_elastic_users_on_email", :unique => true
+  add_index "elastic_users", ["reset_password_token"], :name => "index_elastic_users_on_reset_password_token", :unique => true
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false

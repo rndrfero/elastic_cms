@@ -94,8 +94,9 @@
 			<%= yield %>			
 			
 			<br/><br/><br/><br/><br/><hr/>
-			<%=debug current_user %>
-			<%=debug user_signed_in? %>
+			<%=debug @item.errors if @item %>
+			<%#=debug current_user %>
+			<%#=debug user_signed_in? %>
 			<%#= link_to 'fuck', 'off', :remote=>true %>
 		<div>
 	</div>

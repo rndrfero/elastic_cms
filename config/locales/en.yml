@@ -1,0 +1,22 @@
+en:
+  wake:
+    gallery:
+      new: 'You are creating the new gallery.'
+      create_ok: 'The gallery was created.'
+      list: 'You are listing galleries.'
+      edit: 'You are editing the gallery.'
+      update_ok: 'The gallery was updated.'
+    site:
+      new: 'You are creating new site.'
+      create_ok: 'New site has been created.'
+      create_error: 'Can not create site yet.'
+      list: 'You are listing your sites.'
+      edit: 'Web site configuration.'
+      update_ok: 'Saved.'
+      update_error: 'Can not save!'
+    user:
+      list: 'You are listing users.'
+      edit: 'You are editing the user.'
+      create_ok: 'The user was created.'
+      update_ok: 'The user was updated.'
+      

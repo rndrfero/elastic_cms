@@ -1,6 +1,3 @@
-#require_dependency 'strip_diacritic'
-require 'iconv'
-
 module Elastic
   class Node < ActiveRecord::Base
     include WithKey
@@ -29,7 +26,7 @@ module Elastic
     validates_inclusion_of :locale, :in=>lambda{ |x| x.site.locales }, :if=>lambda{ |x| x.section.localization=='free' }
     validates_presence_of :published_at, :if=>lambda{ |x| x.section.form == 'blog' }
   
-    before_validation :generate_key
+    before_validation :generate_key, :if=>lambda { |x| x.key.blank? }
     before_validation :keep_context
     before_save :inc_version_cnt
     before_destroy :wake_destroyable?

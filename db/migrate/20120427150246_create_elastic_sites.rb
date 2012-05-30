@@ -18,10 +18,10 @@ class CreateElasticSites < ActiveRecord::Migration
 
       t.boolean :is_force_reload_theme
       t.boolean :is_locked
-      
-      t.text :gallery_meta
-      
+
+      t.integer :gallery_id
       t.integer :master_id
+
       
       t.timestamps
     end

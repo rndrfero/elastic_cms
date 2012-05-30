@@ -11,7 +11,7 @@ module Elastic
       @item.sync!
       super
     end
-
+    
         
     def toggle_star
       @item.toggle_star!
@@ -36,10 +36,7 @@ module Elastic
       flash[:hilite] = 'simply_yes'
       redirect_to :back
     end
-      
-    
-    
-    
+          
     def f_destroy
       indexes = params[:index].map!{ |x| x.to_i }
       for fr in @item.file_records
@@ -48,18 +45,20 @@ module Elastic
       redirect_to editor_gallery_path(@item)      
     end
       
-    def wake_list
-      super
-      @items = @items.where :site_id=>Context.site.id
+    # def wake_list
+    #   super
+    #   @items = @items.where :site_id=>Context.site.id
+    # end
+
+
+    def wake_constraints
+      {:site_id=>Context.site.id}
     end
     
     private
     def prepare
-      # @item.attributes= params[:gallery]
-      # @item.save!
-      # raise @item.meta.inspect
-      # raise params[:gallery][:meta][:tna].inspect
     end
+    
   end
 
 end

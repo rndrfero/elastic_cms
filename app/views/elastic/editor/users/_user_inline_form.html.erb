@@ -27,6 +27,10 @@
 				<td> <%= f.select :site_id, Elastic::Context.user.sites.map{ |x| [x.host,x.id] } %> <%=raw wfe :int %></td>
 			</tr>
 			<tr>
+				<tr>
+					<th> Language: </td>
+					<td> <%= f.select :locale, [nil,'en','sk'] %> <%=raw wfe :locale %></td>
+				</tr>
 				<th></th>
 				<th> <%= f.submit %> </th>
 			</tr>

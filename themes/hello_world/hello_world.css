@@ -1,7 +1,6 @@
-
 body { color: #333; font-family: 'Arial'; font-size: 13px; }
 
-a { color: #3539C5; text-decoration: none; }
+a { color: #3539C5; font-weight: bold; font-family: 'Verdana'; font-size: 12px; text-decoration: none; }
 a:hover { text-decoration: underline; }
 a.active { background: lightgreen; }
 
@@ -9,6 +8,8 @@ i { color: #22ADA9; }
 
 fieldset, legend { background: #EEE; border: 1px solid #DDD; }
 legend {  color: green; font-weight: bold; background: #FFF; margin-bottom: 0.5em; }
+
+address { background: #E1FDD6; border: 1px solid #8FFF63; width: 600px; padding: 0.5em; margin-bottom: 1em; }
 
 h3 { color: green; }
 
@@ -19,3 +20,5 @@ th { background-color: #EEE; text-align: left; }
 code, pre { background: #F6F6F6; border: 1px solid #DDD; padding: 2px; }
 
 .note { font-size: 70%; }
+
+.shadow { box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-box-shadow: 3px 3px 7px #AAA; }

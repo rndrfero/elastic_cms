@@ -50,8 +50,21 @@ module Elastic
       end
     end
   end  
+  
+  class MdTag < Liquid::Block
+    def initialize(tag_name, markup, tokens)
+      super
+    end
+
+    def render(context)
+      output = super
+      BlueCloth.new(output).to_html
+    end
+  end
+  
 end
 
 Liquid::Template.register_tag 'give_me', Elastic::GiveMeTag
 Liquid::Template.register_tag 'raw', Elastic::RawTag
+Liquid::Template.register_tag 'md', Elastic::MdTag
 

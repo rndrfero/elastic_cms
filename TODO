@@ -1,9 +1,28 @@
-- editacia na frontende
+- keep_context je picovina, treba poriesit to, aby to atribut site_id bol readonly
 
-- preklady 
-
-- timestamping option v galeriach = versioning suborov
 - dedenie hlavneho nastavenia v galerie
+- dashboard pre editora
+- preklady
+
+- import / export (na to aby to bolo import/export kompatibl, nemozu byt nikde referencie cez idcka)
+
+- dokumentacia
+
+- tynimce a markdown editor: EpicEditor , markItUp!
+
+- destroy gallery
+
+deployment
+
+====================================================================================
+
+- editacia na frontende
+- sekcia s automatickou galeriou (via content or?)
+- preklady 
+- timestamping option v galeriach = versioning suborov
+
+- watermarking
+- logo
 
 - import / export 
 

@@ -1,27 +1,33 @@
 module Elastic  
   class Site < ActiveRecord::Base
+#    include WithKey
+    
     attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout, :master_id
  
     include Elastic::WithDirectory
       
-    has_many :sections
-    has_many :nodes
-    has_many :template_caches
-    has_many :galleries
+    has_many :sections, :dependent=>:destroy
+    has_many :nodes, :dependent=>:destroy
+    has_many :template_caches #, :dependent=>:destroy
+    has_many :galleries, :dependent=>:destroy
     
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
+    belongs_to :gallery, :dependent=>:destroy
   
-    validates_presence_of :title
+    validates_presence_of :title, :host
     validates_format_of :host, :with=>/^[a-z0-9.]*$/
     validates_presence_of :locales_str
+    validates_uniqueness_of :host
   
     serialize :locales
     serialize :locale_to_index_hash
-    serialize :gallery_meta
 
+    before_validation :saturate
+#    before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
     before_destroy :wake_destroyable? 
     after_save :integrity!
+    after_create { |x| x.create_gallery!(:title=>'DEFAULT SETTINGS', :site_id=>x.id, :is_hidden=>true) }
   
     def locales_str
       (locales||[]).join(', ')
@@ -31,7 +37,6 @@ module Elastic
       self.locales = x.split(',').map{ |x| x.strip }.uniq
     end
   
-
   
     # -- directories --
     
@@ -47,17 +52,7 @@ module Elastic
     def du
       `du -s #{home_dir}`.to_i
     end
-    
-    # paths
-    
-    # def path
-    #   "/home/#{id}"
-    # end
-    # 
-    # def theme_path
-    #   path + '/themes/' + theme.gsub(/^[^a-z0-9.]/,'')
-    # end
-    
+        
       
     def theme_list
       return nil if new_record?
@@ -97,12 +92,19 @@ module Elastic
 #     raise "#{theme_dir} -> #{home_dir}"
      FileUtils.symlink theme_dir, home_dir+'current_theme'
     end
+
+
+    private
+    
+    def saturate
+      self.locales_str = 'en'
+    end
   
   
     # -- wake --
-    # def wake_destroyable?
-    #   nodes.empty?
-    # end
+    def wake_destroyable?
+      nodes.empty? and galleries.empty?
+    end
 
   end  
 end

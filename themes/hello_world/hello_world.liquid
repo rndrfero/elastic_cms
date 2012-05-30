@@ -1,5 +1,12 @@
 <h2>Congratulations, you are running the <b>Elastic CMS</b> site!</h2>
 
+<address class="shadow">
+{% md %} 
+  Hey, you can go to [login window](/login) and log in as `admin@example.com` with password `password`.
+{% endmd %}
+</address>
+
+
 <h5>This is an "hello_world" theme from in SITE_HOME/themes. This is Liquid Markup Language.</h5>
 
 <h3>Navigation menu <span class="note">(with highliting)</span></h3>
@@ -36,6 +43,12 @@
 		</div>
 	{% endif %}
 </div>	
+
+<h3>Markdown</h3>
+
+{% md %} 
+#### this site: {{site}}
+{% endmd %}
 
 <h3>Structure</h3>
 
