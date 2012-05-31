@@ -2,16 +2,36 @@ en:
   wake:
     general:
       destroy_confirm: 'Are you sure? This action CAN NOT be undone.'
+    file_record:
+      edit: 'You are editing the file.'
+      update_ok: 'Saved succesfully.'
+      update_error: 'Can not update file!'
     gallery:
       new: 'You are creating the new gallery.'
       create_ok: 'The gallery was created.'
       list: 'You are listing galleries.'
       edit: 'You are editing the gallery.'
       update_ok: 'The gallery was updated.'
+    node:
+      new: 'You are creating new node.'
+      create_ok: 'The node was created.'
+      create_error: 'Can not create node!'
+      list: 'You are editing the section.'
+      edit: 'You are editing the node.'
+      update_ok: 'Saved succesfully.'
+      update_error: 'Can not update node!'
+    section:
+      new: 'You are creating new section.'
+      create_ok: 'The section was created.'
+      create_error: 'Can not create section!'
+      list: 'You are listing sections.'
+      edit: 'You are editing the section.'
+      update_ok: 'Section was updated.'
+      update_error: 'Can not update section!'
     site:
       new: 'You are creating new site.'
       create_ok: 'New site has been created.'
-      create_error: 'Can not create site yet.'
+      create_error: 'Can not create site yet!'
       list: 'You are listing your sites.'
       edit: 'Web site configuration.'
       update_ok: 'Saved.'

@@ -1,6 +1,7 @@
 module Elastic
   class FileRecord < ActiveRecord::Base
     include Elastic::ThumbnailGenerators
+    extend WithToggles
     
     REGEXP_IMAGE = Regexp.new('.*\.(jpg|jpeg|png|gif)$', Regexp::IGNORECASE)
     REGEXP_ZIP = Regexp.new('.*\.zip$', Regexp::IGNORECASE)
@@ -12,6 +13,10 @@ module Elastic
     attr_accessible :title, :text, :filename, :ino, :gallery_id, :basename, :extname
     belongs_to :gallery
     
+    with_toggles :star
+    
+    # -- validations --
+    
     validates_presence_of :gallery
     validates_presence_of :filename
     #validates_format_of :filename, :with=>/^[a-zA-Z0-9\-._ ]*$/
@@ -20,6 +25,12 @@ module Elastic
     before_save :rename_files!
     after_create :process!
     after_destroy :remove_files!
+    
+    # -- scopes --
+    
+    scope :starry, where(:is_star=>true)
+
+    # -- methods --
         
     def is_image?
       filename =~ REGEXP_IMAGE

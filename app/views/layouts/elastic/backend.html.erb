@@ -57,8 +57,11 @@
 						%>
 					  <%= link_to 'The Site', address %> 
 					</li>
-					<li><a class="<%= 'selected' if menu_match Elastic::Section.all.map{ |x| editor_section_nodes_path(x) }+[editor_galleries_path, editor_users_path, editor_site_path] %>" href="#tabs1">Editor</a></li>
-			    <li><a class="<%= 'selected' if menu_match '/', master_sections_path, master_sites_path %>" href="#tabs2">Webmaster</a></li>
+					<li><a class="<%= 'selected' if menu_match editor_galleries_path, editor_users_path, editor_site_path %>" href="#tabs1">Editor</a></li>
+					
+					<li><a class="<%= 'selected' if menu_match Elastic::Context.site.sections.all.map{ |x| editor_section_nodes_path(x) } %>" href="#tabs2">Sections</a></li>					
+					
+			    <li><a class="<%= 'selected' if menu_match master_sections_path, master_sites_path %>" href="#tabs3">Webmaster</a></li>
 
 		  </ul> 
 
@@ -69,14 +72,16 @@
 			</div>
 		
 		  <div id="tabs1">
-				<% for x in Elastic::Context.site.sections %>
-				  <%= menu_link_to x.title, editor_section_nodes_path(x) %>
-				<% end %>
 				<%= menu_link_to 'Galleries', editor_galleries_path %>
 				<%= menu_link_to 'Users', editor_users_path %>
 				<%= menu_link_to 'Configure', editor_site_path %>
 			</div> 
 		  <div id="tabs2">
+				<% for x in Elastic::Context.site.sections %>
+				  <%= menu_link_to x.title, editor_section_nodes_path(x) %>
+				<% end %>
+			</div>
+		  <div id="tabs3">
 				<%= menu_link_to 'Sections', master_sections_path %>
 				<%= menu_link_to 'Sites', master_sites_path %>
 			</div>
@@ -93,8 +98,8 @@
 		<div id="InnerWrapper">		
 			<%= yield %>			
 			
-			<br/><br/><br/><br/><br/><hr/>
-			<%=debug @item.errors if @item %>
+			<br/><br/><br/><br/><br/>
+			<%#=debug @item.errors if @item %>
 			<%#=debug current_user %>
 			<%#=debug user_signed_in? %>
 			<%#= link_to 'fuck', 'off', :remote=>true %>

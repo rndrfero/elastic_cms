@@ -1,8 +1,9 @@
 module Elastic
   class Section < ActiveRecord::Base  
     extend WithToggles
+    include WithKey
     
-    attr_accessible :title, :key, :localization, :content_configs_attributes, :form
+    attr_accessible :title, :key, :localization, :content_configs_attributes, :form, :position, :site_id
     
     LOCALIZATIONS = %w{ free mirrored none }
     FORMS = %w{ blog tree }
@@ -13,25 +14,30 @@ module Elastic
     has_many :content_configs, :dependent=>:destroy, :order=>:position
     has_many :nodes #, :order=>lambda{ |x| raise 'fuck' }  
 #    has_many :contents, :through => :nodes
+
+    acts_as_list :scope=>:site_id
   
     accepts_nested_attributes_for :content_configs, :allow_destroy => true
 
     validates_presence_of :key, :title
-    validates_format_of :key, :with=>/^[a-zA-Z0-9\-_]*$/
     validates_uniqueness_of :key, :scope=>:site_id
+    
     validates_inclusion_of :localization, :in=>LOCALIZATIONS
     validates_inclusion_of :form, :in=>FORMS
   
     before_destroy :wake_destroyable?
-    before_validation :keep_context
+    before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
+#    before_validation :keep_context
     
     with_toggles :star, :hidden, :locked
+    
+    scope :ordered, order(:position)
 
     # -- kontext --
 
-    def keep_context
-      self.site_id = Context.site.id
-    end
+    # def keep_context
+    #   self.site_id = Context.site.id
+    # end
     
     def fix_positions!(the_nodes=nodes.roots.all)
       the_nodes.each_with_index do |x,index|

@@ -7,12 +7,13 @@
 
 	<tr>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'id' %> </th>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'position', '#' %> </th>
+		 <th style="width: 5em;"> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'elastic_sections.key' %> </th>
-		 <th style="" class=""> <%= wake_click_order_by 'form' %> </th>
-		 <th style="" class=""> <%= wake_click_order_by 'localization' %> </th>
-		 <th> </th>
-		 <th style="width: 1em;"> </th>
+		 <th style="width: 3em" class=""> <%= wake_click_order_by 'form' %> </th>
+		 <th style="width: 3em;" class=""> <%= wake_click_order_by 'localization' %> </th>
+		 <th style="width: 5em;"> </th>
 	</tr>
 
 <% else %>
@@ -20,10 +21,7 @@
 	<tr id="<%=dom_id item %>" class="hover-parent hilite pointer">
 			
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
-			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
-			<td <%=wo item %> class="b"> <%=whl item.key %> </td>				
-			<td <%=wo item %> class=""> <%=whl item.form %> </td>				
-			<td <%=wo item %> class=""> <%=whl item.localization %> </td>				
+			<td <%=wo item %> class="lo-visible"> <%=whl item.position %> </td>				
 			<td>
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
 				     toggle_star_master_section_path(item), :method=>:post %>
@@ -32,7 +30,13 @@
 			  <%=link_to (item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
 				     toggle_locked_master_section_path(item), :method=>:post %>				
 			</td>			
+			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
+			<td <%=wo item %> class="b"> <%=whl item.key %> </td>				
+			<td <%=wo item %> class=""> <%=whl item.form %> </td>				
+			<td <%=wo item %> class=""> <%=whl item.localization %> </td>				
 			<td class="hover-child right"> 			
+				<%= link_to ico(:arrow_up), move_higher_master_section_path(item), :method=>:post %>
+				<%= link_to ico(:arrow_down), move_lower_master_section_path(item), :method=>:post %>
 			  <%= wake_button_destroy item %>
 			</td>
 	</tr>

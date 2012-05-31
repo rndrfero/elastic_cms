@@ -14,7 +14,14 @@
 		<div class="controls">
 			<%= link_to ico(:pen)+'EDIT', edit_editor_gallery_file_record_path(gallery,item), :remote=>true %>
 			<%= link_to ico(:eye)+'SHOW', item.path('orig') %>
+			<%= link_to ico(:star)+'STAR', 
+			 toggle_star_editor_gallery_file_record_path(gallery,item), :remote=>true, :method=>:post %>
 		</div>		
+		<% if item.is_star? %>
+			<div style="position: absolute; padding: 1px; background: none; bottom: 0px; right: 0px; ">
+				<%= link_to ico(:star,:lightgray), toggle_star_editor_gallery_file_record_path(gallery,item), :remote=>true, :method=>:post %>
+			</div>
+		<% end %>
 	
 	  <% 
 	   if gallery.has_variant? :tna and gallery.has_variant? :tnb

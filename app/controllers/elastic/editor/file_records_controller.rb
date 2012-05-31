@@ -24,6 +24,24 @@ module Elastic
       end
     end
     
+    def toggle_star
+      @item.toggle_star!
+#      raise @item.to_yaml
+      render_update
+    end
+    
+    private
+    
+    def render_update
+      respond_to do |format|
+        format.js do
+          flash.now[:hilite] = "wake.#{_ident}.update_ok"
+          render :template => '/wake/update'
+        end
+      end
+    end
+      
+    
                 
     def prepare
     end

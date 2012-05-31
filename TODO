@@ -1,3 +1,9 @@
+- matte na pozadie obrazku file_record
+
+- co ked je galeria iba img a nie tna?
+
+- file record - embed abo flash
+
 - img processing
 
 - version, authoring
@@ -5,6 +11,7 @@
 - title image a starovanie v galeriach
 
 - parse / render faza + markdown, CACHING
+  - treba si to predstavit tak, ze typicky BUDE pouzity postprocess
 
 - keep_context je picovina, treba poriesit to, aby to atribut site_id bol readonly
 
@@ -20,6 +27,11 @@
 - destroy gallery
 
 deployment
+
+===== FILE STRUCTURE ===
+
+current theme
+logo.png
 
 ====================================================================================
 

@@ -30,6 +30,11 @@ module Elastic
     
     with_toggles :star, :locked, :hidden, :watermarked    
     
+    
+    scope :starry, where(:is_star=>true)
+    
+    
+    
     def dir(the_key=key)
       "#{the_key.blank? ? "#{id}-untitled" : the_key}"
     end
@@ -92,14 +97,15 @@ module Elastic
     def non_images
       files - images
     end
+
+    def is_master?
+      id == site.master_gallery_id
+    end
     
     def get_meta(variant,meta_attr)
-      return site.gallery.get_meta(variant,meta_attr) if is_dependent? and site.gallery and site.gallery!=self
+      return site.master_gallery.get_meta(variant,meta_attr) if is_dependent? and site.master_gallery and site.master_gallery!=self
       variant, meta_attr = variant.to_s, meta_attr.to_s
       ret = ((meta||{})[variant]||{})[meta_attr]
-#      raise site.to_yaml
-#      ret = site.gallery.meta[variant][meta_attr] if ret.blank?
-#      ret = ((site||Context.site).gallery_meta[variant]||{})[meta_attr] if ret.blank?
       ret = nil if ret.blank?
       ret
     end
@@ -107,7 +113,7 @@ module Elastic
     def has_variant?(variant)
       get_meta(variant,:w) and get_meta(variant,:h)
     end
-    
+        
     def process!(options={})
       for x in file_records.images
         x.process! options
@@ -146,16 +152,7 @@ module Elastic
       FileUtils.cp x.tempfile.path, File.join(filepath,'orig',x.original_filename)
       sync!
     end
-        
-    # def keep_context
-    #   self.site_id = Context.site.id
-    # end
-    
-    # def initialize(attributes = nil)
-    #   super attributes
-    #   saturate
-    # end
-    
+            
     def saturate
       self.is_dependent = true if new_record?
       self.meta = {} if not meta
@@ -174,7 +171,7 @@ module Elastic
     end
   
     def wake_destroyable?
-      true
+      file_records.empty?
     end
     
   end

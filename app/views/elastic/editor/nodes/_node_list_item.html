@@ -8,10 +8,11 @@
 
 	<tr>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'id' %> </th>
-		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_published', 'Pub' %> </th>
-		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_star', '*' %> </th>
-		 <% if not level %>
-		 	<th style="width: 10em;" class=""> <%= wake_click_order_by 'published_at', 'Pub' %> </th>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_star', ico(:star) %> </th>
+		 <% if level %>
+ 	 	 	 <th style="width: 1em;" class=""> <%= wake_click_order_by 'published_at', 'Pub' %> </th>
+     <% else %>
+	 	   <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_published', ico(:check_alt) %> </th>
 		 <% end %>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
 		 <!-- <th style="width: 1em;" class=""> <%#= wake_click_order_by 'position', 'Pos' %> </th> -->
@@ -25,15 +26,16 @@
 			
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %></td>				
 			<td <%=wo item %> class=""> 
-			  <%=link_to (item.is_published? ? ico(:check_alt, :lightgray) : ico(:x_alt, :red)), 
-  			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
-			</td>				
-			<td <%=wo item %> class=""> 
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
 				     toggle_star_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
 			
-			<% if not level %>
+			<% if level %>
+				<td <%=wo item %> class=""> 
+				  <%=link_to (item.is_published? ? ico(:check_alt, :lightgray) : ico(:x_alt, :red)), 
+	  			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
+				</td>				
+			<% else %>
 				<td <%=wo item %> class=""> <%=l item.published_at, :format=>:short %> </td>
 			<% end %>
 			

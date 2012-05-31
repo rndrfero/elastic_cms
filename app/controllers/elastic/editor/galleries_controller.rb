@@ -14,25 +14,25 @@ module Elastic
         
     def toggle_star
       @item.toggle_star!
-      flash[:hilite] = 'simply_yes'
+      flash[:hilite] = 'cms_backend.simply_yes'
       redirect_to :back
     end
 
     def toggle_hidden
       @item.toggle_hidden!
-      flash[:hilite] = 'simply_yes'
+      flash[:hilite] = 'cms_backend.simply_yes'
       redirect_to :back
     end
 
     def toggle_locked
       @item.toggle_locked!
-      flash[:hilite] = 'simply_yes'
+      flash[:hilite] = 'cms_backend.simply_yes'
       redirect_to :back
     end
     
     def regenerate
       @item.process! :force=>true
-      flash[:hilite] = 'simply_yes'
+      flash[:hilite] = 'cms_backend.simply_yes'
       redirect_to :back
     end
           

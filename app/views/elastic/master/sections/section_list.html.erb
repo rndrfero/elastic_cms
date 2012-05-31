@@ -10,8 +10,8 @@
 		</td>
 	</tr>
 	
-	<tr><td colspan="8" style="height: 4px; border: none;"></td></td>
-	<tr><td colspan="8" style="height: 4px; "></td></td>
+	<tr><td colspan="100" style="height: 4px; border: none;"></td></td>
+	<tr><td colspan="100" style="height: 4px; "></td></td>
 		
 	<tr>
 		<td class="center" colspan="100" style="border: none;"> 
@@ -20,16 +20,16 @@
 	</tr>
 	
 
-	<tr><td colspan="8" style="height: 4px; border: none;"></td></td>
+	<tr><td colspan="100" style="height: 4px; border: none;"></td></td>
 			
 	<%= render :partial=>'section_list_item', :locals=>{:header=>true} %>
 
-	<tr><td colspan="8" style="height: 4px;"></td></tr>
+	<tr><td colspan="100" style="height: 4px;"></td></tr>
 
 	<%= render :partial=>'section_list_item', :collection=>@items %>	
 
-	<tr><td colspan="8" style="height: 6px;"></td></tr>
+	<tr><td colspan="100" style="height: 6px;"></td></tr>
 
-	<tr><td class="center" colspan="6"> <%= paginate @items %> </td> </tr>
+	<tr><td class="center" colspan="100"> <%= paginate @items %> </td> </tr>
 
 </table>

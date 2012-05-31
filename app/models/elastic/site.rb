@@ -6,14 +6,14 @@ module Elastic
  
     include Elastic::WithDirectory
       
-    has_many :sections, :dependent=>:destroy
+    has_many :sections, :order=>:position, :dependent=>:destroy
     has_many :nodes, :dependent=>:destroy
     has_many :template_caches #, :dependent=>:destroy
     has_many :galleries, :dependent=>:destroy
     
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
-    belongs_to :gallery, :dependent=>:destroy
+    belongs_to :master_gallery, :class_name=>'Gallery', :dependent=>:destroy
   
     validates_presence_of :title, :host
     validates_format_of :host, :with=>/^[a-z0-9.]*$/

@@ -14,12 +14,12 @@
 	<tr>
 		<th> Image processing: </th>
 		<td> 
-			<% if @item.site.gallery == @item %>
+			<% if @item.is_master? %>
 			  <%= wnote 'I am the <b>master gallery</b>. Other galleries inherit settings of me.' %>
 			<% else %>
 			  <%= f.check_box 'is_dependent' %> dependent on:
-				<% if @item.site.gallery %> 
-				  <%= @item.site.gallery.title %>
+				<% if @item.site.master_gallery %> 
+				  <%= @item.site.master_gallery.title %>
 				<% else %>
 				  <b>?</b> <%= wnote 'Your site has no default gallery selected.' %>
 				<% end %>

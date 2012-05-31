@@ -3,7 +3,7 @@ module Elastic
     include WithKey
     extend WithToggles
 
-    has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :is_locked, :parent_id, :position, :redirect, :published_version_id]
+    has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :published_at, :is_locked, :parent_id, :position, :redirect, :published_version_id]
     
     attr_accessible :section, :locale, :title, :key, :is_published, :is_star, :parent_id, :position, :contents_setter, :redirect, :published_at
   

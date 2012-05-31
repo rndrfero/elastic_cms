@@ -48,7 +48,7 @@
 		</tr>
 		<tr>
 			<th> Default gallery settings: </th>
-			<td>  <%= f.select 'gallery_id', @item.galleries.map{ |x| [x.title, x.id]} %>  </td>
+			<td>  <%= f.select 'master_gallery_id', @item.galleries.map{ |x| [x.title, x.id]} %>  </td>
 		</tr>
 		<% end %>
 	</table>

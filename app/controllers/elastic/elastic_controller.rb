@@ -110,8 +110,12 @@ module Elastic
           out = TemplateCache.render @site.theme_layout, { 'head'=>@head, 'body'=>out, 'controls'=>controls }
           render :text=>out, :layout=>false        
         end
+      rescue Errno::ENOENT=>x
+         render_error x.message.gsub @site.home_dir, '/'
+#        render :inline
       rescue Liquid::SyntaxError=>x
-        render :inline=>"<h3>Liquid syntax error:</h3> <p>#{x}</p>"
+#        render :inline=>"<h3>Liquid syntax error:</h3> <p>#{x}</p>"
+         render_error "Liquid syntax error: #{x}"
       end
     end
     

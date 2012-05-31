@@ -15,6 +15,8 @@ class CreateElasticGalleries < ActiveRecord::Migration
       t.boolean :is_locked
       t.boolean :is_dependent
       
+      t.integer :master_file_record_id
+      
       t.text :meta
       
       t.timestamps
