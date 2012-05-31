@@ -10,7 +10,7 @@ module Elastic
     VARIANTS = %w{ img tna tnb }
     META = %w{ w h efx params }
     
-    attr_accessible :title, :key, :is_star, :is_watermarked, :meta, :file, :is_timestamped, :site_id #, :file_records_attributes
+    attr_accessible :title, :key, :is_star, :is_watermarked, :meta, :file, :is_timestamped, :site_id, :is_dependent, :is_hidden #, :file_records_attributes
     serialize :meta
     
     belongs_to :site
@@ -94,6 +94,7 @@ module Elastic
     end
     
     def get_meta(variant,meta_attr)
+      return site.gallery.get_meta(variant,meta_attr) if is_dependent? and site.gallery and site.gallery!=self
       variant, meta_attr = variant.to_s, meta_attr.to_s
       ret = ((meta||{})[variant]||{})[meta_attr]
 #      raise site.to_yaml
@@ -156,6 +157,7 @@ module Elastic
     # end
     
     def saturate
+      self.is_dependent = true if new_record?
       self.meta = {} if not meta
       for v in VARIANTS
         self.meta[v] = {} if not self.meta[v]

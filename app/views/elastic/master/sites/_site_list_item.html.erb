@@ -19,7 +19,7 @@
 	<tr id="<%=dom_id item %>" class="hover-parent hilite pointer <%= 'active' if Elastic::Context.site==item%>">
 			
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
-			<td <%=wo item %> class=""> <%=whl item.host %> </td>
+			<td class=""> <%= link_to whl(item.host), 'http://'+item.host, :target=>'blank' %> </td>
 			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.master ? item.master.name : 'N/A' %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.locales_str %> </td>				

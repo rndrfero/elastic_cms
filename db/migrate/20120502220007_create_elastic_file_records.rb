@@ -8,6 +8,8 @@ class CreateElasticFileRecords < ActiveRecord::Migration
       
       t.string :ino
       t.string :filename
+      
+      t.integer :is_star
 
       t.timestamps
     end

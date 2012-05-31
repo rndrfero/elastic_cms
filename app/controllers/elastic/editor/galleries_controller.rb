@@ -11,7 +11,6 @@ module Elastic
       @item.sync!
       super
     end
-    
         
     def toggle_star
       @item.toggle_star!
@@ -38,7 +37,7 @@ module Elastic
     end
           
     def f_destroy
-      indexes = params[:index].map!{ |x| x.to_i }
+      indexes = (params[:index]||[]).map!{ |x| x.to_i }
       for fr in @item.file_records
         fr.destroy if indexes.include? fr.id 
       end

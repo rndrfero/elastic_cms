@@ -1,6 +1,13 @@
+- img processing
+
+- version, authoring
+
+- title image a starovanie v galeriach
+
+- parse / render faza + markdown, CACHING
+
 - keep_context je picovina, treba poriesit to, aby to atribut site_id bol readonly
 
-- dedenie hlavneho nastavenia v galerie
 - dashboard pre editora
 - preklady
 

@@ -2,7 +2,7 @@ module Elastic
   class Site < ActiveRecord::Base
 #    include WithKey
     
-    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout, :master_id
+    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout, :master_id, :gallery_id
  
     include Elastic::WithDirectory
       
@@ -37,6 +37,9 @@ module Elastic
       self.locales = x.split(',').map{ |x| x.strip }.uniq
     end
   
+    def uri
+      'http://'+host
+    end
   
     # -- directories --
     

@@ -42,7 +42,9 @@ function get_the_indexes(){
 		
 		<% path = f_destroy_editor_gallery_path(@item) %>
 		<a href="#" class="button" onclick="$('.fileItem').toggleClass('active');$('.imageItem').toggleClass('active');">SELECT</a>
-		<a href="#" class="button" onclick="if( confirm('<%= 'general.confirm_destroy' %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
+		<% if not @item.file_records.empty?  %>
+			<a href="#" class="button" onclick="if( confirm('<%= 'wake.general.confirm_destroy'.tt %>') ){ document.location = '<%=path%>' + '?' + get_the_indexes(); }">DESTROY</a>
+		<% end %>
 		<%= link_to 'RE-PROCESS', regenerate_editor_gallery_path(@item), :method=>:post, :confirm=>'Sure?' %>
 		
 		&nbsp;
@@ -50,6 +52,9 @@ function get_the_indexes(){
 		<small>Gallery:</small>
 		<%= link_to 'DUPLICATE', ''%>
 		<a href="#" class="button" onclick="$('#TheConfig').toggleClass('hidden');">CONFIG</a>
+		<% if @item.file_records.empty? %>
+		  <%= link_to 'DESTROY', {:action=>'destroy', :id=>@item.id}, :method=>:delete, :confirm=>'wake.general.confirm_destroy' %>
+		<% end %>
 		
 	<% end %>
 
@@ -102,7 +107,7 @@ function get_the_indexes(){
 <br/>
 
 <% if not @item.new_record? %>
-	<small>Access this gallery via FTP:</small> /galleries/<%= @item.dir %><br/>
+	<small>Access me via FTP:</small> /galleries/<%= @item.dir %><br/>
 <% end %>
 
 

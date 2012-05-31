@@ -10,6 +10,7 @@
 		 <th style="" class=""> <%= wake_click_order_by 'name' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'email' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'site' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'last_sign_in_at' %> </th>
 		 <th style=""> </th>
 	</tr>
 
@@ -36,6 +37,7 @@
 			<td <%=wor item %> class="hi-visible"> <%=whl item.name %> </td>				
 			<td <%=wor item %> class="lo-visible"> <%=whl item.email %> </td>				
 			<td <%=wor item %> class="lo-visible"> <%=whl item.site ? item.site.host : '-' %> </td>				
+			<td <%=wor item %> class="lo-visible"> <%=l item.last_sign_in_at, :format=>:short %> </td>				
 			
 			<td class="hover-child right"> 			
 			    <%= wake_button_destroy item %>

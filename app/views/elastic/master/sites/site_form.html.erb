@@ -2,7 +2,18 @@
 
 <%= form_for @item, :url=>url do |f| %>
 
-	<%= submit_tag %>
+	<div class="wakeThemeCleanForm">
+
+		<%= f.submit 'SAVE CHANGES', :class=>'button' %>
+	
+		&nbsp;&nbsp;&nbsp;
+		<% if request.host!=@item.host %>
+		  <%= link_to 'LETS GO THERE!', @item.uri, :class=>'button' %>
+		<% end %>
+	
+	</div>
+	
+	<br/>
 	
 
 	<h3>General configuration</h3>

@@ -1,5 +1,7 @@
 en:
   wake:
+    general:
+      destroy_confirm: 'Are you sure? This action CAN NOT be undone.'
     gallery:
       new: 'You are creating the new gallery.'
       create_ok: 'The gallery was created.'

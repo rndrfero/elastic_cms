@@ -107,8 +107,8 @@ a:hover { text-decoration: underline; }
 .hidden { height: 0px; overflow: hidden; }
 
 .wakeDebug { display: inline; color: purple; background: #FFD8F4; }
-.wakeNote { font-size: 0.9em; font-style: italic; }
-.wakeError { color: red; font-weight: bold; }
+.wakeNote { display: inline; font-size: 0.9em; font-style: italic; }
+.wakeError { display: inline; color: red; font-weight: bold; }
 	
 .popup { position: absolute; z-index: 1000;
 	box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-box-shadow: 3px 3px 7px #AAA; }
