@@ -9,7 +9,12 @@ class ContentDrop < Liquid::Drop
   # end  
   
   def text
-    Elastic::Context.user ? @content.text : (@content.published_text||@content.text)
+    if Elastic::Context.user and @content.content_config.is_live?
+      Elastic::Context.ctrl.send :render_to_string, :partial=>'/elastic/public/live_content',
+        :locals=>{:content=>@content, :content_config=>@content.content_config}
+    else
+      Elastic::Context.user ? @content.text : (@content.published_text||@content.text)
+    end
   end
   
   def form

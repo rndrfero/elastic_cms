@@ -11,9 +11,11 @@ Elastic::Engine.routes.draw do
   match "/logout" => redirect("/users/sign_out")  
   
   match '/:locale' => 'elastic#index'
-  match '/:locale/show/:key' => 'elastic#show'
-  match '/:locale/section/:key' => 'elastic#section'
+  match '/:locale/show/:key' => 'elastic#show', :as=>'show'
+  match '/:locale/section/:key' => 'elastic#section', :as=>'section'
   match '/:locale/access_denied' => 'elastic#access_denied', :as=>'access_denied'
+  match '/:locale/edit/:key/:content_config_id'=>'elastic#edit', :as=>'edit'
+  match '/:locale/update/:key/:content_config_id'=>'elastic#update', :as=>'update'
   
   # -- devise --
 

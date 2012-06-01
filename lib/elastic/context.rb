@@ -25,5 +25,13 @@ module Elastic
       @@user
     end
 
+    def self.ctrl=(x)
+      @@ctrl = x
+    end
+
+    def self.ctrl
+      @@ctrl
+    end
+
   end
 end

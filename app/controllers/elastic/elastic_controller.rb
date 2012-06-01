@@ -42,6 +42,27 @@ module Elastic
         render_404
       end
     end
+    
+    def edit
+      show
+    end
+    
+    def update
+      @node = Node.in_public.find_by_key params[:key]
+      if @node
+        @node.contents_setter= { params[:content_config_id]=>params[:node] }
+        if @node.save
+          flash[:hilite] = 'ok'
+          redirect_to show_path(@node.key)
+        else
+          flash.now[:notice] = 'error'
+          edit
+        end
+      else
+        raise 'KOKOTINA'
+      end
+    end
+    
 
     def access_denied
       render_access_denied
@@ -67,7 +88,7 @@ module Elastic
     private
     def prepare
       @site = Context.site
-      @site.integrity!
+      Context.ctrl= self
     end
 
     def render_liquid(template_name=nil, add_drops={})

@@ -11,6 +11,7 @@
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'master' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'locales' %> </th>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_force_reload_theme', 'Dev?' %> </th>
 		 <th style="width: 1em;"> </th>
 	</tr>
 
@@ -23,6 +24,7 @@
 			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.master ? item.master.name : 'N/A' %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.locales_str %> </td>				
+			<td <%=wo item %> class=""> <%= item.is_force_reload_theme ? ico(:check_alt, :red) : ico(:x_alt, :lightgray)%> </td>				
 			
 			<td class="hover-child right"> 			
 			    <%= wake_button_destroy item %>

@@ -1,0 +1,110 @@
+{% give_me gallery 'Backgrounds' %}
+
+<div id="bg">
+	<img src="{{ the_gallery.path }}/img/{{ the_gallery.starry_images | random }}" alt="">
+	<!-- <div id="flowplayer" href="/x/static/test.mov" style=""></div> -->
+</div>
+
+{% give_me gallery 'Foregrounds' %}
+
+<style>
+.whiteBg { background: white; }
+
+/*.whiteBg { background: url('{{ the_gallery.path }}/orig/{{ the_gallery.images | random }}'); } 
+*/
+</style>
+
+
+<script>
+ $(document).ready( function(){
+	
+	flowplayer("flowplayer", { src:"/x/current_theme/flowplayer/flowplayer-3.2.7.swf",  wmode: 'opaque' }, {
+		clip: {
+		   onBeforeFinish: function() { 		      
+		      this.play(0); // loop to the first clip
+		      return false; } 
+		},
+		plugins: {		   
+		   controls: null // disable autoloading of the controlbar plugin
+		},
+		
+	});	
+});
+</script>
+
+
+
+
+<div id="OuterWrapper" style="position: relative; z-index: 10;">
+
+	<div id="LeftColumn">
+			
+		<div id="Menu" class="typoImpact">
+			{% for n in section_pages.roots %}
+				<div class="item {% if node.subtree contains n %}active{% endif %}">
+					<a class="whiteBg" href="{{ n.path }}">{{ n }}</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div id="Contact">
+			{% give_me node 'sub-menu' %}
+			{{ the_node.contents[0] | md }}
+		</div>
+	</div>
+	
+	
+	<div id="RightColumn" class="whiteBg">
+
+		<div id="LngSwitch" class="typoImpact">
+			<div class="item {% if locale == 'en' %}active{% endif %}"><a href="/en">ENGLISH</a></div>
+			<div class="item {% if locale == 'cz' %}active{% endif %}"><a href="/cz">ČESKY</a></div>
+		</div>
+		
+		<div id="InnerWrapper">
+			
+			<h1>{{ site }}</h1>
+			
+			<div class="content">
+
+
+					{% if action == 'index' %}
+						showing index:
+
+					{% elsif action == 'section' %}
+					  showing section:
+
+					{% elsif action == 'show' %}
+					  showing node
+
+					{% endif %}
+
+
+					<h3> hello there </h3>
+
+					{% md %}
+Holisticly foster adaptive relationships whereas backend methods of empowerment. Completely seize reliable outsourcing whereas maintainable manufactured products. Completely benchmark cutting-edge results before orthogonal materials. 
+
+Intrinsicly envisioneer user-centric convergence for global products. Authoritatively e-enable long-term high-impact core competencies before corporate users. Completely extend value-added human capital through interdependent ideas.	
+
+Holisticly foster adaptive relationships whereas backend methods of empowerment. Completely seize reliable outsourcing whereas maintainable manufactured products. Completely benchmark cutting-edge results before orthogonal materials. 
+
+Intrinsicly envisioneer user-centric convergence for global products. Authoritatively e-enable long-term high-impact core competencies before corporate users. Completely extend value-added human capital through interdependent ideas.	
+
+Holisticly foster adaptive relationships whereas backend methods of empowerment. Completely seize reliable outsourcing whereas maintainable manufactured products. Completely benchmark cutting-edge results before orthogonal materials. 
+
+Intrinsicly envisioneer user-centric convergence for global products. Authoritatively e-enable long-term high-impact core competencies before corporate users. Completely extend value-added human capital through interdependent ideas.	
+
+					{% endmd %}
+				
+								
+			</div>
+			
+		</div>
+	</div>	
+
+</div>
+
+
+
+

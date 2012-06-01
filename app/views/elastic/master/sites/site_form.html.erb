@@ -7,7 +7,7 @@
 		<%= f.submit 'SAVE CHANGES', :class=>'button' %>
 	
 		&nbsp;&nbsp;&nbsp;
-		<% if request.host!=@item.host %>
+		<% if not @item.new_record? and request.host!=@item.host %>
 		  <%= link_to 'LETS GO THERE!', @item.uri, :class=>'button' %>
 		<% end %>
 	

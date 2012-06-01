@@ -19,6 +19,12 @@
 			<%= link_to 'Elastic CMS', master_site_path(@site) %>
 		<% end %>
 		
+		<% if params[:action] == 'show' %>
+		  <%= link_to 'EDIT', editor_section_node_path(@section,@node) %>
+		<% elsif params[:action]=='edit' %>
+		  <%= link_to_function 'SAVE', '$("#edit_'+dom_id(@node)+'").submit(); ' %>
+		<% end %>
+		
 	</div>
 
 <% end %>

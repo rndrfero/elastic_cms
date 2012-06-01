@@ -2,7 +2,7 @@ module Elastic
   class Site < ActiveRecord::Base
 #    include WithKey
     
-    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout, :master_id, :gallery_id
+    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout, :master_id, :master_gallery_id
  
     include Elastic::WithDirectory
       
@@ -27,7 +27,7 @@ module Elastic
 #    before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
     before_destroy :wake_destroyable? 
     after_save :integrity!
-    after_create { |x| x.create_gallery!(:title=>'DEFAULT SETTINGS', :site_id=>x.id, :is_hidden=>true) }
+    after_create { |x| x.create_master_gallery!(:title=>'DEFAULT SETTINGS', :site_id=>x.id, :is_hidden=>true) }
   
     def locales_str
       (locales||[]).join(', ')
@@ -100,7 +100,9 @@ module Elastic
     private
     
     def saturate
-      self.locales_str = 'en'
+      # default values
+      self.locales_str = 'en' if self.locales_str.blank?
+      self.is_force_reload_theme ||= true
     end
   
   
