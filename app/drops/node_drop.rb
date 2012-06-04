@@ -44,6 +44,10 @@ class NodeDrop < Liquid::Drop
     end
   end
   
+  def content
+    contents
+  end
+  
     
   # -- navigation --
   
@@ -55,7 +59,9 @@ class NodeDrop < Liquid::Drop
     NodeDrop.new @node.root
   end
   
-  for x in %w{ is_root? has_children? is_childless? has_siblings? is_only_child? depth }
+#  is_star? 
+  
+  for x in %w{ is_star? is_root? has_children? is_childless? has_siblings? is_only_child? depth }
     module_eval "def #{x}; @node.#{x}; end"    
   end  
 
@@ -63,6 +69,10 @@ class NodeDrop < Liquid::Drop
     module_eval "def #{x}; @node.#{x}.published.map{ |x| NodeDrop.new x }; end"    
   end  
   
+  def starry
+    is_star?
+  end
+    
   def to_s
     @node ? @node.title : nil
   end

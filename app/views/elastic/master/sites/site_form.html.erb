@@ -48,7 +48,14 @@
 		</tr>
 		<tr>
 			<th> Default gallery settings: </th>
-			<td>  <%= f.select 'master_gallery_id', @item.galleries.map{ |x| [x.title, x.id]} %>  </td>
+			<td>  
+			  <%= f.select 'master_gallery_id', @item.galleries.map{ |x| [x.title, x.id]} %>
+			  &nbsp;&nbsp;&nbsp;  
+			  <small>
+			  	<%= link_to ico(:link)+' '+@item.master_gallery.title, 
+			      editor_gallery_path(@item.master_gallery) if @item.master_gallery %>
+				</small>
+			</td>
 		</tr>
 		<% end %>
 	</table>
@@ -87,3 +94,5 @@
 	
 
 <% end %>
+
+<%=debug @item.tincan_dump 'structure' %>

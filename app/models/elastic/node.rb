@@ -32,8 +32,8 @@ module Elastic
     before_destroy :wake_destroyable?
 
   
-    scope :published, where(:is_published=>true).order('ancestry_depth,position DESC')
-    scope :roots, where(:ancestry=>nil).order('ancestry_depth,position DESC')
+    scope :published, where(:is_published=>true).order('ancestry_depth,position')
+    scope :roots, where(:ancestry=>nil).order('ancestry_depth,position')
     scope :localized, lambda { where(:locale=>Context.locale) }
     scope :tree_ordered, :order=>"ancestry_depth,position DESC"
     scope :date_ordered, :order=>"published_at"

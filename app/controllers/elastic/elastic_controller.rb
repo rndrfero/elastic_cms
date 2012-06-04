@@ -15,10 +15,7 @@ module Elastic
           @node = Node.in_public.find_by_id where_to_go
         end
       end
-
-#      raise 'fuck'
       render_liquid 
-#      render_liquid @site.theme
     end
 
     # show node
@@ -84,6 +81,13 @@ module Elastic
     def not_found
       render :inline=>"404: NOT FOUND", :status=>404
     end
+    
+    # -- non-action methods --
+    
+    def add_reference(x)
+      @references ||= []
+      @references << x if not @references.include? x
+    end    
 
     private
     def prepare
@@ -159,6 +163,6 @@ module Elastic
       return out = `echo '#{out}' | php` if template_name.ends_with? '.php'
       out
     end
-    
+        
   end
 end

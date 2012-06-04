@@ -26,6 +26,7 @@ module Elastic
       item = itemclass.where(:site_id=>Context.site.id).send (@which.to_i == 0 ? :find_by_key : :find_by_id), @which
       
       if item
+        Context.ctrl.add_reference item
         context.scopes.last['the_'+@what] = dropclass.new item
         nil
       else

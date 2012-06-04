@@ -32,7 +32,7 @@
 			</td>			
 			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
 			<td <%=wo item %> class="b"> <%=whl item.key %> </td>				
-			<td <%=wo item %> class=""> <%=whl item.form %> </td>				
+			<td <%=wo item %> class=""> <%=whl ico(item.form=='tree' ? :share : :list) %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.localization %> </td>				
 			<td class="hover-child right"> 			
 				<%= link_to ico(:arrow_up), move_higher_master_section_path(item), :method=>:post %>

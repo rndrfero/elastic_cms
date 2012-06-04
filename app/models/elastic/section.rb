@@ -2,6 +2,12 @@ module Elastic
   class Section < ActiveRecord::Base  
     extend WithToggles
     include WithKey
+    include Tincan
+
+    def tincan_map
+       { 'structure_attrs' => %w{ title localization key is_star is_hidden is_locked form position },
+         'structure_assoc' => %w{  content_configs } }
+    end
     
     attr_accessible :title, :key, :localization, :content_configs_attributes, :form, :position, :site_id
     

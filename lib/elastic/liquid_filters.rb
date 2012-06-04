@@ -18,6 +18,10 @@ module Elastic
     def md(x)
       BlueCloth.new(x).to_html
     end
+
+    def splitnl(input)
+      input.split("\n")
+    end
     
   end
 

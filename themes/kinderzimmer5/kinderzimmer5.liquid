@@ -1,8 +1,15 @@
 {% give_me gallery 'Backgrounds' %}
 
+background: cover;
+
 <div id="bg">
-	<img src="{{ the_gallery.path }}/img/{{ the_gallery.starry_images | random }}" alt="">
 	<!-- <div id="flowplayer" href="/x/static/test.mov" style=""></div> -->
+	<img src="{{ the_gallery.path }}/orig/{{ the_gallery.starry_images | random }}" alt="">
+</div>
+
+{% give_me gallery 'Overlays' %}
+
+<div id="overlay" style="top: 0; width: 100%; height: 100%; position: fixed; background: url('{{ the_gallery.path }}/orig/{{ the_gallery.starry_images | random }}')">
 </div>
 
 {% give_me gallery 'Foregrounds' %}
@@ -40,9 +47,15 @@
 	<div id="LeftColumn">
 			
 		<div id="Menu" class="typoImpact">
+			<div class="item {% if action == 'index' %}active{% endif %}">
+				<a class="whiteBg" href="/{{locale}}">Die Unordnung</a>
+			</div>
+			<div class="item {% if action == 'section' and section.key == 'blog' %}active{% endif %}">
+				<a class="whiteBg" href="{{ section_blog.path }}">Furt dačo <small>(log)</small></a>
+			</div>
 			{% for n in section_pages.roots %}
-				<div class="item {% if node.subtree contains n %}active{% endif %}">
-					<a class="whiteBg" href="{{ n.path }}">{{ n }}</a>
+				<div class="item {% if node.subtree contains n %}active{% endif %} {% if n.is_star? %}is_star{% endif %}">
+					<a class="whiteBg" href="{{ n.path }}">{{ n }}</a>					
 				</div>
 			{% endfor %}
 		</div>
@@ -54,16 +67,20 @@
 	</div>
 	
 	
-	<div id="RightColumn" class="whiteBg">
+	<div id="RightColumn" class="whiteBg ">
 
-		<div id="LngSwitch" class="typoImpact">
+		<div id="LngSwitch" class="typoImpact" class="">
 			<div class="item {% if locale == 'en' %}active{% endif %}"><a href="/en">ENGLISH</a></div>
 			<div class="item {% if locale == 'cz' %}active{% endif %}"><a href="/cz">ČESKY</a></div>
 		</div>
 		
-		<div id="InnerWrapper">
+		<div id="InnerWrapper" class="{% if node.is_star? %}is_star{% endif %}">
 			
-			<h1>{{ site }}</h1>
+			<h1>{{ site }}</h1>			
+			
+			{% give_me node 'Slogany' %}
+			<h3>{{ the_node.contents[0].text | splitnl | random }}</h3>
+			
 			
 			<div class="content">
 
@@ -75,28 +92,9 @@
 					  showing section:
 
 					{% elsif action == 'show' %}
-					  showing node
+					  {{ node.content[0] }}
 
-					{% endif %}
-
-
-					<h3> hello there </h3>
-
-					{% md %}
-Holisticly foster adaptive relationships whereas backend methods of empowerment. Completely seize reliable outsourcing whereas maintainable manufactured products. Completely benchmark cutting-edge results before orthogonal materials. 
-
-Intrinsicly envisioneer user-centric convergence for global products. Authoritatively e-enable long-term high-impact core competencies before corporate users. Completely extend value-added human capital through interdependent ideas.	
-
-Holisticly foster adaptive relationships whereas backend methods of empowerment. Completely seize reliable outsourcing whereas maintainable manufactured products. Completely benchmark cutting-edge results before orthogonal materials. 
-
-Intrinsicly envisioneer user-centric convergence for global products. Authoritatively e-enable long-term high-impact core competencies before corporate users. Completely extend value-added human capital through interdependent ideas.	
-
-Holisticly foster adaptive relationships whereas backend methods of empowerment. Completely seize reliable outsourcing whereas maintainable manufactured products. Completely benchmark cutting-edge results before orthogonal materials. 
-
-Intrinsicly envisioneer user-centric convergence for global products. Authoritatively e-enable long-term high-impact core competencies before corporate users. Completely extend value-added human capital through interdependent ideas.	
-
-					{% endmd %}
-				
+					{% endif %}				
 								
 			</div>
 			

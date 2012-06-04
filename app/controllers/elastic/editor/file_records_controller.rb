@@ -18,10 +18,11 @@ module Elastic
     end
     
     def show
-      if @item.is_image?
-      else
-        send_file @item.filepath, :filename=>@item.filename
-      end
+#      render 'elastic/editor/galleries/gallery_form'
+      # if @item.is_image?
+      # else
+      #   send_file @item.filepath, :filename=>@item.filename
+      # end
     end
     
     def toggle_star

@@ -1,6 +1,12 @@
 module Elastic
   class ContentConfig < ActiveRecord::Base
     extend WithToggles
+    include Tincan
+
+    def tincan_map
+       { 'structure_attrs' => %w{ title position form meta is_published is_live },
+         'structure_assoc' => %w{ } } # 
+    end
     
     attr_accessible :position, :title, :form, :meta, :is_live
   

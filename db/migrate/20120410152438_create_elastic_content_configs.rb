@@ -7,7 +7,6 @@ class CreateElasticContentConfigs < ActiveRecord::Migration
       t.integer :section_id
       t.string :form
       
-      t.string :mime
       t.text :meta
       
       t.boolean :is_published

@@ -33,7 +33,12 @@ Elastic::Engine.routes.draw do
     end
   
     namespace 'master' do
-      resources :sites
+      resources :sites do
+        post 'structure_import', :on=>:member
+        post 'structure_export', :on=>:member
+        post 'content_import', :on=>:member
+        post 'content_export', :on=>:member
+      end
       resources :sections do
         post 'toggle_star', :on=>:member
         post 'toggle_hidden', :on=>:member

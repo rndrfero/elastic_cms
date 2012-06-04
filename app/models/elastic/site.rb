@@ -1,6 +1,12 @@
 module Elastic  
   class Site < ActiveRecord::Base
+    include Tincan
 #    include WithKey
+
+    def tincan_map
+       { 'structure_attrs' => %w{ locales theme theme_index theme_layout },
+         'structure_assoc' => %w{ master_gallery sections } } # 
+    end
     
     attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout, :master_id, :master_gallery_id
  
@@ -27,7 +33,7 @@ module Elastic
 #    before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
     before_destroy :wake_destroyable? 
     after_save :integrity!
-    after_create { |x| x.create_master_gallery!(:title=>'DEFAULT SETTINGS', :site_id=>x.id, :is_hidden=>true) }
+    after_create { |x| x.create_master_gallery!(:title=>'DEFAULT SETTINGS', :site_id=>x.id, :is_dependent=>false, :is_hidden=>true) }
   
     def locales_str
       (locales||[]).join(', ')
@@ -95,7 +101,12 @@ module Elastic
 #     raise "#{theme_dir} -> #{home_dir}"
      FileUtils.symlink theme_dir, home_dir+'current_theme'
     end
-
+    
+    
+    def master_gallery_meta
+      master_gallery ? master_gallery.meta : {}
+    end
+    
 
     private
     

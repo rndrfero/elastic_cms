@@ -13,6 +13,10 @@
 		<% end %>
 		
 		<%= f.text_field 'title', :class=>'title' %> 
+		
+		<% if not @item.new_record? %>
+			<%= link_to ico(:list), editor_section_nodes_path(@item) %>
+		<% end %>
 
 		<%= f.submit 'SAVE', :class=>'button' %>
 		

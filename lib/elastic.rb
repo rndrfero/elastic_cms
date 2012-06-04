@@ -5,6 +5,7 @@ require "elastic/thumbnail_generators"
 require "elastic/liquid_tags"
 require "elastic/liquid_filters"
 require "elastic/string"
+require "elastic/tincan"
 
 module Elastic
   

@@ -1,3 +1,25 @@
+ficurky: 
+  elastic-structure.yaml
+  elastic-data.yaml
+  
+
+Elastic CMS is a feature-rich parallel content management system, designed to create and manage graphicaly-rich websites. By artist for artists. 
+
+
+ICO: tree
+
+kinrzimr:
+  - kazdy nod by mal moznost mas svoje vlastne pozadie
+  - mindmap ->
+
+
+- Yes! je super hlaska.
+
+- tip na help: edit v photoshope via adobe
+
+- tinymce insert image
+- tinymce: rozumna configuracia
+
 - presunut na backende tinymce do hlavy
 
 - pridat site do webmaster menu
@@ -158,6 +180,9 @@ tag a tagroup
 RESTORE DELETED NODE
 
 
+- zdokumentovat:
+LIQUID TAGS
+LIQUID FILTERS
 
 
 

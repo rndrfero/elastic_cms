@@ -18,6 +18,11 @@
 
 	  <%= f.text_field 'title', :value=>@item.title, :size=>40, :class=>'title' %>
 	
+		<% if Elastic::Context.user.master? %>
+			<%= link_to ico(:cog), master_section_path(@section), :class=>'button' %>
+		<% end %>
+	
+	
 		<%= f.submit 'SAVE', :class=>'button' %> 
 		
 		<% unless @item.new_record? %>
@@ -25,11 +30,10 @@
 		
 			<%= link_to 'NEW', new_url, :class=>'button' %>
 			
-			<%= link_to 'DUPLICATE', '', :class=>'button' %>
+			<%= link_to 'CLONE', '', :class=>'button' %>
 			<%= link_to 'META', '', :class=>'button' %>
 			<%= link_to 'RESTORE', '#', :class=>'button', :onclick=>'$("#Versions").toggle("blind", { direction: "vertical" }, 500);' %> 
 			<%= link_to 'DESTROY', editor_section_node_path(@section,@node), :method=>:delete, :class=>'button' %>
-			
 			
 		<% end %>
 
@@ -50,6 +54,7 @@
 		  <%= f.text_field 'published_at', :value=>@item.published_at||Time.now, :size=>20 %>
 		<% end %>
 		
+
 		
 
 		<br/>

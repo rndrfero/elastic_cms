@@ -1,4 +1,5 @@
 require_dependency 'elastic/thumbnail_generators'
+require_dependency 'elastic/tincan'
 
 module Elastic
   class Gallery < ActiveRecord::Base
@@ -6,9 +7,17 @@ module Elastic
     include WithKey
     include ThumbnailGenerators
     extend WithToggles
+    include Tincan
     
     VARIANTS = %w{ img tna tnb }
     META = %w{ w h efx params }
+
+    def tincan_map
+      {
+        'structure_attrs' => %w{ key meta },
+        'structure_assoc' => %w{ } #sections
+      }
+    end
     
     attr_accessible :title, :key, :is_star, :is_watermarked, :meta, :file, :is_timestamped, :site_id, :is_dependent, :is_hidden #, :file_records_attributes
     serialize :meta

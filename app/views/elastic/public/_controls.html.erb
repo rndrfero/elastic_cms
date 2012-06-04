@@ -2,8 +2,8 @@
 
 	<style>
 		#ElasticControls { position: fixed; height: 25px; top: 0px; left: 0px; background: black; width: 100%; 
-			padding: 6px 30px 2px 30px; }
-		#ElasticControls a { color: white; text-decoration: none; }
+			padding: 6px 30px 2px 30px; color: grey; }
+		#ElasticControls a { color: white; text-decoration: none; margin-right: 1em; }
 		#ElasticControls a:hover { text-decoration: underline; }
 		body { position: relative; top: 25px; left: 0px; }
 		#ElasticControls  form.button_to, #ElasticControls form.button_to div { display: inline; }
@@ -21,8 +21,22 @@
 		
 		<% if params[:action] == 'show' %>
 		  <%= link_to 'EDIT', editor_section_node_path(@section,@node) %>
+
+		  <%= link_to 'LIST', editor_section_nodes_path(@section) %>
+		
 		<% elsif params[:action]=='edit' %>
 		  <%= link_to_function 'SAVE', '$("#edit_'+dom_id(@node)+'").submit(); ' %>
+		<% end %>
+
+    <% if @references %>
+		  <small>Links:</small>
+			<% for x in @references %>
+				<% if x.is_a? Elastic::Gallery %>
+					<%= link_to x.title, editor_gallery_path(x) %>
+				<%# elsif x.is_a? Elastic::Node %>
+					<%#= link_to x.title, editor_section_node_path(x.section,x) %>
+				<% end  %>
+			<% end %>
 		<% end %>
 		
 	</div>
