@@ -4,11 +4,31 @@
 
 	<div class="wakeThemeCleanForm">
 
-		<%= f.submit 'SAVE CHANGES', :class=>'button' %>
-	
+		<%= f.submit 'SAVE CHANGES', :class=>'button' %>	
 		&nbsp;&nbsp;&nbsp;
-		<% if not @item.new_record? and request.host!=@item.host %>
-		  <%= link_to 'LETS GO THERE!', @item.uri, :class=>'button' %>
+		<% if not @item.new_record?%>
+			<%= link_to 'LETS GO THERE!', @item.uri, :class=>'button' if request.host!=@item.host %>			
+		<% end %>
+			
+		<% if not @item.new_record?%>
+		  <br/><br/>
+			<table class="wakeThemeForm" class="">
+				<tr>
+					<th> Export: </th>
+					<td>
+						<%= link_to 'STRUCTURE', structure_export_master_site_path(@item), :class=>'button', :method=>:post %>
+						<%= link_to 'CONTENT', content_export_master_site_path(@item), :class=>'button', :method=>:post %>
+					</td>
+				</tr>
+				<tr>
+					<th> Structure: </th>
+					<td> <%= f.file_field 'structure_import' %>	</td>
+				</tr>
+				<tr>
+					<th> Content: </th>
+					<td> <%= f.file_field 'content_import' %>	</td>
+				</tr>
+			</table>
 		<% end %>
 	
 	</div>
@@ -53,7 +73,7 @@
 			  &nbsp;&nbsp;&nbsp;  
 			  <small>
 			  	<%= link_to ico(:link)+' '+@item.master_gallery.title, 
-			      editor_gallery_path(@item.master_gallery) if @item.master_gallery %>
+			      editor_gallery_path(@item.master_gallery_id) if @item.master_gallery %>
 				</small>
 			</td>
 		</tr>
@@ -95,4 +115,13 @@
 
 <% end %>
 
-<%=debug @item.tincan_dump 'structure' %>
+<div class="fright" style="background: #EEE;">
+	<%=debug @item.tincan_dump 'content' if @item %>
+</div>
+<div class="fleft">
+	<%=debug @item.tincan_dump 'structure' if @item %>
+</div>
+
+<div class="fleft" style="background: #EEF">
+<%=debug @item.sections.first.errors if @item and @item.sections.first %>
+</div>

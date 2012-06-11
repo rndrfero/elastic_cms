@@ -10,6 +10,7 @@ class CreateElasticContents < ActiveRecord::Migration
       t.string :published_reference_type
       
       t.integer :content_config_id
+      t.string :content_config_key
       t.text :locale      
       t.integer :node_id
 

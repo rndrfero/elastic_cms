@@ -14,8 +14,10 @@ module Elastic
 
     def tincan_map
       {
-        'structure_attrs' => %w{ key meta },
-        'structure_assoc' => %w{ } #sections
+        'structure_attrs' => %w{ title key meta is_dependent },
+        'structure_assoc' => %w{ }, #sections
+        'content_attrs' => %w{ key title is_star },
+        'content_assoc' => %w{ }
       }
     end
     

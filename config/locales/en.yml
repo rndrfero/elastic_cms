@@ -1,4 +1,7 @@
 en:
+  cms_backend:
+    simply_yes: 'Yes!'
+    simply_no: 'No!'
   wake:
     general:
       destroy_confirm: 'Are you sure? This action CAN NOT be undone.'
@@ -6,28 +9,32 @@ en:
       edit: 'You are editing the file.'
       update_ok: 'Saved succesfully.'
       update_error: 'Can not update file!'
+      destroy_ok: 'Destroyed.'
     gallery:
       new: 'You are creating the new gallery.'
       create_ok: 'The gallery was created.'
       list: 'You are listing galleries.'
       edit: 'You are editing the gallery.'
-      update_ok: 'The gallery was updated.'
+      update_ok: 'Updated.'
+      destroy_ok: 'Destroyed.'
     node:
       new: 'You are creating new node.'
       create_ok: 'The node was created.'
       create_error: 'Can not create node!'
       list: 'You are editing the section.'
       edit: 'You are editing the node.'
-      update_ok: 'Saved succesfully.'
+      update_ok: 'Updated.'
       update_error: 'Can not update node!'
+      destroy_ok: 'Destroyed.'
     section:
       new: 'You are creating new section.'
       create_ok: 'The section was created.'
       create_error: 'Can not create section!'
       list: 'You are listing sections.'
       edit: 'You are editing the section.'
-      update_ok: 'Section was updated.'
+      update_ok: 'Updated.'
       update_error: 'Can not update section!'
+      destroy_ok: 'Destroyed.'
     site:
       new: 'You are creating new site.'
       create_ok: 'New site has been created.'
@@ -36,6 +43,7 @@ en:
       edit: 'Web site configuration.'
       update_ok: 'Saved.'
       update_error: 'Can not save!'
+      destroy_ok: 'Destroyed.'
     user:
       list: 'You are listing users.'
       edit: 'You are editing the user.'

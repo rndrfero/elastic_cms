@@ -1,9 +1,32 @@
+gallery_id zamenit v content_config za gallery_key, kvoli im/exportu
+
+
+
+{% insert content %}
+
+folowing can be cross-site:
+	section.master_node_id
+	section.master_section_id
+
+render :none link na zvysovanie oneho izeho
+
+pocitadlo je len jedno a to na show node
+
+system permission a system menu by mohli byt nejako zjednotene
+
+
 ficurky: 
   elastic-structure.yaml
   elastic-data.yaml
+  - takze vsetko co sa odkazuje cez id, by sa malo odkazovat paralelne cez key
+  - aby fungoval versioning
+
+ABO NE? to by bolo fasa, keby sa vedely referencie zregenerovat na zaklade sejvnuteho id
+mozno by bolo super referencovat na zaklade key, mimo databazu, teda aby si mal vlastne idcka mimo hlavne id databazy
   
 
-Elastic CMS is a feature-rich parallel content management system, designed to create and manage graphicaly-rich websites. By artist for artists. 
+Elastic CMS is a feature-rich parallel content management system, designed to create and manage graphicaly-rich websites.
+By artist for artists. 
 
 
 ICO: tree

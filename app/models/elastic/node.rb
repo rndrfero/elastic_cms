@@ -2,6 +2,12 @@ module Elastic
   class Node < ActiveRecord::Base
     include WithKey
     extend WithToggles
+    include Tincan
+    
+    def tincan_map
+      { 'content_attrs' => %w{ key title is_star is_published published_at position },
+        'content_assoc' => %w{ contents } }
+    end
 
     has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :published_at, :is_locked, :parent_id, :position, :redirect, :published_version_id]
     

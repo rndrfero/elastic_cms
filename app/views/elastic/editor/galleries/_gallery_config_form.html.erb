@@ -19,7 +19,7 @@
 			<% else %>
 			  <%= f.check_box 'is_dependent' %> dependent on:
 				<% if @item.site.master_gallery %> 
-				  <%= @item.site.master_gallery.title %>
+				  <%= link_to ico(:link)+' '+@item.site.master_gallery.title, editor_gallery_path(@item.site.master_gallery) %>
 				<% else %>
 				  <b>?</b> <%= wnote 'Your site has no default gallery selected.' %>
 				<% end %>

@@ -5,8 +5,10 @@ module Elastic
     include Tincan
 
     def tincan_map
-       { 'structure_attrs' => %w{ title localization key is_star is_hidden is_locked form position },
-         'structure_assoc' => %w{  content_configs } }
+       { 'structure_attrs' => %w{ key title localization is_star is_hidden is_locked form position },
+         'structure_assoc' => %w{ content_configs },
+         'content_attrs' => %w{ key },
+         'content_assoc' => %w{ nodes } }
     end
     
     attr_accessible :title, :key, :localization, :content_configs_attributes, :form, :position, :site_id
@@ -19,7 +21,7 @@ module Elastic
   
     has_many :content_configs, :dependent=>:destroy, :order=>:position
     has_many :nodes #, :order=>lambda{ |x| raise 'fuck' }  
-#    has_many :contents, :through => :nodes
+#    has_many :nodes, :conditions=>lambda{ |x| x.master_node_id ? }
 
     acts_as_list :scope=>:site_id
   

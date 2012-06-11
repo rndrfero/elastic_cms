@@ -1,3 +1,5 @@
+require_dependency 'elastic/tincan'
+
 module Elastic  
   class Site < ActiveRecord::Base
     include Tincan
@@ -5,10 +7,13 @@ module Elastic
 
     def tincan_map
        { 'structure_attrs' => %w{ locales theme theme_index theme_layout },
-         'structure_assoc' => %w{ master_gallery sections } } # 
+         'structure_assoc' => %w{ master_gallery sections },
+         'content_attrs' => %w{ title index_locale locale_to_index_hash },
+         'content_assoc' => %w{ galleries sections } } # 
     end
     
-    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, :theme_index, :theme_layout, :master_id, :master_gallery_id
+    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, 
+      :theme_index, :theme_layout, :master_id, :master_gallery_id, :structure_import, :content_import
  
     include Elastic::WithDirectory
       
@@ -16,12 +21,13 @@ module Elastic
     has_many :nodes, :dependent=>:destroy
     has_many :template_caches #, :dependent=>:destroy
     has_many :galleries, :dependent=>:destroy
+    has_many :nodes, :through=>:sections
     
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
     belongs_to :master_gallery, :class_name=>'Gallery', :dependent=>:destroy
   
-    validates_presence_of :title, :host
+    validates_presence_of :title, :host, :theme
     validates_format_of :host, :with=>/^[a-z0-9.]*$/
     validates_presence_of :locales_str
     validates_uniqueness_of :host
@@ -99,13 +105,31 @@ module Elastic
 #     File.unlink x if File.exists? x
      FileUtils.remove_entry_secure x if File.exists? x
 #     raise "#{theme_dir} -> #{home_dir}"
-     FileUtils.symlink theme_dir, home_dir+'current_theme'
+     FileUtils.symlink theme_dir, x
     end
     
     
     def master_gallery_meta
       master_gallery ? master_gallery.meta : {}
     end
+    
+    # -- import / export --
+    
+    def structure_import=(x)
+      tincan_load 'structure', YAML::load(x.tempfile.read)
+    end
+    
+    def content_import=(x)
+      tincan_load 'content', YAML::load(x.tempfile.read)
+      # resync node.content_config_id
+      for n in nodes
+        for c in n.contents
+          cc = ContentConfig.where(:section_id=>n.section_id, :key=>c.content_config_key).first
+          c.update_attribute :content_config_id, cc.id
+        end
+      end
+    end
+    
     
 
     private

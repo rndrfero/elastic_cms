@@ -1,5 +1,11 @@
 module Elastic  
   class Content < ActiveRecord::Base
+    include Tincan
+    
+    def tincan_map
+      { 'content_attrs' => %w{ text locale content_config_key  },
+        'content_assoc' => %w{ } } # sections
+    end
 
     has_paper_trail    
     

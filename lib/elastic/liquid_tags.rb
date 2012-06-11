@@ -35,6 +35,8 @@ module Elastic
     end    
   end
   
+  
+  
   class RawTag < Liquid::Block
     def parse(tokens)
       @nodelist ||= []

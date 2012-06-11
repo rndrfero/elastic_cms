@@ -51,10 +51,11 @@
 
 		<h4>Contents configuration</h4>
 	
-	  <table class="wakeThemeForm">
+	  <table class="wakeThemeForm" style="width: 100%;">
 			<thead>
 				<th> Id </th>
-				<th> # </th>
+				<th> Key </th>
+				<th style="width: 1em;"> # </th>
 				<th> Title </th>
 				<th> #C </th>
 				<th> Type </th>
@@ -67,7 +68,8 @@
 			  <% cc = f2.object %>
 				<tr>
 					<td> <%= cc.new_record? ? ico('plus') : cc.id %> </td>
-					<td> <%= f2.text_field 'position', :size=>2 %> </td>
+		  		<td> <%= f2.text_field :key, :size=>3 %> </td>
+					<td> <%= f2.text_field 'position', :size=>1 %> </td>
 		  		<td> <%= f2.text_field :title %> </td>
 					<td> <%= cc.contents.size %> </td>
 	        <td> <%= f2.select :form, Elastic::ContentConfig::FORMS.keys %></td>
