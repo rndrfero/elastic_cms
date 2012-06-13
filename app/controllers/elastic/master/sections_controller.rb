@@ -48,6 +48,7 @@ module Elastic
     end
   
     def cc_toggle_published
+      flash[:hilite] = 'cms_backend.simply_yes'
       @content_config.toggle_published!
       render :action=>'section_form'
     end

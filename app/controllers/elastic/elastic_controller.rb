@@ -85,6 +85,7 @@ module Elastic
     # -- non-action methods --
     
     def add_reference(x)
+#      raise x.to_yaml
       @references ||= []
       @references << x if not @references.include? x
     end    
@@ -93,6 +94,11 @@ module Elastic
     def prepare
       @site = Context.site
       Context.ctrl= self
+      
+      if @site.theme.blank?
+        render_error "There is no theme selected. There is nothing to render."
+        return false
+      end
     end
 
     def render_liquid(template_name=nil, add_drops={})
@@ -147,7 +153,7 @@ module Elastic
     
     
     def render_error(error)
-      render :inline=>"ERROR: #{error}"
+      render :inline=>"#{error}", :layout=>'elastic/error'
     end
 
     def render_404(error=nil)

@@ -20,6 +20,7 @@ module Elastic
       :gallery => %w{ },
       :tinymce => %w{ config_file }
     }
+    
   
     belongs_to :section  
     has_many :contents

@@ -1,0 +1,49 @@
+
+
+<div id="OuterWrapper">
+
+	<div class="isle" style="">
+				
+		<div style="position: absolute;">
+			<a href="/"><img src="/x/current_theme/images/logo.png" alt="Logo"/></a>
+		</div>
+		
+		<div style="position: absolute; right: 0px; padding: 10px; ">
+			{% give_me node section_slogans.nodes_starry %}						
+			{% if the_node.content[0] == nil %}
+				<h3>{{ the_node }}</h3>
+			{% else %}
+				<h3><a href="{{ the_node.content[0].path }}">{{ the_node }}</a></h3>
+			{% endif %}
+		</div>
+		
+		{% if action == 'index' %}		
+				
+			<br/><br/>
+			{% include 'mindmaps/menu' %}
+			
+		{% elsif action == 'show' %}
+			
+			<br/><br/><br/><br/><br/>
+			<br/><br/><br/><br/><br/>
+			
+			<div id="InnerWrapper">			
+				<h1>{{ node.title }}</h1>
+				
+				<div class="contentWrapper">
+					{{ node.content[0] | md }}
+				</div>
+			</div>
+			
+		{% endif %}
+		
+	</div>
+	
+	
+	
+	<div class="isle">
+		{% give_me node 'Footer' %}
+		{{ footer.content[0] }}
+	</div>
+	
+</div>

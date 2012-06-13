@@ -9,28 +9,7 @@
 		<% if not @item.new_record?%>
 			<%= link_to 'LETS GO THERE!', @item.uri, :class=>'button' if request.host!=@item.host %>			
 		<% end %>
-			
-		<% if not @item.new_record?%>
-		  <br/><br/>
-			<table class="wakeThemeForm" class="">
-				<tr>
-					<th> Export: </th>
-					<td>
-						<%= link_to 'STRUCTURE', structure_export_master_site_path(@item), :class=>'button', :method=>:post %>
-						<%= link_to 'CONTENT', content_export_master_site_path(@item), :class=>'button', :method=>:post %>
-					</td>
-				</tr>
-				<tr>
-					<th> Structure: </th>
-					<td> <%= f.file_field 'structure_import' %>	</td>
-				</tr>
-				<tr>
-					<th> Content: </th>
-					<td> <%= f.file_field 'content_import' %>	</td>
-				</tr>
-			</table>
-		<% end %>
-	
+				
 	</div>
 	
 	<br/>
@@ -109,8 +88,32 @@
 			</tr>
 		</table>
 	<% end %>
+
+
+	<% if not @item.new_record?%>
+	  <br />
+		<h3>Import / export (experimental)</h3>
+		<table class="wakeThemeForm" class="">
+			<tr>
+				<th> Export: </th>
+				<td>
+					<%= link_to 'STRUCTURE', structure_export_master_site_path(@item), :class=>'button', :method=>:post %>
+					<%= link_to 'CONTENT', content_export_master_site_path(@item), :class=>'button', :method=>:post %>
+				</td>
+			</tr>
+			<tr>
+				<th> Structure: </th>
+				<td> <%= f.file_field 'structure_import' %>	</td>
+			</tr>
+			<tr>
+				<th> Content: </th>
+				<td> <%= f.file_field 'content_import' %>	</td>
+			</tr>
+		</table>
+	<% end %>
 		
-	<br/>
+	<br />
+	
 	
 
 <% end %>

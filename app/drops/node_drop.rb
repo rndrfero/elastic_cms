@@ -23,13 +23,22 @@ class NodeDrop < Liquid::Drop
   # -- contents --
   
   def contents
-    @contents ||= @node.contents.map do |x| 
-      ref = Elastic::Context.user ? x.reference : (x.published_reference||x.reference)
-      case ref.class.to_s
-        when 'Elastic::FileRecord' then FileRecordDrop.new ref
-        when 'Elastic::Gallery' then GalleryDrop.new ref
-        when 'Elastic::Node' then NodeDrop.new ref
-        else ContentDrop.new x
+    @contents ||= @node.contents.map do |x|
+ 
+      if %w{ image node gallery }.include? x.content_config.form # we are referencing something
+        ref = Elastic::Context.user ? x.reference : (x.published_reference||x.reference)
+        if ref.nil?
+          nil
+        else
+          Elastic::Context.ctrl.add_reference ref
+          case ref.class.to_s
+            when 'Elastic::FileRecord' then FileRecordDrop.new ref
+            when 'Elastic::Gallery' then GalleryDrop.new ref
+            when 'Elastic::Node' then NodeDrop.new ref
+          end
+        end
+      else # standard content                
+        ContentDrop.new(x)
       end
         
       # if x.reference.is_a? 
@@ -78,6 +87,7 @@ class NodeDrop < Liquid::Drop
   end
 
   def ==(x)
+    return false if not x.is_a? NodeDrop
     @node.id == x.instance_variable_get(:@node).id
   end
   

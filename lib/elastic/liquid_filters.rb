@@ -20,7 +20,7 @@ module Elastic
     end
 
     def splitnl(input)
-      input.split("\n")
+      input.to_s.split("\n")
     end
     
   end

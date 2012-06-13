@@ -33,8 +33,10 @@
 			<% for x in @references %>
 				<% if x.is_a? Elastic::Gallery %>
 					<%= link_to x.title, editor_gallery_path(x) %>
-				<%# elsif x.is_a? Elastic::Node %>
-					<%#= link_to x.title, editor_section_node_path(x.section,x) %>
+				<% elsif x.is_a? Elastic::Node %>
+					<%= link_to x.title, editor_section_node_path(x.section,x) %>
+				<% else %>
+				  todo: <%= x.class %>
 				<% end  %>
 			<% end %>
 		<% end %>

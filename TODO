@@ -1,6 +1,87 @@
-gallery_id zamenit v content_config za gallery_key, kvoli im/exportu
+pri deletovani nodov v sekcii - editor - zaskrtavatko napr na destroy
+
+intelligent generate content
+
+erb in sandbox instead of liquid
+
+Elastic cms: related pages
+
+- archive.zip
+
+- get node by title
+
+Creating dreamy scape.
 
 
+THE NEW TECHNOLOGY ALWAYS CREATES OPEN SPACE FOR CREATIVITY.
+  NOW WITH IDIOT-PROOF BACKEND.
+
+SCENE: THERE IS A ONE? 
+
+TRUST YOUR TEAM: THRU UNLIMITED UNDO
+
+THIS IS BASED ON RAILS 3.2
+
+ANARCHIST'S SOLUTION FOR SOLID CONSTRUCTION
+
+Sometimes that you can dont mean you should.
+
+I WANT GRANDPA TO EDIT THIS.
+
+ART-RELATED WEBSITES SUPPORT click here
+
+EVERYTHING CHANGES.
+
+EDIT ALL THE LINKED DATA IMMEDIATELY.
+
+TERRA NOVA FOR GFX FREAKS
+
+TRUSTED FAIL-PROOF BACKEND
+
+
+
+keby tam mal taku ficuru, ze by mohol v ramci configure rovno preskrolovat dane image.
+
+
+In this stage, there are 2 options:
+  a) You have the designer and the design, the designer wants to mess with the system. Account created.
+  b) You have the design only. You have 1:1 PNG how it should look like.
+
+Solutions:
+  a) Contact frantisek.psotka@stylez.sk for account creation.
+  b) Open new discussion thread in "WE WANT THIS TO COME ALIVE".
+
+In latter case b) you should know basic concept and you have some vision of what you need. You can find
+somebody who can understand this, but what is important, including me :)
+
+
+
+vsetko musi byt dobre velke klikatelne, ziadne pizi pici triafat misou (starfarby)
+
+title image do galerie, ked neni title image tak tam zobrazovat posledny zobrazeny
+
+one gallery - zaskratavatko ktore galerie este mirroruje 
+  + copy to, copy from   [x] skip processing
+
+invert star/color aby bolo mozne tak ako sa da select
+
+oslovit fotografa, ktoreho veci tam budu, alebo via deviant art
+
+watermark - full via efx or watermark standard (coc)
+
+zapnut vypnut hudbu k tomu - embeded prehravac
+
+viacero hviezdiciek - farebne pasiky
+
+vytrieskat s technologie maximum
+
+moznosti mixovana canvas / GL canvas a normalnej stranky
+
+Chemické s/plodiny do každej RH /odiny. -> live editovatelne
+
+znicoho nic
+
+debian install git
 
 {% insert content %}
 
@@ -237,3 +318,28 @@ iconic:
   warning
   rotate left
   rotate right
+
+
+------= FUTURE =----
+
+konektory na instagram, flickr a podobne
+
+future: ako s obrazkami, takto aj s videami?
+
+
+
+Way 1:
+
+{% give_me node 'Slogans' %}
+{{ node.content[0] | splitnl | random }}
+
+Way 2:
+
+
+{% give_me node section_slogans.nodes_starry %}
+{{ the_node.content[0] }}
+
+
+
+testing reference:
+	{% if the_node.content[0] == nil %}

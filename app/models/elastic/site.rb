@@ -137,7 +137,7 @@ module Elastic
     def saturate
       # default values
       self.locales_str = 'en' if self.locales_str.blank?
-      self.is_force_reload_theme ||= true
+      self.is_force_reload_theme = true if new_record?
     end
   
   

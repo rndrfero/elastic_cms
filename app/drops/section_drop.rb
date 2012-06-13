@@ -19,6 +19,14 @@ class SectionDrop < Liquid::Drop
   def roots
     @section.nodes.roots.published.map{ |x| NodeDrop.new(x) }
   end
+  
+  def nodes_starry
+    @section.nodes.starry.published.map{ |x| NodeDrop.new(x) }
+  end
+  
+  def roots_starry
+    @section.nodes.starry.published.map{ |x| NodeDrop.new(x) }
+  end
 
   # def roots
   #   @section.nodes.published.where( :node_id=>'NULL' ).map{ |x| NodeDrop.new(x) }
@@ -29,6 +37,7 @@ class SectionDrop < Liquid::Drop
   end
 
   def ==(x)
+    return false if not x.is_a? SectionDrop
     @section.id == x.instance_variable_get(:@section).id
   end
 

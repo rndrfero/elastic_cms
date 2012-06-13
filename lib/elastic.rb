@@ -6,6 +6,7 @@ require "elastic/liquid_tags"
 require "elastic/liquid_filters"
 require "elastic/string"
 require "elastic/tincan"
+require "elastic/liquid_hacks"
 
 module Elastic
   

@@ -20,17 +20,27 @@ module Elastic
       dropclass = "#{@what.camelize}Drop".constantize
       
       @which = @which.render(context)      
+
+      return [] if @which == []
+      @which = @which[ rand(@which.size) ] if @which.is_a? Array
       
-      return nil if @which.class.to_s.ends_with? 'Drop'
-      
-      item = itemclass.where(:site_id=>Context.site.id).send (@which.to_i == 0 ? :find_by_key : :find_by_id), @which
-      
-      if item
-        Context.ctrl.add_reference item
-        context.scopes.last['the_'+@what] = dropclass.new item
+      if @which.class.to_s.ends_with? 'Drop'
+        # it is a drop allready
+        Context.ctrl.add_reference @which.instance_variable_get "@#{@what}"
+        context.scopes.last['the_'+@what] = @which
         nil
-      else
-        "Cannot find #{@what} identified by '#{@which}'."
+#        return @which 
+      else      
+        # we got to find it
+        item = itemclass.where(:site_id=>Context.site.id).send (@which.to_i == 0 ? :find_by_key : :find_by_id), @which
+      
+        if item
+          Context.ctrl.add_reference item
+          context.scopes.last['the_'+@what] = dropclass.new item
+          nil
+        else
+          "Cannot find #{@what} identified by '#{@which}'."
+        end
       end
     end    
   end

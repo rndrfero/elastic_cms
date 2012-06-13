@@ -19,7 +19,7 @@
 	  <%= f.text_field 'title', :value=>@item.title, :size=>40, :class=>'title' %>
 	
 		<% if Elastic::Context.user.master? %>
-			<%= link_to ico(:cog), master_section_path(@section), :class=>'button' %>
+			<%= link_to ico(:cog), master_section_path(@section), :class=>'button', :title=>"Configure section." %>
 		<% end %>
 	
 	
