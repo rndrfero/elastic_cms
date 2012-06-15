@@ -7,7 +7,7 @@ require "elastic/version"
 Gem::Specification.new do |s|
   s.name        = "elastic"
   s.version     = Elastic::VERSION
-  s.authors     = ["František Psotka"]
+  s.authors     = ["Frantisek Psotka"]
   s.email       = ["frantisek.psotka@stylez.sk"]
   s.homepage    = "TODO"
   s.summary     = "TODO: Summary of Elastic."

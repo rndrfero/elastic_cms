@@ -4,6 +4,8 @@ body { background: url('/x/galleries/backgrounds/orig/default.png'); font-family
 
 h1,h2,h3,h4 { font-family: "Trebuchet MS",Verdana,sans-serif; }
 
+area { border: 1px solid red !important; }
+
 #OuterWrapper { width: 1000px; margin: auto; margin-top: 20px; }
 #InnerWrapper { margin: 20px; }
 

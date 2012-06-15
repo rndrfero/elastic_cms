@@ -19,7 +19,7 @@
 		
 		{% if action == 'index' %}		
 				
-			<br/><br/>
+			<br/>
 			{% include 'mindmaps/menu' %}
 			
 		{% elsif action == 'show' %}
@@ -31,6 +31,7 @@
 				<h1>{{ node.title }}</h1>
 				
 				<div class="contentWrapper">
+					<!-- {% md %}{{ node.content[0] }}{% endmd %} -->
 					{{ node.content[0] | md }}
 				</div>
 			</div>
@@ -43,7 +44,7 @@
 	
 	<div class="isle">
 		{% give_me node 'Footer' %}
-		{{ footer.content[0] }}
+		{{ the_node.content[0] }}
 	</div>
 	
 </div>
