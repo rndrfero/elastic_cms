@@ -16,6 +16,7 @@ module Elastic
     end
     
     def md(x)
+      return x if Elastic::Context.ctrl.params[:action]=='edit'
       BlueCloth.new(x).to_html
     end
 

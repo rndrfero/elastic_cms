@@ -1,7 +1,9 @@
 require_dependency "elastic/string"
 require_dependency "wake.rb"
+require_dependency "elastic/liquid_hacks"
 require_dependency "elastic/liquid_tags"
 require_dependency "elastic/liquid_filters"
+
 
 module Elastic
   class ApplicationController < ActionController::Base

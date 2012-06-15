@@ -2,11 +2,12 @@ require "elastic/engine"
 require "elastic/context"
 require "elastic/with_directory"
 require "elastic/thumbnail_generators"
-require "elastic/liquid_tags"
-require "elastic/liquid_filters"
 require "elastic/string"
 require "elastic/tincan"
+
 require "elastic/liquid_hacks"
+require "elastic/liquid_tags"
+require "elastic/liquid_filters"
 
 module Elastic
   

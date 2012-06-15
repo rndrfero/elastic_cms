@@ -79,6 +79,8 @@ Elastic::Engine.routes.draw do
         post 'regenerate', :on=>:member
         
         get 'f_destroy', :on=>:member, :action=>'f_destroy', :as=>'f_destroy'
+        get 'f_star', :on=>:member, :action=>'f_star', :as=>'f_star'
+        
         # get 'f_edit/:file_record_id', :on=>:member, :action=>'f_edit', :as=>'f_edit'
         # put 'f_update/:file_record_id', :on=>:member, :action=>'f_update', :as=>'f_update'
         resources :file_records do

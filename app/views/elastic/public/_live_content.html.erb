@@ -1,6 +1,5 @@
 <% if params[:action] == 'edit' and params[:content_config_id].to_i == content_config.id %>
 
-EDIT:
 <%= form_for @node, :url=>update_path(content.node.key,content_config.id) do |f| %>
 	<%= render :partial=>'/elastic/editor/nodes/content_forms/'+content_config.form,
       	:locals=>{:form_helper=>f, :content_config=>content_config, :content=>content} %>

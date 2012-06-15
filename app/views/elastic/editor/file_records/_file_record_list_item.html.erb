@@ -3,7 +3,7 @@
 
 <% extname = File.extname(fr.filename).upcase %>
 
-<div id="<%=dom_id fr%>" class="<%='active' if @item and @item.is_a? Elastic::FileRecord and @item.id == item.id %> <%=fr.is_image? ? 'imageItem' : 'fileItem' %>" index="<%= fr.id %>">
+<div id="<%=dom_id fr%>" class="<%='active' if @item and @item.is_a? Elastic::FileRecord and @item.id == item.id %> <%=fr.is_image? ? 'imageItem' : 'fileItem' %>" index="<%= fr.id %>" title="<%= fr.filename %>">
 
 	<div id="<%=dom_id item%>-inside"></div>
 	<div id="<%=dom_id item%>-form"  class="popup form-container">
@@ -14,13 +14,13 @@
 		<div class="controls">
 			<%= link_to ico(:pen)+'EDIT', edit_editor_gallery_file_record_path(gallery,item), :remote=>true %>
 			<%= link_to ico(:eye)+'SHOW', item.path('orig') %>
-			<%= link_to ico(:star)+'STAR', toggle_star_editor_gallery_file_record_path(gallery,item), 
+			<%#= link_to ico(:star)+'STAR', toggle_star_editor_gallery_file_record_path(gallery,item), 
 				:remote=>true, :method=>:post %>
 			<%#= link_to ico(:cog)+'PROCESS', editor_gallery_file_record_path(gallery,item) %>
 		</div>		
 		<% if item.is_star? %>
-			<div style="position: absolute; padding: 1px; background: none; bottom: 0px; right: 0px; ">
-				<%= link_to ico(:star,:lightgray), toggle_star_editor_gallery_file_record_path(gallery,item), :remote=>true, :method=>:post %>
+			<div style="position: absolute; padding: 1px; background: white; bottom: 0px; right: 0px; ">
+				<%= link_to ico(:star,:black), toggle_star_editor_gallery_file_record_path(gallery,item), :remote=>true, :method=>:post %>
 			</div>
 		<% end %>
 	

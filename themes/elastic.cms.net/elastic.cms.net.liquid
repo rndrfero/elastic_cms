@@ -22,7 +22,7 @@
 			<br/>
 			{% include 'mindmaps/menu' %}
 			
-		{% elsif action == 'show' %}
+		{% else %}
 			
 			<br/><br/><br/><br/><br/>
 			<br/><br/><br/><br/><br/>
@@ -41,8 +41,7 @@
 	</div>
 	
 	
-	
-	<div class="isle">
+	<div id="Footer" class="isle">
 		{% give_me node 'Footer' %}
 		{{ the_node.content[0] }}
 	</div>

@@ -8,6 +8,8 @@ a img { border: none; }
 
 h1,h2,h3 { letter-spacing: 0.1em; color: #3D5E76; font-weight: normal;
 	font-family: "Trebuchet MS",Verdana,sans-serif; margin-bottom: 10px; }	
+	
+.bgWhite { background: white; }
 
 
 #bg { position:fixed; top:0%; left:0%; width: 100%; height:100%; }

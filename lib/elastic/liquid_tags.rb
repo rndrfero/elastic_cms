@@ -25,15 +25,12 @@ module Elastic
       @which = @which[ rand(@which.size) ] if @which.is_a? Array
       
       if @which.class.to_s.ends_with? 'Drop'
-        # it is a drop allready
         Context.ctrl.add_reference @which.instance_variable_get "@#{@what}"
         context.scopes.last['the_'+@what] = @which
         nil
-#        return @which 
       else      
         # we got to find it
         item = itemclass.where(:site_id=>Context.site.id).send (@which.to_i == 0 ? :find_by_key : :find_by_id), @which
-      
         if item
           Context.ctrl.add_reference item
           context.scopes.last['the_'+@what] = dropclass.new item

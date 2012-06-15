@@ -43,6 +43,15 @@ module Elastic
       end
       redirect_to editor_gallery_path(@item)      
     end
+
+    def f_star
+      indexes = (params[:index]||[]).map!{ |x| x.to_i }
+      for fr in @item.file_records
+        fr.toggle_star! if indexes.include? fr.id 
+      end
+      redirect_to editor_gallery_path(@item)      
+    end
+
       
     # def wake_list
     #   super

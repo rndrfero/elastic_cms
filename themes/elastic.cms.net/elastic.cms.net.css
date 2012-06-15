@@ -7,6 +7,10 @@ h1,h2,h3,h4 { font-family: "Trebuchet MS",Verdana,sans-serif; }
 area { border: 1px solid red !important; }
 
 #OuterWrapper { width: 1000px; margin: auto; margin-top: 20px; }
-#InnerWrapper { margin: 20px; }
+#InnerWrapper { margin: 10px; }
+
+#Footer { padding: 4px; text-align: center; }
 
 .isle { background: white; box-shadow: 10px 10px 8px #AAA; position: relative; }
+
+.elasticContentWrapper:hover { background: #ADD0DB; cursor: pointer; }
