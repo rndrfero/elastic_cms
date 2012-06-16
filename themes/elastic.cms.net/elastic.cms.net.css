@@ -1,8 +1,9 @@
 * { margin: 0; padding: 0; }
 
-body { background: url('/x/galleries/backgrounds/orig/default.png'); font-family: Arial; font-size: 12px; color: #555; }
+body { background: url('/x/galleries/backgrounds/orig/default.png'); font-family: Arial; font-size: 12px; color: #555; font-size: 13px; }
 
-h1,h2,h3,h4 { font-family: "Trebuchet MS",Verdana,sans-serif; }
+h1,h2,h3,h4,h5,h6 { font-family: "Trebuchet MS",Verdana,sans-serif; }
+h1,h2,h3 { color: #74BE29; }
 
 area { border: 1px solid red !important; }
 
@@ -14,3 +15,13 @@ area { border: 1px solid red !important; }
 .isle { background: white; box-shadow: 10px 10px 8px #AAA; position: relative; }
 
 .elasticContentWrapper:hover { background: #ADD0DB; cursor: pointer; }
+
+.markdown { boder: 1px solid red; margin: 0px 50px; }
+.markdown p, .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6, 
+  .markdown ul, .markdown ol { margin-bottom: 1em; }
+.markdown ul li, .markdown ol li { margin-left: 2em; margin-bottom: 0.2em; }
+
+.markdown code { background-color: #F8F8F8; border: 1px solid #CCCCCC; padding: 0px 2px 0px 2px; }
+.markdown pre { background-color: #F8F8F8; border: 1px solid #CCCCCC; font-size: 12px; line-height: 19px; 
+	overflow: auto; padding: 6px 10px; margin: 0px 10px; margin-bottom: 1em;}
+.markdown pre code { bakcground: none; border: none; padding: 0px; }

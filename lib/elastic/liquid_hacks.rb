@@ -7,6 +7,21 @@ class Array
 end
 
 module Liquid
+  
+  class Block < Tag
+    def render_all(list, context)
+      list.collect do |token|
+        begin
+          x = token.respond_to?(:render) ? token.render(context) : token
+          x.force_encoding('utf-8') if x.respond_to?(:force_encoding)
+          x
+        rescue ::StandardError => e
+          context.handle_error(e)
+        end
+      end.join
+    end
+  end
+  
   class Context
     def handle_error(e)
       errors.push(e)

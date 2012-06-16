@@ -1,4 +1,7 @@
+# encoding: utf-8
+
 require 'liquid'
+require 'nokogiri'
 
 module Elastic
   module LiquidFilters
@@ -22,6 +25,18 @@ module Elastic
 
     def splitnl(input)
       input.to_s.split("\n")
+    end
+    
+    def xpath(x, xpath)
+#      raise x.inspect
+      doc = Nokogiri::HTML(x)
+      ret = doc.xpath(xpath)
+      ret.empty? ? nil : ret.first.to_s #.content      
+    end
+    
+    def css(x, css)    
+      # doc = Nokogiri::HTML(x)
+      # doc.xpath(css).first.content
     end
     
   end

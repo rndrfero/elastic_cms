@@ -1,10 +1,22 @@
+give_me varianta, kde sa to spocita v parse, nie render
+
+mozno pouzivat liquid aj normalne v texte node ? 
+
+
+# http://stackoverflow.com/questions/7210232/ruby-nethttp-following-301-redirects
+
+
 live editing fragmentov?
+ - doplnit is_published pre sekciu
 
 content-type: gallery_select
 
 configure view
 
+
 insert content, from file, from url, filter by dom selector
+
+
 
 pri deletovani nodov v sekcii - editor - zaskrtavatko napr na destroy
 

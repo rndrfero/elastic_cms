@@ -22,6 +22,14 @@
 			<br/>
 			{% include 'mindmaps/menu' %}
 			
+			<br/><br/>
+
+			<div class="markdown">
+				{% give_me html 'https://github.com/airblade/paper_trail/' %} 		
+				{{ the_html | xpath: '/html/body/div/div[2]/div/div[3]/div[2]/div/div[2]/article' }}
+			</div>
+			
+			
 		{% else %}
 			
 			<br/><br/><br/><br/><br/>
@@ -44,6 +52,12 @@
 	<div id="Footer" class="isle">
 		{% give_me node 'Footer' %}
 		{{ the_node.content[0] }}
+		
+		<hr/>
+		<!-- { % give_me html 'http://tenderlovemaking.com/' %} 		
+		{ { the_html | xpath: '/html/body/article/section/div/p' }} -->
+		
+		
 	</div>
 	
 </div>

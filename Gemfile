@@ -17,6 +17,7 @@ gem 'acts_as_list'
 gem 'ancestry'
 gem 'rmagick'
 gem 'liquid'
+gem 'nokogiri'
 
 gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
 #gem 'wake', :path => '~/rails_gems/wake'
