@@ -3,17 +3,17 @@
 <!-- background: cover; -->
 
 <style>
-  #bg { background: url('{{ the_gallery.path }}/orig/{{ the_gallery.starry_images.random }}'); background: cover; }
+/*  #bg { background: url('{{ the_gallery.path }}/orig/{{ the_gallery.images.starry.random }}'); background: cover; } */
 </style>
 
 <div id="bg">
 	<!-- <div id="flowplayer" href="/x/static/test.mov" style=""></div> -->
-	<!-- <img src="{{ the_gallery.path }}/orig/{{ the_gallery.starry_images.random }}" alt=""> -->
+	<img src="{{ the_gallery.path }}/orig/{{ the_gallery.images.starry.random }}" alt="">
 </div>
 
 {% give_me gallery 'Overlays' %}
 
-<div id="overlay" style="top: 0; width: 100%; height: 100%; position: fixed; background: url('{{ the_gallery.path }}/orig/{{ the_gallery.starry_images.random }}')">
+<div id="overlay" style="top: 0; width: 100%; height: 100%; position: fixed; background: url('{{ the_gallery.path }}/orig/{{ the_gallery.images.starry.random }}')">
 </div>
 
 {% give_me gallery 'Foregrounds' %}

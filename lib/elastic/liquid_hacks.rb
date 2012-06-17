@@ -60,11 +60,21 @@ module Liquid
             # if its a proc we will replace the entry with the proc
             res = lookup_and_evaluate(object, part)
             object = res.to_liquid
+          
+            # Elastic CMS special case
+          elsif !part_resolved and object.is_a? Array and part == 'random'
+            return nil if object.empty?
+            object = object[ rand(object.size) ]
+            
+            # Elastic CMS special case
+          elsif !part_resolved and object.is_a? Array and part == 'starry'
+            return nil if object.empty?
+            object = object.select{ |x| x.respond_to?(:is_star?) and x.is_star? }
 
             # Some special cases. If the part wasn't in square brackets and
             # no key with the same name was found we interpret following calls
             # as commands and call them on the current object
-          elsif !part_resolved and object.respond_to?(part) and ['size', 'first', 'last', 'random'].include?(part)
+          elsif !part_resolved and object.respond_to?(part) and ['size', 'first', 'last'].include?(part)
 #          elsif !part_resolved and object.respond_to?(part) and [].include?(part)
 
             object = object.send(part.intern).to_liquid

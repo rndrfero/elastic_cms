@@ -4,7 +4,7 @@ class GalleryDrop < Liquid::Drop
     @gallery = x
   end
 
-  for x in %w{ title path }
+  for x in %w{ title path is_star? }
     module_eval "def #{x}; @gallery.#{x}; end"    
   end
   
@@ -19,10 +19,10 @@ class GalleryDrop < Liquid::Drop
   def non_images
     @gallery.file_records.non_images.map{ |x| FileRecordDrop.new x }
   end
-  
-  def starry_images
-    @gallery.file_records.starry.images.map{ |x| FileRecordDrop.new x }
-  end
+  # 
+  # def starry_images
+  #   @gallery.file_records.starry.images.map{ |x| FileRecordDrop.new x }
+  # end
   
   def to_s
     @gallery.title

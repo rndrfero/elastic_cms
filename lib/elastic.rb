@@ -10,6 +10,7 @@ require "elastic/liquid_tags"
 require "elastic/liquid_filters"
 
 module Elastic
+  RegexFilepath = /\.[\.]+|\/[\/]+/ # removes multiple / and . 
   
   def self.logger_info(x)
     Rails.logger.info "* Elastic CMS: #{x}"

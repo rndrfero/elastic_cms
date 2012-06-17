@@ -1,28 +1,40 @@
 ONE OF THE MOST ADVANCED CMS OUT THERE.
-
 WARNING: FUTURE TECHNOLOGY.
-
 THE NEW TECHNOLOGY ALWAYS CREATES OPEN SPACE FOR CREATIVITY.
   NOW WITH IDIOT-PROOF BACKEND.
-
 SCENE: THERE IS A ONE? 
-
 TRUST YOUR TEAM: THRU UNLIMITED UNDO
-
 THIS IS BASED ON RAILS 3.2
-
 ANARCHIST'S SOLUTION FOR SOLID CONSTRUCTION
-
 EDIT QUICKLY VIA FTP.
-
 I WANT GRANDPA TO EDIT THIS.
-
 ART-RELATED WEBSITES SUPPORT click here
-
 EVERYTHING CHANGES.
-
 EDIT ALL THE LINKED DATA IMMEDIATELY.
-
 TERRA NOVA FOR GFX FREAKS
-
 TRUSTED FAIL-PROOF BACKEND
+SUPER-FLEXIBLE CMS
+CREATIVE ARTIST'S CHOICE.
+
+-=[ Propaganda ]=-
+
+What you can do?
+
+Create reusable parametric themes.
+
+-=[ Tutorials ]=-
+
+Implementing splash screen
+
+	- via file on disk
+	- via {% if action == 'index' %} conditional
+	- via custom layout
+
+Creating parametic theme
+
+Themespecs
+
+Picking up random sentences, with link
+
+  - via {% give_me node section_slogans.nodes_starry.random %}						
+  - via splitnl | random

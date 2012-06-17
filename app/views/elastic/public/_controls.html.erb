@@ -1,16 +1,24 @@
 <% if Elastic::Context.user %>
 
+	<% if params[:action] != 'edit' and @site.is_reload? %>
+		<script type="text/JavaScript">
+			function timedRefresh(timeoutPeriod) { setTimeout("location.reload(true);",timeoutPeriod); }
+			window.onload = function () { timedRefresh(3000); }		
+		</script>
+	<% end %>
+
 	<style>
 		#ElasticControls { position: fixed; height: 25px; top: 0px; left: 0px; background: black; width: 100%; 
 			padding: 6px 30px 2px 30px; color: grey; }
-		#ElasticControls a { color: white; text-decoration: none; margin-right: 1em; }
+		#ElasticControls a { color: white; text-decoration: none;  padding: 0px 4px 0px 4px; }
 		#ElasticControls a:hover { text-decoration: underline; }
+		#ElasticControls a.active { background: white; color: #A00; }
 		body { position: relative; top: 25px; left: 0px; }
 		#ElasticControls  form.button_to, #ElasticControls form.button_to div { display: inline; }
 	</style>
 	
 	<div id="ElasticControls" style="">
-
+		
 		<% if @node %>
 			<%= link_to 'Elastic CMS', editor_section_node_path(@section, @node) %>
 		<% elsif @section %>
@@ -25,7 +33,16 @@
 		  <%= link_to 'LIST', editor_section_nodes_path(@section) %>
 		
 		<% elsif params[:action]=='edit' %>
-		  <%= link_to_function 'SAVE', '$("#edit_'+dom_id(@node)+'").submit(); ' %>
+		  <%#= link_to_function 'SAVE', '$("#edit_'+dom_id(@node)+'").submit(); ' %>
+		  <%= link_to_function 'SAVE', "document.getElementById(\"edit_#{dom_id @node}\").submit();" %>
+		
+		
+
+			
+		<% end %>
+
+		<% if params[:action] != 'edit' %>
+			<%= link_to 'RE', toggle_reload_path, :class=>"#{'active' if @site.is_reload? }" %>
 		<% end %>
 
     <% if @references %>
@@ -34,13 +51,15 @@
 				<% if x.is_a? Elastic::Gallery %>
 					<%= link_to x.title, editor_gallery_path(x) %>
 				<% elsif x.is_a? Elastic::Node %>
+				  <% next if @node and @node.id == x.id %>
 					<%= link_to x.title, editor_section_node_path(x.section,x) %>
 				<% else %>
-				  todo: <%= x.class %>
+				  <%= x.class %>
 				<% end  %>
 			<% end %>
 		<% end %>
-		
+
+				
 	</div>
 
 <% end %>

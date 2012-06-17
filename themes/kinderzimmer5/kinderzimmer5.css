@@ -51,5 +51,6 @@ h1,h2,h3 { letter-spacing: 0.1em; color: #3D5E76; font-weight: normal;
 #InnerWrapper { z-index: 1; position: relative; padding: 0px 25px 0px 25px; }
 
 .content { min-height: 500px; }
-
 .thumbnail { background: black; margin: 5px; }
+
+.elasticContentWrapper:hover { background: #94C4D3; }

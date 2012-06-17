@@ -2,6 +2,9 @@ en:
   cms_backend:
     simply_yes: 'Yes!'
     simply_no: 'No!'
+  cms_frontend:
+    note:
+      dblclick_edit: 'Double click to edit.'
   wake:
     general:
       destroy_confirm: 'Are you sure? This action CAN NOT be undone.'

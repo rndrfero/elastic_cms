@@ -36,22 +36,20 @@ module Elastic
       # render variable
       @which = @which.render(context)
       # array case
-      return [] if @which == []
-      @which = @which[ rand(@which.size) ] if @which.is_a? Array
+      # return [] if @which == []
+      # @which = @which[ rand(@which.size) ] if @which.is_a? Array
             
       if @what == 'file'
+        @which.gsub! Elastic::RegexFilepath, ''
+        filepath = File.join Elastic::Context.site.home_dir, @which
+        return "File not found: #{filepath}" if not File.exists? filepath
+        context.scopes.last['the_'+@what] = open(filepath).read        
       elsif @what == 'html'
         begin
           uri = URI.parse @which
-#          ret = Net::HTTP.get uri.host, uri.path           
-          
-#          ret = Net::HTTP.get_response(uri)
-          # if ret.code == "301"
-          #   ret = Net::HTTP.get_response(URI.parse(r['location']))
-          # end
           ret = open uri
           return "Can not open uri: #{uri}" if not ret
-          ret = ret.read
+          context.scopes.last['the_'+@what] = ret.read
         rescue URI::InvalidURIError=>e
           return e.message
         end
@@ -74,8 +72,7 @@ module Elastic
           end
         end
       end
-      
-      context.scopes.last['the_'+@what] = ret
+            
       nil # render nothing
     end    
   end

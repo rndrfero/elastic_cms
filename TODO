@@ -1,7 +1,21 @@
+insert images to textarea / tinymce
+
+themespec
+themedata
+
+watermarking
+
+tinymce nech berie by default theme_name.css, potom az editor.css
+
 give_me varianta, kde sa to spocita v parse, nie render
 
-mozno pouzivat liquid aj normalne v texte node ? 
+components vs. configure
 
+auto-saving (complementary to auto-reloading)
+
+parametric theme via hidden section  
+
+mozno pouzivat liquid aj normalne v texte node ? 
 
 # http://stackoverflow.com/questions/7210232/ruby-nethttp-following-301-redirects
 
@@ -10,13 +24,9 @@ live editing fragmentov?
  - doplnit is_published pre sekciu
 
 content-type: gallery_select
+content-type: color selectbox
 
 configure view
-
-
-insert content, from file, from url, filter by dom selector
-
-
 
 pri deletovani nodov v sekcii - editor - zaskrtavatko napr na destroy
 
@@ -276,12 +286,6 @@ tag a tagroup
 
 
 RESTORE DELETED NODE
-
-
-- zdokumentovat:
-LIQUID TAGS
-LIQUID FILTERS
-
 
 
 

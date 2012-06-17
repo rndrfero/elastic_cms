@@ -16,6 +16,7 @@ Elastic::Engine.routes.draw do
   match '/:locale/access_denied' => 'elastic#access_denied', :as=>'access_denied'
   match '/:locale/edit/:key/:content_config_id'=>'elastic#edit', :as=>'edit'
   match '/:locale/update/:key/:content_config_id'=>'elastic#update', :as=>'update'
+  match '/:locale/toggle_reload'=>'elastic#toggle_reload', :as=>'toggle_reload'
   
   # -- devise --
 

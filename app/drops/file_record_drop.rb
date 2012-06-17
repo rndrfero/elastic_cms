@@ -4,7 +4,7 @@ class FileRecordDrop < Liquid::Drop
     @file_record = x
   end
 
-  for x in %w{ title filename path }
+  for x in %w{ title filename path is_star? }
     module_eval "def #{x}; @file_record.#{x}; end"    
   end
 

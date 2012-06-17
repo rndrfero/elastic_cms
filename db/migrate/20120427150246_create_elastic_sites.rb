@@ -21,6 +21,8 @@ class CreateElasticSites < ActiveRecord::Migration
 
       t.integer :master_gallery_id
       t.integer :master_id
+      
+      t.boolean :reload
 
       
       t.timestamps

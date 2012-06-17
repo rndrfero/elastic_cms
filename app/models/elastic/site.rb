@@ -3,6 +3,7 @@ require_dependency 'elastic/tincan'
 module Elastic  
   class Site < ActiveRecord::Base
     include Tincan
+    extend WithToggles
 #    include WithKey
 
     def tincan_map
@@ -26,6 +27,8 @@ module Elastic
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
     belongs_to :master_gallery, :class_name=>'Gallery', :dependent=>:destroy
+    
+    with_toggles :reload
   
     validates_presence_of :title, :host, :theme
     validates_format_of :host, :with=>/^[a-z0-9.]*$/

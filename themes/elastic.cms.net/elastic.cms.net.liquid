@@ -9,7 +9,7 @@
 		</div>
 		
 		<div style="position: absolute; right: 0px; padding: 10px; ">
-			{% give_me node section_slogans.nodes_starry %}						
+			{% give_me node section_slogans.nodes.starry.random %}						
 			{% if the_node.content[0] == nil %}
 				<h3>{{ the_node }}</h3>
 			{% else %}
@@ -25,8 +25,8 @@
 			<br/><br/>
 
 			<div class="markdown">
-				{% give_me html 'https://github.com/airblade/paper_trail/' %} 		
-				{{ the_html | xpath: '/html/body/div/div[2]/div/div[3]/div[2]/div/div[2]/article' }}
+				<!-- { % give_me html 'https://github.com/airblade/paper_trail/' % } 		
+				{ { the_html | xpath: '/html/body/div/div[2]/div/div[3]/div[2]/div/div[2]/article' } } -->
 			</div>
 			
 			
@@ -51,12 +51,12 @@
 	
 	<div id="Footer" class="isle">
 		{% give_me node 'Footer' %}
-		{{ the_node.content[0] }}
-		
-		<hr/>
+		{{ the_node.content[0] }}		
 		<!-- { % give_me html 'http://tenderlovemaking.com/' %} 		
 		{ { the_html | xpath: '/html/body/article/section/div/p' }} -->
-		
+		<hr/>
+		{% give_me file 'git.txt' %}
+		{{ the_file }}
 		
 	</div>
 	

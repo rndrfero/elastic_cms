@@ -3,6 +3,8 @@ module Elastic
     
     skip_before_filter :authenticate_user!
     before_filter :prepare
+    
+    helper :wake
 
     # index page
     def index
@@ -82,6 +84,11 @@ module Elastic
       render :inline=>"404: NOT FOUND", :status=>404
     end
     
+    def toggle_reload
+      @site.toggle_reload!
+      redirect_to :back
+    end
+    
     # -- non-action methods --
     
     def add_reference(x)
@@ -120,6 +127,7 @@ module Elastic
         'locale' => Context.locale.to_s,
         'action' => params[:action],
         'key' => params[:key],
+        'user' => (Context.user ? Context.user.name : nil)
       }
 
       for s in @site.sections

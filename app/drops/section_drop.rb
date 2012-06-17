@@ -20,13 +20,13 @@ class SectionDrop < Liquid::Drop
     @section.nodes.roots.published.map{ |x| NodeDrop.new(x) }
   end
   
-  def nodes_starry
-    @section.nodes.starry.published.map{ |x| NodeDrop.new(x) }
-  end
-  
-  def roots_starry
-    @section.nodes.starry.published.map{ |x| NodeDrop.new(x) }
-  end
+  # def starry_nodes
+  #   @section.nodes.starry.published.map{ |x| NodeDrop.new(x) }
+  # end
+  # 
+  # def starry_roots
+  #   @section.nodes.starry.published.map{ |x| NodeDrop.new(x) }
+  # end
 
   # def roots
   #   @section.nodes.published.where( :node_id=>'NULL' ).map{ |x| NodeDrop.new(x) }
