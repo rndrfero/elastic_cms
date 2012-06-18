@@ -88,7 +88,7 @@
 					{% elsif action == 'section' %}
 					  showing section:
 
-					{% elsif action == 'show' %}
+					{% elsif action == 'show' or action == 'edit' %}
 					  {{ node.content[0] }}
 
 					{% endif %}				

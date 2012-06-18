@@ -5,6 +5,7 @@ module Elastic
     before_filter :prepare
     
     helper :wake
+    include ElasticHelper
 
     # index page
     def index
@@ -43,22 +44,33 @@ module Elastic
     end
     
     def edit
-      show
+      @edit = true
+      send @action
     end
     
     def update
-      @node = Node.in_public.find_by_key params[:key]
-      if @node
-        @node.contents_setter= { params[:content_config_id]=>params[:node] }
-        if @node.save
+      if @action == 'show'
+        @node = Node.in_public.find_by_key params[:key]
+      elsif @action == 'section'
+        @section = @site.sections.find_by_key params[:key]
+      elsif @action == 'index'
+        # do nothing
+      else
+        raise 'UNEXPECTED'
+      end
+      
+      c = Content.find_by_id(params[:content_id])
+      if c
+        c.node.contents_setter= { c.content_config_id=>params[:node] }
+        if c.node.save
           flash[:hilite] = 'ok'
-          redirect_to show_path(@node.key)
+          redirect_to exit_path
         else
           flash.now[:notice] = 'error'
           edit
         end
       else
-        raise 'KOKOTINA'
+        raise 'UNEXPECTED'
       end
     end
     
@@ -102,6 +114,12 @@ module Elastic
       @site = Context.site
       Context.ctrl= self
       
+      if %w{ edit update }.include? params[:action]
+        @action = request.path.split('/')[2]
+      else
+        @action = params[:action]
+      end
+      
       if @site.theme.blank?
         render_error "There is no theme selected. There is nothing to render."
         return false
@@ -125,7 +143,7 @@ module Elastic
 
         'params' => params,
         'locale' => Context.locale.to_s,
-        'action' => params[:action],
+        'action' => @action,
         'key' => params[:key],
         'user' => (Context.user ? Context.user.name : nil)
       }

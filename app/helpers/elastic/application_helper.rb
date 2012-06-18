@@ -1,6 +1,6 @@
 module Elastic
   module ApplicationHelper
-    
+        
     def wdbg(x)
       false ? raw("<div class=\"wakeDebug\">#{x}</div>") : ''
     end

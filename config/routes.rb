@@ -13,11 +13,25 @@ Elastic::Engine.routes.draw do
   match '/:locale' => 'elastic#index'
   match '/:locale/show/:key' => 'elastic#show', :as=>'show'
   match '/:locale/section/:key' => 'elastic#section', :as=>'section'
-  match '/:locale/access_denied' => 'elastic#access_denied', :as=>'access_denied'
-  match '/:locale/edit/:key/:content_config_id'=>'elastic#edit', :as=>'edit'
-  match '/:locale/update/:key/:content_config_id'=>'elastic#update', :as=>'update'
-  match '/:locale/toggle_reload'=>'elastic#toggle_reload', :as=>'toggle_reload'
   
+  # edit in show
+  match '/:locale/edit/:content_id' => 'elastic#edit', :as=>'edit_index'
+  match '/:locale/update/:content_id' => 'elastic#edit', :as=>'update_index'
+
+  # edit in show
+  match '/:locale/show/:key/edit/:content_id' => 'elastic#edit', :as=>'edit_show'
+  match '/:locale/show/:key/update/:content_id' => 'elastic#update', :as=>'update_show'
+
+  # edit in section
+  match '/:locale/section/:key/edit/:content_id' => 'elastic#edit', :as=>'edit_section'
+  match '/:locale/section/:key/update/:content_id' => 'elastic#update', :as=>'update_section'
+  
+  
+  # match '/:locale/edit/:key/:content_config_id'=>'elastic#edit', :as=>'edit'
+  # match '/:locale/update/:key/:content_config_id'=>'elastic#update', :as=>'update'
+  
+  match '/:locale/toggle_reload'=>'elastic#toggle_reload', :as=>'toggle_reload'  
+  match '/:locale/access_denied' => 'elastic#access_denied', :as=>'access_denied'
   # -- devise --
 
   devise_for :users, :class_name=>'Elastic::User', :module=>:devise,
