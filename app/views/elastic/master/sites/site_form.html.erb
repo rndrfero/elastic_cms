@@ -5,10 +5,9 @@
 	<div class="wakeThemeCleanForm">
 
 		<%= f.submit 'SAVE CHANGES', :class=>'button' %>	
-		&nbsp;&nbsp;&nbsp;
 		<% if not @item.new_record?%>
 			<%= link_to 'LETS GO THERE!', @item.uri, :class=>'button' if request.host!=@item.host %>			
-			<small><%= link_to 'COPY/RENEW EXAMPLE THEMES', copy_themes_master_site_path(@item) %></small>
+			<small><%= link_to 'COPY/RENEW EXAMPLE THEMES', copy_themes_master_site_path(@item), :class=>'button' %></small>
 		<% end %>
 				
 	</div>
@@ -25,15 +24,15 @@
 		</tr>
 		<tr>
 			<th> Host (address): </th>
-			<td> <%= f.text_field 'host', :class=>'' %>  </td>
+			<td> <%= f.text_field 'host', :class=>'' %> <%=wfe 'host' %> </td>
 		</tr>
 		<tr>
 			<th> Title: </th>
-			<td> <%= f.text_field 'title', :class=>'' %>  </td>
+			<td> <%= f.text_field 'title', :class=>'' %> <%=wfe 'title' %>  </td>
 		</tr>
 		<tr>
 			<th> Locales: </th>
-			<td>  <%= f.text_field 'locales_str', :class=>'' %>  <small>separated by comas</small> </td>
+			<td>  <%= f.text_field 'locales_str', :class=>'' %> <%=wfe 'locales_str' %> <small>separated by comas</small> </td>
 		</tr>
 		<% if not @item.new_record? %>
 		<tr>
@@ -63,72 +62,89 @@
 	
 	<br />
 
-	<h3>Theme (<%= @item.theme%>) configuration</h3>
+	<% if not @item.new_record? %>
+		<h3>Theme (<%= @item.theme%>) configuration</h3>
 
-	<% if @item.theme.blank? %>
-	  Select theme first.
-	<% else %>
-		<table class="wakeThemeForm" class="">
-			<tr>
-				<th> Custom index: </th>
-				<td>
-					<%= f.select 'theme_index', ([nil]+@item.theme_liquids.reject{ |x| x=~/layout/ or x=='head' }) %> &nbsp;&nbsp;
-					<small>Default: '<%= @item.theme %>.liquid'</small>
-				</td>
-			</tr>
-			<tr>
-				<th> Custom layout: </th>
-				<td>
-					<%= f.select 'theme_layout', ([nil]+@item.theme_liquids.select{ |x| x=~/layout/ }) %> &nbsp;&nbsp;
-					<small>Default: Renders a standard HTML5 document.</small>
-				</td>
-			</tr>
-			<tr>
-				<th> Development: </th>
-				<td> <%= f.check_box 'is_reload_theme' %> reload theme on each request? </td>
-			</tr>
-			<tr>
-				<th> Theme specification: </th>
-				<td> <%= link_to 'CREATE SECTIONS ACCORDING TO THEMESPEC', '', :class=>'button' %></td>
-			</tr>
-			<tr>
-				<th> Theme seed data: </th>
-				<td> <%= link_to 'IMPORT DATA ACCORDING TO THEMEDATA', '', :class=>'button' %></td>
-			</tr>
-		</table>
+		<% if not @item.theme_valid? %>
+		  Theme '<%= @item.theme %>' is not selected nor valid.
+		<% else %>
+			<table class="wakeThemeForm" class="">
+				<tr>
+					<th> Custom index: </th>
+					<td>
+						<%= f.select 'theme_index', ([nil]+@item.theme_liquids.reject{ |x| x=~/layout/ or x=='head' }) %> &nbsp;&nbsp;
+						<small>Default: '<%= @item.theme %>.liquid'</small>
+					</td>
+				</tr>
+				<tr>
+					<th> Custom layout: </th>
+					<td>
+						<%= f.select 'theme_layout', ([nil]+@item.theme_liquids.select{ |x| x=~/layout/ }) %> &nbsp;&nbsp;
+						<small>Default: Renders a standard HTML5 document.</small>
+					</td>
+				</tr>
+				<tr>
+					<th> Development: </th>
+					<td> <%= f.check_box 'is_reload_theme' %> reload theme on each request? </td>
+				</tr>
+				<tr>
+					<th> Theme structure: </th>
+					<td> 
+						<% if @item.theme_structure_filename %>
+					  	<%= link_to 'RELOAD', '', :class=>'button' %> <%= @item.theme_structure_filename %>
+						<% else %>
+						  not present
+						<% end %>
+				  </td>
+				</tr>
+				<tr>
+					<th> Theme seed content: </th>
+					<td> 
+						<% if @item.theme_content_filename %>
+					  	<%= link_to 'RELOAD', '', :class=>'button' %> <%= @item.theme_content_filename %>
+						<% else %>
+						  not present
+						<% end %>
+					</td>
+				</tr>
+			</table>
+		<% end %>
+		
+		<br /><br />
 	<% end %>
+	
+<% end %>
 
 
-	<% if not @item.new_record?%>
-	  <br />
-		<h3>Import / export (experimental)</h3>
+
+<% if not @item.new_record?%>
+	<h3>Import / export</h3>
+	
+	<%= form_for @item, :url=>import_master_site_path(@item.id) do |f| %>
 		<table class="wakeThemeForm" class="">
 			<tr>
 				<th> Export: </th>
 				<td>
-					<%= link_to 'STRUCTURE', structure_export_master_site_path(@item), :class=>'button', :method=>:post %>
-					<%= link_to 'CONTENT', content_export_master_site_path(@item), :class=>'button', :method=>:post %>
+					<%= link_to 'STRUCTURE', export_structure_master_site_path(@item), :class=>'button', :method=>:post %>
+					<%= link_to 'CONTENT', export_content_master_site_path(@item), :class=>'button', :method=>:post %>
 				</td>
 			</tr>
 			<tr>
-				<th> Structure: </th>
-				<td> <%= f.file_field 'structure_import' %>	</td>
-			</tr>
-			<tr>
-				<th> Content: </th>
-				<td> <%= f.file_field 'content_import' %>	</td>
+				<th> Import: </th>
+				<td> <%= f.file_field 'import' %>	<%= f.submit 'IMPORT' %> </td>
 			</tr>
 		</table>
 	<% end %>
-		
-	<br />
-	
-	
-
+	<br/><br/>
 <% end %>
 
+
+
+
+
+
 <div class="fright" style="background: #EEE;">
-	<%=debug @item.tincan_dump 'content' if @item %>
+	<%=debug @item.tincan_dump('content')['galleries'] if @item %>
 </div>
 <div class="fleft">
 	<%=debug @item.tincan_dump 'structure' if @item %>

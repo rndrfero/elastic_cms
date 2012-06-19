@@ -97,7 +97,7 @@ module Elastic
     def process!(options={})
       return if not is_image?
       Rails.logger.debug "Elastic CMS: FileRecord.process! for #{path}"
-      for v in Gallery::VARIANTS
+      for v in %w{ img tna tnb }
         w = gallery.get_meta(v,'w').to_i
         h = gallery.get_meta(v,'h').to_i
         efx = gallery.get_meta(v,'efx')

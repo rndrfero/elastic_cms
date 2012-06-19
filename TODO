@@ -1,36 +1,32 @@
-/l/constructing/path  requests liquid file
-  - with live editing
+public/nepublic sekcie
+seed/neseed galerie a sekcie
 
-liquid inside content
 
+galerka ked nema thumbnaily, tak nech sa neskocovatievaju nahlady, ale iba vyska pevne (google images style)
+
+
+tzn. gallery a section musi mat priznak is_seed?
 
 
 tinymce + ako vlozit obrazok?
 --- premysliet cely proces okolo insertu
 
 
-themename-at-kinderzimmer.local.themespec.yaml
-themename-at-kinderzimmer.local.themedata.tar
+themename-at-kinderzimmer.local.spec.yaml
+themename-at-kinderzimmer.local.data.tar
 
-kinderzimmer5.themespec.yaml
-kinderzimmer5.themedata.tar
+kinderzimmer5.spec.yaml
+kinderzimmer5.data.tar
 
+
+watermarking
 
 
 dropable area - na upload images.
 
-
 non-published veci sa nesmu nikdy ukazat na frontende!
 
 edit patri len ku content config id a ku danej ceste (moze to byt aj na indexe aj na show aj na section), nie ku key ako je to teraz
-
-
-insert images to textarea / tinymce
-
-themespec
-themedata
-
-watermarking
 
 tinymce nech berie by default theme_name.css, potom az editor.css
 
@@ -342,9 +338,10 @@ iconic:
 
 ------= FUTURE =----
 
-konektory na instagram, flickr a podobne
-
-future: ako s obrazkami, takto aj s videami?
+* liquid inside content
+* konektory na instagram, flickr a podobne
+* future: ako s obrazkami, takto aj s videami?
+* synchro s galeriami, aby si vedel vytvorit galeriu cez ftp
 
 
 

@@ -44,12 +44,12 @@ module Elastic
             #self.send(k).build.tincan_load _prefix, x
           end
         else
-         if not v['key'].blank? and send(k) and send(k).key == v['key'] 
-           self.send(k).tincan_load _prefix, v
+          if not v['key'].blank? and send(k) and send(k).key == v['key'] 
+            self.send(k).tincan_load _prefix, v
           else
-#           self.send k+'=', nil # TODO: TU BY NEMAL BYT DESTROY?
-           self.send(k).destroy if self.send(k)
-           self.send('build_'+k).tincan_load _prefix, v
+#            self.send k+'=', nil # TODO: TU BY NEMAL BYT DESTROY?
+            self.send(k).destroy if self.send(k)
+            self.send('build_'+k).tincan_load _prefix, v
           end if v
         end
       end

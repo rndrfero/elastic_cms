@@ -57,12 +57,14 @@ Elastic::Engine.routes.draw do
   
     namespace 'master' do
       resources :sites do
-        post 'structure_import', :on=>:member
-        post 'structure_export', :on=>:member
-        post 'content_import', :on=>:member
-        post 'content_export', :on=>:member
         post 'toggle_reload_theme', :on=>:member
         post 'copy_themes', :on=>:member
+        
+        post 'export_structure', :on=>:member
+        post 'export_content', :on=>:member        
+        put 'import', :on=>:member
+        post 'reload_structure', :on=>:member
+        post 'reload_content', :on=>:member
       end
       resources :sections do
         post 'toggle_star', :on=>:member

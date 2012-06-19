@@ -1,16 +1,15 @@
-GIT
-  remote: git://github.com/rndrfero/wake.git
-  revision: 51c5add2ff80b9e8a7ebf5b47d3e9c26b643e9bc
-  specs:
-    wake (0.0.1.alpha)
-      kaminari
-      rails (~> 3.2)
-
 PATH
   remote: .
   specs:
     elastic (0.0.1)
       rails (~> 3.2.3.rc2)
+
+PATH
+  remote: ~/rails_gems/wake
+  specs:
+    wake (0.0.1.alpha)
+      kaminari
+      rails (~> 3.2)
 
 GEM
   remote: http://rubygems.org/

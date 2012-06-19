@@ -7,7 +7,7 @@ module Elastic
 #    include WithKey
 
     def tincan_map
-       { 'structure_attrs' => %w{ locales theme theme_index theme_layout is_reload_theme },
+       { 'structure_attrs' => %w{ locales theme_index theme_layout },
          'structure_assoc' => %w{ master_gallery sections },
          'content_attrs' => %w{ title index_locale locale_to_index_hash },
          'content_assoc' => %w{ galleries sections } } # 
@@ -30,7 +30,7 @@ module Elastic
     
     with_toggles :reload, :reload_theme
   
-    validates_presence_of :title, :host, :theme
+    validates_presence_of :title, :host
     validates_format_of :host, :with=>/^[a-z0-9.]*$/
     validates_presence_of :locales_str
     validates_uniqueness_of :host
@@ -71,14 +71,17 @@ module Elastic
       `du -s #{home_dir}`.to_i
     end
         
+    def theme_valid?
+      not theme.blank? and File.directory?(theme_dir)
+    end
       
     def theme_list
-      return nil if new_record?
+#      return nil if new_record?
       Dir.entries(home_dir+'themes').reject!{ |x| x.starts_with? '.' or !File.directory?(home_dir+'themes/'+x) }
     end
     
     def theme_liquids
-      return [] if theme.blank?
+#      return [] if theme.blank?      
       Dir.entries(theme_dir).reject!{ |x| not x.ends_with? '.liquid' }.map!{ |x| x.gsub! /\.liquid$/, '' }
     end
   
@@ -86,28 +89,27 @@ module Elastic
     def integrity!
       return if new_record?
       
-      self.theme ||= 'hello_world'
-      
       if host_changed? and File.exists? home_dir(host_was)
         x = home_dir(host_was)+'current_theme'
         FileUtils.remove_entry_secure x if File.exists? x
         File.rename home_dir(host_was), home_dir
       end
       
+      copy_themes!
       
       create_or_rename_dir! home_dir
-      for x in %w{ static galleries }
+      for x in %w{ themes static galleries }
         FileUtils.mkdir_p File.join(home_dir,x)
       end
             
       # create symlink to current_theme
       x = home_dir+'current_theme'
-     FileUtils.remove_entry_secure x if File.exists? x
+     FileUtils.remove_entry_secure x if File.exists?(x)||File.symlink?(x)
      FileUtils.symlink theme_dir, x
     end
     
     def copy_themes!
-      themes = %w{ test-contents test-welcome }
+      themes = %w{ hello_world test-contents test-welcome }
       for t in themes
         x = File.join home_dir, 'themes', t
         FileUtils.remove_entry_secure x if File.exists? x
@@ -120,31 +122,71 @@ module Elastic
       master_gallery ? master_gallery.meta : {}
     end
     
-    # -- import / export --
+    # -- structure import/export --
     
-    def structure_import=(x)
-      tincan_load 'structure', YAML::load(x.tempfile.read)
+    def theme_structure_filename
+      Dir.entries(theme_dir).select{ |x| x=~/structure.yaml/ }.first
     end
     
-    def content_import=(x)
-      tincan_load 'content', YAML::load(x.tempfile.read)
-      # resync node.content_config_id
-      for n in nodes
-        for c in n.contents
-          cc = ContentConfig.where(:section_id=>n.section_id, :key=>c.content_config_key).first
-          c.update_attribute :content_config_id, cc.id
-        end
+    def export_structure
+      YAML::dump tincan_dump('structure')
+    end
+    
+    def import_structure!(x)
+      transaction do
+        tincan_load 'structure', YAML::load(x)
       end
     end
+
+    # -- content import/export --
+    #      tar -cf ~/Desktop/backup.tar --exclude home/inout.local/themes --exclude home/inout.local/current_theme home/inout.local
+
+    def export_content
+      content = YAML::dump tincan_dump('content')
+      filename = File.join home_dir, 'content.yaml'
+      File.open(filename, 'w') {|f| f.write(content) }
+      
+      `cd home/#{host}; tar -c --exclude themes --exclude current_theme .`      
+    end
     
+    def import_content!(x)
+      transaction do
+        o, e, s = Open3.capture3("tar xv -C #{home_dir}", :stdin_data=>x.force_encoding('utf-8'))
+      
+        raise "untar failed" if s!=0
+        raise "content.yaml not present" if not File.exists?(home_dir+'content.yaml')
+      
+        # load content
+        tincan_load 'content', YAML::load(File.open(home_dir+'content.yaml').read)
+
+        # resync node.content_config_id
+        for n in nodes
+          for c in n.contents
+            cc = ContentConfig.where(:section_id=>n.section_id, :key=>c.content_config_key).first
+            raise "content config '#{c.content_config_key}' not found"
+            c.update_attribute :content_config_id, cc.id
+          end
+        end
+      end
+      
+      # rescan galleries
+      
+      # tidy up
+    end
+    
+    
+    def theme_content_filename
+    end
     
 
     private
     
     def saturate
       # default values
-      self.locales_str = 'en' if self.locales_str.blank?
-      self.is_force_reload_theme = true if new_record?
+      self.theme = 'hello_world' if theme.blank?
+      self.locales_str = 'en' if locales_str.blank?
+      self.title = host if title.blank?
+      self.is_reload_theme = true if new_record?
     end
   
   

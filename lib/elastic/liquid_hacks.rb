@@ -32,7 +32,7 @@ module Liquid
   class Context
     def handle_error(e)
       errors.push(e)
-      raise if Rails.env=='development'
+#      raise if Rails.env=='development'
 
       case e
       when SyntaxError
