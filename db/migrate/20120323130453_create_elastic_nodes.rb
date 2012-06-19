@@ -20,6 +20,7 @@ class CreateElasticNodes < ActiveRecord::Migration
       t.boolean :is_published
       t.integer :node_id
       t.integer :position
+      t.boolean :is_pin
       
       t.integer :version_cnt
       t.datetime :published_at

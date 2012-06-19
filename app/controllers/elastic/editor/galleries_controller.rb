@@ -29,6 +29,12 @@ module Elastic
       flash[:hilite] = 'cms_backend.simply_yes'
       redirect_to :back
     end
+
+    def toggle_pin
+      @item.toggle_pin!
+      flash[:hilite] = 'cms_backend.simply_yes'
+      redirect_to :back
+    end
     
     def regenerate
       @item.process! :force=>true

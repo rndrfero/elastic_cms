@@ -16,7 +16,7 @@
 		 <% end %>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
 		 <!-- <th style="width: 1em;" class=""> <%#= wake_click_order_by 'position', 'Pos' %> </th> -->
-		 <th> </th>
+		 <th style="width: 5em;"> </th>
 		 <th style="width: 5em;"> </th>
 	</tr>
 
@@ -48,8 +48,11 @@
 				<%#= item.position %>
 			</td> -->
 			<td>
+			  <%=link_to (item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
+				     toggle_pin_editor_section_node_path(@section, item), :method=>:post %>
 			  <%=link_to (item.is_locked? ? ico(:lock_fill, :black) : ico(:lock_fill, :lightgray)), 
 				     toggle_locked_editor_section_node_path(@section, item), :method=>:post %>
+				
 					  <%#=link_to (item.is_hidden? ? ico(:umbrella, :black) : ico(:umbrella, :lightgray)), 
 						     toggle_hidden_editor_section_node_path(@section, item), :method=>:post %>
 			</td>

@@ -20,7 +20,12 @@ module Elastic
 
     def toggle_locked
       @item.toggle_locked!
-#      raise 'fuck'
+      flash[:hilite] = 'Yes!'
+      redirect_to :back
+    end
+
+    def toggle_pin
+      @item.toggle_pin!
       flash[:hilite] = 'Yes!'
       redirect_to :back
     end

@@ -14,6 +14,7 @@ class CreateElasticGalleries < ActiveRecord::Migration
       t.boolean :is_hidden
       t.boolean :is_locked
       t.boolean :is_dependent
+      t.boolean :is_pin
       
       t.integer :master_file_record_id
       

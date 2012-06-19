@@ -46,7 +46,7 @@ module Elastic
     scope :starry, where(:is_star=>true)
     scope :in_public, lambda { includes(:contents=>:content_config).where(:site_id=>Context.site.id) }
     
-    with_toggles :star, :locked, :published
+    with_toggles :star, :locked, :published, :pin
 
     #    .section.form=='blog' ? reorder("published_at") : reorder("ancestry_depth,position DESC"
   

@@ -30,8 +30,6 @@
 				<% end %>
 			</div>
 			<div class="desc">
-				<%= ico(:umbrella, :darkblue) if item.is_hidden? %>
-				<%= ico(:lock_fill, :darkred) if item.is_locked? %>
 			  <%#=link_to (item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
 				     toggle_hidden_editor_gallery_path(item), :method=>:post %>
 			  <%#=link_to (item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
@@ -39,6 +37,9 @@
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
 				     toggle_star_editor_gallery_path(item), :method=>:post %>
 				<b><%= item.title.truncate(30) %></b>
+				<%= ico(:pin, :blue) if item.is_pin? %>
+				<%= ico(:umbrella, :darkblue) if item.is_hidden? %>
+				<%= ico(:lock_fill, :darkred) if item.is_locked? %>
 			</div>
 
 		</div>

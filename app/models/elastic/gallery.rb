@@ -39,7 +39,7 @@ module Elastic
     
     after_save(:if=>lambda{ |x| x.meta_changed? }) { process! :force=>true}
     
-    with_toggles :star, :locked, :hidden, :watermarked    
+    with_toggles :star, :locked, :hidden, :pin, :watermarked    
     
     
     scope :starry, where(:is_star=>true)

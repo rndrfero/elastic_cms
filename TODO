@@ -1,6 +1,8 @@
 public/nepublic sekcie
 seed/neseed galerie a sekcie
 
+pin box
+
 
 galerka ked nema thumbnaily, tak nech sa neskocovatievaju nahlady, ale iba vyska pevne (google images style)
 
@@ -10,13 +12,6 @@ tzn. gallery a section musi mat priznak is_seed?
 
 tinymce + ako vlozit obrazok?
 --- premysliet cely proces okolo insertu
-
-
-themename-at-kinderzimmer.local.spec.yaml
-themename-at-kinderzimmer.local.data.tar
-
-kinderzimmer5.spec.yaml
-kinderzimmer5.data.tar
 
 
 watermarking

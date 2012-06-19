@@ -63,7 +63,7 @@
 	<br />
 
 	<% if not @item.new_record? %>
-		<h3>Theme (<%= @item.theme%>) configuration</h3>
+		<h3>Theme <i><%= @item.theme%></i> configuration</h3>
 
 		<% if not @item.theme_valid? %>
 		  Theme '<%= @item.theme %>' is not selected nor valid.
@@ -98,7 +98,7 @@
 				  </td>
 				</tr>
 				<tr>
-					<th> Theme seed content: </th>
+					<th> Theme seed: </th>
 					<td> 
 						<% if @item.theme_content_filename %>
 					  	<%= link_to 'RELOAD', '', :class=>'button' %> <%= @item.theme_content_filename %>
@@ -126,6 +126,7 @@
 				<th> Export: </th>
 				<td>
 					<%= link_to 'STRUCTURE', export_structure_master_site_path(@item), :class=>'button', :method=>:post %>
+					<%= link_to 'SEED', export_seed_master_site_path(@item), :class=>'button', :method=>:post %>
 					<%= link_to 'CONTENT', export_content_master_site_path(@item), :class=>'button', :method=>:post %>
 				</td>
 			</tr>
