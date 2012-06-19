@@ -7,13 +7,13 @@ module Elastic
 #    include WithKey
 
     def tincan_map
-       { 'structure_attrs' => %w{ locales theme theme_index theme_layout },
+       { 'structure_attrs' => %w{ locales theme theme_index theme_layout is_reload_theme },
          'structure_assoc' => %w{ master_gallery sections },
          'content_attrs' => %w{ title index_locale locale_to_index_hash },
          'content_assoc' => %w{ galleries sections } } # 
     end
     
-    attr_accessible :host, :title, :locales_str, :theme, :is_force_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, 
+    attr_accessible :host, :title, :locales_str, :theme, :is_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, 
       :theme_index, :theme_layout, :master_id, :master_gallery_id, :structure_import, :content_import
  
     include Elastic::WithDirectory
@@ -28,7 +28,7 @@ module Elastic
     has_many :users
     belongs_to :master_gallery, :class_name=>'Gallery', :dependent=>:destroy
     
-    with_toggles :reload
+    with_toggles :reload, :reload_theme
   
     validates_presence_of :title, :host, :theme
     validates_format_of :host, :with=>/^[a-z0-9.]*$/
@@ -96,19 +96,23 @@ module Elastic
       
       
       create_or_rename_dir! home_dir
-      for x in %w{ themes/hello_world static galleries }
+      for x in %w{ static galleries }
         FileUtils.mkdir_p File.join(home_dir,x)
       end
-      x = File.join(home_dir, 'themes/hello_world')
-      FileUtils.remove_entry_secure x if File.exists? x
-      FileUtils.cp_r File.join(Rails.root, '../themes/hello_world'), File.join(home_dir, 'themes')
-      
+            
       # create symlink to current_theme
       x = home_dir+'current_theme'
-#     File.unlink x if File.exists? x
      FileUtils.remove_entry_secure x if File.exists? x
-#     raise "#{theme_dir} -> #{home_dir}"
      FileUtils.symlink theme_dir, x
+    end
+    
+    def copy_themes!
+      themes = %w{ test-contents test-welcome }
+      for t in themes
+        x = File.join home_dir, 'themes', t
+        FileUtils.remove_entry_secure x if File.exists? x
+        FileUtils.cp_r File.join(Rails.root, '../themes',t), File.join(home_dir, 'themes')
+      end
     end
     
     

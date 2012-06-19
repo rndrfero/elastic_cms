@@ -20,7 +20,8 @@ module Elastic
       
       ret = TemplateCache.new :key=>"#{Context.site.id}-#{name}"
     
-      filepath = Context.site.theme_dir + name + '.liquid'
+      filepath = Context.site.home_dir + name + '.liquid'
+        
       ret.template = File.open(filepath, 'r') do |f| 
         Liquid::Template.parse f.read
       end
@@ -32,7 +33,7 @@ module Elastic
       row = TemplateCache.where(:key=> "#{Context.site.id}-#{name}").first    
       Liquid::Template.file_system = Liquid::LocalFileSystem.new Context.site.home_dir      
     
-      if Context.site.is_force_reload_theme?
+      if Context.site.is_reload_theme?
         row.destroy if row
         row = TemplateCache.init name 
       end

@@ -61,7 +61,7 @@
 					
 					<li><a class="<%= 'selected' if menu_match Elastic::Context.site.sections.all.map{ |x| editor_section_nodes_path(x) } %>" href="#tabs2">Sections</a></li>					
 					
-			    <li><a class="<%= 'selected' if menu_match master_sections_path, master_sites_path, master_site_path(Elastic::Context.site) %>" href="#tabs3">Webmaster</a></li>
+			    <li><a class="special <%= 'selected' if menu_match master_sections_path, master_sites_path, master_site_path(Elastic::Context.site) %>" href="#tabs3">Webmaster</a></li>
 
 		  </ul> 
 

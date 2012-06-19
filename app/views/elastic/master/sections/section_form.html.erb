@@ -61,7 +61,7 @@
 				<th> #C </th>
 				<th> Type </th>
 				<th> Meta </th>
-				<th>  </th>
+				<th> On </th>
 				<th> Action </th>
 			</thead>
 
@@ -82,7 +82,6 @@
 					<td> 
 						<%= link_to (cc.is_published? ? ico(:check_alt,:green) : ico(:x_alt,:red)),
 					  	cc_toggle_published_master_section_path(@item, cc) if not cc.new_record? %>
-					  <%= f2.check_box 'is_live' %> Live?
 					 	<!-- :action=>'cc_toggle_published', :id=>@item.id, :content_config_id=>cc.id  --></td>
 					<td>
 						<% if f2.object.wake_destroyable? %>

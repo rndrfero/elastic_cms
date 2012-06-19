@@ -131,5 +131,17 @@
 	<% end %>
 
 
-	<%#=debug @item.section_id %>
 </div>
+
+
+<script>
+	$("input, select, textarea").change(function(){
+		window.onbeforeunload = function() { 
+		 	return "<%= 'cms_backend.leave_page_warning'.tt %>";
+		}
+	});
+
+	$('#TheForm').submit(function() {
+	   window.onbeforeunload = null;
+	});
+</script>

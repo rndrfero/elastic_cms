@@ -55,6 +55,9 @@ a:hover { text-decoration: underline; }
   *padding-top:3px; *margin-top:-15px; clear:left; background: #EEE; height: 26px;}
 .usual .active { color: #92EC37; }
 
+.usual ul a.special { color: #90EC34; }
+.usual ul a.special.selected { color: #5FAA13; }
+
 @-moz-document url-prefix() {
     .usual div { height: 27px; }
 }
@@ -76,7 +79,7 @@ a:hover { text-decoration: underline; }
 	box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-box-shadow: 3px 3px 7px #AAA;  }
 	
 .wakeThemeGallery .imageItem { position: relative; margin: 10px; word-wrap: break-word; 
-	background-image: url('/assets/elastic/matte.png'); overflow: hidden; }
+	background-image: url('/assets/elastic/matte.png'); }
 .wakeThemeGallery .imageItem img { margin: 0px; padding: 0px; border: none; }
 .wakeThemeGallery .imageItem.active { padding: 1px; margin: 5px; border: 4px solid #77C02E; }
 

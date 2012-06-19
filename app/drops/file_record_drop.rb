@@ -7,12 +7,8 @@ class FileRecordDrop < Liquid::Drop
   for x in %w{ title filename path is_star? }
     module_eval "def #{x}; @file_record.#{x}; end"    
   end
-
-  def path_orig
-    path
-  end
   
-  for x in Elastic::Gallery::VARIANTS
+  for x in %w{ orig img tna tnb }
     module_eval "def path_#{x}; @file_record.path('#{x}'); end"
   end
     

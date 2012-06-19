@@ -9,7 +9,7 @@ module Elastic
     extend WithToggles
     include Tincan
     
-    VARIANTS = %w{ img tna tnb }
+#    VARIANTS = %w{ img tna tnb }
     META = %w{ w h efx params }
 
     def tincan_map
@@ -122,6 +122,7 @@ module Elastic
     end
     
     def has_variant?(variant)
+      return true if variant.to_sym == :orig
       get_meta(variant,:w) and get_meta(variant,:h)
     end
         
@@ -167,7 +168,7 @@ module Elastic
     def saturate
       self.is_dependent = true if new_record?
       self.meta = {} if not meta
-      for v in VARIANTS
+      for v in %w{ img tna tnb }
         self.meta[v] = {} if not self.meta[v]
         for m in META
           self.meta[v][m] = nil if self.meta[v].blank?

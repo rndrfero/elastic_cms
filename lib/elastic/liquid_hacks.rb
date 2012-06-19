@@ -8,6 +8,13 @@ end
 
 module Liquid
   
+  
+  class Drop
+    def type
+      self.class.to_s.gsub(/Drop/,'').underscore
+    end
+  end
+  
   class Block < Tag
     def render_all(list, context)
       list.collect do |token|

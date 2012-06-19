@@ -15,6 +15,8 @@ TERRA NOVA FOR GFX FREAKS
 TRUSTED FAIL-PROOF BACKEND
 SUPER-FLEXIBLE CMS
 CREATIVE ARTIST'S CHOICE.
+NOW ITS TIME TO GAIN FULL CONTROL.
+ZNICOHO NIC.
 
 -=[ Propaganda ]=-
 
@@ -38,3 +40,9 @@ Picking up random sentences, with link
 
   - via {% give_me node section_slogans.nodes_starry.random %}						
   - via splitnl | random
+
+Polymorphic contents
+
+  - using content[0].type == 'gallery'
+
+How to use, configure and liven TinyMCE 

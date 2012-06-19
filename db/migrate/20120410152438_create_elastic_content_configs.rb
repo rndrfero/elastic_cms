@@ -11,7 +11,6 @@ class CreateElasticContentConfigs < ActiveRecord::Migration
       t.text :meta
       
       t.boolean :is_published
-      t.boolean :is_live
 
       t.timestamps
     end

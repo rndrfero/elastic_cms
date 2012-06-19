@@ -8,6 +8,7 @@
 		&nbsp;&nbsp;&nbsp;
 		<% if not @item.new_record?%>
 			<%= link_to 'LETS GO THERE!', @item.uri, :class=>'button' if request.host!=@item.host %>			
+			<small><%= link_to 'COPY/RENEW EXAMPLE THEMES', copy_themes_master_site_path(@item) %></small>
 		<% end %>
 				
 	</div>
@@ -84,7 +85,15 @@
 			</tr>
 			<tr>
 				<th> Development: </th>
-				<td> <%= f.check_box 'is_force_reload_theme' %> reloading theme?</td>
+				<td> <%= f.check_box 'is_reload_theme' %> reload theme on each request? </td>
+			</tr>
+			<tr>
+				<th> Theme specification: </th>
+				<td> <%= link_to 'CREATE SECTIONS ACCORDING TO THEMESPEC', '', :class=>'button' %></td>
+			</tr>
+			<tr>
+				<th> Theme seed data: </th>
+				<td> <%= link_to 'IMPORT DATA ACCORDING TO THEMEDATA', '', :class=>'button' %></td>
 			</tr>
 		</table>
 	<% end %>

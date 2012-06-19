@@ -55,6 +55,8 @@ module Elastic
         @section = @site.sections.find_by_key params[:key]
       elsif @action == 'index'
         # do nothing
+      elsif @action == 'liquid'
+        # do nothing
       else
         raise 'UNEXPECTED'
       end
@@ -83,10 +85,23 @@ module Elastic
     def static
       Elastic.logger_info "POZOR! You are using ElasticController.static Setup your web server instead."
       filepath = params[:filepath]+'.'+params[:format]
+      filepath.gsub!(RegexFilepath, '')
       
       x = File.join @site.home_dir + filepath
       if File.exists? x
         send_file x, :disposiotion=>'inline' #:formats=>params[:format], :layout=>false, :content_type=>'text/css'
+      else
+        render_404
+      end
+    end
+    
+    def liquid
+      filepath = "#{params[:filepath]}.liquid"
+      filepath.gsub!(RegexFilepath, '')
+      x = File.join @site.home_dir + filepath
+
+      if File.exists? x
+        render_liquid params[:filepath]
       else
         render_404
       end
@@ -103,6 +118,10 @@ module Elastic
     
     # -- non-action methods --
     
+    def am_i_editing_this_shit?
+      @edit and Context.user and Context.content and Context.content.id == params[:content_id].to_i
+    end
+    
     def add_reference(x)
 #      raise x.to_yaml
       @references ||= []
@@ -112,6 +131,7 @@ module Elastic
     private
     def prepare
       @site = Context.site
+      @site.copy_themes!
       Context.ctrl= self
       
       if %w{ edit update }.include? params[:action]
@@ -119,6 +139,7 @@ module Elastic
       else
         @action = params[:action]
       end
+      
       
       if @site.theme.blank?
         render_error "There is no theme selected. There is nothing to render."
@@ -129,7 +150,7 @@ module Elastic
     def render_liquid(template_name=nil, add_drops={})
       # node_drop = NodeDrop.new @node
       # section_drop = SectionDrop.new @node.section
-      template_name ||= @site.theme_index.blank? ? @site.theme : @site.theme_index
+      template_name ||= @site.theme_index.blank? ? 'current_theme/'+@site.theme : 'current_theme/'+@site.theme_index
       
 
       drops = {
@@ -158,7 +179,7 @@ module Elastic
         out = TemplateCache.render template_name, drops
         out = postprocess out, template_name
       
-        @head = TemplateCache.render 'head' , drops if File.exists?(@site.theme_dir+'head.liquid')
+        @head = TemplateCache.render 'current_theme/head' , drops if File.exists?(@site.theme_dir+'head.liquid')
       
         if @site.theme_layout.blank?
           render :text=>out, :layout=>"/elastic/public/html5"

@@ -1,12 +1,10 @@
-<%# if params[:action] == 'edit' and params[:content_config_id].to_i == content_config.id %>
 <% if @edit and params[:content_id].to_i == content.id %>
-
 	<%= form_for Elastic::Node.new, :url=>live_path(:update, content.id) do |f| %>
-		<%= render :partial=>'/elastic/public/content_forms/'+content_config.form,
-	      	:locals=>{:form_helper=>f, :content_config=>content_config, :content=>content} %>
+		<%= render :partial=>'/elastic/public/content_forms/'+content.content_config.form,
+	      	:locals=>{:form_helper=>f, :content_config=>content.content_config, :content=>content} %>
 	
 	<% end %>
 
 <% else; link = live_path(:edit, content.id) %>
-<div class="elasticContentWrapper" ondblclick="document.location='<%= link %>'" title="<%= 'cms_frontend.note.dblclick_edit'.tt %>"><%=raw content.text %></div>
+<div class="elasticContentWrapper" ondblclick="document.location='<%= link %>'" title="<%= 'cms_frontend.note.dblclick_edit'.tt %>"><%=raw rendered %></div>
 <% end %>

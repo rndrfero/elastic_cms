@@ -28,7 +28,7 @@
 	</tr>
 	<% if not @item.is_dependent? %>
 	
-		<% for v in Elastic::Gallery::VARIANTS %>
+		<% for v in %w{ img tna tnb } %>
 			<tr>
 				<th> <%=v %> </th>
 				<td> 

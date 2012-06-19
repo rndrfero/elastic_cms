@@ -4,18 +4,16 @@
 %>
 
 <% if cfg.blank? %>
-	<h4><%= content_config.title %> (default)</h4>
-	
+
 	<%= form_helper.text_area 'text', :value=>(content ? content.text : nil), 
-		:rows=>content_config.meta['rows'], :cols=>content_config.meta['cols'], :class=>'tinymce' %> 
+		:style=>"width: 100%; height: 100%", :class=>'tinymce' %> 
 		
-	<%= render :partial=>'tinymce_default' %>
+	<%= render :partial=>'/elastic/editor/nodes/tinymce_default' %>
 
 <% elsif File.exists? fpath %>
-	<h4><%= content_config.title %></h4>
 
 	<%= form_helper.text_area 'text', :value=>(content ? content.text : nil), 
-		:rows=>content_config.meta['rows'], :cols=>content_config.meta['cols'], :class=>'tinymce' %> 
+		:style=>"width: 100%; height: 100%", :class=>'tinymce' %> 
 	
 	<%= render :file=>fpath %>
 <% else %>
@@ -23,5 +21,3 @@
   <%=werror "TinyMCE config file '#{cfg}' do not exist." %>
 
 <% end %>
-	
-	<br/><br/>

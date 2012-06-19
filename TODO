@@ -1,3 +1,25 @@
+/l/constructing/path  requests liquid file
+  - with live editing
+
+liquid inside content
+
+
+
+tinymce + ako vlozit obrazok?
+--- premysliet cely proces okolo insertu
+
+
+themename-at-kinderzimmer.local.themespec.yaml
+themename-at-kinderzimmer.local.themedata.tar
+
+kinderzimmer5.themespec.yaml
+kinderzimmer5.themedata.tar
+
+
+
+dropable area - na upload images.
+
+
 non-published veci sa nesmu nikdy ukazat na frontende!
 
 edit patri len ku content config id a ku danej ceste (moze to byt aj na indexe aj na show aj na section), nie ku key ako je to teraz
@@ -24,9 +46,6 @@ mozno pouzivat liquid aj normalne v texte node ?
 
 # http://stackoverflow.com/questions/7210232/ruby-nethttp-following-301-redirects
 
-
-live editing fragmentov?
- - doplnit is_published pre sekciu
 
 content-type: gallery_select
 content-type: color selectbox
@@ -88,9 +107,7 @@ moznosti mixovana canvas / GL canvas a normalnej stranky
 
 Chemické s/plodiny do každej RH /odiny. -> live editovatelne
 
-znicoho nic
 
-debian install git
 
 {% insert content %}
 

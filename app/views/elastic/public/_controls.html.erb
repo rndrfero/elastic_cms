@@ -9,7 +9,7 @@
 
 	<style>
 		#ElasticControls { position: fixed; height: 25px; top: 0px; left: 0px; background: black; width: 100%; 
-			padding: 6px 30px 2px 30px; color: grey; }
+			padding: 6px 30px 0px 30px; color: grey; z-index: 32767; }
 		#ElasticControls a { color: white; text-decoration: none;  padding: 0px 4px 0px 4px; }
 		#ElasticControls a:hover { text-decoration: underline; }
 		#ElasticControls a.active { background: white; color: #A00; }
@@ -34,6 +34,7 @@
 		<% if @edit %>
 		  <%#= link_to_function 'SAVE', '$("#edit_'+dom_id(@node)+'").submit(); ' %>
 		  <%= link_to_function 'SAVE', "document.getElementById(\"new_node\").submit();" %>
+		  <%= link_to 'CANCEL', exit_path %>
 	  <% end %>			
 		
 

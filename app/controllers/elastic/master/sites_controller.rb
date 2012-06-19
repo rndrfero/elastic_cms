@@ -8,6 +8,18 @@ module Elastic
       super
     end
     
+    def toggle_reload_theme
+      @item.toggle_reload_theme!
+      flash[:hilite] = 'cms_backend.simply_yes'
+      redirect_to :back
+    end
+    
+    def copy_themes
+      @item.copy_themes!
+      flash[:hilite] = 'cms_backend.simply_yes'
+      redirect_to :back
+    end
+    
     def structure_export
       data = YAML::dump @item.tincan_dump('structure')
       send_data data, :filename=>"1Astruct-#{@item.host}-#{Date.today}.yaml"

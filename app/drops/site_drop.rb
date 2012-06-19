@@ -29,4 +29,8 @@ class SiteDrop < Liquid::Drop
     @site.title
   end
   
+  def type
+    'site'
+  end
+  
 end

@@ -9,22 +9,30 @@ Elastic::Engine.routes.draw do
 
   match "/login" => redirect("/users/sign_in")  
   match "/logout" => redirect("/users/sign_out")  
+
   
   match '/:locale' => 'elastic#index'
   match '/:locale/show/:key' => 'elastic#show', :as=>'show'
-  match '/:locale/section/:key' => 'elastic#section', :as=>'section'
+  match '/:locale/section/:key' => 'elastic#section', :as=>'section'  
+
+  # filesystem construction style
+  match '/:locale/l/*filepath' => 'elastic#liquid', :as=>'liquid'
   
   # edit in show
   match '/:locale/edit/:content_id' => 'elastic#edit', :as=>'edit_index'
-  match '/:locale/update/:content_id' => 'elastic#edit', :as=>'update_index'
+  post '/:locale/update/:content_id' => 'elastic#edit', :as=>'update_index'
 
   # edit in show
   match '/:locale/show/:key/edit/:content_id' => 'elastic#edit', :as=>'edit_show'
-  match '/:locale/show/:key/update/:content_id' => 'elastic#update', :as=>'update_show'
+  post '/:locale/show/:key/update/:content_id' => 'elastic#update', :as=>'update_show'
 
   # edit in section
   match '/:locale/section/:key/edit/:content_id' => 'elastic#edit', :as=>'edit_section'
-  match '/:locale/section/:key/update/:content_id' => 'elastic#update', :as=>'update_section'
+  post '/:locale/section/:key/update/:content_id' => 'elastic#update', :as=>'update_section'
+  
+  # filesystem construction style - live edit
+  match '/:locale/liquid/edit/:content_id/*filepath' => 'elastic#edit', :as=>'edit_liquid'
+  post '/:locale/liquid/update/:content_id/*filepath' => 'elastic#update', :as=>'update_liquid'
   
   
   # match '/:locale/edit/:key/:content_config_id'=>'elastic#edit', :as=>'edit'
@@ -53,6 +61,8 @@ Elastic::Engine.routes.draw do
         post 'structure_export', :on=>:member
         post 'content_import', :on=>:member
         post 'content_export', :on=>:member
+        post 'toggle_reload_theme', :on=>:member
+        post 'copy_themes', :on=>:member
       end
       resources :sections do
         post 'toggle_star', :on=>:member

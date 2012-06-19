@@ -9,6 +9,14 @@ module Elastic
       @@site
     end
 
+    def self.content=(x)
+      @@content = x
+    end
+
+    def self.content
+      @@content
+    end
+
     def self.locale=(x)
       @@locale = x
     end

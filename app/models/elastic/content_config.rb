@@ -5,11 +5,11 @@ module Elastic
     include WithKey
 
     def tincan_map
-       { 'structure_attrs' => %w{ key title position form meta is_published is_live },
+       { 'structure_attrs' => %w{ key title position form meta is_published },
          'structure_assoc' => %w{ } } # 
     end
     
-    attr_accessible :position, :title, :form, :meta, :is_live, :key
+    attr_accessible :position, :title, :form, :meta, :key
   
     FORMS = {
       :textfield => %w{ size },
