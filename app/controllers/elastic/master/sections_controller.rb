@@ -29,6 +29,12 @@ module Elastic
       redirect_to :back
     end
 
+    def toggle_pin
+      @item.toggle_pin!
+      flash[:hilite] = 'cms_backend.simply_yes'
+      redirect_to :back
+    end
+
     def move_higher
       @item.move_higher
       flash[:hilite] = 'cms_backend.simply_yes'

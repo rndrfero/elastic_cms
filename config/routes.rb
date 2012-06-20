@@ -61,7 +61,7 @@ Elastic::Engine.routes.draw do
         post 'copy_themes', :on=>:member
         
         post 'export_structure', :on=>:member
-        post 'export_seed', :on=>:member        
+#        post 'export_seed', :on=>:member        
         post 'export_content', :on=>:member        
         put 'import', :on=>:member
         post 'reload_structure', :on=>:member
@@ -71,6 +71,7 @@ Elastic::Engine.routes.draw do
         post 'toggle_star', :on=>:member
         post 'toggle_hidden', :on=>:member
         post 'toggle_locked', :on=>:member
+        post 'toggle_pin', :on=>:member
         post 'move_higher', :on=>:member
         post 'move_lower', :on=>:member
         

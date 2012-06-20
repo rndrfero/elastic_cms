@@ -8,7 +8,7 @@ module Elastic
 
     def tincan_map
        { 'structure_attrs' => %w{ locales theme_index theme_layout },
-         'structure_assoc' => %w{ master_gallery sections },
+         'structure_assoc' => %w{ structural_galleries master_gallery sections },
          'content_attrs' => %w{ title index_locale locale_to_index_hash },
          'content_assoc' => %w{ galleries sections } } # 
     end
@@ -19,10 +19,10 @@ module Elastic
     include Elastic::WithDirectory
       
     has_many :sections, :order=>:position, :dependent=>:destroy
-    has_many :nodes, :dependent=>:destroy
+#    has_many :nodes, :include=>[:section, :content_configs, :contents],:dependent=>:destroy
     has_many :template_caches #, :dependent=>:destroy
     has_many :galleries, :dependent=>:destroy
-    has_many :nodes, :through=>:sections
+    has_many :nodes, :through=>:sections, :dependent=>:destroy
     
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
@@ -124,40 +124,37 @@ module Elastic
     
     # -- structure import/export --
     
+    def structural_galleries
+      galleries.where('is_pin = ? OR is_hidden = ?', true, true).all
+    end
+
     def theme_structure_filename
-      Dir.entries(theme_dir).select{ |x| x=~/structure.yaml/ }.first
-    end
-    
-    def export_structure
-      YAML::dump tincan_dump('structure')
-    end
-    
-    def import_structure!(x)
-      transaction do
-        tincan_load 'structure', YAML::load(x)
-      end
+      Dir.entries(theme_dir).select{ |x| x=~/structure.tar/ }.first
     end
 
-    # -- content import/export --
-    #      tar -cf ~/Desktop/backup.tar --exclude home/inout.local/themes --exclude home/inout.local/current_theme home/inout.local
-
-    def export_content
-      content = YAML::dump tincan_dump('content')
-      filename = File.join home_dir, 'content.yaml'
-      File.open(filename, 'w') {|f| f.write(content) }
-      
-      `cd home/#{host}; tar -c --exclude themes --exclude current_theme .`      
+    def theme_content_filename
+      Dir.entries(theme_dir).select{ |x| x=~/content.tar/ }.first
     end
     
-    def import_content!(x)
+    def export(what)
+      raise 'unexpected' unless what=='content' or what=='structure'
+      yaml = YAML::dump tincan_dump(what)
+      File.open(home_dir+"#{what}.yaml", 'w') {|f| f.write(yaml) }
+      exclude_list = ""
+      (galleries-structural_galleries).each{ |x| exclude_list<<" --exclude #{x.key}" } if what=='structure'
+      `cd home/#{host}; tar -c --exclude themes --exclude current_theme#{exclude_list} .`      
+    end
+        
+    def import!(what)
+      raise 'unexpected' unless what=='content' or what=='structure'
       transaction do
         o, e, s = Open3.capture3("tar xv -C #{home_dir}", :stdin_data=>x.force_encoding('utf-8'))
       
         raise "untar failed" if s!=0
-        raise "content.yaml not present" if not File.exists?(home_dir+'content.yaml')
+        raise "#{what}.yaml not present" if not File.exists?(home_dir+"#{what}.yaml")
       
         # load content
-        tincan_load 'content', YAML::load(File.open(home_dir+'content.yaml').read)
+        tincan_load what, YAML::load(File.open(home_dir+"#{what}.yaml").read)
 
         # resync node.content_config_id
         for n in nodes
@@ -168,6 +165,48 @@ module Elastic
           end
         end
       end
+    
+    
+    # def export_structure
+    #   YAML::dump tincan_dump('structure')
+    # end
+    # 
+    # def import_structure!(x)
+    #   transaction do
+    #     tincan_load 'structure', YAML::load(x)
+    #   end
+    # end
+
+    # -- content import/export --
+    #      tar -cf ~/Desktop/backup.tar --exclude home/inout.local/themes --exclude home/inout.local/current_theme home/inout.local
+
+    # def export_content
+    #   content = YAML::dump tincan_dump('content')
+    #   filename = File.join home_dir, 'content.yaml'
+    #   File.open(filename, 'w') {|f| f.write(content) }
+    #   
+    #   `cd home/#{host}; tar -c --exclude themes --exclude current_theme .`      
+    # end
+    
+    # def import_content!(x)
+    #   transaction do
+    #     o, e, s = Open3.capture3("tar xv -C #{home_dir}", :stdin_data=>x.force_encoding('utf-8'))
+    #   
+    #     raise "untar failed" if s!=0
+    #     raise "content.yaml not present" if not File.exists?(home_dir+'content.yaml')
+    #   
+    #     # load content
+    #     tincan_load 'content', YAML::load(File.open(home_dir+'content.yaml').read)
+    # 
+    #     # resync node.content_config_id
+    #     for n in nodes
+    #       for c in n.contents
+    #         cc = ContentConfig.where(:section_id=>n.section_id, :key=>c.content_config_key).first
+    #         raise "content config '#{c.content_config_key}' not found"
+    #         c.update_attribute :content_config_id, cc.id
+    #       end
+    #     end
+    #   end
       
       # rescan galleries
       
@@ -175,8 +214,8 @@ module Elastic
     end
     
     
-    def theme_content_filename
-    end
+    # def theme_content_filename
+    # end
     
 
     private

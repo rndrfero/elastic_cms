@@ -8,7 +8,7 @@
 	<tr>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'id' %> </th>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'position', '#' %> </th>
-		 <th style="width: 5em;"> </th>
+		 <th style="width: 7em;"> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'elastic_sections.key' %> </th>
 		 <th style="width: 3em" class=""> <%= wake_click_order_by 'form' %> </th>
@@ -25,6 +25,8 @@
 			<td>
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
 				     toggle_star_master_section_path(item), :method=>:post %>
+			  <%=link_to (item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
+				     toggle_pin_master_section_path(item), :method=>:post %>
 			  <%=link_to (item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
 				     toggle_hidden_master_section_path(item), :method=>:post %>
 			  <%=link_to (item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
@@ -33,7 +35,11 @@
 			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
 			<td <%=wo item %> class="b"> <%=whl item.key %> </td>				
 			<td <%=wo item %> class=""> <%=whl ico(item.form=='tree' ? :share : :list) %> </td>				
-			<td <%=wo item %> class=""> <%=whl item.localization %> </td>				
+			<td <%=wo item %> class=""> 
+			   <%=raw "<small>none</small>" if item.localization == 'none' %>
+			   <%=raw "<i>mirrored</i>" if item.localization == 'mirrored' %>
+			   <%=raw "<b>free</b>" if item.localization == 'free' %>
+			</td>				
 			<td class="hover-child right"> 			
 			  <%= link_to ico(:list), editor_section_nodes_path(item), :title=>"Go to editor's view." %>
 				<%= link_to ico(:arrow_up), move_higher_master_section_path(item), :method=>:post %>

@@ -31,12 +31,14 @@ function get_the_indexes(){
 	
 	&nbsp;
 	
-  <%=link_to (@item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
-	     toggle_pin_editor_gallery_path(@item), :method=>:post %>	
-  <%=link_to (@item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
-	     toggle_locked_editor_gallery_path(@item), :method=>:post %>
-  <%=link_to (@item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
-	     toggle_hidden_editor_gallery_path(@item), :method=>:post %>
+	<% if not @item.new_record? %>
+	  <%=link_to (@item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
+		     toggle_pin_editor_gallery_path(@item), :method=>:post %>	
+	  <%=link_to (@item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
+		     toggle_locked_editor_gallery_path(@item), :method=>:post %>
+	  <%=link_to (@item.is_hidden? ? ico(:umbrella, :darkblue) : ico(:umbrella, :lightgray)), 
+		     toggle_hidden_editor_gallery_path(@item), :method=>:post %>
+	<% end %>
 			
 	<%= submit_tag 'OK', :class=>'button' %>
 

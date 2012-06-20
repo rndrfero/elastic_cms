@@ -6,7 +6,7 @@ module Elastic
 
     def tincan_map
        { 'structure_attrs' => %w{ key title localization is_star is_hidden is_locked form position },
-         'structure_assoc' => %w{ content_configs },
+         'structure_assoc' => %w{ structural_nodes content_configs },
          'content_attrs' => %w{ key },
          'content_assoc' => %w{ nodes } }
     end
@@ -20,7 +20,7 @@ module Elastic
     belongs_to :section
   
     has_many :content_configs, :dependent=>:destroy, :order=>:position
-    has_many :nodes #, :order=>lambda{ |x| raise 'fuck' }  
+    has_many :nodes, :include=>{:contents=>:content_config} #, :order=>lambda{ |x| raise 'fuck' }  
 #    has_many :nodes, :conditions=>lambda{ |x| x.master_node_id ? }
 
     acts_as_list :scope=>:site_id
@@ -37,10 +37,15 @@ module Elastic
     before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
 #    before_validation :keep_context
     
-    with_toggles :star, :hidden, :locked
+    with_toggles :star, :hidden, :locked, :pin
     
     scope :ordered, order(:position)
-
+    
+    
+    def structural_nodes
+      is_pin? ? nodes : []
+    end
+    
     # -- kontext --
 
     # def keep_context

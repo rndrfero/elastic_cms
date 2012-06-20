@@ -5,7 +5,9 @@ module Elastic
     include Tincan
     
     def tincan_map
-      { 'content_attrs' => %w{ key title is_star is_published published_at position },
+      { 'structure_attrs' => %w{ key title is_star is_published published_at position },
+        'structure_assoc' => %w{ contents },
+        'content_attrs' => %w{ key title is_star is_published published_at position },
         'content_assoc' => %w{ contents } }
     end
 

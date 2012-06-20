@@ -12,7 +12,6 @@ $(document).ready(function(){
 	<small><%= link_to 'RESTORE', restore_editor_section_nodes_path(@section) %></small>
 	
 	<% if Elastic::Context.user.master? %>
-		&nbsp;&nbsp; <%= ico(:arrow_right,:lightgrey) %>
 	  <%= link_to ico(:cog), master_section_path(@section), :class=>'button', :title=>'Configure section.' %>
 	<% end %>
 </div>

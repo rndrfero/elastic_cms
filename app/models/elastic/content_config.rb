@@ -6,7 +6,9 @@ module Elastic
 
     def tincan_map
        { 'structure_attrs' => %w{ key title position form meta is_published },
-         'structure_assoc' => %w{ } } # 
+         'structure_assoc' => %w{ },
+         'content_attrs' => %w{ key title position form meta is_published },
+         'content_assoc' => %w{ }, } # 
     end
     
     attr_accessible :position, :title, :form, :meta, :key

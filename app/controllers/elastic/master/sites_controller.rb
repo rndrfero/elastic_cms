@@ -21,12 +21,12 @@ module Elastic
     end
     
     def export_structure
-      data = @item.export_structure
-      send_data data, :filename=>"-#{@item.host}-#{@item.theme}.structure.yaml"
+      data = @item.export('structure')
+      send_data data, :filename=>"-#{@item.host}-#{@item.theme}.structure.tar"
     end
 
     def export_content
-      data = @item.export_content
+      data = @item.export('content')
       send_data data, :filename=>"-#{@item.host}-#{@item.theme}.content.tar"
     end
     

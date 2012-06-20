@@ -1,5 +1,34 @@
-public/nepublic sekcie
-seed/neseed galerie a sekcie
+struktura je podmnozinou kontentu
+pri loadingu:
+
+find by key
+  - exists? a) overwrite b) keep
+  - non exists: create
+
+resync content to content configs
+resync galleries
+
+
+
+structure E content 
+
+
+
+hidden - user cannot see
+locked - user cannot change
+pin    - content belongs to structure
+
+        |   node     section nodes     gallery      gallery files
+--------------------------------------------------------------------
+pin     | structure    structure      structure      structure
+locked  |  content      content        content        content
+hidden  |  content      content       structure       content      
+
+
+
+galleries -> hidden ide automaticky do struktury
+
+
 
 pin box
 
