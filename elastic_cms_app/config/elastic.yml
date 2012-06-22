@@ -1,0 +1,8 @@
+# Elastic CMS configuration file
+
+development:
+  copy_themes: true
+  
+production:
+  copy_themes: false
+  

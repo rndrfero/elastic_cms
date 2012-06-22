@@ -6,10 +6,7 @@ module Elastic
     REGEXP_IMAGE = Regexp.new('.*\.(jpg|jpeg|png|gif)$', Regexp::IGNORECASE)
     REGEXP_ZIP = Regexp.new('.*\.zip$', Regexp::IGNORECASE)
     REGEXP_SWF = Regexp.new('.*\.swf$', Regexp::IGNORECASE)
-    
-    scope :images, where("filename REGEXP ?", '.*\.(jpg|jpeg|png|gif)$')
-    scope :non_images, where("filename NOT REGEXP ?", '.*\.(jpg|jpeg|png|gif)$')
-    
+        
     attr_accessible :title, :text, :filename, :ino, :gallery_id, :basename, :extname
     belongs_to :gallery
     
@@ -28,6 +25,8 @@ module Elastic
     
     # -- scopes --
     
+    scope :images, where("filename REGEXP ?", '.*\.(jpg|jpeg|png|gif)$')
+    scope :non_images, where("filename NOT REGEXP ?", '.*\.(jpg|jpeg|png|gif)$')
     scope :starry, where(:is_star=>true)
 
     # -- methods --
@@ -62,6 +61,19 @@ module Elastic
     
     def extname=(x)
       self.filename = basename+x
+    end
+    
+    # title file records
+    def is_title?
+      gallery.title_file_record_id == self.id
+    end
+    
+    def set_title!
+      gallery.update_attribute :title_file_record_id, self.id
+    end
+
+    def toggle_title!
+      gallery.update_attribute :title_file_record_id, (is_title? ? nil : self.id)
     end
     
     # def images_ok?(which)

@@ -53,6 +53,7 @@ Elastic::Engine.routes.draw do
     namespace 'admin' do
       resource :configuration
       # zalohovanie celeho systemu
+      get 'info' => "info#index"
     end
   
     namespace 'master' do
@@ -76,7 +77,11 @@ Elastic::Engine.routes.draw do
         post 'move_lower', :on=>:member
         
         get 'new_content_config', :on=>:member
-        get 'cc_toggle_published/:content_config_id', :on=>:member, :action=>'cc_toggle_published', :as=>'cc_toggle_published'
+        
+        post 'cc_toggle_published/:content_config_id', :on=>:member, :action=>'cc_toggle_published', :as=>'cc_toggle_published'        
+        post 'cc_zap/:content_config_id', :on=>:member, :action=>'cc_zap', :as=>'cc_zap'
+        
+        
         # get 'cc_move_higher/:content_config_id', :on=>:member, :action=>'cc_move_higher'                 
         # get 'cc_move_lower/:content_config_id', :on=>:member, :action=>'cc_move_higher'                         
 #        resources :content_configs
@@ -116,6 +121,7 @@ Elastic::Engine.routes.draw do
         # put 'f_update/:file_record_id', :on=>:member, :action=>'f_update', :as=>'f_update'
         resources :file_records do
           post 'toggle_star', :on=>:member
+          post 'toggle_title', :on=>:member
         end
       end
       resources :users do

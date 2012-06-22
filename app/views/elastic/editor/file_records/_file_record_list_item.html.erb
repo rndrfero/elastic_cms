@@ -3,7 +3,7 @@
 
 <% extname = File.extname(fr.filename).upcase %>
 
-<div id="<%=dom_id fr%>" class="<%='active' if @item and @item.is_a? Elastic::FileRecord and @item.id == item.id %> <%=fr.is_image? ? 'imageItem' : 'fileItem' %>" index="<%= fr.id %>" title="<%= fr.filename %>">
+<div id="<%=dom_id fr%>" class="<%='active' if @item and @item.is_a? Elastic::FileRecord and @item.id == item.id %> <%=fr.is_image? ? 'imageItem' : 'fileItem' %> <%='title' if item.is_title? %> index="<%= fr.id %>" title="<%= fr.filename %>">
 
 	<div id="<%=dom_id item%>-inside"></div>
 	<div id="<%=dom_id item%>-form"  class="popup form-container">
@@ -13,6 +13,7 @@
 	<% if fr.is_image? %>	
 		<div class="controls">
 			<%= link_to ico(:pen)+'EDIT', edit_editor_gallery_file_record_path(gallery,item), :remote=>true %>
+			<%= link_to ico(:camera)+(item.is_title? ? 'UNSET' : 'TITLE'), toggle_title_editor_gallery_file_record_path(gallery,item), :method=>:post %>
 			<% for x in %w{ orig img tna tnb } %>
 				<%= link_to ico(:eye)+x.upcase, item.path(x) if gallery.has_variant? x %>
 			<% end %>

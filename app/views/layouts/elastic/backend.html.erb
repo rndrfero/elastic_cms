@@ -2,110 +2,122 @@
 <html>
 <head>
   <title>CHANGE TITLE HERE !!!</title>
-  <!-- main app -->
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
 
+  <!-- Wake extensions -->
+	<%= stylesheet_link_tag "wake/application.css" %>
+	<%#= FUTURE SCSS not style changing stylesheet_link_tag "wake/themes/default.css" %>
+  <%= javascript_include_tag "wake/application" %>
+	
+  <!-- Iconic -->
+  <%#= stylesheet_link_tag "iconic/iconic_fill", :media => 'all' %>
+  <%= stylesheet_link_tag "iconic/application", :media => 'all' %>
 
   <!-- Elastic CMS -->
   <%= stylesheet_link_tag    "elastic/application", :media => "all" %>
   <%= javascript_include_tag "elastic/application" %>
 
-  <!-- Wake extensions -->
-	<%= stylesheet_link_tag "wake/application.css" %>
-	<%= stylesheet_link_tag "wake/themes/default.css" %>
-  <%= javascript_include_tag "wake/application" %>
-	
-  <!-- Iconic -->
-  <%= stylesheet_link_tag "iconic/iconic_fill", :media => 'all' %>
+  <!-- main app -->
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+	<style>
+  	<% if Elastic::Context.site.bg_gallery %>
+	   <% if not (arr = Elastic::Context.site.bg_gallery.file_records.starry.images).empty? %>
+			 body { background-image: url('<%= arr[rand arr.size].path %>'); }
+	   <% end %>
+	  #InnerWrapper { background: <%= Elastic::Context.site.bg_color || 'rgba(255, 255, 255, 0.9)' %>; }
+		#InnerWrapper { padding: 0px 20px;   }
+	  <% end %>
+	</style>
+
 </head>
 <body>
-
-
-
-	<div id="MenuWrapper">
-				
-		<div id="MainMenu" class="usual">
-			<div class="userNavigator" style="float: right; color: white; background: #555; ">
-								
-				<%# if current_user %>
-					<%#= current_user.name  %>
-					<%#= link_to('Sign out', destroy_user_session_path) %>
-				<%# end %>
-				
-				<% if controller.is_testing? %>
-				  <%=raw ico(:bolt,:red)*3 %> &nbsp;
-				<% end %>
-				<%= Elastic::Context.site.title %>&nbsp;&nbsp;
-				<% if Elastic::Context.user %>
-				  <%= link_to "Sign out #{Elastic::Context.user.email}",  destroy_user_session_path, :method=>:delete %>
-				<% end %>
-				
-			</div>
-			
-		  <ul> 
-					<li>
-						<%
-						  address = if @node
-							  NodeDrop.new(@node).path
-							elsif @section
-								SectionDrop.new(@section).path
-							else
-								'/'
-							end
-						%>
-					  <%= link_to 'The Site', address %> 
-					</li>
-					<li><a class="<%= 'selected' if menu_match editor_galleries_path, editor_users_path, editor_site_path %>" href="#tabs1">Editor</a></li>
-					
-					<li><a class="<%= 'selected' if menu_match Elastic::Context.site.sections.all.map{ |x| editor_section_nodes_path(x) } %>" href="#tabs2">Sections</a></li>					
-					
-			    <li><a class="special <%= 'selected' if menu_match master_sections_path, master_sites_path, master_site_path(Elastic::Context.site) %>" href="#tabs3">Webmaster</a></li>
-
-		  </ul> 
-
-			<div style="float: right">
-				<% for l in Elastic::Context.site.locales||[] %>
-					<%= link_to l.upcase, params.merge(:locale=>l), :class=>"#{'active' if Elastic::Context.locale==l}" %>
-				<% end %>
-			</div>
-		
-		  <div id="tabs1">
-				<%= menu_link_to 'Galleries', editor_galleries_path %>
-				<%= menu_link_to 'Users', editor_users_path %>
-				<%= menu_link_to 'Configure', editor_site_path %>
-			</div> 
-		  <div id="tabs2">
-				<% for x in Elastic::Context.site.sections %>
-				  <%= menu_link_to x.title, editor_section_nodes_path(x) %>
-				<% end %>
-			</div>
-		  <div id="tabs3">
-				<%= menu_link_to 'The Site', master_site_path(Elastic::Context.site) %>
-				<%= menu_link_to 'Sections', master_sections_path %>
-				<%= menu_link_to 'Sites', master_sites_path %>
-			</div>
-			
-					
-		
-		</div>
-		<script type="text/javascript"> $("#MainMenu ul").idTabs(); 
-		</script>
-	</div>
-	
 	<div id="OuterWrapper">		
-		<%= render :partial=>'/wake/flash', :object=>flash %>
-		<div id="InnerWrapper">		
-			<%= yield %>			
-			
-			<br/><br/><br/><br/><br/>
-			<%#=debug @item.errors if @item %>
-			<%#=debug current_user %>
-			<%#=debug user_signed_in? %>
-			<%#= link_to 'fuck', 'off', :remote=>true %>
-		<div>
-	</div>
 
+		<div id="MenuWrapper">
+				
+			<div id="MainMenu" class="usual">
+				<div class="userNavigator" style="float: right; color: white; background: none;">
+								
+					<%# if current_user %>
+						<%#= current_user.name  %>
+						<%#= link_to('Sign out', destroy_user_session_path) %>
+					<%# end %>
+				
+					<% if controller.is_testing? %>
+					  <%=raw ico(:bolt,:red)*3 %> &nbsp;
+					<% end %>
+					<%= Elastic::Context.site.title %>&nbsp;&nbsp;
+					<% if Elastic::Context.user %>
+					  <%= link_to "Sign out",  destroy_user_session_path, :method=>:delete, :title=>"#{Elastic::Context.user.email}" %>
+					<% end %>
+				
+				</div>
+			
+			  <ul> 
+						<li>
+							<%
+							  address = if @node
+								  NodeDrop.new(@node).path
+								elsif @section
+									SectionDrop.new(@section).path
+								else
+									'/'
+								end
+							%>
+						  <%= link_to 'The Site', address %> 
+						</li>
+						<li><a class="<%= 'selected' if menu_match editor_galleries_path, editor_users_path, editor_site_path %>" href="#tabs1">Editor</a></li>
+					
+						<li><a class="<%= 'selected' if menu_match Elastic::Context.site.sections.all.map{ |x| editor_section_nodes_path(x) } %>" href="#tabs2">Sections</a></li>					
+					
+				    <li><a class="special <%= 'selected' if menu_match master_sections_path, master_sites_path, master_site_path(Elastic::Context.site) %>" href="#tabs3">Webmaster</a></li>
+
+				    <li><a class="<%= 'selected' if menu_match admin_info_path %>" href="#tabs4">Runner</a></li>
+
+			  </ul> 
+
+				<div style="float: right">
+					<% for l in Elastic::Context.site.locales||[] %>
+						<%= link_to l.upcase, params.merge(:locale=>l), :class=>"#{'active' if Elastic::Context.locale==l}" %>
+					<% end %>
+				</div>
+		
+			  <div id="tabs1">
+					<%= menu_link_to 'Galleries', editor_galleries_path %>
+					<%= menu_link_to 'Users', editor_users_path %>
+					<%= menu_link_to 'Configure', editor_site_path %>
+				</div> 
+			  <div id="tabs2">
+					<% for x in Elastic::Context.site.sections %>
+					  <%= menu_link_to x.title, editor_section_nodes_path(x) %>
+					<% end %>
+				</div>
+			  <div id="tabs3">
+					<%= menu_link_to 'The Site', master_site_path(Elastic::Context.site) %>
+					<%= menu_link_to 'Sections', master_sections_path %>
+					<%= menu_link_to 'Sites', master_sites_path %>
+				</div>
+			  <div id="tabs4">
+					<%= menu_link_to 'Info', admin_info_path %>
+				</div>
+			
+					
+		
+			</div>
+			<script type="text/javascript"> $("#MainMenu ul").idTabs(); 
+			</script>
+		</div>
+	
+		<div id="InnerWrapper">		
+			<%= render :partial=>'/wake/flash', :object=>flash %>
+			<%= yield %>			
+
+			<div class="clear"></div>
+			<br/><br/>
+		</div>
+
+	</div>
 </body>
 </html>

@@ -47,6 +47,7 @@ module Elastic
       for fr in @item.file_records
         fr.destroy if indexes.include? fr.id 
       end
+      flash[:hilite] = 'cms_backend.simply_yes'
       redirect_to editor_gallery_path(@item)      
     end
 

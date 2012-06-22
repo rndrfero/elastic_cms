@@ -31,6 +31,11 @@ module Elastic
       render_update
     end
     
+    def toggle_title
+      @item.toggle_title!
+      redirect_to :back
+    end
+    
     private
     
     def render_update

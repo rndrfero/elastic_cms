@@ -14,7 +14,7 @@ module Elastic
     end
     
     attr_accessible :host, :title, :locales_str, :theme, :is_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, 
-      :theme_index, :theme_layout, :master_id, :master_gallery_id, :structure_import, :content_import
+      :theme_index, :theme_layout, :master_id, :master_gallery_id, :bg_gallery_id, :bg_color, :structure_import, :content_import
  
     include Elastic::WithDirectory
       
@@ -27,6 +27,7 @@ module Elastic
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
     belongs_to :master_gallery, :class_name=>'Gallery', :dependent=>:destroy
+    belongs_to :bg_gallery, :class_name=>'Gallery', :dependent=>:destroy
     
     with_toggles :reload, :reload_theme
   
@@ -95,7 +96,7 @@ module Elastic
         File.rename home_dir(host_was), home_dir
       end
       
-      copy_themes!
+#      copy_themes!
       
       create_or_rename_dir! home_dir
       for x in %w{ themes static galleries }
@@ -110,6 +111,7 @@ module Elastic
     
     def copy_themes!
       themes = %w{ hello_world test-contents test-welcome }
+      Elastic.logger_info "Copying themes: #{themes}"
       for t in themes
         x = File.join home_dir, 'themes', t
         FileUtils.remove_entry_secure x if File.exists? x

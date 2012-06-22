@@ -10,6 +10,7 @@ gem "jquery-rails"
 gem 'mysql2'
 
 group :assets do
+  gem 'uglifier'
   gem 'sass-rails' #,   '~> 3.2.3'
 end
 

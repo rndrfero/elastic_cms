@@ -130,9 +130,10 @@ module Elastic
 
     private
     def prepare
-      @site = Context.site
-      @site.copy_themes!
       Context.ctrl= self
+      @site = Context.site
+      
+      @site.copy_themes! if ELASTIC_CONFIG['copy_themes']
       
       if %w{ edit update }.include? params[:action]
         @action = request.path.split('/')[2]

@@ -17,9 +17,8 @@ ElasticCmsApp::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
   
-  config.assets.compile = true # HEY I WANT TO COMPILE AT RUN TIME IN PRODUCTION
+#  config.assets.compile = true # HEY I WANT TO COMPILE AT RUN TIME IN PRODUCTION
   
-
   # Generate digests for assets URLs
   config.assets.digest = true
 

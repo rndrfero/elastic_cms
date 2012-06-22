@@ -22,6 +22,9 @@ class CreateElasticSites < ActiveRecord::Migration
       t.integer :master_gallery_id
       t.integer :master_id
       
+      t.integer :bg_gallery_id
+      t.string :bg_color
+      
       t.boolean :reload
 
       

@@ -51,4 +51,8 @@ ElasticCmsApp::Application.configure do
   
   config.autoload_paths += %W(#{config.root}/../../rails_gems/lib/)  
   config.autoload_paths += %W(#{config.root}/../../rails_gems/app/**/)  
+
+  # mailer
+  config.action_mailer.delivery_method = :test
+
 end

@@ -5,7 +5,7 @@
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
 
 <div class="wakeThemeCleanForm">
-	<%= form_for @item, :url=>url, :html => {:multipart => true} do |f| %>
+	<%= form_for @item, :url=>url, :html => {:multipart => true, :id=>"TheForm"} do |f| %>
 
 		<% unless @item.new_record? %>
 		  <%=link_to (@item.is_published? ? ico(:check_alt, :green) : ico(:x_alt, :red)), 

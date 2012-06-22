@@ -4,7 +4,7 @@ class NodeDrop < Liquid::Drop
     @node = x
   end
   
-  for x in %w{ title id key }
+  for x in %w{ title id key redirect }
     module_eval "def #{x}; @node.#{x}; end"    
   end  
   

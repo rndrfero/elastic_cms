@@ -8,6 +8,10 @@ class GalleryDrop < Liquid::Drop
     module_eval "def #{x}; @gallery.#{x}; end"    
   end
   
+  def title_image
+    @gallery.title_image ? FileRecordDrop.new(@gallery.title_image) : nil
+  end
+  
   def files
     @gallery.file_records.map{ |x| FileRecordDrop.new x }
   end

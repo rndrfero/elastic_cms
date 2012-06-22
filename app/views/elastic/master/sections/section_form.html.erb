@@ -88,7 +88,8 @@
 						<% if f2.object.wake_destroyable? %>
 					  	<%= f2.check_box '_destroy' %> destroy 
 						<% else %>
-						  <%= link_to 'clean', '' if cc.nodes.empty? and !cc.contents.empty?%> 
+						  <%= link_to 'zap', master_section_cc_zap_path(@item,cc.id), :method=>:post, 
+						     :data=>{:confirm=>'wake.general.confirm_destroy'.tt} if !cc.contents.empty?%> 
 						<% end %>
 					</td>
 				</tr>

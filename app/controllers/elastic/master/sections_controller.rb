@@ -54,9 +54,16 @@ module Elastic
     end
   
     def cc_toggle_published
-      flash[:hilite] = 'cms_backend.simply_yes'
       @content_config.toggle_published!
+      flash[:hilite] = 'cms_backend.simply_yes'
       render :action=>'section_form'
+    end
+    
+    def cc_zap
+      @content_config.contents.map{ |x| x.destroy }
+      flash[:hilite] = 'cms_backend.simply_yes'
+      raise 'jebe?'
+      redirect_to :back
     end
   
     def wake_constraints

@@ -34,9 +34,14 @@
 				     toggle_hidden_editor_gallery_path(item), :method=>:post %>
 			  <%#=link_to (item.is_locked? ? ico(:lock_fill, :darkred) : ico(:lock_fill, :lightgray)), 
 				     toggle_locked_editor_gallery_path(item), :method=>:post %>
+			  <%#=link_to (item.is_star? ? ic(:star_16x16, :black) : ic(:star_16x16, :gray_light)), 
+				     toggle_star_editor_gallery_path(item), :method=>:post %>
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
 				     toggle_star_editor_gallery_path(item), :method=>:post %>
 				<b><%= item.title.truncate(30) %></b>
+				<%#= ic(:pin_16x16, :cyan) if item.is_pin? %>
+				<%#= ic(:umbrella_16x16, :blue) if item.is_hidden? %>
+				<%#= ic(:lock_fill_12x16, :red) if item.is_locked? %>
 				<%= ico(:pin, :blue) if item.is_pin? %>
 				<%= ico(:umbrella, :darkblue) if item.is_hidden? %>
 				<%= ico(:lock_fill, :darkred) if item.is_locked? %>

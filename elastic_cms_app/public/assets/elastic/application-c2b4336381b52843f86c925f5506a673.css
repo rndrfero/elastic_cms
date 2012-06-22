@@ -1,0 +1,149 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+*/
+
+.field_with_errors { outline: 2px solid red !important; }
+
+a img { border: none; }
+
+html, body { height: 100%; }
+html, body { margin: 0; padding: 0; border: none; }
+body {
+	font-family: Verdana; word-spacing: normal; letter-spacing: 0; line-height: 1.2em; font-size: 12px;
+	background-color: snow; color: #444; padding: 0; margin: 0;
+	background-image: url('/assets/elastic/bg.png');
+/*	background-image: url('/assets/elastic/ex/construction-assignment-help.jpg');
+	background-image: url('/assets/elastic/ex/back-top.jpg');
+*/
+  background: top center fixed;
+}
+
+textarea { font-family: Verdana; }
+
+/*h1,h2,h3,h4 { font-family: 'Trebuchet MS'; color: #00528D;}
+*/
+h1,h2,h3,h4 { font-family: 'Trebuchet MS'; color: #6F7F8B;}
+h4 { margin-bottom: 0.3em; }
+
+hr { border: none; background: #888; height: 2px; border-top: 1px solid #eee; }
+
+a, a:visited { color: #00528D; font-weight: bold; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+
+#OuterWrapper { width: 1000px; margin: auto; min-height: 100%; /*border: 1px solid blue;*/ }
+
+#Flash { text-align: center; font-size: 1.5em; width: 600px; color: #00528D; /*color: #3D5E76; */
+	padding: 5px; padding-top: 20px;  border-bottom: 2px solid #D6EEFF; margin-bottom: 2em; }
+	
+#InnerWrapper { padding: 0px 0px;  }
+
+.iconic { font-size: 19px; font-weight: normal; position: relative; top: 2px; width: 14px; height: 14px; }
+.icoimg { position: relative; top: 3px; }
+
+/*.galleryItem { float: left; padding: 10px; width: 150px; height: 160px; }
+*/
+
+/* menu */
+
+#MenuWrapper { }
+
+.wakeThemeList th { background: url('/assets/elastic/mt.png'); }
+
+.usual {
+  background: #555; color: #111; width:1000px; margin: auto;
+	font-family: Verdana,sans-serif; letter-spacing: 0.5pt; font-variant: small-caps;
+	padding-top: 10px;
+	background: url('/assets/elastic/mt.png');
+}
+
+.usual ul { background: url('/assets/elastic/mt.png'); margin: 0px; padding-left: 20px;  }
+.usual li {  list-style:none; float:left; }
+.usual ul a { display:block;
+  padding: 6px 15px; text-decoration:none!important;
+  margin-left:0; color:#FFF;  font-weight: normal;
+}
+.usual ul a:hover { color: #77C02E; background:#111; }
+.usual ul a.selected { margin-bottom:0; color:#000; background: #EEE; background: url('/assets/elastic/mb.png'); cursor:default; }
+.usual ul a.selected.active { color: #77C02E; }
+.usual div { padding-left: 20px; padding-right: 20px; padding-top: 10px;
+  *padding-top:3px; *margin-top:-15px; clear:left; background: #EEE; background: url('/assets/elastic/mb.png');  height: 26px;}
+.usual .active { color: #92EC37; }
+
+.usual ul a.special { color: #90EC34; font-weight: bold; }
+.usual ul a.special.selected { color: #5FAA13; }
+
+@-moz-document url-prefix() {
+    .usual div { height: 27px; }
+}
+
+.usual div a { padding: 6px 15px; background: #EEE; background: url('/assets/elastic/mb.png'); 
+  display: block; float: left; color: #555;  font-weight: normal; }
+.usual div a.active { color: #00528D; font-weight:bold; background: snow; }
+.usual div a:hover { color: #77C02E; text-decoration: none;}
+
+.userNavigator { border: 0px solid red; position: relative; top: 4px; height: 1em !important; padding: 0px !important;}
+.userNavigator a { float: none !important; display: inline !important; 
+	color: white !important; background: none !important;  font-weight: bold !important;}
+
+
+
+/*
+*/
+
+.wakeThemeGallery .imageItem, .wakeThemeGallery .fileItem  { float: left; cursor: pointer;/* z-index: 2;*/
+	box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-box-shadow: 3px 3px 7px #AAA;  }
+	
+.wakeThemeGallery .imageItem { position: relative; margin: 10px; word-wrap: break-word; 
+	background-image: url('/assets/elastic/matte.png'); }
+.wakeThemeGallery .imageItem img { margin: 0px; padding: 0px; border: none; }
+.wakeThemeGallery .imageItem.active { padding: 1px; margin: 5px; border: 4px solid #77C02E; }
+
+.wakeThemeGallery .imageItem img.variantOrig { width: 120px; height: 120px; }
+
+.wakeThemeGallery .imageItem .controls { display: none; position: absolute;}
+.wakeThemeGallery .imageItem .controls a { display: block; background: white; padding: 2px 2px; margin-bottom: 4px; }
+.wakeThemeGallery .imageItem.active .controls { display: block; }
+
+.wakeThemeGallery .imageItem .tna { display: block; }
+.wakeThemeGallery .imageItem .tnb { display: none; }
+.wakeThemeGallery .imageItem.active .tna { display: none; }
+.wakeThemeGallery .imageItem.active .tnb { display: block; }
+
+.wakeThemeGallery .imageItem.title { padding: 1px; margin: 5px; border: 4px solid #00528D; }
+.wakeThemeGallery .imageItem.active.title { padding: 1px; margin: 5px; border: 4px solid #77C02E; }
+
+
+.wakeThemeGallery .fileItem	{ float: left; background: #D6EEFF; position: relative;
+	margin: 10px; color: #777; padding: 5px; }	
+.wakeThemeGallery .fileItem.active { padding: 6px; margin: 5px; border: 4px solid #77C02E; background: #ECF7FF; }
+.wakeThemeGallery .fileItem a { font-weight: normal; color: #777; }
+
+.wakeThemeGallery .fileItem .controls { display: none; position: absolute; top: 2px;
+	 background: white; padding: 3px 5px; }
+.wakeThemeGallery .fileItem .controls a { background: white; }
+.wakeThemeGallery .fileItem.active .controls { display: block;  }
+.wakeThemeGallery .fileItem.active .details {  }
+.wakeThemeGallery .fileItem .ext { font-weight: bold; }
+.wakeThemeGallery .fileItem.active .ext { display: none; }
+
+	
+.hidden { height: 0px; overflow: hidden; }
+
+.wakeDebug { display: inline; color: purple; background: #FFD8F4; }
+.wakeNote { display: inline; font-size: 0.9em; font-style: italic; }
+.wakeError { display: inline; color: red; font-weight: bold; }
+	
+.popup { position: absolute; z-index: 1000;
+	box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-box-shadow: 3px 3px 7px #AAA; }
+.popup form { position: relative; }

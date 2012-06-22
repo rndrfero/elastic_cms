@@ -110,8 +110,27 @@
 			</table>
 		<% end %>
 		
-		<br /><br />
 	<% end %>
+	
+	<br />
+	
+	<h3>Inteface</h3>
+	<table class="wakeThemeForm" class="">
+		<tr>
+			<th> Background gallery: </th>
+			<td> 
+				<%= f.select :bg_gallery_id, [[nil,nil]]+@item.galleries.map{ |x| [x.title, x.id] }%>
+			  &nbsp;&nbsp;<small><%= link_to ico(:link)+' '+@item.bg_gallery.title, 
+			      	editor_gallery_path(@item.bg_gallery_id) if @item.bg_gallery %></small>
+			</td>
+		</tr>
+		<tr>
+			<th> Inner wrapper color: </th>
+			<td> <%= f.text_field :bg_color %> <%=wnote 'Appliable if backgorund image.' %></td>
+		</tr>
+	</table>
+	
+	<br /><br />
 	
 <% end %>
 

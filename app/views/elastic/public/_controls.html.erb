@@ -9,7 +9,7 @@
 
 	<style>
 		#ElasticControls { position: fixed; height: 25px; top: 0px; left: 0px; background: black; width: 100%; 
-			padding: 6px 30px 0px 30px; color: grey; z-index: 32767; }
+			padding: 6px 30px 0px 30px; color: grey; z-index: 32767; text-shadow: none; }
 		#ElasticControls a { color: white; text-decoration: none;  padding: 0px 4px 0px 4px; }
 		#ElasticControls a:hover { text-decoration: underline; }
 		#ElasticControls a.active { background: white; color: #A00; }
@@ -51,7 +51,6 @@
 				  <% next if @node and @node.id == x.id %>
 					<%= link_to x.title, editor_section_node_path(x.section,x) %>
 				<% else %>
-				  <%= x.class %>
 				<% end  %>
 			<% end %>
 		<% end %>

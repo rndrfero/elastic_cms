@@ -17,9 +17,10 @@ module Elastic
       end
     end
 
-    def random(x)
-      if x.is_a? Array
-        x[ rand(x.size) ]
+    def random(array)
+      return array if Elastic::Context.ctrl.am_i_editing_this_shit?
+      if array.is_a? Array
+        array[ rand(array.size) ]
       else
         'undefined'
       end
@@ -35,6 +36,8 @@ module Elastic
     end
 
     def splitnl(input)
+      input = input.to_s
+      return input if Elastic::Context.ctrl.am_i_editing_this_shit?
       input.to_s.split("\n")
     end
     

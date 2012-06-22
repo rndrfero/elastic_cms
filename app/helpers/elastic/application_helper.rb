@@ -1,5 +1,9 @@
 module Elastic
   module ApplicationHelper
+
+    def ic(x, color=nil)
+      raw "<img class=\"icoimg\" src=\"/assets/iconic/#{color}/#{x}.png\" />"
+    end
         
     def wdbg(x)
       false ? raw("<div class=\"wakeDebug\">#{x}</div>") : ''

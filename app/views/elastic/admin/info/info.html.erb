@@ -1,0 +1,28 @@
+
+<h3>Elastic configuration</h3>
+
+<table class="wakeThemeForm" class="">
+	<tr>
+		<th> Copy themes on each request: </th>
+		<td> <%= ELASTIC_CONFIG['copy_themes'] %> </td>
+	</tr>
+</table>
+
+<br/>
+
+<h3>Rails configuration</h3>
+
+<table class="wakeThemeForm" class="">
+	<tr>
+		<th> Environment: </th>
+		<td> <%= Rails.env %>  </td>
+	</tr>
+	<tr>
+		<th> Database: </th>
+		<td> <%= Rails.configuration.database_configuration[Rails.env]['database'] %> </td>
+	</tr>	
+	<tr>
+		<th> Delivery method: </th>
+		<td> <%= ActionMailer::Base.delivery_method %> </td>
+	</tr>
+</table>

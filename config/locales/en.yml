@@ -7,7 +7,7 @@ en:
       dblclick_edit: 'Double click to edit.'
   wake:
     general:
-      destroy_confirm: 'Are you sure? This action CAN NOT be undone.'
+      confirm_destroy: 'Are you sure? This action CAN NOT be undone.'
     file_record:
       edit: 'You are editing the file.'
       update_ok: 'Saved succesfully.'

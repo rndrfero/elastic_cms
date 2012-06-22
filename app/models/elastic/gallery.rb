@@ -26,10 +26,13 @@ module Elastic
     
     belongs_to :site
     has_many :file_records
+    belongs_to :title_image, :class_name=>'FileRecord'
+    
     alias :frs :file_records
 #    accepts_nested_attributes_for :file_records
     
     validates_presence_of :title, :site_id
+    validates_uniqueness_of :title, :scope=>:site_id
     validates_uniqueness_of :key, :scope=>:site_id
     
 #    before_validation :keep_context
