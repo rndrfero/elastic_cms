@@ -6,8 +6,9 @@
 
 		<%= f.submit 'SAVE CHANGES', :class=>'button' %>	
 		<% if not @item.new_record?%>
-			<%= link_to 'LETS GO THERE!', @item.uri, :class=>'button' if request.host!=@item.host %>			
-			<small><%= link_to 'COPY/RENEW EXAMPLE THEMES', copy_themes_master_site_path(@item), :class=>'button' %></small>
+			<%= link_to 'LETS GO THERE!', @item.uri, :class=>'button hi-visible' if request.host!=@item.host %>			
+			<%= link_to 'COPY/RENEW EXAMPLE THEMES', copy_themes_master_site_path(@item), 
+			  :class=>'button lo-visible', :method=>:post %>
 		<% end %>
 				
 	</div>

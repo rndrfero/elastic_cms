@@ -1,0 +1,20 @@
+* { border: none; margin: 0; padding: 0; }
+
+body { background: top center url('/x/current_theme/images/background_1.png'); }
+
+.shadow { -moz-box-shadow: 5px 5px 5px #AAA;
+-webkit-box-shadow: 5px 5px 5px #AAA;
+box-shadow: 5px 5px 5px #AAA;
+}
+
+#OuterWrapper { width: 980px; margin: auto; position: relative; }
+
+#Slogan { height: 20px; text-align: center; }
+
+#Marble { height: 317px; background: url('/x/current_theme/images/marble_no_shadow.jpg'); }
+
+#InnerWrapper { min-height: 200px; }
+
+#Footer { }
+
+/*980 x 317*/

@@ -58,13 +58,15 @@ Elastic::Engine.routes.draw do
   
     namespace 'master' do
       resources :sites do
+        post 'clean', :on=>:collection
+        
         post 'toggle_reload_theme', :on=>:member
         post 'copy_themes', :on=>:member
         
         post 'export_structure', :on=>:member
-#        post 'export_seed', :on=>:member        
         post 'export_content', :on=>:member        
         put 'import', :on=>:member
+        
         post 'reload_structure', :on=>:member
         post 'reload_content', :on=>:member
       end

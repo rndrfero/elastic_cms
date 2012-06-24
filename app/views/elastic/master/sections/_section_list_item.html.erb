@@ -7,6 +7,7 @@
 
 	<tr>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'id' %> </th>
+		 <th style="width: 1em;" class=""> </th>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'position', '#' %> </th>
 		 <th style="width: 7em;"> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
@@ -21,6 +22,9 @@
 	<tr id="<%=dom_id item %>" class="hover-parent hilite pointer">
 			
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
+			<td class="hover-child right"> 			
+		  	<%= link_to ico(:list), editor_section_nodes_path(item), :title=>"Go to editor's view." %>
+			</td>
 			<td <%=wo item %> class="lo-visible"> <%=whl item.position %> </td>				
 			<td>
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
@@ -41,7 +45,7 @@
 			   <%=raw "<b>free</b>" if item.localization == 'free' %>
 			</td>				
 			<td class="hover-child right"> 			
-			  <%= link_to ico(:list), editor_section_nodes_path(item), :title=>"Go to editor's view." %>
+			  <%#= link_to ico(:list), editor_section_nodes_path(item), :title=>"Go to editor's view." %>
 				<%= link_to ico(:arrow_up), move_higher_master_section_path(item), :method=>:post %>
 				<%= link_to ico(:arrow_down), move_lower_master_section_path(item), :method=>:post %>
 			  <%= wake_button_destroy item %>

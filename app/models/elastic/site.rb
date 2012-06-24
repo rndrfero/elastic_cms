@@ -26,13 +26,15 @@ module Elastic
     
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
+    # belongs_to :master_gallery, :class_name=>'Gallery', :foreign_key=>'master_gallery_id', :dependent=>:destroy
+    # belongs_to :bg_gallery, :class_name=>'Gallery', :foreign_key=>'bg_gallery_id', :dependent=>:destroy
     belongs_to :master_gallery, :class_name=>'Gallery', :dependent=>:destroy
     belongs_to :bg_gallery, :class_name=>'Gallery', :dependent=>:destroy
     
     with_toggles :reload, :reload_theme
   
     validates_presence_of :title, :host
-    validates_format_of :host, :with=>/^[a-z0-9.]*$/
+    validates_format_of :host, :with=>/^[a-z0-9.\-]*$/
     validates_presence_of :locales_str
     validates_uniqueness_of :host
   
@@ -43,7 +45,6 @@ module Elastic
 #    before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
     before_destroy :wake_destroyable? 
     after_save :integrity!
-    after_create { |x| x.create_master_gallery!(:title=>'DEFAULT SETTINGS', :site_id=>x.id, :is_dependent=>false, :is_hidden=>true) }
   
     def locales_str
       (locales||[]).join(', ')
@@ -89,6 +90,7 @@ module Elastic
     # ensure site integrity
     def integrity!
       return if new_record?
+      Elastic.logger_info "Site.integrity! for #{host}"
       
       if host_changed? and File.exists? home_dir(host_was)
         x = home_dir(host_was)+'current_theme'
@@ -105,8 +107,17 @@ module Elastic
             
       # create symlink to current_theme
       x = home_dir+'current_theme'
-     FileUtils.remove_entry_secure x if File.exists?(x)||File.symlink?(x)
-     FileUtils.symlink theme_dir, x
+      FileUtils.remove_entry_secure x if File.exists?(x)||File.symlink?(x)
+      FileUtils.symlink theme_dir, x
+
+      # create master gallery when there is none
+#      raise "kokot: #{self.master_gallery(true).inspect}"
+      unless master_gallery
+        x = create_master_gallery! :title=>'DEFAULT SETTINGS', :site_id=>self.id, :is_dependent=>false, :is_hidden=>true
+        update_attribute :master_gallery_id, x.id
+      end
+     
+      true
     end
     
     def copy_themes!
@@ -117,6 +128,18 @@ module Elastic
         FileUtils.remove_entry_secure x if File.exists? x
         FileUtils.cp_r File.join(Rails.root, '../themes',t), File.join(home_dir, 'themes')
       end
+    end
+    
+    def self.clean!
+      ret = []
+      for x in Dir.entries Rails.root+'home'
+        next if x.starts_with? '.'
+        next if Site.where(:host=>x).exists?
+        ret << x
+      end
+      for x in ret
+        FileUtils.remove_entry_secure File.join(Rails.root+'home',x)
+      end      
     end
     
     

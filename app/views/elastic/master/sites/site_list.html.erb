@@ -1,6 +1,9 @@
 
 <%= link_to ico('plus')+' new site', new_master_site_path %>
 
+&nbsp;&nbsp;
+<%= link_to 'CLEAN HOME DIR', clean_master_sites_path, :class=>:button, :method=>:post, :data=>{:confirm=>'wake.general.confirm_destroy'.tt} %>
+
 <br/><br/>
 
 <table class="wakeThemeList" style="width: 100%;">

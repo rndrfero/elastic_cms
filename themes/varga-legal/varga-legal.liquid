@@ -1,0 +1,25 @@
+<div id="OuterWrapper">
+
+	<div id="Slogan">
+		Fuck off you fuck!
+	</div>
+
+	<div id="Marble" class="shadow">
+		
+	</div>
+	
+	<div id="Menu">
+		{% for n in section_pages.roots %}
+		   <a href="{{n.path}}"> {{n.title}} </a>
+		{% endfor %}
+	</div>
+	
+	<div id="InnerWrapper">
+	</div>
+	
+	<div id="Footer">
+		{% give_me node 'Footer' %}
+		{{ the_node.content[0] }}
+	</div>
+	
+</div>

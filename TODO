@@ -1,3 +1,17 @@
+-= varga legal =- 
+
+preklad bude 1:1 ?
+
+
+
+- prerobit login window ala wakecleanform
+
+- CSS - spratat, theming bude formou SCSS, je jednoduchsi (asi)
+
+
+treba pouvazovat ci nie je update/create vo wake ci by nebola lepsia transakcia
+
+
 farebne zvyraznenie:
 - pridat update_at do nodov
 - poslednych modifikovanych

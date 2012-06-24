@@ -44,17 +44,21 @@ module Elastic
           
     def f_destroy
       indexes = (params[:index]||[]).map!{ |x| x.to_i }
-      for fr in @item.file_records
-        fr.destroy if indexes.include? fr.id 
+      if indexes.empty?         
+        flash[:error] = 'What to destroy? Select something ...'
+      else
+        for fr in @item.file_records
+          fr.destroy if indexes.include? fr.id 
+        end
+        flash[:hilite] = 'cms_backend.simply_yes'
       end
-      flash[:hilite] = 'cms_backend.simply_yes'
       redirect_to editor_gallery_path(@item)      
     end
 
     def f_star
-      indexes = (params[:index]||[]).map!{ |x| x.to_i } #.reject!{ |x| x==0 }
+      indexes = (params[:index]||[]).map!{ |x| x.to_i } 
       if indexes.empty?         
-        flash[:error] = 'Select something ...'
+        flash[:error] = 'What to star? Select something ...'
       else
         for fr in @item.file_records
           fr.toggle_star! if indexes.include? fr.id 

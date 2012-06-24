@@ -63,6 +63,7 @@ module Elastic
     end
         
     def integrity!
+      Elastic.logger_info "Gallery.integrity! for #{dir}"
       if dir != dir(key_was) and File.exists? filepath(key_was)
         FileUtils.mv filepath(key_was), filepath
       end      

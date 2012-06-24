@@ -55,7 +55,8 @@ module Elastic
 
   
     def new_content_config
-      @item.content_configs << ContentConfig.new
+      @item.content_configs << ContentConfig.new(:is_published=>true)
+      flash.now[:notice] = "cms_backend.simply_type_in"
       render :action=>'section_form'
     end
   

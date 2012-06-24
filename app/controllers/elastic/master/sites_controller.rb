@@ -2,6 +2,12 @@ module Elastic
   class Master::SitesController < ApplicationController
     
     wake :within_module=>'Elastic'
+    
+    def clean
+      Site.clean!
+      flash[:hilite] = 'cms_backend.simply_gone'
+      redirect_to :back
+    end
       
     def edit
       @item.integrity!
