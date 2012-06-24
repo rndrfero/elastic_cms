@@ -46,6 +46,12 @@ module Elastic
       flash[:hilite] = 'cms_backend.simply_yes'
       redirect_to :back
     end
+    
+    def zap
+      @item.nodes.map{ |x| x.destroy }
+      flash[:hilite] = 'cms_backend.simply_gone'
+      redirect_to :back
+    end
 
   
     def new_content_config
@@ -61,8 +67,7 @@ module Elastic
     
     def cc_zap
       @content_config.contents.map{ |x| x.destroy }
-      flash[:hilite] = 'cms_backend.simply_yes'
-      raise 'jebe?'
+      flash[:hilite] = 'cms_backend.simply_gone'
       redirect_to :back
     end
   

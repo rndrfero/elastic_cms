@@ -1,7 +1,7 @@
 <script>
 function get_the_indexes(){
-  arr = $('.wakeThemeGallery > .active');
-	arr = jQuery.map( arr, function(n,i){
+  arr = $('#TheGallery > .active');
+	arr = $.map( arr, function(n,i){
 		return( 'index[]='+$(n).attr('index') );
 	});
 	return arr.join('&');
@@ -9,11 +9,8 @@ function get_the_indexes(){
 </script>
 <style>
 .imageItem { width: <%= @item.get_meta(:tna,:w) %>px; height: <%= @item.get_meta(:tna,:h) %>px; }
-.popup table { position: relative; left: <%= @item.get_meta(:tna,:w).to_i+5 %>px; }
 </style>
 
-<div id="PopUp">
-</dvi>
 
 <div class="wakeThemeCleanForm">
 
@@ -70,9 +67,15 @@ function get_the_indexes(){
 		
 	<% end %>
 
-	</div>
+	<!-- </div> -->
 		
 	 &nbsp; 
+	
+	<br/><br/>
+	<% if not @item.new_record? %>
+		<small>Access me via FTP:</small> /galleries/<%= f.text_field 'key', :class=>'' %><br/>
+	<% end %>
+	
 	
 	<br/>
 	
@@ -108,7 +111,7 @@ function get_the_indexes(){
 
 
 
-<div class="wakeThemeGallery">
+<div id="TheGallery" class="wakeThemeGallery">
 	
 	<%= render :partial=>'/elastic/editor/file_records/file_record_list_item', :collection=>@item.file_records.non_images %>
 	<div class="clear"></div>
@@ -118,7 +121,4 @@ function get_the_indexes(){
 
 <br/>
 
-<% if not @item.new_record? %>
-	<small>Access me via FTP:</small> /galleries/<%= @item.dir %><br/>
-<% end %>
 

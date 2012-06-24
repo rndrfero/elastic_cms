@@ -20,6 +20,10 @@
 
 		<% if not @item.new_record? %>
 			<%= link_to ico(:list), editor_section_nodes_path(@item), :title=>"Go to editor's view." %>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<%= link_to 'ZAP', zap_master_section_path(@item), :method=>:post, 
+			  :data=>{:confirm=>'wake.general.confirm_destroy'.tt }%>
 		<% end %>
 		
 		<br/><br/>
@@ -81,14 +85,17 @@
 						<% end if cc.form %>		
 					</td>
 					<td> 
-						<%= link_to (cc.is_published? ? ico(:check_alt,:green) : ico(:x_alt,:red)),
-					  	cc_toggle_published_master_section_path(@item, cc) if not cc.new_record? %>
-					 	<!-- :action=>'cc_toggle_published', :id=>@item.id, :content_config_id=>cc.id  --></td>
+						<%#= link_to (cc.is_published? ? ico(:check_alt,:green) : ico(:x_alt,:red)),
+					  	cc_toggle_published_master_section_path(@item, cc), :method=>:post if not cc.new_record? %>
+					 	<!-- :action=>'cc_toggle_published', :id=>@item.id, :content_config_id=>cc.id  -->
+						<%= f2.check_box 'is_published' %>
+					</td>
+						
 					<td>
 						<% if f2.object.wake_destroyable? %>
 					  	<%= f2.check_box '_destroy' %> destroy 
 						<% else %>
-						  <%= link_to 'zap', master_section_cc_zap_path(@item,cc.id), :method=>:post, 
+						  <%= link_to 'zap', cc_zap_master_section_path(@item,cc.id), :method=>:post, 
 						     :data=>{:confirm=>'wake.general.confirm_destroy'.tt} if !cc.contents.empty?%> 
 						<% end %>
 					</td>

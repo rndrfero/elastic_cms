@@ -75,6 +75,7 @@ Elastic::Engine.routes.draw do
         post 'toggle_pin', :on=>:member
         post 'move_higher', :on=>:member
         post 'move_lower', :on=>:member
+        post 'zap', :on=>:member
         
         get 'new_content_config', :on=>:member
         

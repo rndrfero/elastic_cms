@@ -37,7 +37,7 @@ module Elastic
     
 #    before_validation :keep_context
     before_validation :saturate
-    before_validation :generate_key
+    before_validation :generate_key, :if=>lambda { |x| x.key.blank? }
     after_save :integrity!
     
     after_save(:if=>lambda{ |x| x.meta_changed? }) { process! :force=>true}
@@ -66,7 +66,7 @@ module Elastic
       if dir != dir(key_was) and File.exists? filepath(key_was)
         FileUtils.mv filepath(key_was), filepath
       end      
-#      create_or_rename_dir! filepath            
+      create_or_rename_dir! filepath            
       for x in %w{ orig img tna tnb }
         FileUtils.mkdir_p File.join(filepath,x)
       end

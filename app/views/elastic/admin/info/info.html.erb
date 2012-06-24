@@ -6,7 +6,16 @@
 		<th> Copy themes on each request: </th>
 		<td> <%= ELASTIC_CONFIG['copy_themes'] %> </td>
 	</tr>
+	<tr>
+		<th onclick="$('#JQueryTest').html('Funktioniert.');"> Click me to test jQuery: </th>
+		<td id="JQueryTest"> </td>
+	</tr>
+	<tr>
+		<th onclick="$('#JQueryTest2').toggle('blind', 500);"> Click me to test effect: </th>
+		<td> <div id="JQueryTest2">toggle blink</div> </td>
+	</tr>
 </table>
+
 
 <br/>
 

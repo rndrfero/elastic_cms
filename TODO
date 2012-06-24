@@ -1,3 +1,21 @@
+farebne zvyraznenie:
+- pridat update_at do nodov
+- poslednych modifikovanych
+- poslednych zobrazenych (cas vs. fronta)
+- tie, ktore su rozrobene
+treba ale dole pod to farebnu legendu co je co
+- zafarbenie
+
+je to pre uzivatela vs. je to globalne
+
+
+
+
+wake extension obsahuje jquery UI ale nie jquery -> tym padom zalezi na poradi javascriptov
+
+- nech sa zjavuje title img aj v galeriach
+
+
 -tinymce mi staci includovat v node_form, nikde inde mi ho netreba
 
 - title img v galeriach

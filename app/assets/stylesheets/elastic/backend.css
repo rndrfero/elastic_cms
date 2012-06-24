@@ -30,7 +30,7 @@ a:hover { text-decoration: underline; }
 #OuterWrapper { width: 1000px; margin: auto; min-height: 100%; /*border: 1px solid blue;*/ }
 
 #Flash { text-align: center; font-size: 1.5em; width: 600px; color: #00528D; /*color: #3D5E76; */
-	padding: 5px; padding-top: 20px;  border-bottom: 2px solid #D6EEFF; margin-bottom: 2em; }
+	padding: 5px; margin-top: 0em;  border-bottom: 2px solid #D6EEFF; margin-bottom: 2em; }
 	
 #InnerWrapper { padding: 0px 0px;  }
 

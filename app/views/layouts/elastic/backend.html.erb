@@ -3,10 +3,6 @@
 <head>
   <title>CHANGE TITLE HERE !!!</title>
 
-  <!-- Wake extensions -->
-	<%= stylesheet_link_tag "wake/application.css" %>
-	<%#= FUTURE SCSS not style changing stylesheet_link_tag "wake/themes/default.css" %>
-  <%= javascript_include_tag "wake/application" %>
 	
   <!-- Iconic -->
   <%#= stylesheet_link_tag "iconic/iconic_fill", :media => 'all' %>
@@ -15,6 +11,11 @@
   <!-- Elastic CMS -->
   <%= stylesheet_link_tag    "elastic/application", :media => "all" %>
   <%= javascript_include_tag "elastic/application" %>
+
+  <!-- Wake extensions -->
+	<%= stylesheet_link_tag "wake/application.css" %>
+	<%#= FUTURE SCSS not style changing stylesheet_link_tag "wake/themes/default.css" %>
+  <%= javascript_include_tag "wake/application" %>
 
   <!-- main app -->
   <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -106,12 +107,13 @@
 					
 		
 			</div>
-			<script type="text/javascript"> $("#MainMenu ul").idTabs(); 
-			</script>
+			<script type="text/javascript"> $("#MainMenu ul").idTabs(); </script>
 		</div>
 	
-		<div id="InnerWrapper">		
+		<div id="InnerWrapper">
+			&nbsp;
 			<%= render :partial=>'/wake/flash', :object=>flash %>
+			
 			<%= yield %>			
 
 			<div class="clear"></div>

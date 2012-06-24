@@ -11,7 +11,7 @@ module Elastic
          'content_assoc' => %w{ }, } # 
     end
     
-    attr_accessible :position, :title, :form, :meta, :key
+    attr_accessible :position, :title, :form, :meta, :key, :is_published
   
     FORMS = {
       :textfield => %w{ size },

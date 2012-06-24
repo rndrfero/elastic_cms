@@ -4,5 +4,5 @@ pkg/
 elastic_cms_app/db/*.sqlite3
 elastic_cms_app/log/*.log
 elastic_cms_app/tmp/
-elastic_cms_app/.sass-cache
+elastic_cms_app/.sass-cache/
 *.DS_Store

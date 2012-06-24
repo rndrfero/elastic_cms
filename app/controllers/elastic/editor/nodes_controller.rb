@@ -57,7 +57,7 @@ module Elastic
     def reify
       xchg = @item.published_version_id
       @item = @version.reify if @version
-      @item.published_version_id = xchg
+      @item.published_version_id = xchg if @item
       
       if @item and @version        
         for c in @item.contents
@@ -69,7 +69,7 @@ module Elastic
         end
         flash.now[:hilite] = 'Ressurection...'
       else
-        flash.now[:error] = 'Cannot ressurect ...'
+        flash.now[:error] = 'Can NOT ressurect ...'
         @version = nil
         @item ||= Node.find params[:id]
       end
