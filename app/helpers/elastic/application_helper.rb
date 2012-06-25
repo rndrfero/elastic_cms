@@ -1,5 +1,14 @@
 module Elastic
   module ApplicationHelper
+    
+    def img_factor(w,h)
+      c = 300
+      w, h = w.to_f, h.to_f
+      fw = (w/c).to_i
+      fh = (h/c).to_i
+      m = fw > fh ? fw : fh
+      return (w/m).to_i, (h/m).to_i
+    end
 
     def ic(x, color=nil)
       raw "<img class=\"icoimg\" src=\"/assets/iconic/#{color}/#{x}.png\" />"

@@ -1,6 +1,20 @@
+-> kontenty aby sa vyhodnocovali lenivo, nie ako teraz, cele pole naraz.
+
+
+
+
+-lokalizovat popisky cez language tagy (popisky contentov napr.)
+
+nejaky ultra-brualne jednoduchy styl poznamok
+- cross hodeny v /home/note.html
+- pre kazdu site hodeny v /home/$host/note.html -> bude mozne pridat do menu cez /x/$host/note.html
+
+
 -= varga legal =- 
 
 preklad bude 1:1 ?
+logo v marble dat dokopy s tym nadpisom nad tym
+fonty su naozaj free? nie je tam attribution?
 
 
 

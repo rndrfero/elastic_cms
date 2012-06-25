@@ -8,7 +8,9 @@ function get_the_indexes(){
 }
 </script>
 <style>
-.imageItem { width: <%= @item.get_meta(:tna,:w) %>px; height: <%= @item.get_meta(:tna,:h) %>px; }
+<% w,h = img_factor @item.get_meta(:tna,:w), @item.get_meta(:tna,:h) %>
+.imageItem { width: <%= w %>px; height: <%= h %>px; }
+.imageItem img { width: <%= w %>px; height: <%= h %>px; }
 </style>
 
 

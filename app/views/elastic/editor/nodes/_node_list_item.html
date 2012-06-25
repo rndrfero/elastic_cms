@@ -15,6 +15,9 @@
 	 	   <th style="width: 2em;" class=""> <%= wake_click_order_by 'is_published', ico(:check_alt) %> </th>
 		 <% end %>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
+		 <% if Elastic::Context.user.master? %>
+		  	<th style="" class=""> <%= wake_click_order_by 'key' %> </th>
+		 <% end %>
 		 <th style="width: 9em;" class=""> <%= wake_click_order_by 'updated_at' %> </th>
 		 <!-- <th style="width: 1em;" class=""> <%#= wake_click_order_by 'position', 'Pos' %> </th> -->
 		 <th style="width: 5em;"> </th>
@@ -45,6 +48,10 @@
 			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title %></span>			
 			  <% if item.title.blank? %><span class="em80">key: <%= item.key %></span><% end %>
 			</td>				
+			<% if Elastic::Context.user.master? %>
+				<td <%=wo item %> class="lo-visible b"> <%= item.key %></td>
+			<% end %>
+			
 			<td <%=wo item %> class=""> <%=l item.updated_at, :format=>:short %></td>
 			<!-- <td <%=wo item %> class="hi-visible"> 
 				<%#= item.position %>
@@ -53,10 +60,9 @@
 			  <%=link_to (item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
 				     toggle_pin_editor_section_node_path(@section, item), :method=>:post %>
 			  <%=link_to (item.is_locked? ? ico(:lock_fill, :black) : ico(:lock_fill, :lightgray)), 
-				     toggle_locked_editor_section_node_path(@section, item), :method=>:post %>
-				
-					  <%#=link_to (item.is_hidden? ? ico(:umbrella, :black) : ico(:umbrella, :lightgray)), 
-						     toggle_hidden_editor_section_node_path(@section, item), :method=>:post %>
+				     toggle_locked_editor_section_node_path(@section, item), :method=>:post %>				
+				  <%#=link_to (item.is_hidden? ? ico(:umbrella, :black) : ico(:umbrella, :lightgray)), 
+					     toggle_hidden_editor_section_node_path(@section, item), :method=>:post %>
 			</td>
 			
 			<td class="hover-child right">

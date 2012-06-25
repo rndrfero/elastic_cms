@@ -68,6 +68,7 @@ module Elastic
             Context.ctrl.add_reference item
             context.scopes.last['the_'+@what] = dropclass.new item
           else
+            context.scopes.last['the_'+@what] = nil
             return "Cannot find #{@what} identified by '#{@which}'."
           end
         end

@@ -23,10 +23,12 @@ class NodeDrop < Liquid::Drop
   # -- contents --
   
   def contents
-    @contents ||= @node.contents.map do |x|
- 
-      if %w{ image node gallery }.include? x.content_config.form # we are referencing something
-        ref = Elastic::Context.user ? x.reference : (x.published_reference||x.reference)
+    @contents ||= @node.section.content_configs.map do |x|
+      c = @node.content_getter x
+      if not c
+        nil
+      elsif %w{ image node gallery }.include? x.form # we are referencing something
+        ref = Elastic::Context.user ? c.reference : (c.published_reference||c.reference)
         if ref.nil?
           nil
         else
@@ -38,7 +40,7 @@ class NodeDrop < Liquid::Drop
           end
         end
       else # standard content                
-        ContentDrop.new(x)
+        ContentDrop.new(c)
       end
         
       # if x.reference.is_a? 
