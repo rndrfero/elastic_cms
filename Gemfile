@@ -16,7 +16,7 @@ end
 
 gem 'acts_as_list'
 gem 'ancestry'
-gem 'rmagick', '2.12.0'
+gem 'rmagick', '2.12.1'
 gem 'liquid'
 gem 'nokogiri'
 
