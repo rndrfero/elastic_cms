@@ -16,7 +16,7 @@ class CreateElasticSites < ActiveRecord::Migration
       t.string :index_locale
       t.text :locale_to_index_hash  
 
-      t.boolean :is_force_reload_theme
+      t.boolean :is_reload_theme
       t.boolean :is_locked
 
       t.integer :master_gallery_id

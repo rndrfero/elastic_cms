@@ -16,17 +16,16 @@ end
 
 gem 'acts_as_list'
 gem 'ancestry'
-gem 'rmagick'
+gem 'rmagick', '2.12.0'
 gem 'liquid'
 gem 'nokogiri'
 
 gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
-# gem 'wake', :path => '~/rails_gems/wake'
+#gem 'wake', :path => '~/rails_gems/wake'
 
 gem 'bcrypt-ruby'
 gem 'devise'
 
-gem 'rmagick'
 gem 'bluecloth'
 
 gem 'thinking-sphinx', '2.0.10'
