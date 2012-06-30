@@ -1,13 +1,12 @@
-module Elastic
-  class Devise::SessionsController < DeviseController
+  class Elastic::Devise::SessionsController < DeviseController
     layout 'elastic/sessions'
     
     prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
     prepend_before_filter :allow_params_authentication!, :only => :create
     
     before_filter do
-      Context.site = Site.find_by_host request.host
-      if not Context.site
+      Elastic::Context.site = Elastic::Site.find_by_host request.host
+      if not Elastic::Context.site
         render :inline=>"404: No site for host '#{request.host}' found.", :status=>404
         return false
       end
@@ -28,7 +27,7 @@ module Elastic
       
       resource = warden.authenticate!(auth_options)
             
-      if resource.site_id == Context.site.id or Context.site.master_id == resource.id      
+      if resource.site_id == Elastic::Context.site.id or Elastic::Context.site.master_id == resource.id      
         set_flash_message(:notice, :signed_in) if is_navigational_format?
         sign_in(resource_name, resource)
         respond_with resource, :location => after_sign_in_path_for(resource)
@@ -74,4 +73,6 @@ module Elastic
       { :scope => resource_name, :recall => "#{controller_path}#new" }
     end
   end
+
+module Elastic
 end

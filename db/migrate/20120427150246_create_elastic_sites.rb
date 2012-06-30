@@ -25,7 +25,7 @@ class CreateElasticSites < ActiveRecord::Migration
       t.integer :bg_gallery_id
       t.string :bg_color
       
-      t.boolean :reload
+      t.boolean :is_reload
 
       
       t.timestamps
