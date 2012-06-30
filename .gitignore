@@ -8,3 +8,4 @@ elastic_cms_app/.sass-cache/
 *.DS_Store
 Gemfile.lock
 elastic_cms_app/db/migrate/
+elastic_cms_app/config/database.yml
