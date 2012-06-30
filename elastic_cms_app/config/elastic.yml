@@ -2,7 +2,15 @@
 
 development:
   copy_themes: true
+  gallery:
+    fallback_tn_w: 120
+    fallback_tn_h: 120
+  max_contents: 15
   
 production:
   copy_themes: false
+  gallery:
+    fallback_tn_w: 120
+    fallback_tn_h: 120
+  max_contents: 15
   

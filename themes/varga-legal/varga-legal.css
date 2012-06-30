@@ -38,7 +38,7 @@ ul li, ol li { margin-left: 2em; }
 #Lang img { position: relative; top: 3px; left: -2px; }
 
 #Menu { font-size: 18px; font-family: 'Limousine'; text-transform: uppercase; text-shadow: #555 0px 2px 3px; 
-  padding: 12px 0px; text-align: center; letter-spacing: 1px; }
+  padding: 13px 0px; text-align: center; letter-spacing: 1px; }
 #Menu a { color: black; font-weight: normal; font-style: normal; }
 
 #InnerWrapper { min-height: 200px; }

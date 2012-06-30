@@ -76,11 +76,21 @@ module Elastic
       cc_id = cc_id.id if cc_id.is_a? ContentConfig
       cc_id = cc_id.to_i if cc_id.is_a? String
       if section.localization == 'mirrored'
-        contents.select{ |x| x.content_config_id==cc_id and x.locale==Context.locale }.first
+#        contents.select{ |x| x.content_config_id==cc_id and x.locale==Context.locale }.first
+        contents.where(:content_config_id=>cc_id, :locale=>Context.locale).first
       else
-        contents.select{ |x| x.content_config_id==cc_id }.first
+#        contents.select{ |x| x.content_config_id==cc_id }.first
+        contents.where(:content_config_id=>cc_id).first
       end
     end
+    
+    # def content_getter_position(position)
+    #   if section.localization == 'mirrored'
+    #     contents.where(:position=>position,:locale=>locale).first # select{ |x| x.position==position and x.locale==Context.locale }.first
+    #   else
+    #     contents.where(:position=>position).first
+    #   end      
+    # end
   
     def contents_setter=(cc_id_to_attrs_hash)
       if section.localization == 'mirrored'

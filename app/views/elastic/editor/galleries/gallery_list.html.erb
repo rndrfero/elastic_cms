@@ -1,8 +1,8 @@
 <style>
 .galleryItem { float: left; overflow: hidden; height: 150px; padding: 5px; }
 .galleryItem .inner { height: 130px;  }
-.galleryItem .inner img { height: 130px; display: block; margin: auto; }
-.galleryItem .desc { overflow: hidden; height: 2em; margin-top: 4px;  }
+.galleryItem .inner img { height: 130px; max-width: 500px; display: block; margin: auto; }
+.galleryItem .desc { overflow: hidden; height: 2em; margin-top: 4px; text-align: center;  }
 </style>
 
 <%= link_to ico('plus')+' new gallery', new_editor_gallery_path %>

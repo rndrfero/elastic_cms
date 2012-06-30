@@ -7,6 +7,7 @@ module Elastic
       fw = (w/c).to_i
       fh = (h/c).to_i
       m = fw > fh ? fw : fh
+      return ELASTIC_CONFIG['gallery']['fallback_tn_w'],ELASTIC_CONFIG['gallery']['fallback_tn_h'] if m==0
       return (w/m).to_i, (h/m).to_i
     end
 

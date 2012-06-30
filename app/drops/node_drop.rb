@@ -42,23 +42,38 @@ class NodeDrop < Liquid::Drop
       else # standard content                
         ContentDrop.new(c)
       end
-        
-      # if x.reference.is_a? 
-      #   FileRecordDrop.new x.reference
-      # elsif x.reference.is_a? Elastic::Gallery
-      #   GalleryDrop.new x.reference
-      # elsif x.reference.is_a? Elastic::Node
-      #   NodeDrop.new x.reference
-      # else
-      #   ContentDrop.new x
-      # end
     end
   end
   
-  def content
-    contents
-  end
   
+  def _content(position)  
+    x = @node.section.content_configs.where(:position=>position+1).first
+    c = @node.content_getter x #_position position
+    if not c
+      nil
+    elsif %w{ image node gallery }.include? x.form # we are referencing something
+      ref = Elastic::Context.user ? c.reference : (c.published_reference||c.reference)
+      if ref.nil?
+        nil
+      else
+        Elastic::Context.ctrl.add_reference ref
+        case ref.class.to_s
+          when 'Elastic::FileRecord' then FileRecordDrop.new ref
+          when 'Elastic::Gallery' then GalleryDrop.new ref
+          when 'Elastic::Node' then NodeDrop.new ref
+        end
+      end
+    else # standard content                
+      ContentDrop.new(c)
+    end    
+  end
+    
+  
+  0.upto(ELASTIC_CONFIG['max_contents']) do |index|
+    define_method "content#{index}" do
+      _content(index)
+    end
+  end
     
   # -- navigation --
   
