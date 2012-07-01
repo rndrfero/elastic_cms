@@ -45,8 +45,7 @@
 			
 			<td <%=wo item %> class="hi-visible"> 
 			  <%=raw '&nbsp;&nbsp&nbsp;'*level if level %> 
-			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title %></span>			
-			  <% if item.title.blank? %><span class="em80">key: <%= item.key %></span><% end %>
+			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title_dynamic %></span>			
 			</td>				
 			<% if Elastic::Context.user.master? %>
 				<td <%=wo item %> class="lo-visible b"> <%= item.key %></td>

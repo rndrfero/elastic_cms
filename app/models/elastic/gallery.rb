@@ -25,7 +25,7 @@ module Elastic
     serialize :meta
     
     belongs_to :site
-    has_many :file_records
+    has_many :file_records, :dependent=>:destroy
     belongs_to :title_image, :class_name=>'FileRecord'
     
     alias :frs :file_records
@@ -41,14 +41,15 @@ module Elastic
     after_save :integrity!
     
     after_save(:if=>lambda{ |x| x.meta_changed? }) { process! :force=>true}
+    after_destroy :remove_dir!
     
     with_toggles :star, :locked, :hidden, :pin, :watermarked    
-    
-    
+        
     scope :starry, where(:is_star=>true)
-    
-    
-    
+    scope :with_pin, where(:is_pin=>true)
+    scope :hidden, where(:is_hidden=>true)
+    scope :locked, where(:is_locked=>true)
+        
     def dir(the_key=key)
       "#{the_key.blank? ? "#{id}-untitled" : the_key}"
     end
@@ -58,8 +59,11 @@ module Elastic
     end
     
     def path
-#      "#{site.path}/galleries/#{dir}"
       "/x/galleries/#{dir}"
+    end
+    
+    def remove_dir!  
+      FileUtils.remove_entry_secure filepath if File.exists? filepath
     end
         
     def integrity!

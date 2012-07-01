@@ -7,13 +7,42 @@
 		<%= f.submit 'SAVE CHANGES', :class=>'button' %>	
 		<% if not @item.new_record?%>
 			<%= link_to 'LETS GO THERE!', @item.uri, :class=>'button hi-visible' if request.host!=@item.host %>			
-			<%= link_to 'COPY/RENEW EXAMPLE THEMES', copy_themes_master_site_path(@item), 
+			<%= link_to 'COPY/RENEW EXAMPLE THEMES', copy_themes_master_site_path, 
 			  :class=>'button lo-visible', :method=>:post %>
+			<%= link_to 'ZAP!', zap_master_site_path, :class=>'button', :confirm=>"wake.general.confirm_destroy".tt, :method=>:post if request.host==@item.host %>			
 		<% end %>
 				
 	</div>
 	
 	<br/>
+	
+	<div class="fright">
+		<h3>Statistics</h3>
+
+		<table class="wakeThemeForm" class="">
+			<tr>
+				<th> Galleries: </th>
+				<td> 
+					<b><%= @item.galleries.count %></b> &nbsp;
+					<small><%= ico(:pin) %> <%= @item.galleries.with_pin.count %> </small>
+					<small><%= ico(:umbrella) %> <%= @item.galleries.hidden.count %> </small>
+					<small><%= ico(:lock_fill) %> <%= @item.galleries.locked.count %> </small>
+				</td>
+			</tr>
+			<tr>
+				<th> Sections: </th>
+				<td> <b><%= @item.sections.count %></b> </td>
+			</tr>
+			<tr>
+				<th> Nodes: </th>
+				<td> <b><%= @item.nodes.count %></b> </td>
+			</tr>
+			<tr>
+				<th> Disk usage: </th>
+				<td> <%= @item.du %>  </td>
+			</tr>
+		</table>
+	</div>
 	
 
 	<h3>General configuration</h3>
@@ -164,10 +193,12 @@
 
 
 <div class="fright" style="background: #EEE;">
-	<%=debug @item.tincan_dump('content')['galleries'] if @item %>
+	<h1>Content</h1>
+	<%=debug @item.tincan_dump('content') if @item %>
 </div>
 <div class="fleft">
-	<%=debug @item.tincan_dump 'structure' if @item %>
+	<h1>Structure</h1>
+	<%=debug @item.tincan_dump('structure') if @item %>
 </div>
 
 <div class="fleft" style="background: #EEF">

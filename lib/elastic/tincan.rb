@@ -7,12 +7,14 @@ module Elastic
     #  - section/content_configs
     
     def tincan_dump(_prefix)
+      Rails.logger.debug "Tincan.dump #{_prefix}: #{self.class} "
       ret = {}
       for k in tincan_map[_prefix+'_attrs']
         ret[k] = self.send(k)
       end
       for k in tincan_map[_prefix+'_assoc']
         v = self.send(k)
+        v = v.all if v.is_a? ActiveRecord::Relation
         if v.is_a? Array
           ret[k] = v.reject{ |x| x.blank? }.map{ |x| x.tincan_dump _prefix }
         elsif not v.nil?
@@ -23,6 +25,7 @@ module Elastic
     end
     
     def tincan_load(_prefix, data, overwrite=false)
+      Rails.logger.debug "Tincan.load #{_prefix}: #{self.class} "
       raise 'UNEXPECTED DATA' if data.nil? 
 #      raise "#{data}" if self.class.to_s =~ /Gallery/
       for k in tincan_map[_prefix+'_attrs']
@@ -36,6 +39,7 @@ module Elastic
           v.map do |x| 
             # if assoc with the key exists, update attrs only
             # create otherwise
+            Rails.logger.debug "#{k.inspect}"
             item = self.send(k).where(:key=>x['key']).first if not x['key'].blank?
 #             self.class.send(:column_names).include?('key') and
             item ||= self.send(k).build
@@ -53,7 +57,9 @@ module Elastic
           end if v
         end
       end
-      self.save! 
+      self.save!(:validate => false)
+      # now we have an id so we can resync the tree
+      # but fuck off, we are not doing this
       self
     end
     

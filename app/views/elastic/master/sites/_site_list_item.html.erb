@@ -7,11 +7,15 @@
 
 	<tr>
 		 <th style="" class=""> <%= wake_click_order_by 'id' %> </th>
-		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_force_theme', 'Dev?' %> </th>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_force_theme', 'Dev' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'host' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'theme' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'theme_index', 'Th. index' %> </th>
+		 <th style="" class=""> <%= wake_click_order_by 'theme_layout', 'Th. layout' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'master' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'locales' %> </th>
+		 <th style="" class="i" title="Disk usage"> MB </th>
 		 <th style="width: 1em;"> </th>
 	</tr>
 
@@ -26,8 +30,12 @@
 			</td>				
 			<td class=""> <%= link_to whl(item.host), 'http://'+item.host, :target=>'blank' %> </td>
 			<td <%=wo item %> class="hi-visible"> <%=whl item.title %> </td>				
-			<td <%=wo item %> class=""> <%=whl item.master ? item.master.name : 'N/A' %> </td>				
-			<td <%=wo item %> class=""> <%=whl item.locales_str %> </td>				
+			<td <%=wo item %> class=""> <%=whl item.theme %> </td>				
+			<td <%=wo item %> class="lo-visible"> <%=whl item.theme_index %> </td>				
+			<td <%=wo item %> class="lo-visible"> <%=whl item.theme_layout %> </td>				
+			<td <%=wo item %> class="lo-visible"> <%=whl item.master ? item.master.name : 'N/A' %> </td>				
+			<td <%=wo item %> class=""> <%=whl item.locales.join(' ') %> </td>				
+			<td <%=wo item %> class="right"> <%= item.du %> </td>				
 			
 			<td class="hover-child right"> 			
 			    <%= wake_button_destroy item %>

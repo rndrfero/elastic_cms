@@ -14,7 +14,7 @@ module Elastic
       else
         FileUtils.mkdir_p the_dir
       end            
-    end
+    end    
 
   end
 end

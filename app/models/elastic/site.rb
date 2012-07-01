@@ -45,6 +45,7 @@ module Elastic
 #    before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
     before_destroy :wake_destroyable? 
     after_save :integrity!
+#    after_save_on_create :copy_themes!
   
     def locales_str
       (locales||[]).join(', ')
@@ -72,6 +73,11 @@ module Elastic
     def du
       `du -s #{home_dir}`.to_i
     end
+    
+    # def du # disk usage
+    #   %x[du -c -m #{self.home_dir} | grep 'total'].gsub(/total/,'').strip
+    # end
+    
         
     def theme_valid?
       not theme.blank? and File.directory?(theme_dir)
@@ -145,12 +151,21 @@ module Elastic
     
     def master_gallery_meta
       master_gallery ? master_gallery.meta : {}
-    end
+    end    
     
     # -- structure import/export --
     
+    def zap!
+      for s in sections
+        s.destroy
+      end
+      for g in galleries
+        g.destroy
+      end
+    end
+    
     def structural_galleries
-      galleries.where('is_pin = ? OR is_hidden = ?', true, true).all
+      galleries.where('is_pin = ? OR is_hidden = ?', true, true)
     end
 
     def theme_structure_filename
@@ -161,6 +176,7 @@ module Elastic
       Dir.entries(theme_dir).select{ |x| x=~/content.tar/ }.first
     end
     
+    
     def export(what)
       raise 'unexpected' unless what=='content' or what=='structure'
       yaml = YAML::dump tincan_dump(what)
@@ -169,11 +185,13 @@ module Elastic
       (galleries-structural_galleries).each{ |x| exclude_list<<" --exclude #{x.key}" } if what=='structure'
       `cd home/#{host}; tar -c --exclude themes --exclude current_theme#{exclude_list} .`      
     end
+    
         
-    def import!(what)
+    def import!(what, tar_data)
       raise 'unexpected' unless what=='content' or what=='structure'
+      
       transaction do
-        o, e, s = Open3.capture3("tar xv -C #{home_dir}", :stdin_data=>x.force_encoding('utf-8'))
+        o, e, s = Open3.capture3("tar xv -C #{home_dir}", :stdin_data=>tar_data.force_encoding('utf-8'))
       
         raise "untar failed" if s!=0
         raise "#{what}.yaml not present" if not File.exists?(home_dir+"#{what}.yaml")
@@ -181,14 +199,23 @@ module Elastic
         # load content
         tincan_load what, YAML::load(File.open(home_dir+"#{what}.yaml").read)
 
-        # resync node.content_config_id
+        # resync node.section_id content.content_config_id
         for n in nodes
+          sec = sections.where(:key=>n.section_key).first
+          raise "section '#{n.section_key}' not found" if not sec
+          n.update_attribute :section_id, sec.id 
           for c in n.contents
             cc = ContentConfig.where(:section_id=>n.section_id, :key=>c.content_config_key).first
-            raise "content config '#{c.content_config_key}' not found"
-            c.update_attribute :content_config_id, cc.id
+#            raise "content config '#{c.content_config_key}' not found" if not cc
+            c.update_attribute :content_config_id, cc.id if cc
           end
-        end
+        end  
+        
+      end
+      
+      # resync galleries
+      for g in galleries
+        g.sync!
       end
     
     

@@ -63,6 +63,7 @@ Elastic::Engine.routes.draw do
         post 'toggle_reload_theme', :on=>:member
         post 'copy_themes', :on=>:member
         
+        post 'zap', :on=>:member
         post 'export_structure', :on=>:member
         post 'export_content', :on=>:member        
         put 'import', :on=>:member

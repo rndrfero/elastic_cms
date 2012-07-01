@@ -8,6 +8,12 @@ module Elastic
       flash[:hilite] = 'cms_backend.simply_gone'
       redirect_to :back
     end
+
+    def zap
+      @item.zap!
+      flash[:hilite] = 'cms_backend.simply_gone'
+      redirect_to :back
+    end
       
     def edit
       @item.integrity!
@@ -39,13 +45,14 @@ module Elastic
     def import
         raise 'No file uploaded.' unless params[:site] and params[:site][:import]
         x = params[:site][:import]
-        if x.original_filename =~ /structure.yaml/
-          @item.import_structure! x.tempfile.read
+        if x.original_filename =~ /structure.tar/
+          @item.import! 'structure', x.tempfile.read
         elsif x.original_filename =~ /content.tar/
-          @item.import_content! x.tempfile.read
+          @item.import! 'content', x.tempfile.read
         else
           raise "Cannot quess from filename if its structure or content."
         end
+        
       begin
       rescue Exception=>e
         flash[:error] = e.message

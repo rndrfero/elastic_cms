@@ -30,7 +30,7 @@ module Elastic
     before_destroy :wake_destroyable?
     before_validation :saturate
     before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
-    after_save :sync_keys
+    after_save :sync_keys!
   
     acts_as_list :scope=>:section_id # 'section_id = #{section_id}'
   
@@ -56,7 +56,7 @@ module Elastic
     #   update_attribute :is_published, !is_published?
     # end
     
-    def sync_keys
+    def sync_keys!
       return true if not key_changed?
       contents.map{ |x| x.update_attribute :content_config_key, key }
     end

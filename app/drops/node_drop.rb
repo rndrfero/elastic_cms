@@ -4,9 +4,13 @@ class NodeDrop < Liquid::Drop
     @node = x
   end
   
-  for x in %w{ title id key redirect }
+  for x in %w{ id key redirect }
     module_eval "def #{x}; @node.#{x}; end"    
   end  
+  
+  def title
+    @node.title_dynamic
+  end
   
 #  def title
 #    @node.section.localization == 'mirrored' ? @node.title_loc[CurrentContext.locale] : @node.title_loc

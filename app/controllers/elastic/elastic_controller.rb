@@ -201,15 +201,15 @@ module Elastic
     
     
     def render_error(error)
-      render :inline=>"#{error}", :layout=>'elastic/error'
+      render :inline=>"Elastic CMS: #{error}", :layout=>'elastic/error'
     end
 
     def render_404(error=nil)
-      render :inline=>"404 - not found #{error}", :status=>404
+      render :inline=>"Elastic CMS: 404 - not found #{error}", :status=>404
     end
 
     def render_access_denied
-      render :inline=>"Sorry, access denied."
+      render :inline=>"Elastic CMS: Sorry, access denied."
     end
     
     def postprocess(out, template_name)

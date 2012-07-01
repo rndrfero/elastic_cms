@@ -5,15 +5,15 @@ module Elastic
     include Tincan
     
     def tincan_map
-      { 'structure_attrs' => %w{ key title is_star is_published published_at position },
+      { 'structure_attrs' => %w{ key section_key title title_loc is_star is_published published_at position },
         'structure_assoc' => %w{ contents },
-        'content_attrs' => %w{ key title is_star is_published published_at position },
+        'content_attrs' => %w{ key section_key title title_loc is_star is_published published_at position },
         'content_assoc' => %w{ contents } }
     end
 
     has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :published_at, :is_locked, :parent_id, :position, :redirect, :published_version_id]
     
-    attr_accessible :section, :locale, :title, :key, :is_published, :is_star, :parent_id, :position, :contents_setter, :redirect, :published_at
+    attr_accessible :section, :locale, :title_dynamic, :key, :is_published, :is_star, :parent_id, :position, :contents_setter, :redirect, :published_at
   
     serialize :title_loc
   
@@ -26,16 +26,20 @@ module Elastic
     #accepts_nested_attributes_for :contents
   
     has_ancestry :cache_depth =>true
-    acts_as_list :scope=>'section_id = #{section_id} AND #{ancestry ? "ancestry = \'#{ancestry}\'" : \'ancestry IS NULL\'}'
+#    acts_as_list :scope=>'section_id = #{section_id} AND #{ancestry ? "ancestry = \'#{ancestry}\'" : \'ancestry IS NULL\'}'
+    acts_as_list :scope=>'section_id #{section ? "= #{section_id}" : "IS NULL"} AND #{ancestry ? "ancestry = \'#{ancestry}\'" : \'ancestry IS NULL\'}'
   
-    validates_presence_of :title, :section, :key
+    validates_presence_of :section, :key
+    validates_presence_of :title_dynamic
+
 #    validates_format_of :key, :with=>/^[a-zA-Z0-9\-_]*$/
     validates_uniqueness_of :key, :scope=>:site_id
     validates_inclusion_of :locale, :in=>lambda{ |x| x.site.locales }, :if=>lambda{ |x| x.section.localization=='free' }
     validates_presence_of :published_at, :if=>lambda{ |x| x.section.form == 'blog' }
   
+    before_validation { self.site_id = self.section.site_id if self.section }
     before_validation :generate_key, :if=>lambda { |x| x.key.blank? }
-    before_validation :keep_context
+#    before_validation :keep_context
     before_save :inc_version_cnt
     before_destroy :wake_destroyable?
 
@@ -46,6 +50,7 @@ module Elastic
     scope :tree_ordered, :order=>"ancestry_depth,position DESC"
     scope :date_ordered, :order=>"published_at"
     scope :starry, where(:is_star=>true)
+    scope :with_pin, where(:is_pin=>true)
     scope :in_public, lambda { includes(:contents=>:content_config).where(:site_id=>Context.site.id) }
     
     with_toggles :star, :locked, :published, :pin
@@ -116,17 +121,21 @@ module Elastic
     end  
   
     # -- localized title --
-  
-    def title
-      section.localization == 'mirrored' ? (title_loc||{})[Context.locale] : super
+    
+    def title_dynamic
+      if section
+        section.localization == 'mirrored' ? (title_loc||{})[Context.locale] : title
+      else
+        title||title_loc
+      end
     end
   
-    def title=(x)
+    def title_dynamic=(x)
       if section.localization == 'mirrored'
         self.title_loc ||= {}
         self.title_loc[Context.locale] = x
       else
-        super
+        self.title= x
       end
     end
     
@@ -160,10 +169,10 @@ module Elastic
     # end
   
     
-    def keep_context
-      self.site_id = Context.site.id
-      self.locale = Context.locale if section.localization == 'free' if locale.blank?
-    end
+    # def keep_context
+    #   self.site_id = Context.site.id
+    #   self.locale = Context.locale if section.localization == 'free' if locale.blank?
+    # end
 
     # -- wake --
   

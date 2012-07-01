@@ -14,7 +14,7 @@
 			     toggle_star_editor_section_node_path(@section, @item), :method=>:post %>
 		<% end %>
 
-	  <%= f.text_field 'title', :value=>@item.title, :size=>40, :class=>'title' %>
+	  <%= f.text_field 'title_dynamic', :value=>@item.title_dynamic, :size=>40, :class=>'title' %>
 
 		<% if !@item.new_record? and Elastic::Context.user.master? %>
 	  	<%=link_to (@item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
