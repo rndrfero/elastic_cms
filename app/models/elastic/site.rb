@@ -44,7 +44,7 @@ module Elastic
     before_validation :saturate
 #    before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
     before_destroy :wake_destroyable? 
-    after_save :integrity!
+#    after_save :integrity!
 #    after_save_on_create :copy_themes!
   
     def locales_str

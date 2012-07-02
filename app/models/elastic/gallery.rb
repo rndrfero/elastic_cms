@@ -38,7 +38,7 @@ module Elastic
 #    before_validation :keep_context
     before_validation :saturate
     before_validation :generate_key, :if=>lambda { |x| x.key.blank? }
-    after_save :integrity!
+#    after_save :integrity!
     
     after_save(:if=>lambda{ |x| x.meta_changed? }) { process! :force=>true}
     after_destroy :remove_dir!
@@ -67,7 +67,7 @@ module Elastic
     end
         
     def integrity!
-      Elastic.logger_info "Gallery.integrity! for #{dir}"
+      Elastic.logger_info "@gallery.integrity! for #{dir}"
       if dir != dir(key_was) and File.exists? filepath(key_was)
         FileUtils.mv filepath(key_was), filepath
       end      
@@ -75,11 +75,12 @@ module Elastic
       for x in %w{ orig img tna tnb }
         FileUtils.mkdir_p File.join(filepath,x)
       end
+      update_attribute :is_dependent, :false if is_master?
+      sync!
     end
         
     def sync!
-      Elastic.logger_info "Gallery.sync! for #{dir}"
-      integrity!
+      Elastic.logger_info "@gallery.sync! for #{dir}"
       for f in files
         ino = File.stat(File.join(filepath,'orig',f)).ino
         fr = file_records.where(:filename=>f).first

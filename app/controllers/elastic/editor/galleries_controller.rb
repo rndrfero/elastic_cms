@@ -8,7 +8,7 @@ module Elastic
     before_filter :ensure_ownership
     
     def edit
-      @item.sync!
+      @item.integrity!
       super
     end
         

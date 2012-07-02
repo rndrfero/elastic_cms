@@ -1,3 +1,4 @@
+require 'rmagick'
 
 module Elastic
   module ThumbnailGenerators
