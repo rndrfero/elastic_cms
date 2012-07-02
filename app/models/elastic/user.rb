@@ -23,7 +23,8 @@ module Elastic
     end
     
     def master?(the_site=Context.site)
-      self.site_id == the_site.master_id
+#      false 
+      self.id == the_site.master_id
     end
         
   end

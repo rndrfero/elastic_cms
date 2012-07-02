@@ -1,62 +1,72 @@
-<% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
+<div class="wakeThemeCleanForm">
 
-<%= form_for @item, :url=>url do |f| %>
 
-	<%= submit_tag %>
+	<% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
 
-	<h3>Site's configuration</h3>
+	<%= form_for @item, :url=>url do |f| %>
 
-	<table class="wakeThemeForm" class="">
-		<tr>
-			<th> Title: </th>
-			<td> <%= f.text_field 'title', :class=>'' %>  </td>
-		</tr>
-	</table>
+		<%= f.submit 'SAVE', :class=>'button' %>
 	
-	<br />
-		
-	<h3>Landing page configuration</h3>
-
-	<table class="wakeThemeForm" class="">
-		<tr>
-			<th> Index locale: </th>
-			<td> <%= f.select 'index_locale', @item.locales||[] %></td>
-		</tr>
-		
-		<% for l in @item.locales||[] %>
-			<tr>
-				<th> Index node for <%= l.upcase %>: </th> 
-				<td> <%= f.text_field "locale_to_index_hash[#{l}]", :value=>(@item.locale_to_index_hash||{})[l] %> </td>
-			</tr>
+		<% if !@item.new_record? and Elastic::Context.user.master? %>
+			<%= link_to ico(:cog), master_site_path(@item), :class=>'button', :title=>"Configure site." %>	
 		<% end %>
-	</table>
-
-	<br />
-
-	<h3>Statistics</h3>
-
-	<table class="wakeThemeForm" class="">
-		<tr>
-			<th> Webmaster: </th>
-			<td> <%= @item.master ? @item.master.email : 'N/A' %>
-		</tr>
-		<tr>
-			<th> Disk usage: </th>
-			<td> <%=number_to_human_size @item.du %></td>
-		</tr>
-	</table>
 	
-	<br />
+		<br /><br />
 
-<% end %>
+		<h3>Site's configuration</h3>
 
-	<!-- <h3>Import / Export</h3>
+		<table class="wakeThemeForm" class="">
+			<tr>
+				<th> Title: </th>
+				<td> <%= f.text_field 'title', :class=>'' %>  </td>
+			</tr>
+		</table>
 	
-	<%= form_for @item, :url=>import_editor_site_path(@item) do |f| %>
+		<br />
+		
+		<h3>Landing page configuration</h3>
+
+		<table class="wakeThemeForm" class="">
+			<tr>
+				<th> Index locale: </th>
+				<td> <%= f.select 'index_locale', @item.locales||[] %></td>
+			</tr>
+		
+			<% for l in @item.locales||[] %>
+				<tr>
+					<th> Index node for <%= l.upcase %>: </th> 
+					<td> <%= f.text_field "locale_to_index_hash[#{l}]", :value=>(@item.locale_to_index_hash||{})[l] %> </td>
+				</tr>
+			<% end %>
+		</table>
+
+		<br />
+
+		<h3>Statistics</h3>
+
+		<table class="wakeThemeForm" class="">
+			<tr>
+				<th> Webmaster: </th>
+				<td> <%= @item.master ? @item.master.email : 'N/A' %>
+			</tr>
+			<tr>
+				<th> Disk usage: </th>
+				<td> <%=number_to_human_size @item.du %></td>
+			</tr>
+		</table>
 	
-	  Import .zip: <%= f.file_field 'file' %>
-		&nbsp;&nbsp;
-	  <%= link_to 'EXPORT .ZIP', :url=>export_editor_site_path(@item), :method=>:post, :class=>'button' %>
+		<br />
 
 	<% end %>
-	 -->
+
+		<!-- <h3>Import / Export</h3>
+	
+		<%= form_for @item, :url=>import_editor_site_path(@item) do |f| %>
+	
+		  Import .zip: <%= f.file_field 'file' %>
+			&nbsp;&nbsp;
+		  <%= link_to 'EXPORT .ZIP', :url=>export_editor_site_path(@item), :method=>:post, :class=>'button' %>
+
+		<% end %>
+		 -->
+</div>

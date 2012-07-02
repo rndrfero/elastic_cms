@@ -30,12 +30,14 @@
 		<% unless @item.new_record? %>
 		  <% new_url = url_for(:action=>'new', :section_id=>@section.id, :node=>(@section.form == 'tree' ? {:parent_id=>@item.id} : nil))%>
 		
-			<%= link_to 'NEW', new_url, :class=>'button' %>
+			<% if Elastic::Context.user.master? or !@section.is_locked? %>
+				<%= link_to 'NEW', new_url, :class=>'button' %>			
+				<%= link_to 'CLONE', '', :class=>'button' %>
+				<%= link_to 'DESTROY', editor_section_node_path(@section,@node), :method=>:delete, :class=>'button' %>
+			<% end %>
 			
-			<%= link_to 'CLONE', '', :class=>'button' %>
 			<%= link_to 'META', '', :class=>'button' %>
 			<%= link_to 'RESTORE', '#', :class=>'button', :onclick=>'$("#Versions").toggle("blind", { direction: "vertical" }, 500);' %> 
-			<%= link_to 'DESTROY', editor_section_node_path(@section,@node), :method=>:delete, :class=>'button' %>
 			
 		<% end %>
 

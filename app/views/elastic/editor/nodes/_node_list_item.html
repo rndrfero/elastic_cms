@@ -20,8 +20,8 @@
 		 <% end %>
 		 <th style="width: 9em;" class=""> <%= wake_click_order_by 'updated_at' %> </th>
 		 <!-- <th style="width: 1em;" class=""> <%#= wake_click_order_by 'position', 'Pos' %> </th> -->
-		 <th style="width: 5em;"> </th>
-		 <th style="width: 5em;"> </th>
+		 <th style="width: 5em;" class="i"> W </th>
+		 <th style="width: 5em;" class="i"> E </th>
 	</tr>
 
 <% else %>
@@ -56,10 +56,12 @@
 				<%#= item.position %>
 			</td> -->
 			<td>
-			  <%=link_to (item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
-				     toggle_pin_editor_section_node_path(@section, item), :method=>:post %>
-			  <%=link_to (item.is_locked? ? ico(:lock_fill, :black) : ico(:lock_fill, :lightgray)), 
-				     toggle_locked_editor_section_node_path(@section, item), :method=>:post %>				
+				<% if Elastic::Context.user.master? %>
+				  <%=link_to (item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
+					     toggle_pin_editor_section_node_path(@section, item), :method=>:post %>
+				  <%=link_to (item.is_locked? ? ico(:lock_fill, :black) : ico(:lock_fill, :lightgray)), 
+					     toggle_locked_editor_section_node_path(@section, item), :method=>:post %>				
+				<% end %>
 				  <%#=link_to (item.is_hidden? ? ico(:umbrella, :black) : ico(:umbrella, :lightgray)), 
 					     toggle_hidden_editor_section_node_path(@section, item), :method=>:post %>
 			</td>
@@ -69,7 +71,9 @@
 						<%= link_to ico(:arrow_up), move_higher_editor_section_node_path(@section,item), :method=>:post %>
 						<%= link_to ico(:arrow_down), move_lower_editor_section_node_path(@section,item), :method=>:post %>
 					<% end %>
-			    <%= wake_button_destroy item %>
+					<% if Elastic::Context.user.master? or !@section.is_locked? %>
+			    	<%= wake_button_destroy item %>
+					<% end %>
 			</td>
 	</tr>
 

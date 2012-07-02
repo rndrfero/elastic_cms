@@ -10,6 +10,9 @@
 			<%= link_to 'COPY/RENEW EXAMPLE THEMES', copy_themes_master_site_path, 
 			  :class=>'button lo-visible', :method=>:post %>
 			<%= link_to 'ZAP!', zap_master_site_path, :class=>'button', :confirm=>"wake.general.confirm_destroy".tt, :method=>:post if request.host==@item.host %>			
+			
+			<%= link_to ico(:cog), editor_site_path(@item), :class=>'button', :title=>"Editor's view." %>	
+			
 		<% end %>
 				
 	</div>

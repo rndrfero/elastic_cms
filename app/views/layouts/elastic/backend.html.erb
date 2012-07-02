@@ -73,9 +73,10 @@
 					
 						<li><a class="<%= 'selected' if menu_match Elastic::Context.site.sections.all.map{ |x| editor_section_nodes_path(x) } %>" href="#tabs2">Sections</a></li>					
 					
-				    <li><a class="special <%= 'selected' if menu_match master_sections_path, master_sites_path, master_site_path(Elastic::Context.site) %>" href="#tabs3">Webmaster</a></li>
-
-				    <li><a class="<%= 'selected' if menu_match admin_info_path %>" href="#tabs4">Runner</a></li>
+						<% if Elastic::Context.user.master? %>
+					    <li><a class="special <%= 'selected' if menu_match master_sections_path, master_sites_path, master_site_path(Elastic::Context.site) %>" href="#tabs3">Webmaster</a></li>
+					    <li><a class="<%= 'selected' if menu_match admin_info_path %>" href="#tabs4">Runner</a></li>
+						<% end %>
 
 			  </ul> 
 
@@ -95,15 +96,19 @@
 					  <%= menu_link_to x.title, editor_section_nodes_path(x) %>
 					<% end %>
 				</div>
-			  <div id="tabs3">
-					<%= menu_link_to 'The Site', master_site_path(Elastic::Context.site) %>
-					<%= menu_link_to 'Sections', master_sections_path %>
-					<%= menu_link_to 'Sites', master_sites_path %>
-				</div>
-			  <div id="tabs4">
-					<%= menu_link_to 'Info', admin_info_path %>
-					<%= menu_link_to 'Actions', admin_actions_path %>
-				</div>
+				
+				<% if Elastic::Context.user.master? %>
+				  <div id="tabs3">
+						<%= menu_link_to 'The Site', master_site_path(Elastic::Context.site) %>
+						<%= menu_link_to 'Sections', master_sections_path %>
+						<%= menu_link_to 'Sites', master_sites_path %>
+					</div>
+				  <div id="tabs4">
+						<%= menu_link_to 'Info', admin_info_path %>
+						<%= menu_link_to 'Actions', admin_actions_path %>
+					</div>
+				<% end %>
+				
 			
 					
 		

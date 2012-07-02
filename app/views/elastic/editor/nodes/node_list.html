@@ -8,7 +8,11 @@ $(document).ready(function(){
 </script>
 
 <div class="wakeThemeCleanForm">
-	<%= link_to ico(:plus)+' CREATE NEW', new_editor_section_node_path(@section), :class=>'button' %>
+	<% if Elastic::Context.user.master? or !@section.is_locked? %>
+		<%= link_to ico(:plus)+' CREATE NEW', new_editor_section_node_path(@section), :class=>'button' %>
+	<% end %>
+	
+	
 	<small><%= link_to 'RESTORE', restore_editor_section_nodes_path(@section) %></small>
 	
 	<% if Elastic::Context.user.master? %>

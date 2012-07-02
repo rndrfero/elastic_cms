@@ -25,6 +25,15 @@ class SiteDrop < Liquid::Drop
     @site.sections.map{ |x| x.key }
   end
   
+  def index_hash
+    # ret = {}
+    # for k, v in @site.locale_to_index_hash
+    #   @site.nodes.where(:)
+    #   ret[k] = v
+    # end
+    # ret
+  end
+  
   def to_s
     @site.title
   end
