@@ -7,7 +7,7 @@ module Elastic
     #  - section/content_configs
     
     def tincan_dump(_prefix)
-      Rails.logger.debug "Tincan.dump #{_prefix}: #{self.class} "
+#      Rails.logger.debug "Tincan.dump #{_prefix}: #{self.class} "
       ret = {}
       for k in tincan_map[_prefix+'_attrs']
         ret[k] = self.send(k)
@@ -25,7 +25,7 @@ module Elastic
     end
     
     def tincan_load(_prefix, data, overwrite=false)
-      Rails.logger.debug "Tincan.load #{_prefix}: #{self.class} "
+#      Rails.logger.debug "Tincan.load #{_prefix}: #{self.class} "
       raise 'UNEXPECTED DATA' if data.nil? 
 #      raise "#{data}" if self.class.to_s =~ /Gallery/
       for k in tincan_map[_prefix+'_attrs']

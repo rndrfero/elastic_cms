@@ -49,7 +49,7 @@
 					<%= link_to x.title, editor_gallery_path(x) %>
 				<% elsif x.is_a? Elastic::Node %>
 				  <% next if @node and @node.id == x.id %>
-					<%= link_to raw(x.title_dynamic.blank? ? "<small>key:</small> #{x.key}" : x.title_dynamic), editor_section_node_path(x.section,x) %>
+					<%= link_to raw(x.title_dynamic.blank? ? "<small>key:</small> #{x.key}" : x.title_dynamic), editor_section_node_path(x.section,x) if x.section %>
 				<% else %>
 				<% end  %>
 			<% end %>

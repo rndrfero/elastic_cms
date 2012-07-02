@@ -9,8 +9,8 @@ module Elastic
     def tincan_map
        { 'structure_attrs' => %w{ locales theme_index theme_layout },
          'structure_assoc' => %w{ structural_galleries master_gallery sections },
-         'content_attrs' => %w{ title index_locale locale_to_index_hash },
-         'content_assoc' => %w{ galleries sections } } # 
+         'content_attrs' => %w{ locales theme_index theme_layout title index_locale locale_to_index_hash },
+         'content_assoc' => %w{ galleries master_gallery sections } } # 
     end
     
     attr_accessible :host, :title, :locales_str, :theme, :is_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, 
@@ -22,7 +22,7 @@ module Elastic
 #    has_many :nodes, :include=>[:section, :content_configs, :contents],:dependent=>:destroy
     has_many :template_caches #, :dependent=>:destroy
     has_many :galleries, :dependent=>:destroy
-    has_many :nodes, :through=>:sections, :dependent=>:destroy
+    has_many :nodes #, :through=>:sections, :dependent=>:destroy
     
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
@@ -92,12 +92,45 @@ module Elastic
 #      return [] if theme.blank?      
       Dir.entries(theme_dir).reject!{ |x| not x.ends_with? '.liquid' }.map!{ |x| x.gsub! /\.liquid$/, '' }
     end
+    
+    def self.integrity!
+      Elastic.logger_info "Site.integrity!"
+      ContentConfig.all.select{ |x| not x.section }.each do |x| 
+        x.destroy 
+        Elastic.logger_info "ContentConfig X no section: #{x.inspect}"
+      end
+      Content.all.each.select{ |x| not x.content_config}.each do |x| 
+        x.destroy
+        Elastic.logger_info "Content X no cc: #{x.inspect}"
+      end
+      Content.all.each.select{ |x|not x.node }.each do |x| 
+        x.destroy
+        Elastic.logger_info "Content X no node: #{x.inspect}"
+      end
+      Site.all.each{ |x| x.integrity! }
+    end
   
     # ensure site integrity
     def integrity!
       return if new_record?
-      Elastic.logger_info "Site.integrity! for #{host}"
+      Elastic.logger_info "@site.integrity! for #{host}"
       
+      # clean up the shit
+      sections.all.each.select{ |x| not x.site }.each do |x| 
+        x.destroy 
+        Elastic.logger_info "Section X no site: #{x.inspect}"
+      end
+      nodes.all.each.select{ |x| not x.section }.each do |x| 
+        x.destroy 
+        Elastic.logger_info "Node X no section: #{x.inspect}"
+      end
+      galleries.all.each.select{ |x| not x.site }.each do |x| 
+        Elastic.logger_info "Gallery X no site: #{x.inspect}"
+        x.destroy
+      end
+      
+      
+      # resync dir - host.changed? 
       if host_changed? and File.exists? home_dir(host_was)
         x = home_dir(host_was)+'current_theme'
         FileUtils.remove_entry_secure x if File.exists? x
@@ -110,17 +143,25 @@ module Elastic
       for x in %w{ themes static galleries }
         FileUtils.mkdir_p File.join(home_dir,x)
       end
-            
-      # create symlink to current_theme
-      x = home_dir+'current_theme'
-      FileUtils.remove_entry_secure x if File.exists?(x)||File.symlink?(x)
-      FileUtils.symlink theme_dir, x
+         
+      if not theme.blank?   
+        # create symlink to current_theme
+        x = home_dir+'current_theme'
+        FileUtils.remove_entry_secure x if File.exists?(x)||File.symlink?(x)
+        FileUtils.symlink theme_dir, x
+      end
 
       # create master gallery when there is none
 #      raise "kokot: #{self.master_gallery(true).inspect}"
       unless master_gallery
-        x = create_master_gallery! :title=>'DEFAULT SETTINGS', :site_id=>self.id, :is_dependent=>false, :is_hidden=>true
+        x = galleries.where(:title=>'DEFAULT SETTINGS').first
+        x ||= create_master_gallery! :title=>'DEFAULT SETTINGS', :site_id=>self.id, :is_dependent=>false, :is_hidden=>true
         update_attribute :master_gallery_id, x.id
+      end
+      
+      # destroy nodes refering non-existing sections
+      for n in nodes
+        n.destroy if not n.section
       end
      
       true

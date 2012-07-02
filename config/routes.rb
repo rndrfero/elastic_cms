@@ -54,6 +54,8 @@ Elastic::Engine.routes.draw do
       resource :configuration
       # zalohovanie celeho systemu
       get 'info' => "info#index"
+      get 'actions' => "actions#index"
+      post 'integrity' => "actions#integrity"
     end
   
     namespace 'master' do

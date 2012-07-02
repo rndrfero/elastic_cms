@@ -16,7 +16,7 @@ module Elastic
       {
         'structure_attrs' => %w{ title key meta is_hidden is_locked is_star is_dependent },
         'structure_assoc' => %w{ }, #sections
-        'content_attrs' => %w{ key title is_star },
+        'content_attrs' => %w{ title key meta is_hidden is_locked is_star is_dependent },
         'content_assoc' => %w{ }
       }
     end
@@ -63,7 +63,7 @@ module Elastic
     end
     
     def remove_dir!  
-      FileUtils.remove_entry_secure filepath if File.exists? filepath
+      FileUtils.remove_entry_secure filepath if File.exists? filepath if site
     end
         
     def integrity!
