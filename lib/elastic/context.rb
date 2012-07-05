@@ -13,8 +13,9 @@ module Elastic
       @@content = x
     end
 
+
     def self.content
-      @@content
+      @@content ||= nil
     end
 
     def self.locale=(x)

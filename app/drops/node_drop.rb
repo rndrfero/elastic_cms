@@ -104,7 +104,7 @@ class NodeDrop < Liquid::Drop
   end
     
   def to_s
-    @node ? @node.title : nil
+    @node ? @node.title_dynamic : nil
   end
 
   def ==(x)

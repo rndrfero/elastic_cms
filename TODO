@@ -1,17 +1,26 @@
+repozitar tem dat na svncko na moj server
+
+
+title dynamic ...
+ jaky to ma vlastne vyznam?
+
+jebnuty content!
+
+
+
+
 KONCEPT: integrity! nie je nikdy callback
   - vola sa lazy, pri zobrazeni site/galerie ... musi to byt rychle!
-
 
 
 nejaky lepsi system obmadzenia locked / unlocked ako priamo v kode ?
    - zeby mapovanie ciest a linkov na tie cesty ?
 	 - veru veru !!
 	
-
 jeden ucet edituje viacej stranok
 
-
 red flashes na stranke by nemali byt
+
 
 upratat nejak userov
 
@@ -510,10 +519,14 @@ Way 1:
 Way 2:
 
 
-{% give_me node section_slogans.nodes_starry %}
+{% give_me node section_slogans.nodes.starry %}
 {{ the_node.content[0] }}
-
-
 
 testing reference:
 	{% if the_node.content[0] == nil %}
+	
+	
+------------------------------------------------
+
+
+Q: co lokalizacia news? 

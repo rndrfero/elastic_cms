@@ -62,9 +62,9 @@
 			<small>Parent:</small> 
 		
 			<% if @section.localization == 'free' %>
-			  <% choices = [[nil,nil]]+@section.nodes.localized.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
+			  <% choices = [[nil,nil]]+@section.nodes.localized.all.reject{ |x| x==@item }.map{ |x| [x.title_dynamic,x.id] } %>
 			<% else %>
-		  	<% choices = [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title,x.id] } %>
+		  	<% choices = [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title_dynamic,x.id] } %>
 			<% end %>
 			<%= f.select 'parent_id', choices, {}, :style=>"width: 16em;" %>
 		<% elsif @section.form == 'blog' %>
@@ -111,23 +111,26 @@
 	
 	  </div>
 	
+		<% if @item.new_record? %>
+		  Fuck this CMS. Save new record first.
+		<% else %>
+			<% for cc in @section.content_configs.published.all %>
+			  <% c = @item.content_getter cc %>
+				<%=wdbg "cc.id: #{cc ? cc.id : 'N/A'} c.id: #{c ? c.id : 'N/A'}" %>
+				<% if not cc %>
+			  	<%=werror "Content config is not present."%>
+				<%# elsif not c %>
+				  <%#=werror "Content is not present."%>
+				<% else %>
 		
-		<% for cc in @section.content_configs.published.all %>
-		  <% c = @item.content_getter cc %>
-			<%=wdbg "cc.id: #{cc ? cc.id : 'N/A'} c.id: #{c ? c.id : 'N/A'}" %>
-			<% if not cc %>
-		  	<%=werror "Content config is not present."%>
-			<%# elsif not c %>
-			  <%#=werror "Content is not present."%>
-			<% else %>
-		
-				<%= f.fields_for "contents_setter[#{cc.id}]" do |f2| %>
-					<%#= f2.text_area 'text', :value=>(c ? c.text : nil), :rows=>5, :cols=>60 %>
-					<div>
-					  <%= render :partial=>'elastic/editor/nodes/content_forms/'+cc.form,
-					        :locals=>{:form_helper=>f2, :content_config=>cc, :content=>c||Elastic::Content.new} %>
-				  </div>
-				<% end %>		
+					<%= f.fields_for "contents_setter[#{cc.id}]" do |f2| %>
+						<%#= f2.text_area 'text', :value=>(c ? c.text : nil), :rows=>5, :cols=>60 %>
+						<div>
+						  <%= render :partial=>'elastic/editor/nodes/content_forms/'+cc.form,
+						        :locals=>{:form_helper=>f2, :content_config=>cc, :content=>c||Elastic::Content.new} %>
+					  </div>
+					<% end %>		
+				<% end %>
 			<% end %>
 		<% end %>
 
@@ -149,3 +152,6 @@
 	   window.onbeforeunload = null;
 	});
 </script>
+
+
+<%#=debug @item.contents %>

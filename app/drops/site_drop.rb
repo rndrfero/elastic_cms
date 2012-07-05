@@ -26,12 +26,13 @@ class SiteDrop < Liquid::Drop
   end
   
   def index_hash
-    # ret = {}
-    # for k, v in @site.locale_to_index_hash
-    #   @site.nodes.where(:)
-    #   ret[k] = v
-    # end
-    # ret
+    ret = {}
+    for l in @site.locales.map
+      x = @site.index_node l      
+      x = NodeDrop.new(x) if x.is_a? Elastic::Node
+      ret[l] = x 
+    end
+    ret
   end
   
   def to_s

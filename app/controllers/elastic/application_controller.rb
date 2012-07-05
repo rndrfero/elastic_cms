@@ -1,4 +1,5 @@
 require_dependency "elastic/string"
+require_dependency "elastic/context"
 require_dependency "wake.rb"
 require_dependency "elastic/liquid_hacks"
 require_dependency "elastic/liquid_tags"

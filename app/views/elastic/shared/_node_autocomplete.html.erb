@@ -1,0 +1,8 @@
+<script>
+jQuery(document).ready( function(){
+	var data = <%=raw Elastic::Context.site.nodes.all.map{ |x| "#{x.title_dynamic} [#{x.key}]" }.to_json %>;
+	$(".autocomplete").autocomplete({
+		source: data
+	});
+});
+</script>

@@ -1,3 +1,5 @@
+<%= render :partial=>'/elastic/shared/node_autocomplete' %>
+
 <div class="wakeThemeCleanForm">
 
 
@@ -35,7 +37,7 @@
 			<% for l in @item.locales||[] %>
 				<tr>
 					<th> Index node for <%= l.upcase %>: </th> 
-					<td> <%= f.text_field "locale_to_index_hash[#{l}]", :value=>(@item.locale_to_index_hash||{})[l] %> </td>
+					<td> <%= f.text_field "locale_to_index_hash[#{l}]", :value=>(@item.locale_to_index_hash||{})[l], :class=>"autocomplete" %> </td>
 				</tr>
 			<% end %>
 		</table>
@@ -70,3 +72,12 @@
 		<% end %>
 		 -->
 </div>
+
+
+
+<% for l in @item.locales %>
+
+	<h1><%= l %></h1>
+  <%= @item.index_node(l).title_dynamic %>
+
+<% end %>

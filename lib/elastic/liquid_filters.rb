@@ -8,10 +8,9 @@ module Elastic
     
     def live(x)
       x = x.to_s # ContentDrop passed instead of string
-      if Elastic::Context.user
-        content = Elastic::Context.content
+      if Elastic::Context.user and Elastic::Context.content
         Elastic::Context.ctrl.send :render_to_string, :partial=>'/elastic/public/live_content',
-          :locals=>{:content=>content, :rendered=>x.to_s }
+          :locals=>{:content=>Elastic::Context.content, :rendered=>x.to_s }
       else
         x
       end

@@ -38,7 +38,7 @@ module Elastic
     validates_presence_of :published_at, :if=>lambda{ |x| x.section.form == 'blog' }
   
     before_validation { self.site_id = self.section.site_id if self.section }
-    before_validation :generate_key, :if=>lambda { |x| x.key.blank? }
+    before_validation :generate_key_from_dynamic_title, :if=>lambda { |x| x.key.blank? }
 #    before_validation :keep_context
     before_save :inc_version_cnt
     before_destroy :wake_destroyable?
@@ -56,6 +56,13 @@ module Elastic
     with_toggles :star, :locked, :published, :pin
 
     #    .section.form=='blog' ? reorder("published_at") : reorder("ancestry_depth,position DESC"
+    
+    # -- key --
+    
+    def generate_key_from_dynamic_title
+      generate_key title_dynamic
+    end  
+    
   
     # -- versioning --
       
@@ -78,14 +85,15 @@ module Elastic
     # -- contents --
   
     def content_getter(cc_id)
+      Rails.logger.debug "content_getter"
       cc_id = cc_id.id if cc_id.is_a? ContentConfig
       cc_id = cc_id.to_i if cc_id.is_a? String
       if section.localization == 'mirrored'
-#        contents.select{ |x| x.content_config_id==cc_id and x.locale==Context.locale }.first
-        contents.where(:content_config_id=>cc_id, :locale=>Context.locale).first
+        contents.select{ |x| x.content_config_id==cc_id and x.locale==Context.locale }.first
+#        contents.where(:content_config_id=>cc_id, :locale=>Context.locale).first
       else
-#        contents.select{ |x| x.content_config_id==cc_id }.first
-        contents.where(:content_config_id=>cc_id).first
+        contents.select{ |x| x.content_config_id==cc_id }.first
+#        contents.where(:content_config_id=>cc_id).first
       end
     end
     
@@ -98,6 +106,7 @@ module Elastic
     # end
   
     def contents_setter=(cc_id_to_attrs_hash)
+      Rails.logger.debug "content_setter"
       if section.localization == 'mirrored'
         for cc_id, attrs in cc_id_to_attrs_hash
           c = content_getter cc_id 
