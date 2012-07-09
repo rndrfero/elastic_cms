@@ -28,11 +28,15 @@
 		<%= f.submit 'SAVE', :class=>'button' %> 
 		
 		<% unless @item.new_record? %>
-		  <% new_url = url_for(:action=>'new', :section_id=>@section.id, :node=>(@section.form == 'tree' ? {:parent_id=>@item.id} : nil))%>
+		  <% 
+        new_url = url_for :action=>'new', :section_id=>@section.id, :node=>(@section.form == 'tree' ? {:parent_id=>@item.id} : nil)
+        clone_url = { :parent_id=>(@section.form == 'tree' ? @item.parent_id : nil), :published_at=>@item.published_at, :title_dynamic=>@item.title_dynamic+' (clone)' }
+ 				clone_url = url_for :action=>'new', :section_id=>@section.id, :node=>clone_url
+      %>
 		
 			<% if Elastic::Context.user.master? or !@section.is_locked? %>
 				<%= link_to 'NEW', new_url, :class=>'button' %>			
-				<%= link_to 'CLONE', '', :class=>'button' %>
+				<%= link_to 'CLONE', clone_url, :class=>'button' %>
 				<%= link_to 'DESTROY', editor_section_node_path(@section,@node), :method=>:delete, :class=>'button' %>
 			<% end %>
 			
@@ -47,7 +51,7 @@
 		<br/>
 		
 		<% if @section.localization == 'free' %>
-	  	<small>http://<%= Elastic::Context.site.host %>/<%= f.text_field 'locale', :size=>1 %>/show/</small><%= f.text_field 'key', :class=>'' %>
+	  	<small>http://<%= Elastic::Context.site.host %>/<%= f.text_field 'locale', :size=>1, :value=>(@item.locale.blank? ? Elastic::Context.locale : @item.locale) %>/show/</small><%= f.text_field 'key', :class=>'' %>
 	  <% else %>
 	  	<small>http://<%= Elastic::Context.site.host %>/<%= Elastic::Context.locale %>/show/</small><%= f.text_field 'key', :class=>'' %>
     <% end %>

@@ -7,6 +7,7 @@
 
 	<tr>
 		 <th style="" class=""> <%= wake_click_order_by 'id' %> </th>
+		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_star', ico(:star) %> </th>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_force_theme', 'Dev' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'host' %> </th>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
@@ -24,6 +25,10 @@
 	<tr id="<%=dom_id item %>" class="hover-parent hilite pointer <%= 'active' if Elastic::Context.site==item%>">
 			
 			<td <%=wo item %> class="lo-visible"> <%=whl item.id %> </td>				
+			<td <%=wo item %> class=""> 
+			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
+				     uniq_star_master_site_path(item), :method=>:post %>
+			</td>				
 			<td <%=wo item %> class=""> 
 			   <% html =  (item.is_reload_theme ? ico(:check_alt, :red) : ico(:x_alt, :lightgray)) %>
 			   <%= link_to html, toggle_reload_theme_master_site_path(item), :method=>:post %> 

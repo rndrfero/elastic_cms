@@ -3,6 +3,12 @@ module Elastic
     
     wake :within_module=>'Elastic'
     
+    def uniq_star
+      @item.uniq_star!
+      flash[:hilite] = 'cms_backend.simply_yes'
+      redirect_to :back
+    end
+    
     def clean
       Site.clean!
       flash[:hilite] = 'cms_backend.simply_gone'

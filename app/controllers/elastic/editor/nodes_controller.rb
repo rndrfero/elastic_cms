@@ -125,7 +125,6 @@ module Elastic
     
     def create
       @item = Node.new :section=>@section
-#      @item.section= @section
       super
     end
   

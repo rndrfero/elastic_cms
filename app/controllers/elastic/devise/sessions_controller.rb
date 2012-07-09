@@ -6,6 +6,7 @@
     
     before_filter do
       Elastic::Context.site = Elastic::Site.find_by_host request.host
+      Elastic::Context.site ||= Elastic::Site.where(:is_star=>true).first
       if not Elastic::Context.site
         render :inline=>"404: No site for host '#{request.host}' found.", :status=>404
         return false

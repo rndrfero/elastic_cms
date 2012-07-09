@@ -59,6 +59,15 @@ module Elastic
       'http://'+host
     end
     
+    def uniq_star!
+      if is_star?
+        update_attribute :is_star, false
+      else
+        master.sites.map{ |x| x.update_attribute :is_star, false }
+        update_attribute :is_star, true
+      end
+    end
+    
     # -- index node
     
     def index_node(locale=Context.locale)
@@ -185,7 +194,7 @@ module Elastic
     end
     
     def copy_themes!
-      themes = %w{ hello_world test-contents test-welcome }
+      themes = %w{ hello_world test-contents test-welcome default }
       Elastic.logger_info "Copying themes: #{themes}"
       for t in themes
         x = File.join home_dir, 'themes', t

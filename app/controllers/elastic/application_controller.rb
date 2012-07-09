@@ -19,6 +19,7 @@ module Elastic
     
     def prepare_context_site
       Context.site = Site.find_by_host request.host
+      Context.site ||= Site.where(:is_star=>true).first
       if not Context.site
         render :inline=>"404: No site for host '#{request.host}' found.", :status=>404
         return false

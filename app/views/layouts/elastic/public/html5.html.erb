@@ -8,7 +8,7 @@
 		<meta name="keywords" content="<%= (@node and !@node.meta_keywords.blank?) ? @node.meta_keywords : Elastic::Context.site.meta_keywords %>" />
 		<meta name="description" content="<%= (@node and !@node.meta_description.blank?) ? @node.meta_description : Elastic::Context.site.meta_description %>" />
 	
-		<link type="text/css" rel="Stylesheet" media="all" href="/x/current_theme/<%= @site.theme %>.css"/>		
+		<link type="text/css" rel="Stylesheet" media="all" href="/t/<%= @site.theme %>.css"/>		
 		
 		<%=raw @head %>
 	</head>
