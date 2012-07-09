@@ -46,7 +46,7 @@
 						<%#= link_to('Sign out', destroy_user_session_path) %>
 					<%# end %>
 				
-					<% if controller.is_testing? %>
+					<% if ELASTIC_CONFIG['lightning_bolts'] %>
 					  <%=raw ico(:bolt,:red)*3 %> &nbsp;
 					<% end %>
 					<%= Elastic::Context.site.title %>&nbsp;&nbsp;
