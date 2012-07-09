@@ -13,7 +13,7 @@ module Elastic
 
     has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :published_at, :is_locked, :parent_id, :position, :redirect, :published_version_id]
     
-    attr_accessible :section, :locale, :title_dynamic, :key, :is_published, :is_star, :parent_id, :position, :contents_setter, :redirect, :published_at
+    attr_accessible :section, :locale, :title_dynamic, :key, :is_published, :is_star, :position, :contents_setter, :redirect, :published_at, :parent_key_human
   
     serialize :title_loc
   
@@ -65,6 +65,24 @@ module Elastic
     def generate_key_from_dynamic_title
       generate_key title_dynamic
     end  
+    
+    def parent_key_human
+      parent ? "#{parent.title_dynamic} [#{parent.key}]" : nil
+    end
+    
+    def parent_key_human=(x)
+      the_key = x.match(/\[.*\]/)
+      # means "Home [home]"
+      the_key = the_key[0].chop.reverse.chop.reverse if the_key
+      # means "home"
+      the_key ||= x
+      
+
+      n = section.nodes.find_by_key the_key
+      self.parent_key = n ? the_key : nil
+      self.parent_id = n ? n.id : nil
+      x
+    end
     
   
     # -- versioning --

@@ -70,7 +70,14 @@
 			<% else %>
 		  	<% choices = [[nil,nil]]+@section.nodes.all.reject{ |x| x==@item }.map{ |x| [x.title_dynamic,x.id] } %>
 			<% end %>
-			<%= f.select 'parent_id', choices, {}, :style=>"width: 16em;" %>
+			<%#= f.select 'parent_id', choices, {}, :style=>"width: 16em;" %>
+			<%= f.text_field 'parent_key_human', :size=>40 %>
+			<%= link_to ico(:link), editor_section_node_path(@item.parent.section,@item.parent) if @item.parent %>
+			
+			<%= render :partial=>'/elastic/shared/node_autocomplete', 
+			  :locals=>{:nodes=>@item.section.nodes.localized, :selector=>'#node_parent_key_human'} %>
+			
+			
 		<% elsif @section.form == 'blog' %>
 		  <small>Published at:</small>
 		  <%= f.text_field 'published_at', :value=>@item.published_at||Time.now, :size=>20 %>
@@ -116,7 +123,7 @@
 	  </div>
 	
 		<% if @item.new_record? %>
-		  Fuck this CMS. Save new record first.
+		  Save new record first.
 		<% else %>
 			<% for cc in @section.content_configs.published.all %>
 			  <% c = @item.content_getter cc %>
@@ -158,4 +165,4 @@
 </script>
 
 
-<hr/>
+

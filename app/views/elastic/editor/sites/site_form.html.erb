@@ -1,4 +1,5 @@
-<%= render :partial=>'/elastic/shared/node_autocomplete' %>
+<%= render :partial=>'/elastic/shared/node_autocomplete', 
+  :locals=>{:nodes=>Elastic::Context.site.nodes, :selector=>'.autocomplete'} %>
 
 <div class="wakeThemeCleanForm">
 
