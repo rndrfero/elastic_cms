@@ -6,7 +6,7 @@ module Elastic
     wake :within_module=>'Elastic'
     
     def wake_list
-      params[:order] ||= 'position'
+      params[:wake][:order] ||= 'position'
       super
     end
     

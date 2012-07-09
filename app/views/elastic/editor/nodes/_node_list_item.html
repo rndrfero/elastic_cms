@@ -15,9 +15,9 @@
 		 <% end %>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
 		 <th title="Characteristics"> ? </th>
-		 <% if Elastic::Context.user.master? %>
+		 <%# if Elastic::Context.user.master? %>
 		  	<th style="" class=""> <%= wake_click_order_by 'key' %> </th>
-		 <% end %>
+		 <%# end %>
 		 <th style="width: 9em;" class=""> <%= wake_click_order_by 'updated_at' %> </th>
 		 <!-- <th style="width: 1em;" class=""> <%#= wake_click_order_by 'position', 'Pos' %> </th> -->
 		 <th style="width: 5em;" class="i"> W </th>
@@ -27,14 +27,14 @@
 <% else %>
 
 	<tr id="<%=dom_id item %>" class="hover-parent hilite pointer">
-				
-			<td <%=wo item %> class=""> 
+			<% woitem = wo item %>	
+			<td class=""> 
 			  <%=link_to (item.is_star? ? ico(:star, :black) : ico(:star, :lightgray)), 
 				     toggle_star_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
 			
 			<% if level %>
-				<td <%=wo item %> class=""> 
+				<td class=""> 
 				  <%=link_to (item.is_published? ? ico(:check_alt, :lightgray) : ico(:x_alt, :red)), 
 	  			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
 				</td>				
@@ -42,24 +42,22 @@
 				<td <%=wo item %> class=""> <%=l item.published_at, :format=>:short %> </td>
 			<% end %>
 			
-			<td <%=wo item %> class="hi-visible"> 
+			<td <%= woitem %> class="hi-visible"> 
 			  <%=raw '&nbsp;&nbsp&nbsp;'*level if level %> 
-			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title_dynamic %></span>
+				<%=whl item.title_dynamic %>
 			</td>				
 			<td>
-				<%= ico(:question_mark,:red, 'All contens empty?') if item.contents_blank? %>
+				<%#= item.position %>
+				<%= ico(:pen, :red, 'All contens empty?') if item.contents_blank? %>
 				<%= ico(:reload, :blue, 'Redirection.') unless item.redirect.blank? %>
 				<%= ico(:document_fill, :green, 'Published is not recent edit.') if item.published_version %>
 			</td>
 			
-			<% if Elastic::Context.user.master? %>
-				<td <%=wo item %> class="lo-visible b"> <%= item.key %></td>
-			<% end %>
+			<%# if Elastic::Context.user.master? %>
+				<td <%= woitem %> class="lo-visible b"> <%= item.key %></td>
+			<%# end %>
 			
-			<td <%=wo item %> class=""> <%=l item.updated_at, :format=>:short %></td>
-			<!-- <td <%=wo item %> class="hi-visible"> 
-				<%#= item.position %>
-			</td> -->
+			<td class=""> <%=l item.updated_at, :format=>:short %></td>
 			<td>
 				<% if Elastic::Context.user.master? %>
 				  <%=link_to (item.is_pin? ? ico(:pin, :blue) : ico(:pin, :lightgray)), 
@@ -71,12 +69,14 @@
 					     toggle_hidden_editor_section_node_path(@section, item), :method=>:post %>
 			</td>
 			
-			<td class="hover-child left">
-				  <%= link_to ico(:plus), new_editor_section_node_path(:node=>{:parent_id=>item.id}) %>
-				  <% if level %>
-						<%= link_to ico(:arrow_up), move_higher_editor_section_node_path(@section,item), :method=>:post %>
-						<%= link_to ico(:arrow_down), move_lower_editor_section_node_path(@section,item), :method=>:post %>
+			<td class="hover-child left">					
+				  <% if level %>					
+			  		<span class="draggable droppable" toid="<%=item.id%>"> <%= ico(:move_vertical_alt2) %> </span>
+						&nbsp;
+						<%#= link_to ico(:arrow_up), move_higher_editor_section_node_path(@section,item), :method=>:post %>
+						<%#= link_to ico(:arrow_down), move_lower_editor_section_node_path(@section,item), :method=>:post %>
 					<% end %>
+					<%= link_to ico(:plus), new_editor_section_node_path(:node=>{:parent_id=>item.id}) %>
 					<% if Elastic::Context.user.master? or !@section.is_locked? %>
 			    	<%= wake_button_destroy item %>
 					<% end %>

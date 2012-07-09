@@ -47,8 +47,17 @@ module Elastic
       if @item.subtree_ids.include? to_node.id
         flash[:error] = 'No.'
       else
-        @item.update_attribute :parent_id, to_node.id
-        @section.fix_positions!
+#        @item.update_attribute :parent_id, to_node.id
+
+        pos = to_node.position
+        for x in @item.siblings
+          x.update_attribute :position, x.position+1 if x.position>=pos
+        end
+        
+        @item.update_attribute :parent_id, to_node.parent_id
+        @item.update_attribute :position, pos
+          
+#        @section.fix_positions!
         flash[:hilite] = 'Yes!'
       end
       redirect_to :back

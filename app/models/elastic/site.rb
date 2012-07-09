@@ -122,16 +122,16 @@ module Elastic
     def self.integrity!
       Elastic.logger_info "Site.integrity!"
       ContentConfig.all.select{ |x| not x.section }.each do |x| 
-        x.destroy 
-        Elastic.logger_info "ContentConfig X no section: #{x.inspect}"
+        Elastic.logger_info "ContentConfig X no section: #{x.key}"
+        raise 'cant destroy' unless x.destroy 
       end
       Content.all.each.select{ |x| not x.content_config}.each do |x| 
-        x.destroy
-        Elastic.logger_info "Content X no cc: #{x.inspect}"
+        Elastic.logger_info "Content X no cc: #{x.key}"
+        raise 'cant destroy' unless x.destroy 
       end
       Content.all.each.select{ |x|not x.node }.each do |x| 
-        x.destroy
-        Elastic.logger_info "Content X no node: #{x.inspect}"
+        Elastic.logger_info "Content X no node: #{x.key}"
+        raise 'cant destroy' unless x.destroy 
       end
       Site.all.each{ |x| x.integrity! }
     end
@@ -143,16 +143,16 @@ module Elastic
       
       # clean up the shit
       sections.all.each.select{ |x| not x.site }.each do |x| 
-        x.destroy 
-        Elastic.logger_info "Section X no site: #{x.inspect}"
+        Elastic.logger_info "Section X no site: #{x.key}"
+        raise 'cant destroy' unless x.destroy 
       end
       nodes.all.each.select{ |x| not x.section }.each do |x| 
-        x.destroy 
-        Elastic.logger_info "Node X no section: #{x.inspect}"
+        Elastic.logger_info "Node X no section: #{x.key}"
+        raise 'cant destroy' unless x.destroy 
       end
       galleries.all.each.select{ |x| not x.site }.each do |x| 
-        Elastic.logger_info "Gallery X no site: #{x.inspect}"
-        x.destroy
+        Elastic.logger_info "Gallery X no site: #{x.key}"
+        raise 'cant destroy' unless x.destroy 
       end
       
       
@@ -245,6 +245,25 @@ module Elastic
     
     def export(what)
       raise 'unexpected' unless what=='content' or what=='structure'
+      
+      # sync node.parent_key and node.section_key
+      for n in nodes
+        n.update_attribute :parent_key, (n.parent ? n.parent.key : nil)
+        n.update_attribute :section_key, n.section.key
+        
+        # sync content_config_keys
+        for c in n.contents
+          c.update_attribute :content_config_key, c.content_config.key
+        end
+      end
+      
+      # sync cc.keys
+      # def sync_keys!
+      #   return true if not key_changed?
+      #   contents.map{ |x| x.update_attribute :content_config_key, key }
+      # end
+      
+      
       yaml = YAML::dump tincan_dump(what)
       File.open(home_dir+"#{what}.yaml", 'w') {|f| f.write(yaml) }
       exclude_list = ""
@@ -265,16 +284,21 @@ module Elastic
         # load content
         tincan_load what, YAML::load(File.open(home_dir+"#{what}.yaml").read)
 
-        # resync node.section_id content.content_config_id
+        # resync node.section_id content.content_config_id & ancestry
         for n in nodes
+          # resync section_key -> section_id
           sec = sections.where(:key=>n.section_key).first
           raise "section '#{n.section_key}' not found" if not sec
           n.update_attribute :section_id, sec.id 
+          # resync contents
           for c in n.contents
             cc = ContentConfig.where(:section_id=>n.section_id, :key=>c.content_config_key).first
 #            raise "content config '#{c.content_config_key}' not found" if not cc
             c.update_attribute :content_config_id, cc.id if cc
           end
+          # resync parent_key -> ancestry
+          p = nodes.find_by_key(n.parent_key)
+          n.update_attribute :ancestry, (p ? p.id : nil)
         end  
         
       end

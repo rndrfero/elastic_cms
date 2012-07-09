@@ -36,7 +36,6 @@ module Elastic
     before_destroy :wake_destroyable?
     before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
 #    before_validation :keep_context
-    after_save :sync_keys!
     
     with_toggles :star, :hidden, :locked, :pin
     
@@ -44,12 +43,7 @@ module Elastic
         
     def structural_nodes
       is_pin? ? nodes : nodes.with_pin
-    end
-        
-    def sync_keys!
-      return true if not key_changed?
-      nodes.map{ |x| x.update_attribute :section_key, key }
-    end    
+    end        
     
     def fix_positions!(the_nodes=nodes.roots.all)
       the_nodes.each_with_index do |x,index|

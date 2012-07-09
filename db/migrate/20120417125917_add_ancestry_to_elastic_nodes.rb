@@ -6,7 +6,7 @@ class AddAncestryToElasticNodes < ActiveRecord::Migration
   end
   
   def self.down
-    remove_column :elastic_nodes, :ancestry
+    remove_column :elastic_nodes, :string
     remove_column :elastic_nodes, :ancestry_depth
     remove_index :elastic_nodes, :ancestry
   end

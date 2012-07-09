@@ -1,9 +1,28 @@
 <script>
 $(document).ready(function(){
+	
+	// var fixHelper = function(e, ui) {
+	// 	ui.children().each(function() {
+	// 		$(this).width($(this).width());
+	// 	});
+	// 	return ui;
+	// };
+	
 	$('.draggable').draggable( {revert: true} );
    $(".droppable").droppable({
      drop: function(event, ui) { document.location='nodes/'+$(ui.draggable).attr('toid')+'/drop/'+$(this).attr('toid'); }
    });
+
+// 	$(".sortable tbody").sortable({
+// 		helper: fixHelper,
+// 		update: function(event, ui) {
+// //			document.location='nodes/'+$(ui.sortable).attr('id')+'/drop/'+$(this).attr('toid');
+// //			document.location='nodes/'+$(this).attr('id')+'/drop/'+$(this).attr('toid');
+// //			alert( $(this).sortable('toArray').toString() );
+// 			alert( ui.position.toString() );
+// 		}
+// 	}).disableSelection();	
+
 });
 </script>
 
@@ -22,29 +41,29 @@ $(document).ready(function(){
 
 <br/>
 
-<table class="wakeThemeList" style="width: 100%;">
-	<tr>
-		<td class="left" colspan="100" style="border: none;">
-			<%= render :partial=>'/wake/list_header' %>
-		</td>
-	</tr>
+<table class="wakeThemeList sortable" style="width: 100%;">
+	<thead>
+		<tr>
+			<td class="left" colspan="100" style="border: none;">
+				<%= render :partial=>'/wake/list_header' %>
+			</td>
+		</tr>
 	
-	<tr><td colspan="8" style="height: 4px; border: none;"></td></td>
-	<tr><td colspan="8" style="height: 4px; "></td></td>
+		<tr><td colspan="8" style="height: 4px; border: none;"></td></td>
+		<tr><td colspan="8" style="height: 4px; "></td></td>
 		
-	<tr>
-		<td class="center" colspan="100" style="border: none;"> 
-			<%#= render :partial=>'employee_filter' %>
-		</td>
-	</tr>
+		<tr>
+			<td class="center" colspan="100" style="border: none;"> 
+				<%#= render :partial=>'employee_filter' %>
+			</td>
+		</tr>
 	
+		<tr><td colspan="8" style="height: 4px; border: none;"></td></td>			
+		<%= render :partial=>'node_list_item', :locals=>{:header=>true} %>
+		<tr><td colspan="8" style="height: 4px;"></td></tr>
+	</thead>
 
-	<tr><td colspan="8" style="height: 4px; border: none;"></td></td>
-			
-	<%= render :partial=>'node_list_item', :locals=>{:header=>true} %>
-
-	<tr><td colspan="8" style="height: 4px;"></td></tr>
-
+	<tbody>
 
 	<% if @section.form == 'blog' %>
 
@@ -66,14 +85,10 @@ $(document).ready(function(){
 		
 	<% end %>
 
-
-
-	
-	
-	
-
-	<tr><td colspan="100" style="height: 6px;"></td></tr>
-
-	<tr><td class="center" colspan="100"> <%= paginate @items %> </td> </tr>
+	</tbody>	
+	<tfoot>
+		<tr><td colspan="100" style="height: 6px;"></td></tr>
+		<tr><td class="center" colspan="100"> <%= paginate @items %> </td> </tr>
+	</tfoot>
 
 </table>

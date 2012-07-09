@@ -158,10 +158,4 @@
 </script>
 
 
-<%#=debug @item.contents %>
 <hr/>
-<% for c in @item.contents %>
-  <%= c.content_config.title %>: <b><%= c.blank? %></b>
-<% end %>
-
-<br/>all: <b><%= @item.contents_blank? %></b>
