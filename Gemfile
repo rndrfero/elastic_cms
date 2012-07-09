@@ -14,6 +14,8 @@ group :assets do
   gem 'sass-rails' #,   '~> 3.2.3'
 end
 
+gem 'therubyracer' # javascript runtime
+
 gem 'acts_as_list'
 gem 'ancestry'
 gem 'rmagick', '2.12.1'
