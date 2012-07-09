@@ -46,6 +46,10 @@ module Elastic
         self.reference_type = x.class.to_s
       end
     end
+    
+    def blank?
+      reference_id ? reference.nil? : text.blank?
+    end
 
     # -- wake --
   

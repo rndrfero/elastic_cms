@@ -14,6 +14,7 @@
 	 	   <th style="width: 2em;" class=""> <%= wake_click_order_by 'is_published', ico(:check_alt) %> </th>
 		 <% end %>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
+		 <th title="Characteristics"> ? </th>
 		 <% if Elastic::Context.user.master? %>
 		  	<th style="" class=""> <%= wake_click_order_by 'key' %> </th>
 		 <% end %>
@@ -43,8 +44,14 @@
 			
 			<td <%=wo item %> class="hi-visible"> 
 			  <%=raw '&nbsp;&nbsp&nbsp;'*level if level %> 
-			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title_dynamic %></span>			
+			  <span class="draggable droppable" toid="<%=item.id%>"><%=whl item.title_dynamic %></span>
 			</td>				
+			<td>
+				<%= ico(:question_mark,:red, 'All contens empty?') if item.contents_blank? %>
+				<%= ico(:reload, :blue, 'Redirection.') unless item.redirect.blank? %>
+				<%= ico(:document_fill, :green, 'Published is not recent edit.') if item.published_version %>
+			</td>
+			
 			<% if Elastic::Context.user.master? %>
 				<td <%=wo item %> class="lo-visible b"> <%= item.key %></td>
 			<% end %>

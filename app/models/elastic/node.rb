@@ -27,7 +27,10 @@ module Elastic
   
     has_ancestry :cache_depth =>true
 #    acts_as_list :scope=>'section_id = #{section_id} AND #{ancestry ? "ancestry = \'#{ancestry}\'" : \'ancestry IS NULL\'}'
-    acts_as_list :scope=>'section_id #{section ? "= #{section_id}" : "IS NULL"} AND #{ancestry ? "ancestry = \'#{ancestry}\'" : \'ancestry IS NULL\'}'
+    # acts_as_list :scope=>'section_id #{section ? "= #{section_id}" : "IS NULL"} AND 
+    #   ancestry #{ancestry ? "= \'#{ancestry}\'" : \'IS NULL\'} AND
+    #   locale #{locale ? "= \'#{locale}\'" : \'IS NULL\'}'
+    acts_as_list :scope=>'section_id #{section ? "= #{section_id}" : "IS NULL"} AND ancestry #{ancestry ? "= \'#{ancestry}\'" : \'IS NULL\'}'
   
     validates_presence_of :section, :key
     validates_presence_of :title_dynamic
@@ -83,6 +86,13 @@ module Elastic
     end
     
     # -- contents --
+    
+    def contents_blank?
+      #contents.reduce{ |ret,x| ret and x.blank? }
+      return false unless redirect.blank?
+      contents.map{ |x| return false unless x.blank? }
+      true
+    end
   
     def content_getter(cc_id)
       Rails.logger.debug "content_getter"

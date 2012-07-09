@@ -1,5 +1,5 @@
 <!-- tinymce -->
-<script type="text/javascript" src="/assets/elastic/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript" src="/tiny_mce/jquery.tinymce.js"></script>
 
 
 <% url = @item.new_record? ? {:action=>"create"} : {:action=>"update",:id=>@item.id } %>
@@ -37,7 +37,7 @@
 			<% if Elastic::Context.user.master? or !@section.is_locked? %>
 				<%= link_to 'NEW', new_url, :class=>'button' %>			
 				<%= link_to 'CLONE', clone_url, :class=>'button' %>
-				<%= link_to 'DESTROY', editor_section_node_path(@section,@node), :method=>:delete, :class=>'button' %>
+				<%= link_to 'DESTROY', editor_section_node_path(@section,@node), :method=>:delete, :confirm=>'wake.general.confirm_destroy'.tt, :class=>'button' %>
 			<% end %>
 			
 			<%= link_to 'META', '', :class=>'button' %>
@@ -159,3 +159,9 @@
 
 
 <%#=debug @item.contents %>
+<hr/>
+<% for c in @item.contents %>
+  <%= c.content_config.title %>: <b><%= c.blank? %></b>
+<% end %>
+
+<br/>all: <b><%= @item.contents_blank? %></b>

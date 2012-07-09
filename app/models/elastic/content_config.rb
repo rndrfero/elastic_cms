@@ -15,7 +15,7 @@ module Elastic
   
     FORMS = {
       :textfield => %w{ size },
-      :textarea => %w{ cols rows },
+      :textarea => %w{ cols rows style },
       :selectbox => %w{ values },
       :image => %w{ gallery_key variant },
       :node => %w{ section_key },

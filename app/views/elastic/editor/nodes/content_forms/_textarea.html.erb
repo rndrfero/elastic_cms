@@ -1,4 +1,4 @@
 	<h4><%= content_config.title %></h4>
 
 	<%= form_helper.text_area 'text', :value=>(content ? content.text : nil), 
-  	:rows=>content_config.meta['rows'], :cols=>content_config.meta['cols'] %> <br/><br/>
+  	:rows=>content_config.meta['rows'], :cols=>content_config.meta['cols'], :style=>content_config.meta['style'] %> <br/><br/>

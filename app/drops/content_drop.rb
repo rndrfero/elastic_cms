@@ -30,6 +30,7 @@ class ContentDrop < Liquid::Drop
   end
   
   def to_s
+#    false 
     text
     # if %w{ textfield textarea select image }.include? @content.content_config.form 
     #   text

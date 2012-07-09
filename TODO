@@ -1,10 +1,21 @@
+v nodoch - oznacovanie checkboxom a s tym operacie
+
+restore - aspon upratat.
+
+
+
+zjednotit subory a nody
+
+
+
 clone bude fungovat, az ked sa nebude musiet cakat na 1. save (this cms sucks)
+
+
+CONTENT CONFIG: preskupovanie vizualne - 1) via css 2) do gridu (future)
 
 
 FUTURE: zmena localization scenaru za jazdy
 
-
-zjednotit subory a nody
 
 
 repozitar tem dat na svncko na moj server

@@ -8,7 +8,7 @@ module Elastic
     end
     
     def generate_key(x=send(:title))
-      return if key.blank?
+      return if x.blank?
       x = x.strip
       ret = Iconv.new("ascii//TRANSLIT","utf-8").iconv(x).downcase.gsub(/ /, '-').gsub(/[^\-\_a-z0-9]*/,'') 
       ret.gsub!(/--/,'-') # double dash

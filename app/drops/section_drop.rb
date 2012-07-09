@@ -13,11 +13,11 @@ class SectionDrop < Liquid::Drop
   end
 
   def nodes
-    @section.nodes.published.map{ |x| NodeDrop.new(x) }
+    @section.nodes.localized.published.map{ |x| NodeDrop.new(x) }
   end
 
   def roots
-    @section.nodes.roots.published.map{ |x| NodeDrop.new(x) }
+    @section.nodes.roots.localized.published.map{ |x| NodeDrop.new(x) }
   end
   
   # def starry_nodes

@@ -59,13 +59,12 @@
 	
 	  <table class="wakeThemeForm" style="width: 100%;">
 			<thead>
-				<th> Id </th>
+				<th style="width: 2em;"> Id </th>
 				<th> Key </th>
 				<th style="width: 1em;"> # </th>
 				<th> Title </th>
 				<th> #C </th>
 				<th> Type </th>
-				<th> Meta </th>
 				<th> On </th>
 				<th> Action </th>
 			</thead>
@@ -79,11 +78,6 @@
 		  		<td> <%= f2.text_field :title %> </td>
 					<td> <%= cc.contents.size %> </td>
 	        <td> <%= f2.select :form, Elastic::ContentConfig::FORMS.keys %></td>
-	        <td> 
-						<% for k in Elastic::ContentConfig::FORMS[cc.form.to_sym] %>
-						  <small><%= k %></small>: <%= f2.text_field "meta[#{k}]", :value=>(cc.meta||{})[k], :size=>7 %>
-						<% end if cc.form %>		
-					</td>
 					<td> 
 						<%#= link_to (cc.is_published? ? ico(:check_alt,:green) : ico(:x_alt,:red)),
 					  	cc_toggle_published_master_section_path(@item, cc), :method=>:post if not cc.new_record? %>
@@ -100,6 +94,15 @@
 						<% end %>
 					</td>
 				</tr>
+				<tr>
+					<td> Cfg: </td>
+	        <td colspan="100"> 
+						<% for k in Elastic::ContentConfig::FORMS[cc.form.to_sym] %>
+						  <small><%= k %></small>: <%= f2.text_field "meta[#{k}]", :value=>(cc.meta||{})[k], :size=>7 %>
+						<% end if cc.form %>		
+					</td>
+				</tr>
+				<tr><td colspan="100" style="background: #F6F6F6;"></td></tr>
 			<% end %>
 
 			<% if @item.content_configs.select{ |x| x.new_record? }.empty? %>
@@ -108,7 +111,7 @@
 					<td colspan="10"> <%= link_to  'add new content', new_content_config_master_section_path(@item) %> </td>
 				</tr>
 			<% end %>
-		
+			
 		</table>
 		
 		<br/><br/>
