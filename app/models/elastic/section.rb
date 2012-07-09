@@ -5,9 +5,9 @@ module Elastic
     include Tincan
 
     def tincan_map
-       { 'structure_attrs' => %w{ key title localization is_star is_hidden is_locked form position },
+       { 'structure_attrs' => %w{ key title localization is_star is_hidden is_locked is_pin form position },
          'structure_assoc' => %w{ structural_nodes content_configs },
-         'content_attrs' => %w{ key title localization is_star is_hidden is_locked form position },
+         'content_attrs' => %w{ key title localization is_star is_hidden is_locked is_pin form position },
          'content_assoc' => %w{ nodes content_configs } }
     end
     

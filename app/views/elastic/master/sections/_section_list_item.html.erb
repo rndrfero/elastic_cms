@@ -14,6 +14,7 @@
 		 <th style="" class=""> <%= wake_click_order_by 'elastic_sections.key' %> </th>
 		 <th style="width: 3em" class=""> <%= wake_click_order_by 'form' %> </th>
 		 <th style="width: 3em;" class=""> <%= wake_click_order_by 'localization' %> </th>
+		 <th class="i">#</th>
 		 <th style="width: 10em;"> </th>
 	</tr>
 
@@ -44,6 +45,7 @@
 			   <%=raw "<i>mirrored</i>" if item.localization == 'mirrored' %>
 			   <%=raw "<b>free</b>" if item.localization == 'free' %>
 			</td>				
+			<td> <%= item.nodes.count %> </td>
 			<td class="hover-child right"> 			
 			  <%#= link_to ico(:list), editor_section_nodes_path(item), :title=>"Go to editor's view." %>
 				<%= link_to ico(:arrow_up), move_higher_master_section_path(item), :method=>:post %>
