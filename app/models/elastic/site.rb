@@ -31,7 +31,7 @@ module Elastic
     belongs_to :master_gallery, :class_name=>'Gallery', :dependent=>:destroy
     belongs_to :bg_gallery, :class_name=>'Gallery', :dependent=>:destroy
     
-    with_toggles :reload, :reload_theme
+    with_toggles :reload, :reload_theme, :star
   
     validates_presence_of :title, :host
     validates_format_of :host, :with=>/^[a-z0-9.\-]*$/
@@ -59,14 +59,14 @@ module Elastic
       'http://'+host
     end
     
-    def uniq_star!
-      if is_star?
-        update_attribute :is_star, false
-      else
-        master.sites.map{ |x| x.update_attribute :is_star, false }
-        update_attribute :is_star, true
-      end
-    end
+    # def uniq_star!
+    #   if is_star?
+    #     update_attribute :is_star, false
+    #   else
+    #     master.sites.map{ |x| x.update_attribute :is_star, false }
+    #     update_attribute :is_star, true
+    #   end
+    # end
     
     # -- index node
     

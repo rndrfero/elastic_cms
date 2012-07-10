@@ -15,14 +15,15 @@ module Elastic
 
     before_filter :prepare_context_site
     before_filter :prepare_context_locale, :except=>[:static, :data, :not_found]
-    after_filter :log_current_context    
+    after_filter :log_current_context   
     
     def prepare_context_site
       Context.site = Site.find_by_host request.host
-      Context.site ||= Site.where(:is_star=>true).first
       if not Context.site
         render :inline=>"404: No site for host '#{request.host}' found.", :status=>404
         return false
+      elsif Context.site.is_star? and self.class == Elastic::ElasticController
+        render :template=>'/elastic/public/fallback', :layout=>false
       end
     end
 

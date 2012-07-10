@@ -110,7 +110,7 @@ module Elastic
     def not_found
       render :inline=>"404: NOT FOUND", :status=>404
     end
-    
+        
     def toggle_reload
       @site.toggle_reload!
       redirect_to :back

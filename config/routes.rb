@@ -60,7 +60,8 @@ Elastic::Engine.routes.draw do
   
     namespace 'master' do
       resources :sites do
-        post 'uniq_star', :on=>:member
+#        post 'uniq_star', :on=>:member
+        post 'toggle_star', :on=>:member
         post 'clean', :on=>:collection
         
         post 'toggle_reload_theme', :on=>:member
