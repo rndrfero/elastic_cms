@@ -20,7 +20,7 @@ module Elastic
     belongs_to :section
   
     has_many :content_configs, :dependent=>:destroy, :order=>:position
-    has_many :nodes, :include=>{:contents=>:content_config}, :dependent=>:destroy #, :order=>lambda{ |x| raise 'fuck' }  
+    has_many :nodes, :include=>{:contents=>:content_config}, :dependent=>:destroy, :order=>:position
 #    has_many :nodes, :conditions=>lambda{ |x| x.master_node_id ? }
 
     acts_as_list :scope=>:site_id
@@ -44,11 +44,17 @@ module Elastic
     def structural_nodes
       is_pin? ? nodes : nodes.with_pin
     end        
+        
+    def fix_positions!
+      for l in site.locales+[nil]
+        fix_positions_for! nodes.roots.where(:locale=>l)
+      end
+    end
     
-    def fix_positions!(the_nodes=nodes.roots.all)
+    def fix_positions_for!(the_nodes)
       the_nodes.each_with_index do |x,index|
         x.update_attribute :position, index+1
-        fix_positions! x.children
+        fix_positions_for! x.children
       end
     end
     

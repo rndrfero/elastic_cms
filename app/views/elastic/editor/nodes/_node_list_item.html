@@ -47,7 +47,7 @@
 				<%=whl item.title_dynamic %>
 			</td>				
 			<td>
-				<%#= item.position %>
+				<%= item.position %>
 				<%= ico(:pen, :red, 'All contens empty?') if item.contents_blank? %>
 				<%= ico(:reload, :blue, 'Redirection.') unless item.redirect.blank? %>
 				<%= ico(:document_fill, :green, 'Published is not recent edit.') if item.published_version %>

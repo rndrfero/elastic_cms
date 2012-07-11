@@ -155,6 +155,8 @@ module Elastic
         raise 'cant destroy' unless x.destroy 
       end
       
+      # recount positions according to structure
+      sections.map{ |x| x.fix_positions! }      
       
       # resync dir - host.changed? 
       if host_changed? and File.exists? home_dir(host_was)
@@ -184,12 +186,7 @@ module Elastic
         x ||= create_master_gallery! :title=>'DEFAULT SETTINGS', :site_id=>self.id, :is_dependent=>false, :is_hidden=>true
         update_attribute :master_gallery_id, x.id
       end
-      
-      # destroy nodes refering non-existing sections
-      for n in nodes
-        n.destroy if not n.section
-      end
-     
+           
       true
     end
     
@@ -302,11 +299,13 @@ module Elastic
         end  
         
       end
-      
+            
       # resync galleries
       for g in galleries
         g.sync!
       end
+      
+      integrity!
     end
     
         

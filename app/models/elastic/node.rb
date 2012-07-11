@@ -5,9 +5,9 @@ module Elastic
     include Tincan
     
     def tincan_map
-      { 'structure_attrs' => %w{ key section_key title title_loc locale parent_key is_star is_published published_at position },
+      { 'structure_attrs' => %w{ key section_key title title_loc locale parent_key is_star is_published published_at },
         'structure_assoc' => %w{ contents },
-        'content_attrs' => %w{ key section_key title title_loc locale parent_key is_star is_published published_at position },
+        'content_attrs' => %w{ key section_key title title_loc locale parent_key is_star is_published published_at },
         'content_assoc' => %w{ contents } }
     end
 
@@ -26,11 +26,11 @@ module Elastic
     #accepts_nested_attributes_for :contents
   
     has_ancestry :cache_depth =>true
+    acts_as_list :scope=>'section_id #{section ? "= #{section_id}" : "IS NULL"} AND ancestry #{ancestry ? "= \'#{ancestry}\'" : \'IS NULL\'}'
 #    acts_as_list :scope=>'section_id = #{section_id} AND #{ancestry ? "ancestry = \'#{ancestry}\'" : \'ancestry IS NULL\'}'
     # acts_as_list :scope=>'section_id #{section ? "= #{section_id}" : "IS NULL"} AND 
     #   ancestry #{ancestry ? "= \'#{ancestry}\'" : \'IS NULL\'} AND
     #   locale #{locale ? "= \'#{locale}\'" : \'IS NULL\'}'
-    acts_as_list :scope=>'section_id #{section ? "= #{section_id}" : "IS NULL"} AND ancestry #{ancestry ? "= \'#{ancestry}\'" : \'IS NULL\'}'
   
     validates_presence_of :section, :key
     validates_presence_of :title_dynamic
