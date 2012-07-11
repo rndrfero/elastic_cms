@@ -26,7 +26,7 @@ module Elastic
     
     belongs_to :site
     has_many :file_records, :dependent=>:destroy
-    belongs_to :title_image, :class_name=>'FileRecord'
+    belongs_to :title_file_record, :class_name=>'FileRecord'
     
     alias :frs :file_records
 #    accepts_nested_attributes_for :file_records

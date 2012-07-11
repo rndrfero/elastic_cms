@@ -13,7 +13,7 @@ module Elastic
 
     has_paper_trail :ignore => [:title, :locale, :is_star, :is_published, :published_at, :is_locked, :parent_id, :position, :redirect, :published_version_id]
     
-    attr_accessible :section, :locale, :title_dynamic, :key, :is_published, :is_star, :position, :contents_setter, :redirect, :published_at, :parent_key_human
+    attr_accessible :section, :locale, :title_dynamic, :key, :is_published, :is_star, :position, :contents_setter, :redirect, :published_at, :parent_key_human, :parent_id
   
     serialize :title_loc
   

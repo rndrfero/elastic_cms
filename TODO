@@ -1,21 +1,14 @@
-- to fix: pri importe - position
+CHECK: 
+  - vidi normalny uzivatel na frontende linky na skryte galerie / skryte veci?
 
 
-aby vsetky, co sa oznacia hviezdickou smerovali do nejakej riti.
+unset image v editacii contentu !!!
 
 
+- FEATURE: aby ked davas home stranku, ti vyhonilo ze neexistuje ked das kokocky kluc
+  - aby sa tam dala dat adresa /x/this.html, /l/this.liquid , resp http://google.com
+  - separovat autocompletery v nastavovani home stranky 
 
-separovat autocompletery v nastavovani home stranky 
-
-
-ani position sa v tincan/dump dobre neuklada/nerestoruje
-  --- alebo ano? preskumat.
-
-
-ked klikne v menu, tak sa mu to hodi kde bol naposledy tam v submenu
-
-
-parent_id vs parent_key
 
 
 nejaky system logovania
