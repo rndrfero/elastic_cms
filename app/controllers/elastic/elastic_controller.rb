@@ -63,7 +63,7 @@ module Elastic
       
       c = Content.find_by_id(params[:content_id])
       if c
-        c.node.contents_setter= { c.content_config_id=>params[:node] }
+        c.node.contents_setter= { c.content_config_id => params[:node] }
         if c.node.save
           flash[:hilite] = 'ok'
           redirect_to exit_path

@@ -11,17 +11,20 @@ module Elastic
 
     has_paper_trail    
     
-    attr_accessible :content_config, :node, :content_config_id, :node_id, :text, :locale, :file, :reference_id, :reference_type
+    attr_accessible :content_config, :node, :content_config_id, :node_id, :text, :locale, :file, :reference_id, :reference_type, :reference_remove
   
     belongs_to :content_config, :readonly=>true
     belongs_to :node
       
     def file=(x)
+      @file = x
       FileUtils.cp x.tempfile.path, File.join(content_config.gallery.filepath,'orig',x.original_filename)      
-      self.text = x.original_filename
       content_config.gallery.sync!
       self.reference = content_config.gallery.file_records.where(:filename=>x.original_filename).first
-#      raise self.reference_id.inspect
+    end
+    
+    def reference_remove=(x)
+      self.reference = nil if x=='on'
     end
 
     def reference(reload=false)

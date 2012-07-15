@@ -3,21 +3,31 @@
   fpath = File.join Elastic::Context.site.theme_dir, cfg if cfg
 %>
 
+<h4><%= content_config.title %></h4>
+
 <% if cfg.blank? %>
-	<h4><%= content_config.title %> (default)</h4>
-	
-	<%= form_helper.text_area 'text', :value=>(content ? content.text : nil), 
-		:rows=>content_config.meta['rows'], :cols=>content_config.meta['cols'], :class=>'tinymce' %> 
-		
-	<%= render :partial=>'tinymce_default' %>
 
+	<%=werror "TinyMCE config file not set yet." %>
+	
+	<!-- <h4><%#= content_config.title %> (default)</h4>	
+	<%#= form_helper.text_area 'text', :value=>(content ? content.text : nil), 
+		:rows=>content_config.meta['rows'], :cols=>content_config.meta['cols'], :class=>'tinymce' %> 		
+	<%#= render :partial=>'tinymce_default' %> -->
 <% elsif File.exists? fpath %>
-	<h4><%= content_config.title %></h4>
 
 	<%= form_helper.text_area 'text', :value=>(content ? content.text : nil), 
-		:rows=>content_config.meta['rows'], :cols=>content_config.meta['cols'], :class=>'tinymce' %> 
+		:rows=>content_config.meta['rows'], :cols=>content_config.meta['cols'], :class=>'tinymce', :id=>dom_id(content) %> 
+
+		<!-- Load TinyMCE -->
+		<script type="text/javascript">
+			$().ready(function() {
+				$('#<%= dom_id(content) %>').tinymce({
+					<%= render :file=>fpath %>
+				});
+			});
+		</script>
+		<!-- /TinyMCE -->	
 	
-	<%= render :file=>fpath %>
 <% else %>
 
   <%=werror "TinyMCE config file '#{cfg}' do not exist." %>

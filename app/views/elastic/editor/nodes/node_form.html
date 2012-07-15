@@ -30,14 +30,14 @@
 		<% unless @item.new_record? %>
 		  <% 
         new_url = url_for :action=>'new', :section_id=>@section.id, :node=>(@section.form == 'tree' ? {:parent_id=>@item.id} : nil)
-        clone_url = { :parent_id=>(@section.form == 'tree' ? @item.parent_id : nil), :published_at=>@item.published_at, :title_dynamic=>@item.title_dynamic+' (clone)' }
+        clone_url = { :parent_id=>(@section.form == 'tree' ? @item.parent_id : nil), :published_at=>@item.published_at, :title_dynamic=>"#{@item.title_dynamic} (clone)" }
  				clone_url = url_for :action=>'new', :section_id=>@section.id, :node=>clone_url
       %>
 		
 			<% if Elastic::Context.user.master? or !@section.is_locked? %>
 				<%= link_to 'NEW', new_url, :class=>'button' %>			
 				<%= link_to 'CLONE', clone_url, :class=>'button' %>
-				<%= link_to 'DESTROY', editor_section_node_path(@section,@node), :method=>:delete, :confirm=>'wake.general.confirm_destroy'.tt, :class=>'button' %>
+				<%= link_to 'DESTROY', editor_section_node_path(@section,@node), :method=>:delete, :data=>{:confirm=>'wake.general.confirm_destroy'.tt}, :class=>'button' %>
 			<% end %>
 			
 			<%= link_to 'META', '', :class=>'button' %>
@@ -117,8 +117,6 @@
 	  	<br/><br/>
 			<%= link_to 'PUBLISH SELECTED VERSION', publish_version_editor_section_node_path(@section,@node,@version),
 			  :method=>:post, :class=>'button' if @version and @version.id != @item.published_version_id  %>
-			
-			 <!--  -->
 	
 	  </div>
 	
@@ -127,7 +125,7 @@
 		<% else %>
 			<% for cc in @section.content_configs.published.all %>
 			  <% c = @item.content_getter cc %>
-				<%=wdbg "cc.id: #{cc ? cc.id : 'N/A'} c.id: #{c ? c.id : 'N/A'}" %>
+				<%#= "cc.id: #{cc ? cc.id : 'N/A'} c.id: #{c ? c.id : 'N/A'}" %>
 				<% if not cc %>
 			  	<%=werror "Content config is not present."%>
 				<%# elsif not c %>

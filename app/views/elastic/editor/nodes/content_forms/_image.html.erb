@@ -7,14 +7,18 @@
 		<%=werror 'Which variant to use?.' %>
     <%= link_to 'Check content config.', master_section_path(content_config.section) if Elastic::Context.user.master? %>
 	<% else %> 
-	  <% if content and not content.text.blank? %>
-			<% src = File.join content_config.gallery.path, content_config.meta['variant'], content.text.to_s %>
-			<img src="<%= src %>" alt="<%= content.text %>"/><br/>
+	  <% if content and content.reference %>
+			<% src = content.reference.path content_config.meta['variant'] %>
+			<img src="<%= src %>" alt="<%= content.reference.filename %>"/><br/>
 		<% else %>
 		<% end %>
 	
-		Upload the image:  <%= form_helper.file_field 'file' %> 
-		&nbsp;&nbsp;
+		Upload: <%= form_helper.file_field 'file' %> &nbsp;&nbsp;
+		
+		<% if content and content.reference %> 
+			<%= form_helper.check_box :reference_remove, {}, nil %> Remove. &nbsp;&nbsp;
+		<% end %>
+		
 		<%= link_to ico(:link)+'GO TO GALLERY', editor_gallery_path(content_config.gallery), :class=>'button' %>
 	<% end %>
 

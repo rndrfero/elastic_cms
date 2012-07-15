@@ -17,6 +17,7 @@ class ContentDrop < Liquid::Drop
   # end
 
   def text   
+#    Rails.logger.debug "=========----------> #{@content.id}"
     Elastic::Context.content = @content
     Elastic::Context.user ? @content.text : (@content.published_text||@content.text)
   end

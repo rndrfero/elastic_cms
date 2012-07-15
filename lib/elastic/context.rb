@@ -13,7 +13,6 @@ module Elastic
       @@content = x
     end
 
-
     def self.content
       @@content ||= nil
     end

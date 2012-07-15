@@ -19,7 +19,7 @@
 					  <%= fr.filename %><br/>
 					<% end %>
 				<% else %>
-				  <% x = item.frs.images.first  %>
+				  <% x = (item.title_file_record||item.frs.images.first)  %>
 				  <% if item.has_variant? :tna %>
 				  	<%= image_tag x.path(:tna) %> 
 				  <% elsif item.has_variant? :img %>

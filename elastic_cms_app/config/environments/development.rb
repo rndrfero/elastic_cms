@@ -41,6 +41,7 @@ ElasticCmsApp::Application.configure do
   
   # asset logger
   config.assets.logger = false
+  config.assets.logger = Logger.new("#{Rails.root}/log/#{Rails.env}_assets.log")  
   
   # GEM DEV: gem development
   config.reload_classes_only_on_change = false

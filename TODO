@@ -1,5 +1,23 @@
+VARGA: jquery cycle
+
+
+TODO: liquid v clanku
+
+TODO: set title image as content image
+
+
+
+TODO: nejaky odolnejsi <> blank miesto <> empty
+  - resp. pri import/exporte sa nejaky stylom zaplnia aj ked maju byt empty
+
+
+VARGA: dalej treba spravit zobrazovanie noviniek (zrobim ja).
+
+
 CHECK: 
   - vidi normalny uzivatel na frontende linky na skryte galerie / skryte veci?
+
+BUG: import / export - title image v galerii    ... koncept?
 
 
 unset image v editacii contentu !!!

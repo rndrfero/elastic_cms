@@ -59,7 +59,9 @@ $(document).ready(function(){
 		</tr>
 	
 		<tr><td colspan="8" style="height: 4px; border: none;"></td></td>			
-		<%= render :partial=>'node_list_item', :locals=>{:header=>true} %>
+					
+		<%= render :partial=>'node_list_item', :locals=>{:header=>true, :blog=>(@section.form=='blog')} %>
+		
 		<tr><td colspan="8" style="height: 4px;"></td></tr>
 	</thead>
 
@@ -67,11 +69,10 @@ $(document).ready(function(){
 
 	<% if @section.form == 'blog' %>
 
-		<%= render :partial=>'node_list_item', :collection=>@items, :locals=>{:level=>nil} %>	
+		<%= render :partial=>'node_list_item', :collection=>@items, :locals=>{:blog=>true} %>	
 
 	<% else %>
 		<% 
-			
 		  #@all_nodes #= @section.nodes.all
 		  stack = @items.select{ |x| x.is_root? }.map{ |x| [x,0] }
 		  while not stack.empty?

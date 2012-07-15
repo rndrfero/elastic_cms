@@ -1,6 +1,7 @@
 <%
 	header ||= false
 	level ||= false
+	blog ||= false
 	item = node_list_item unless header
 %>
 
@@ -8,10 +9,9 @@
 
 	<tr>
 		 <th style="width: 1em;" class=""> <%= wake_click_order_by 'is_star', ico(:star) %> </th>
-		 <% if level %>
-	 	   <th style="width: 9em;" class=""> <%= wake_click_order_by 'is_published', ico(:check_alt) %> </th>
-     <% else %>
-	 	   <th style="width: 2em;" class=""> <%= wake_click_order_by 'is_published', ico(:check_alt) %> </th>
+	 	  <th style="width: 2em;" class=""> <%= wake_click_order_by 'is_published', ico(:check_alt) %> </th>
+		 <% if blog %>
+	 	   <th style="width: 9em;" class=""> <%= wake_click_order_by 'published_at' %> </th>
 		 <% end %>
 		 <th style="" class=""> <%= wake_click_order_by 'title' %> </th>
 		 <th title="Characteristics"> ? </th>
@@ -33,21 +33,20 @@
 				     toggle_star_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
 			
-			<% if level %>
-				<td class=""> 
-				  <%=link_to (item.is_published? ? ico(:check_alt, :lightgray) : ico(:x_alt, :red)), 
-	  			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
-				</td>				
-			<% else %>
+			<td class=""> 
+			  <%=link_to (item.is_published? ? ico(:check_alt, :lightgray) : ico(:x_alt, :red)), 
+  			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
+			</td>				
+			<% if blog %>
 				<td <%=wo item %> class=""> <%=l item.published_at, :format=>:short %> </td>
 			<% end %>
 			
-			<td <%= woitem %> class="hi-visible"> 
+			<td <%= woitem %> class="hi-visible <% if item.updated_at > Time.now-5.minutes %>blue<% end %>"> 
 			  <%=raw '&nbsp;&nbsp&nbsp;'*level if level %> 
 				<%=whl item.title_dynamic %>
 			</td>				
 			<td>
-				<%= item.position %>
+				<%#= item.position %>
 				<%= ico(:pen, :red, 'All contens empty?') if item.contents_blank? %>
 				<%= ico(:reload, :blue, 'Redirection.') unless item.redirect.blank? %>
 				<%= ico(:document_fill, :green, 'Published is not recent edit.') if item.published_version %>

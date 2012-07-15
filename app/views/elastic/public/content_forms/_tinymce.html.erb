@@ -3,21 +3,30 @@
   fpath = File.join Elastic::Context.site.theme_dir, cfg if cfg
 %>
 
+
 <% if cfg.blank? %>
 
-	<%= form_helper.text_area 'text', :value=>(content ? content.text : nil), 
-		:style=>"width: 100%; height: 100%", :class=>'tinymce' %> 
-		
-	<%= render :partial=>'/elastic/editor/nodes/tinymce_default' %>
+	<%=werror "TinyMCE config file not set yet." %>
 
 <% elsif File.exists? fpath %>
 
 	<%= form_helper.text_area 'text', :value=>(content ? content.text : nil), 
-		:style=>"width: 100%; height: 100%", :class=>'tinymce' %> 
+		:style=>"width: 100%; height: 100%", :class=>'tinymce', :id=>dom_id(content) %> 
+
+		<!-- Load TinyMCE -->
+		<script type="text/javascript">
+			$().ready(function() {
+				$('#<%= dom_id(content) %>').tinymce({
+					<%= render :file=>fpath %>
+				});
+			});
+		</script>
+		<!-- /TinyMCE -->	
 	
-	<%= render :file=>fpath %>
 <% else %>
 
   <%=werror "TinyMCE config file '#{cfg}' do not exist." %>
 
 <% end %>
+	
+	<br/><br/>

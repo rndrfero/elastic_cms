@@ -20,9 +20,8 @@ module Elastic
       :image => %w{ gallery_key variant },
       :node => %w{ section_key },
       :gallery => %w{ },
-      :tinymce => %w{ config_file }
-    }
-    
+      :tinymce => %w{ cols rows config_file }
+    }    
   
     belongs_to :section  
     has_many :contents
