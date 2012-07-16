@@ -10,29 +10,16 @@ module Elastic
     # index page
     def index
       # fetch whats happening
-      where_to_go = (@site.locale_to_index_hash||{})[ Context.locale ]
-      # render index template if blank
-
-      if not where_to_go.blank?
-        if where_to_go.to_i != 0
-          @node = Node.in_public.find_by_id where_to_go
-        end
-      end
-      render_liquid 
+      @node = @site.index_node
+      redirect_or_render_node
     end
 
     # show node
     def show
       @node = Node.in_public.find_by_key params[:key]
-      if @node and !@node.redirect.blank?
-        redirect_to @node.redirect #if @node.redirect =~ /(http|https|ftp).*/
-      elsif @node
-        @section = @node.section
-        render_liquid
-      else
-        render_404
-      end
+      redirect_or_render_node
     end
+    
 
     def section
       @section = Section.where(:site_id=>@site.id, :key=>params[:key]).first
@@ -123,12 +110,25 @@ module Elastic
     end
     
     def add_reference(x)
-#      raise x.to_yaml
       @references ||= []
       @references << x if not @references.include? x
     end    
 
+    # -- private ---
+
     private
+    
+    def redirect_or_render_node
+      if @node and !@node.redirect.blank?
+        redirect_to @node.redirect #if @node.redirect =~ /(http|https|ftp).*/
+      elsif @node
+        @section = @node.section
+        render_liquid
+      else
+        render_404
+      end
+    end    
+    
     def prepare
       Context.ctrl= self
       @site = Context.site

@@ -1,4 +1,22 @@
-VARGA: jquery cycle
+1) a posledna vec o ktorej viem je default stranka - po kliknuti na zastavu sa nezobrazi konkretna stranka, len prazdne oblasti
+2) ak dany clanok sejvnes (presejvujes), tak uz to ide
+3) druha textarea prazdna  
+ INAC 2) a 3) mozu spolu suvisiet !!!
+
+
+
+
+
+
+BUG: po premenovani galerie zostane stary adresar.
+ -- skontrolovat toto cele, resp. inode sync tiez
+
+
+VARGA: vznika tam nejaka kravina, ked naimportujem su tie clanny sice prazdne, ale slogan sa mi ajtak nezobrazi. Ale ked to presejvujem, tak uz to ide.
+
+BUG: ked kliknem na integrity, tak mi vsetky stranky zmodreju
+
+VARGA: nejaky formular na odosielanie mejlov
 
 
 TODO: liquid v clanku
