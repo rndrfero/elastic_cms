@@ -20,7 +20,7 @@ module Elastic
       
       ret = TemplateCache.new :key=>"#{Context.site.id}-#{name}"
     
-      filepath = Context.site.home_dir + name + '.liquid'
+      filepath = Context.site.home_dir + name # + '.liquid'
         
       ret.template = File.open(filepath, 'r') do |f| 
         Liquid::Template.parse f.read

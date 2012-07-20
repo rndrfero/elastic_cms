@@ -11,7 +11,16 @@ module Elastic
     def index
       # fetch whats happening
       @node = @site.index_node
-      redirect_or_render_node
+      if @node
+        redirect_or_render_node
+      else
+        x = @site.locale_to_index_hash[Context.locale]
+        if x =~ /^(\/|http:\/\/|https:\/\/)/
+          redirect_to x
+        else
+          raise 'wtf'
+        end
+      end
     end
 
     # show node
@@ -88,15 +97,15 @@ module Elastic
       x = File.join @site.home_dir + filepath
 
       if File.exists? x
-        render_liquid params[:filepath]
+        render_liquid filepath
       else
-        render_404
+        render_404 filepath
       end
     end
       
-    def not_found
-      render :inline=>"404: NOT FOUND", :status=>404
-    end
+    # def not_found
+    #   render :inline=>"404: NOT FOUND", :status=>404
+    # end
         
     def toggle_reload
       @site.toggle_reload!
@@ -151,7 +160,8 @@ module Elastic
     def render_liquid(template_name=nil, add_drops={})
       # node_drop = NodeDrop.new @node
       # section_drop = SectionDrop.new @node.section
-      template_name ||= @site.theme_index.blank? ? 'current_theme/'+@site.theme : 'current_theme/'+@site.theme_index
+      x = @action=='index' ? @site.theme_index : @site.theme_template
+      template_name ||=  x.blank? ? 'current_theme/'+@site.theme+'.liquid' : 'current_theme/'+x
       
 
       drops = {
@@ -180,7 +190,7 @@ module Elastic
         out = TemplateCache.render template_name, drops
         out = postprocess out, template_name
       
-        @head = TemplateCache.render 'current_theme/head' , drops if File.exists?(@site.theme_dir+'head.liquid')
+        @head = TemplateCache.render 'current_theme/head.liquid' , drops if File.exists?(@site.theme_dir+'head.liquid')
       
         if @site.theme_layout.blank?
           render :text=>out, :layout=>"/elastic/public/html5"
@@ -191,10 +201,8 @@ module Elastic
         end
       rescue Errno::ENOENT=>x
          render_error x.message.gsub @site.home_dir, '/'
-#        render :inline
       rescue Liquid::SyntaxError=>x
-#        render :inline=>"<h3>Liquid syntax error:</h3> <p>#{x}</p>"
-         render_error "Liquid syntax error: #{x}"
+         render_error "Elastic CMS: Liquid syntax error: #{x}"
       end
     end
     
@@ -205,7 +213,7 @@ module Elastic
     end
 
     def render_404(error=nil)
-      render :inline=>"Elastic CMS: 404 - not found #{error}", :status=>404
+      render :inline=>(error ? "Elastic CMS: 404 - not found: '#{error}'" : "Elastic CMS: 404 - not found"), :status=>404
     end
 
     def render_access_denied

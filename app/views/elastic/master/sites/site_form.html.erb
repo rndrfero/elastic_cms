@@ -11,7 +11,7 @@
 			  :class=>'button lo-visible', :method=>:post %>
 			<%= link_to 'ZAP!', zap_master_site_path, :class=>'button', :confirm=>"wake.general.confirm_destroy".tt, :method=>:post if request.host==@item.host %>			
 			
-			<%= link_to ico(:cog), editor_site_path(@item), :class=>'button', :title=>"Editor's view." %>	
+			<%= link_to ico(:cog), editor_site_path, :class=>'button', :title=>"Editor's view." %>	
 			
 		<% end %>
 				
@@ -102,11 +102,17 @@
 		  Theme '<%= @item.theme %>' is not selected nor valid.
 		<% else %>
 			<table class="wakeThemeForm" class="">
+				<% ch = ([nil]+@item.theme_liquids.reject{ |x| x=~/layout/ or x=='head' }) %>
 				<tr>
-					<th> Custom index: </th>
+					<th> Custom index template: </th>
 					<td>
-						<%= f.select 'theme_index', ([nil]+@item.theme_liquids.reject{ |x| x=~/layout/ or x=='head' }) %> &nbsp;&nbsp;
-						<small>Default: '<%= @item.theme %>.liquid'</small>
+						<%= f.select 'theme_index', ch  %> &nbsp;&nbsp; <small>Default: '<%= @item.theme %>.liquid'</small>
+					</td>
+				</tr>
+				<tr>
+					<th> Custom show/section/etc template: </th>
+					<td>
+						<%= f.select 'theme_template', ch %> &nbsp;&nbsp; <small>Default: '<%= @item.theme %>.liquid'</small>
 					</td>
 				</tr>
 				<tr>

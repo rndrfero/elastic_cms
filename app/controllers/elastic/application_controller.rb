@@ -28,11 +28,15 @@ module Elastic
     end
 
     def prepare_context_locale
-      Context.locale = params[:locale] || I18n.default_locale
-      if not Context.site.locales.include? Context.locale
-        redirect_to params.merge! :locale=>Context.site.locales.first
+      Context.locale = params[:locale] || Context.site.index_locale
+      if not Context.site.locales
+        render :inline=>"Elastic CMS: no locales defined yet?"
         return false
-      end if Context.site.locales
+      end
+      if not Context.site.locales.include? Context.locale
+        render :inline=>"Elastic CMS: invalid locale: '#{Context.locale}', use '#{Context.site.locales.join("' or '")}'"
+        return false
+      end 
       
       Context.user = current_user
       if Context.user

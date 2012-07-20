@@ -116,7 +116,7 @@ module Elastic
     
     def theme_liquids
 #      return [] if theme.blank?      
-      Dir.entries(theme_dir).reject!{ |x| not x.ends_with? '.liquid' }.map!{ |x| x.gsub! /\.liquid$/, '' }
+      Dir.entries(theme_dir).reject!{ |x| not x.ends_with? '.liquid' } #.map!{ |x| x.gsub! /\.liquid$/, '' }
     end
     
     def self.integrity!
