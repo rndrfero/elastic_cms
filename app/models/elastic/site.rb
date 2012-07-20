@@ -14,7 +14,7 @@ module Elastic
     end
     
     attr_accessible :host, :title, :locales_str, :theme, :is_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, 
-      :theme_index, :theme_layout, :master_id, :master_gallery_id, :bg_gallery_id, :bg_color, :structure_import, :content_import
+      :theme_index, :theme_template, :theme_layout, :master_id, :master_gallery_id, :bg_gallery_id, :bg_color, :structure_import, :content_import
  
     include Elastic::WithDirectory
       
@@ -71,7 +71,7 @@ module Elastic
     # -- index node
     
     def index_node(locale=Context.locale)
-      str = locale_to_index_hash[locale]
+      str = (locale_to_index_hash||{})[locale]
       return nil if str.blank?
       
       key = str.match(/\[.*\]/)

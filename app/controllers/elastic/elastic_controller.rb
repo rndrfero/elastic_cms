@@ -18,7 +18,7 @@ module Elastic
         if x =~ /^(\/|http:\/\/|https:\/\/)/
           redirect_to x
         else
-          raise 'wtf'
+          render_liquid #raise 'wtf'
         end
       end
     end
