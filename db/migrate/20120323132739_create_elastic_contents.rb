@@ -4,10 +4,12 @@ class CreateElasticContents < ActiveRecord::Migration
       t.text :text
       t.integer :reference_id
       t.string :reference_type
+      t.string :reference_key
       
       t.text :published_text
       t.integer :published_reference_id
       t.string :published_reference_type
+      t.string :published_reference_key
       
       t.integer :content_config_id
       t.string :content_config_key

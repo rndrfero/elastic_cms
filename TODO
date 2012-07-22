@@ -1,3 +1,24 @@
+varga enterprises: nezobrazuje fragmenty
+
+
+BUG: renaming siteov !!!
+
+
+TODO:
+  - title over tooltip nad ikonkami v systeme
+
+
+BUG: import / export ... vsetkych kontent typov, najma:
+   - obrazok / file
+   - odkaz na node
+   - odkaz na galeriu
+
+
+
+TODO: vymazavanie adresaru galerie po tom co vymazem galeriu. (toto by mohlo ist tiez cez nejaky timeout)
+
+
+
 BUG: pozri ako mas sortovanie v admin/sites - preco ti to dobre nevyfarbuje v hlavicke?
 
 VARGA: pristupy pre suka na FTP

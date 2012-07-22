@@ -9,7 +9,7 @@ module Elastic
     def tincan_map
        { 'structure_attrs' => %w{ locales theme_index theme_layout },
          'structure_assoc' => %w{ structural_galleries master_gallery sections },
-         'content_attrs' => %w{ locales theme_index theme_layout title index_locale locale_to_index_hash },
+         'content_attrs' => %w{ locales theme_index theme_template theme_layout title index_locale locale_to_index_hash },
          'content_assoc' => %w{ galleries master_gallery sections } } # 
     end
     
@@ -97,7 +97,7 @@ module Elastic
     end
     
     def du
-      `du -s #{home_dir}`.to_i
+      `du -s #{home_dir}`.to_f / 1000.0
     end
     
     # def du # disk usage
@@ -251,6 +251,8 @@ module Elastic
         # sync content_config_keys
         for c in n.contents
           c.update_attribute :content_config_key, c.content_config.key
+          c.update_attribute :reference_key, c.reference.key if c.reference
+          c.update_attribute :published_reference_key, c.published_reference.key if c.published_reference
         end
       end
       
@@ -285,7 +287,7 @@ module Elastic
         for n in nodes
           # resync section_key -> section_id
           sec = sections.where(:key=>n.section_key).first
-          raise "section '#{n.section_key}' not found" if not sec
+          raise RuntimeError, "section '#{n.section_key}' not found" if not sec
           n.update_attribute :section_id, sec.id 
           # resync contents
           for c in n.contents
@@ -303,6 +305,38 @@ module Elastic
       # resync galleries
       for g in galleries
         g.sync!
+      end
+      
+      # resync content references
+      for n in nodes
+        for c in n.contents
+          # reference
+          if c.reference_type == 'Elastic::FileRecord'
+            gallery_key = (c.content_config.meta||{})['gallery_key']
+            gallery = galleries.where(:key=>gallery_key).first
+            c.reference = gallery.file_records.where(:filename=>c.reference_key).first if gallery
+          elsif c.reference_type == 'Elastic::Node'
+            c.reference = nodes.where(:key=>c.reference_key).first
+          elsif c.reference_type == 'Elastic::Gallery'
+            c.reference = galleries.where(:key=>c.reference_key).first
+          else
+            raise RuntimeError, "Cannot IMPORT reference_type = #{c.reference_type}"
+          end unless (c.reference_type.blank? or c.reference_key.blank?)
+          # published reference
+          if c.published_reference_type == 'Elastic::FileRecord'
+            gallery_key = (c.content_config.meta||{})['gallery_key']
+            gallery = galleries.where(:key=>gallery_key).first
+            c.published_reference = gallery.file_records.where(:filename=>c.published_reference_key).first if gallery
+          elsif c.published_reference_type == 'Elastic::Node'
+            c.published_reference = nodes.where(:key=>c.published_reference_key).first
+          elsif c.published_reference_type == 'Elastic::Gallery'
+            c.published_reference = galleries.where(:key=>c.published_reference_key).first
+          else
+            raise RuntimeError, "Cannot IMPORT published_reference_type = #{c.published_reference_type}"
+          end unless (c.published_reference_type.blank? or c.published_reference_key.blank?)
+          
+          c.save!
+        end
       end
       
       integrity!

@@ -3,9 +3,9 @@ module Elastic
     include Tincan
     
     def tincan_map      
-      { 'structure_attrs' => %w{ text locale content_config_key },
+      { 'structure_attrs' => %w{ text locale reference_key reference_type published_reference_key published_reference_type content_config_key },
         'structure_assoc' => %w{ },
-        'content_attrs' => %w{ text locale content_config_key },
+        'content_attrs' => %w{ text locale reference_key reference_type published_reference_key published_reference_type content_config_key },
         'content_assoc' => %w{ } }
     end
 

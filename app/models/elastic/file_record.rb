@@ -76,6 +76,10 @@ module Elastic
       gallery.update_attribute :title_file_record_id, (is_title? ? nil : self.id)
     end
     
+    def key
+      filename
+    end
+    
     # def images_ok?(which)
     # end
     # 

@@ -40,7 +40,7 @@
 			<td <%=wo item %> class="lo-visible"> <%=whl item.theme_layout %> </td>				
 			<td <%=wo item %> class="lo-visible"> <%=whl item.master ? item.master.name : 'N/A' %> </td>				
 			<td <%=wo item %> class=""> <%=whl item.locales.join(' ') %> </td>				
-			<td <%=wo item %> class="right"> <%= item.du %> </td>				
+			<td <%=wo item %> class="right"> <%= item.du.to_i %> </td>				
 			
 			<td class="hover-child right"> 			
 			    <%= wake_button_destroy item %>
