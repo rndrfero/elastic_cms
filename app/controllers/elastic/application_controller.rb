@@ -28,7 +28,7 @@ module Elastic
     end
 
     def prepare_context_locale
-      Context.locale = params[:locale] || Context.site.index_locale
+      Context.locale = params[:locale] || Context.site.index_locale || Context.site.locales.first
       if not Context.site.locales
         render :inline=>"Elastic CMS: no locales defined yet?"
         return false

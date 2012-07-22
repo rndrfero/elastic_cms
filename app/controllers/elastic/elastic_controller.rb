@@ -14,7 +14,7 @@ module Elastic
       if @node
         redirect_or_render_node
       else
-        x = @site.locale_to_index_hash[Context.locale]
+        x = (@site.locale_to_index_hash||{})[Context.locale]
         if x =~ /^(\/|http:\/\/|https:\/\/)/
           redirect_to x
         else

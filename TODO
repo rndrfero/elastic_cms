@@ -1,3 +1,7 @@
+FEATURE: dashboard: abecedne zoradene posledne navstivene stranky na frontende aj na backende 
+  - turbo rychly rozcestnik
+
+
 BUG: renaming siteov !!!
 
 
@@ -19,14 +23,6 @@ VARGA: pristupy pre suka na FTP
 VARGA: pseudo section.
 
 - aby som mohol davat nodom farbu podobne ako na macovi
-
-
-- pri hlaske o tom, ze mam prazdne locale, nevidim ze uz som zalogovany !!!
-- ked vytvaram novu stranku, a nemam nastavene index locale, ta system je v pici z toho
-
-- ked som dal export content tak mi neulozilo obrazky, ktore su nemali ani dazdnik ani pin ani lock
-
-
 
 
 wake.ico.x
