@@ -15,6 +15,7 @@
 		<% end %>
 		
 		<%= f.text_field 'title', :class=>'title' %> 
+		<%= f.text_field 'section_id', :class=>'b', :size=>3 %> 
 		
 		<%= f.submit 'SAVE', :class=>'button' %>
 
@@ -52,6 +53,15 @@
 	<br/>
 	
 	<% if @item.new_record? %>
+	
+	<% elsif @item.section %>
+	
+		<br/>
+		<h3 class="red">WARNING: This section is a reference !</h3>
+		
+	  This site references <b><%= @item.section.title %></b> 
+	  from <b><%= @item.section.site.title %></b> @ 
+	  <b><%= @item.section.site.host %></b>
 	
 	<% else %>
 

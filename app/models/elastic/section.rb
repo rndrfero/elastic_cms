@@ -11,7 +11,7 @@ module Elastic
          'content_assoc' => %w{ nodes content_configs } }
     end
     
-    attr_accessible :title, :key, :localization, :content_configs_attributes, :form, :position, :site_id
+    attr_accessible :title, :key, :localization, :content_configs_attributes, :form, :position, :site_id, :section_id
     
     LOCALIZATIONS = %w{ free mirrored none }
     FORMS = %w{ blog tree }
@@ -40,6 +40,8 @@ module Elastic
     with_toggles :star, :hidden, :locked, :pin
     
     scope :ordered, order(:position)
+  
+    # --
         
     def structural_nodes
       is_pin? ? nodes : nodes.with_pin

@@ -20,9 +20,9 @@
 	<div id="ElasticControls" style="">
 		
 		<% if @node %>
-			<%= link_to 'Elastic CMS', editor_section_node_path(@section, @node) %>
+			<%= link_to 'EDIT', editor_section_node_path(@section, @node) %>
 		<% elsif @section %>
-			<%= link_to 'Elastic CMS', editor_section_nodes_path(@section) %>
+			<%= link_to @section.title, editor_section_nodes_path(@section) %>
 		<% else %>
 			<%= link_to 'Elastic CMS', master_site_path(@site) %>
 		<% end %>
