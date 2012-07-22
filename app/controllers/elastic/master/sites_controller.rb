@@ -3,6 +3,11 @@ module Elastic
     
     wake :within_module=>'Elastic'
     
+    def index
+      @wake_params[:order] ||= 'elastic_sites.is_reload_theme DESC, elastic_sites.host ASC'
+      super
+    end
+    
     # def uniq_star
     #   @item.uniq_star!
     #   flash[:hilite] = 'cms_backend.simply_yes'
