@@ -125,7 +125,7 @@
 		<% else %>
 			<% for cc in @section.content_configs.published.all %>
 			  <% c = @item.content_getter cc %>
-				<%= "cc.id: #{cc ? cc.id : 'N/A'} c.id: #{c ? c.id : 'N/A'}" %> 
+				<span class="none"><%= "cc.id: #{cc ? cc.id : 'N/A'} c.id: #{c ? c.id : 'N/A'}" %></span>
 				<% if not cc %>
 			  	<%=werror "Content config is not present."%>
 				<%# elsif not c %>
