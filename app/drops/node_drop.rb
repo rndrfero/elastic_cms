@@ -4,7 +4,7 @@ class NodeDrop < Liquid::Drop
     @node = x
   end
   
-  for x in %w{ id key redirect }
+  for x in %w{ id key redirect is_star? }
     module_eval "def #{x}; @node.#{x}; end"    
   end  
   
@@ -99,9 +99,8 @@ class NodeDrop < Liquid::Drop
     module_eval "def #{x}; @node.#{x}.published.map{ |x| NodeDrop.new x }; end"    
   end  
   
-  def starry
-    is_star?
-  end
+  # def is_star?
+  # end
     
   def to_s
     @node ? @node.title_dynamic : nil

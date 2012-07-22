@@ -4,16 +4,18 @@ class SiteDrop < Liquid::Drop
     @site = x
   end
 
-  for x in %w{ title }    
+  for x in %w{ title index_locale meta_keywords meta_description }
     module_eval "def #{x}; @site.#{x}; end"    
   end
   
   def locales
     @site.locales.map{ |x| x.to_s }
   end
+  
+  def index_locale
+  end
 
   def sections
-#    return @site.sections.size.to_s
     @site.sections.map{ |x| SectionDrop.new(x) }
   end
   
