@@ -38,9 +38,9 @@ module Elastic
 #    before_validation :keep_context
     before_validation :saturate
     before_validation :generate_key, :if=>lambda { |x| x.key.blank? }
-#    after_save :integrity!
+    after_save :integrity!
     
-    after_save(:if=>lambda{ |x| x.meta_changed? }) { process! :force=>true}
+    after_save :if=>lambda{ |x| x.meta_changed? } { process! :force=>true}
     after_destroy :remove_dir!
     
     with_toggles :star, :locked, :hidden, :pin, :watermarked    
@@ -68,10 +68,11 @@ module Elastic
         
     def integrity!
       Elastic.logger_info "@gallery.integrity! for #{dir}"
-      if dir != dir(key_was) and File.exists? filepath(key_was)
-        FileUtils.mv filepath(key_was), filepath
-      end      
-      create_or_rename_dir! filepath            
+      # if dir != dir(key_was) and File.exists? filepath(key_was)
+      #   FileUtils.mv filepath(key_was), filepath
+      # end      
+#      raise "#{filepath} - - -  #{filepath(key_was)}"
+      create_or_rename_dir! filepath, filepath(key_was)            
       for x in %w{ orig img tna tnb }
         FileUtils.mkdir_p File.join(filepath,x)
       end

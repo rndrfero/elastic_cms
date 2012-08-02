@@ -1,4 +1,5 @@
 require_dependency 'elastic/tincan'
+require_dependency 'elastic/with_directory'
 
 module Elastic  
   class Site < ActiveRecord::Base
@@ -13,8 +14,11 @@ module Elastic
          'content_assoc' => %w{ galleries master_gallery sections } } # 
     end
     
+    attr :force_change_host, true
+    attr :_host_was, true
+    
     attr_accessible :host, :title, :locales_str, :theme, :is_reload_theme, :index_locale, :locale_to_index_hash, :gallery_meta, 
-      :theme_index, :theme_template, :theme_layout, :master_id, :master_gallery_id, :bg_gallery_id, :bg_color, :structure_import, :content_import
+      :theme_index, :theme_template, :theme_layout, :master_id, :master_gallery_id, :bg_gallery_id, :bg_color, :structure_import, :content_import, :force_change_host
  
     include Elastic::WithDirectory
       
@@ -42,7 +46,14 @@ module Elastic
     serialize :locale_to_index_hash
 
     before_validation :saturate
+    before_validation :if=>lambda{ |x| x.host_changed? and x.force_change_host!='1' } do
+       errors.add :host, "home dir exists" if File.exists? home_dir
+    end
+    
+    # hack: AFTER SAVE SHOULD SEE DIRTY ATTRIBUTES
+    
 #    before_validation :generate_key, :if=>lambda{ |x| x.key.blank? }
+    after_save :resync_dirs!, :if=>lambda{ |x| x.host_changed? }
     before_destroy :wake_destroyable? 
 #    after_save :integrity!
 #    after_save_on_create :copy_themes!
@@ -119,6 +130,10 @@ module Elastic
       Dir.entries(theme_dir).reject!{ |x| not x.ends_with? '.liquid' } #.map!{ |x| x.gsub! /\.liquid$/, '' }
     end
     
+    def resync_dirs!
+      create_or_rename_dir! home_dir, home_dir(host_was)
+    end
+    
     def self.integrity!
       Elastic.logger_info "Site.integrity!"
       ContentConfig.all.select{ |x| not x.section }.each do |x| 
@@ -137,7 +152,7 @@ module Elastic
     end
   
     # ensure site integrity
-    def integrity!
+    def integrity!      
       return if new_record?
       Elastic.logger_info "@site.integrity! for #{host}"
       
@@ -157,21 +172,12 @@ module Elastic
       
       # recount positions according to structure
       sections.map{ |x| x.fix_positions! }      
-      
-      # resync dir - host.changed? 
-      if host_changed? and File.exists? home_dir(host_was)
-        x = home_dir(host_was)+'current_theme'
-        FileUtils.remove_entry_secure x if File.exists? x
-        File.rename home_dir(host_was), home_dir
-      end
-      
-#      copy_themes!
-      
-      create_or_rename_dir! home_dir
+
+      # create default directory/file structure
       for x in %w{ themes static galleries }
         FileUtils.mkdir_p File.join(home_dir,x)
       end
-         
+
       if not theme.blank?   
         # create symlink to current_theme
         x = home_dir+'current_theme'

@@ -57,7 +57,7 @@
 		</tr>
 		<tr>
 			<th> Host (address): </th>
-			<td> <%= f.text_field 'host', :class=>'' %> <%=wfe 'host' %> </td>
+			<td> <%= f.text_field 'host', :class=>'' %> <%= f.check_box 'force_change_host' %> Force? <%=wfe 'host' %> </td>
 		</tr>
 		<tr>
 			<th> Title: </th>
