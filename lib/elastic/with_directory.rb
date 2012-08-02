@@ -9,7 +9,7 @@ module Elastic
       
       raise RuntimeError if the_dir.blank?
       exists = Dir.exists? the_dir
-      chg = !old_dir.blank? && the_dir!=old_dir
+      chg = !old_dir.blank? && the_dir!=old_dir && Dir.exists?(old_dir)
 
 #      raise "'#{the_dir}' / '#{old_dir}' |#{the_dir!=old_dir}| ex:#{exists} chg:#{chg}"
       
