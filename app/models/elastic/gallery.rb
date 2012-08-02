@@ -40,7 +40,7 @@ module Elastic
     before_validation :generate_key, :if=>lambda { |x| x.key.blank? }
 #    after_save :integrity!
     
-    after_save :resync_dirs!, :if=>lambda{ |x| x.host_changed? }
+    after_save :resync_dirs!, :if=>lambda{ |x| x.key_changed? }
     after_save :if=>lambda{ |x| x.meta_changed? } { process! :force=>true }
     after_destroy :remove_dir!
     
