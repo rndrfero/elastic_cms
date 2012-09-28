@@ -22,8 +22,10 @@ gem 'rmagick', '2.12.1'
 gem 'liquid'
 gem 'nokogiri'
 
-gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
- #gem 'wake', :path => '~/rails_gems/wake'
+gem 'kaminari'
+
+#gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
+gem 'wake', :path => '~/rails_gems/wake'
 
 gem 'bcrypt-ruby'
 gem 'devise'
@@ -32,6 +34,8 @@ gem 'bluecloth'
 
 gem 'thinking-sphinx', '2.0.10'
 gem 'paper_trail', '~> 2'
+
+gem 'exception_notification'
 
 
 # Declare any dependencies that are still in development here instead of in

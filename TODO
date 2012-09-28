@@ -1,3 +1,54 @@
+PEKNY TOOLTIPOVY HELP ...
+
+--------------------
+
+dynamicky liquid
+
+od sekcie k suborom a naopak - viz. "default" thema
+
+
+
+galerky - zlte
+nody - zelene
+sekcie - modre
+contenty - cervene
+
+
+CASE: vela sekcii. chcem mat tolko vela sekcii, ze by sa mi hodila sekcia sekcii :)
+
+
+zvyraznit recent edit!
+colorize urcite!
+
+
+
+:locked je kokotska skoupa, vobec is_locked je konfliktne meno
+
+
+
+keby boli galerky top level menu, co by bol spodok?
+  - listing gallerii
+  - effect editor
+  - experimental area
+
+
+FEATURE - external storage for galleries
+
+FEATURE - resync domen cez ftp renaming
+
+FEATURE - duplicate site
+
+FEATURE: doplnit logout link do _controls na frontende
+
+IMPORTANT FEATURE -> nejaky lahko zadatelny link napr /admin, ktory by ta hodil do adminu
+
+zasielaci formular ... varga legal
+
+
+premenujem na varga-legal.com -> redirect na stranku.
+404: No site for host 'varga-legal.com.zincica.net' found.
+
+
 BUG: import do sajty, ak si v druhej sajte
 
 BUG: pri importe prazdny content / nereaguje na blank

@@ -27,7 +27,13 @@ img { box-shadow: 3px 3px 7px #AAA; -moz-box-shadow: 3px 3px 7px #AAA; -webkit-b
 			<h3><%= flash[:alert] %></h3>
 			
 			<%= yield %>		
+
+			<br/><br/>
+			<div style="color: lightgrey; font-size: 10px;">
+				<%= Elastic::Context.site.host %>
+			</div>
 		</div>
+		
 		
 	</body>
 	

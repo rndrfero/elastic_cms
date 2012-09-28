@@ -353,7 +353,7 @@ module Elastic
     
     def saturate
       # default values
-      self.theme = 'hello_world' if theme.blank?
+#      self.theme = 'hello_world' if theme.blank?
       self.locales_str = 'en' if locales_str.blank?
       self.title = host if title.blank?
       self.is_reload_theme = true if new_record?

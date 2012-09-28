@@ -49,7 +49,7 @@ module Elastic
     scope :starry, where(:is_star=>true)
     scope :with_pin, where(:is_pin=>true)
     scope :hidden, where(:is_hidden=>true)
-    scope :locked, where(:is_locked=>true)
+    scope :llocked, where(:is_locked=>true)
         
     def dir(the_key=key)
       "#{the_key.blank? ? "#{id}-untitled" : the_key}"

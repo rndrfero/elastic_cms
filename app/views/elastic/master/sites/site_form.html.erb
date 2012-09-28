@@ -29,7 +29,7 @@
 					<b><%= @item.galleries.count %></b> &nbsp;
 					<small><%= ico(:pin) %> <%= @item.galleries.with_pin.count %> </small>
 					<small><%= ico(:umbrella) %> <%= @item.galleries.hidden.count %> </small>
-					<small><%= ico(:lock_fill) %> <%= @item.galleries.locked.count %> </small>
+					<small><%= ico(:lock_fill) %> <%= @item.galleries.llocked.count %> </small>
 				</td>
 			</tr>
 			<tr>
@@ -52,15 +52,18 @@
 
 	<table class="wakeThemeForm" class="">
 		<tr>
-			<th> Master: </th>
+			<th> Chief person: </th>
 			<td> <%= @item.master.name %>  </td>
 		</tr>
 		<tr>
-			<th> Host (address): </th>
-			<td> <%= f.text_field 'host', :class=>'' %> <%= f.check_box 'force_change_host' %> Force? <%=wfe 'host' %> </td>
+			<th> URL Host: </th>
+			<td> 
+			  <%= f.text_field 'host', :class=>'' %> <%= f.check_box 'force_change_host' %> 
+				Force overwrite dir? <%=wfe 'host' %> 
+			</td>
 		</tr>
 		<tr>
-			<th> Title: </th>
+			<th> Admin Header: </th>
 			<td> <%= f.text_field 'title', :class=>'' %> <%=wfe 'title' %>  </td>
 		</tr>
 		<tr>
@@ -74,7 +77,7 @@
 				<% if not @item.valid? %>
 				  Record is not valid.
 			  <% else %>
-				  <%= f.select 'theme', @item.theme_list %> 
+				  <%= f.select 'theme', [[nil]]+@item.theme_list %> 
 				<% end %>
 			</td>
 		</tr>
@@ -96,10 +99,12 @@
 	<br />
 
 	<% if not @item.new_record? %>
-		<h3>Theme <i><%= @item.theme%></i> configuration</h3>
+		<h3>Theme <i>'<%= @item.theme%>'</i> configuration</h3>
 
-		<% if not @item.theme_valid? %>
-		  Theme '<%= @item.theme %>' is not selected nor valid.
+		<% if @item.theme.blank? %>		
+	  	<span class="wakeError">There is no theme selected yet.</span><br/><br/>			
+		<% elsif not @item.theme_valid? %>		
+		  <span class="wakeError">Theme '<%= @item.theme %>' is not valid.</span><br/><br/>				
 		<% else %>
 			<table class="wakeThemeForm" class="">
 				<% ch = ([nil]+@item.theme_liquids.reject{ |x| x=~/layout/ or x=='head' }) %>
@@ -153,19 +158,21 @@
 	
 	<br />
 	
-	<h3>Inteface</h3>
+	<h3>Admin Inteface</h3>
 	<table class="wakeThemeForm" class="">
 		<tr>
-			<th> Background gallery: </th>
+			<th> Background image: </th>
 			<td> 
 				<%= f.select :bg_gallery_id, [[nil,nil]]+@item.galleries.map{ |x| [x.title, x.id] }%>
 			  &nbsp;&nbsp;<small><%= link_to ico(:link)+' '+@item.bg_gallery.title, 
 			      	editor_gallery_path(@item.bg_gallery_id) if @item.bg_gallery %></small>
+			
+				<%=wnote 'Star it in the gallery.' %>
 			</td>
 		</tr>
 		<tr>
 			<th> Inner wrapper color: </th>
-			<td> <%= f.text_field :bg_color %> <%=wnote 'Appliable if backgorund image.' %></td>
+			<td> <%= f.text_field :bg_color %> <%=wnote 'Appliable if backgorund image only.' %></td>
 		</tr>
 	</table>
 	

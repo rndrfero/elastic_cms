@@ -41,6 +41,7 @@ module Elastic
     
     def edit
       @edit = true
+      @content = Content.find_by_id(params[:content_id])
       send @action
     end
     
@@ -199,17 +200,18 @@ module Elastic
           out = TemplateCache.render @site.theme_layout, { 'head'=>@head, 'body'=>out, 'controls'=>controls }
           render :text=>out, :layout=>false        
         end
+        
       rescue Errno::ENOENT=>x
          render_error x.message.gsub @site.home_dir, '/'
       rescue Liquid::SyntaxError=>x
-         render_error "Elastic CMS: Liquid syntax error: #{x}"
+         render_error "Liquid syntax error: #{x}"
       end
     end
     
     
     
     def render_error(error)
-      render :inline=>"Elastic CMS: #{error}", :layout=>'elastic/error'
+      render :inline=>"#{error}", :layout=>'elastic/error'
     end
 
     def render_404(error=nil)

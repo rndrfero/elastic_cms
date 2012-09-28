@@ -69,6 +69,10 @@ a:hover { text-decoration: underline; }
 .usual ul a.special { color: #90EC34; font-weight: bold; }
 .usual ul a.special.selected { color: #5FAA13; }
 
+.usual ul a.colorSection { color: cyan; }
+.usual ul a.colorSection.selected { color: #009B9B; }
+
+
 @-moz-document url-prefix() {
     .usual div { height: 27px; }
 }

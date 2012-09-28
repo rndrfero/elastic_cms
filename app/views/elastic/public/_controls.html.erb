@@ -15,20 +15,29 @@
 		#ElasticControls a.active { background: white; color: #A00; }
 		body { position: relative; top: 25px; left: 0px; }
 		#ElasticControls  form.button_to, #ElasticControls form.button_to div { display: inline; }
+		
+		#ElasticControls a.colorSection { color: cyan; }
+		#ElasticControls a.colorNode { color: #CCC; }
+		#ElasticControls a.colorGallery { color: #F0FF4E; }
 	</style>
 	
 	<div id="ElasticControls" style="">
 		
 		<% if @node %>
-			<%= link_to 'EDIT', editor_section_node_path(@section, @node) %>
+		   <%#= raise @node.title %>
+	    <% if @edit %>
+		  	<%= link_to raw("E #{@node.title} <span style='color: red'>#{@content.content_config.title} <b>#{@content.content_config.position-1}</b></span>"), editor_section_node_path(@section, @node), :class=>'colorNode' %>
+	    <% else %>
+			  <%= link_to "#{@node.title}", editor_section_node_path(@section, @node), :class=>'colorNode' %>
+		  <% end %>
 		<% elsif @section %>
-			<%= link_to @section.title, editor_section_nodes_path(@section) %>
+			<%= link_to "#{@section.title}", editor_section_nodes_path(@section), :class=>"colorSection" %>
 		<% else %>
-			<%= link_to 'Elastic CMS', master_site_path(@site) %>
+			<%= link_to 'Config', master_site_path(@site) %>
 		<% end %>
 		
 		<% if @action == 'show' %>
-		  <%= link_to 'LIST', editor_section_nodes_path(@section) %>
+		  <%= link_to "#{@section.title}", editor_section_nodes_path(@section), :class=>"colorSection" %>
 		<% end %>
 		
 		<% if @edit %>
@@ -38,7 +47,7 @@
 	  <% end %>			
 		
 
-		<% if @action != 'edit' %>
+		<% if not @edit %>
 			<%= link_to 'RE', toggle_reload_path, :class=>"#{'active' if @site.is_reload? }" %>
 		<% end %>
 
@@ -46,10 +55,10 @@
 		  <small>Links:</small>
 			<% for x in @references %>
 				<% if x.is_a? Elastic::Gallery %>
-					<%= link_to x.title, editor_gallery_path(x) %>
+					<%= link_to x.title, editor_gallery_path(x), :class=>"colorGallery" %>
 				<% elsif x.is_a? Elastic::Node %>
 				  <% next if @node and @node.id == x.id %>
-					<%= link_to raw(x.title_dynamic.blank? ? "<small>key:</small> #{x.key}" : x.title_dynamic), editor_section_node_path(x.section,x) if x.section %>
+					<%= link_to raw(x.title_dynamic.blank? ? "<small>key:</small> #{x.key}" : x.title_dynamic), editor_section_node_path(x.section,x), :class=>'colorNode' if x.section %>
 				<% else %>
 				<% end  %>
 			<% end %>

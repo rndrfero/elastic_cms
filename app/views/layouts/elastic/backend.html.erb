@@ -70,7 +70,7 @@
 						  <%= link_to 'The Site', address %> 
 						</li>
 					
-						<li><a class="<%= 'selected' if menu_match Elastic::Context.site.sections.all.map{ |x| editor_section_nodes_path(x) } %>" href="#tabs1">Sections</a></li>					
+						<li><a class="colorSection <%= 'selected' if menu_match Elastic::Context.site.sections.all.map{ |x| editor_section_nodes_path(x) } %>" href="#tabs1">Sections</a></li>					
 						
 						<li><a class="<%= 'selected' if menu_match editor_galleries_path, editor_users_path, editor_site_path %>" href="#tabs2">Editor</a></li>
 					
