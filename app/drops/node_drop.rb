@@ -31,7 +31,7 @@ class NodeDrop < Liquid::Drop
       c = @node.content_getter x
       if not c
         nil
-      elsif %w{ image node gallery }.include? x.form # we are referencing something
+      elsif Elastic::ContentConfig::REFERENCING_FORMS.include? x.form # we are referencing something
         ref = Elastic::Context.user ? c.reference : (c.published_reference||c.reference)
         if ref.nil?
           nil
@@ -55,7 +55,7 @@ class NodeDrop < Liquid::Drop
     c = @node.content_getter x #_position position
     if not c
       nil
-    elsif %w{ image node gallery }.include? x.form # we are referencing something
+    elsif Elastic::ContentConfig::REFERENCING_FORMS.include? x.form # we are referencing something
       ref = Elastic::Context.user ? c.reference : (c.published_reference||c.reference)
       if ref.nil?
         nil

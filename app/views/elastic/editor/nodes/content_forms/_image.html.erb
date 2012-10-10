@@ -2,10 +2,10 @@
 	
 	<% if not content_config.gallery %>
   	<%=werror 'Linked gallery not present.' %>
-    <%= link_to 'Check content config.', master_section_path(content_config.section) if Elastic::Context.user.master? %>
+    <%= link_to 'Check config.', master_section_path(content_config.section) if Elastic::Context.user.master? %>
 	<% elsif content_config.meta['variant'].blank? %>
 		<%=werror 'Which variant to use?.' %>
-    <%= link_to 'Check content config.', master_section_path(content_config.section) if Elastic::Context.user.master? %>
+    <%= link_to 'Check config.', master_section_path(content_config.section) if Elastic::Context.user.master? %>
 	<% else %> 
 	  <% if content and content.reference %>
 			<% src = content.reference.path content_config.meta['variant'] %>

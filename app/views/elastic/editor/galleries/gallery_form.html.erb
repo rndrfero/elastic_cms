@@ -111,8 +111,6 @@ function get_the_indexes(){
 </div>
 
 
-
-
 <div id="TheGallery" class="wakeThemeGallery">
 	
 	<%= render :partial=>'/elastic/editor/file_records/file_record_list_item', :collection=>@item.file_records.non_images %>
@@ -124,3 +122,15 @@ function get_the_indexes(){
 <br/>
 
 
+<% rel = @item.site.contents.where(:reference_id=>@item.id, :reference_type=>'Elastic::Gallery') %>
+<% if rel.exists? %>
+	<div id="TheReferences">
+		<br/>
+		<!-- <h4>This gallery is referenced by:</h4> -->
+		<% for c in rel.all %>
+		  <%= link_to ico(:link)+' '+c.node.title_dynamic, editor_section_node_path(c.node.section, c.node) %> 
+		  <% if c.content_config.form == 'autogallery'%>(auto)<% end %>
+		  &nbsp;
+		<% end %>
+	</div>
+<% end %>

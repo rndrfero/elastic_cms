@@ -9,7 +9,7 @@ module Elastic
     extend WithToggles
     include Tincan
     
-#    VARIANTS = %w{ img tna tnb }
+    VARIANTS = %w{ img tna tnb }
     META = %w{ w h efx params }
 
     def tincan_map
@@ -25,7 +25,7 @@ module Elastic
     serialize :meta
     
     belongs_to :site
-    has_many :file_records, :dependent=>:destroy
+    has_many :file_records, :order=>:filename, :dependent=>:destroy
     belongs_to :title_file_record, :class_name=>'FileRecord'
     
     alias :frs :file_records
@@ -50,6 +50,14 @@ module Elastic
     scope :with_pin, where(:is_pin=>true)
     scope :hidden, where(:is_hidden=>true)
     scope :llocked, where(:is_locked=>true)
+
+    def to_s
+      "[G] #{title}"
+    end
+
+    def to_nice
+      "<span style='color: #B1B100'>#{title}</span>"
+    end
         
     def dir(the_key=key)
       "#{the_key.blank? ? "#{id}-untitled" : the_key}"

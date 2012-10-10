@@ -27,6 +27,7 @@ module Elastic
     has_many :template_caches #, :dependent=>:destroy
     has_many :galleries, :dependent=>:destroy
     has_many :nodes #, :through=>:sections, :dependent=>:destroy
+    has_many :contents, :through => :nodes
     
     belongs_to :master, :class_name=>'User', :foreign_key=>'master_id'
     has_many :users
@@ -57,6 +58,16 @@ module Elastic
     before_destroy :wake_destroyable? 
 #    after_save :integrity!
 #    after_save_on_create :copy_themes!
+
+    def to_s
+      "The Site"
+    end
+    
+    def to_nice
+      "The Site"
+    end
+    
+    # --
   
     def locales_str
       (locales||[]).join(', ')

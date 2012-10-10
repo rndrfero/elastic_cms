@@ -15,7 +15,9 @@ module Elastic
 
     before_filter :prepare_context_site
     before_filter :prepare_context_locale, :except=>[:static, :data, :not_found]
-    after_filter :log_current_context   
+    after_filter :log_current_context
+    
+    after_filter :store_user_recent
     
     def prepare_context_site
       Context.site = Site.find_by_host request.host
@@ -42,6 +44,31 @@ module Elastic
       if Context.user
         I18n.locale = current_user.locale.blank? ? :en : current_user.locale
       end
+    end
+    
+    def store_user_recent
+      return if not current_user
+      current_user.meta ||= {}
+      x = current_user.meta[:recent] || []
+      
+      t = false
+      if @item and !@item.new_record?
+        the_link = editor_section_node_path(@item.section,@item) if @item.class == Node
+        the_link = editor_gallery_path(@item) if @item.class == Gallery
+        the_link = master_section_path(@item) if @item.class == Section
+        the_link = master_site_path(@item) if @item.class == Site
+      end
+      
+      if the_link
+        x << [@item.to_nice, the_link, @item.class.to_s] 
+        x = x.reverse.uniq.reverse
+      end
+      
+      while x.size > 5
+        x.shift
+      end
+      
+      current_user.update_attribute :meta, current_user.meta.merge(:recent=> x)
     end
     
     def ensure_ownership

@@ -29,8 +29,8 @@
 		
 		<% unless @item.new_record? %>
 		  <% 
-        new_url = url_for :action=>'new', :section_id=>@section.id, :node=>(@section.form == 'tree' ? {:parent_id=>@item.id} : nil)
-        clone_url = { :parent_id=>(@section.form == 'tree' ? @item.parent_id : nil), :published_at=>@item.published_at, :title_dynamic=>"#{@item.title_dynamic} (clone)" }
+        new_url = url_for :action=>'new', :section_id=>@section.id, :node=>(@section.form =~ /tree|files/ ? {:parent_id=>@item.id} : nil)
+        clone_url = { :parent_id=>(@section.form =~ /tree|files/ ? @item.parent_id : nil), :published_at=>@item.published_at, :title_dynamic=>"#{@item.title_dynamic} (clone)" }
  				clone_url = url_for :action=>'new', :section_id=>@section.id, :node=>clone_url
       %>
 		
@@ -62,7 +62,7 @@
 		
 		&nbsp;&nbsp;&nbsp;
 		
-		<% if @section.form == 'tree' %>
+		<% if @section.form =~ /tree|files/ %>
 			<small>Parent:</small> 
 		
 			<% if @section.localization == 'free' %>
@@ -75,12 +75,12 @@
 			<%= link_to ico(:link), editor_section_node_path(@item.parent.section,@item.parent) if @item.parent %>
 			
 			<%= render :partial=>'/elastic/shared/node_autocomplete', 
-			  :locals=>{:nodes=>@item.section.nodes.localized, :selector=>'#node_parent_key_human'} %>
+			  :locals=>{:nodes=>@item.section.nodes.where('id <> ?',@item.id).localized.all, :selector=>'#node_parent_key_human'} %>
 			
 			
 		<% elsif @section.form == 'blog' %>
 		  <small>Published at:</small>
-		  <%= f.text_field 'published_at', :value=>@item.published_at||Time.now, :size=>20 %>
+		  <%= f.text_field 'published_at', :value=>@item.published_at||Time.now, :size=>22 %>
 		<% end %>
 		
 

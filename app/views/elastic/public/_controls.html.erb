@@ -26,9 +26,10 @@
 		<% if @node %>
 		   <%#= raise @node.title %>
 	    <% if @edit %>
-		  	<%= link_to raw("E #{@node.title} <span style='color: red'>#{@content.content_config.title} <b>#{@content.content_config.position-1}</b></span>"), editor_section_node_path(@section, @node), :class=>'colorNode' %>
+		  	<%= link_to raw("E #{@node.title} <span style='color: red'>#{@content.content_config.title} <b>#{@content.content_config.position-1}</b></span>"), editor_section_node_path(@section, @node), :class=>'colorNode', :title=>"Section: #{@node.section.title}" %>
 	    <% else %>
-			  <%= link_to "#{@node.title}", editor_section_node_path(@section, @node), :class=>'colorNode' %>
+			  <%= link_to "#{@node.title}", editor_section_node_path(@section, @node), :class=>'colorNode',
+			     :title=>"Section: #{@node.section.title}" %>
 		  <% end %>
 		<% elsif @section %>
 			<%= link_to "#{@section.title}", editor_section_nodes_path(@section), :class=>"colorSection" %>
@@ -48,7 +49,7 @@
 		
 
 		<% if not @edit %>
-			<%= link_to 'RE', toggle_reload_path, :class=>"#{'active' if @site.is_reload? }" %>
+			<%= link_to raw('&reg;'), toggle_reload_path, :class=>"#{'active' if @site.is_reload? }", :title=>"Toggle automatic reloading." %>
 		<% end %>
 
     <% if @references %>
@@ -58,7 +59,7 @@
 					<%= link_to x.title, editor_gallery_path(x), :class=>"colorGallery" %>
 				<% elsif x.is_a? Elastic::Node %>
 				  <% next if @node and @node.id == x.id %>
-					<%= link_to raw(x.title_dynamic.blank? ? "<small>key:</small> #{x.key}" : x.title_dynamic), editor_section_node_path(x.section,x), :class=>'colorNode' if x.section %>
+					<%= link_to raw(x.title_dynamic.blank? ? "<small>key:</small> #{x.key}" : x.title_dynamic), editor_section_node_path(x.section,x), :class=>'colorNode', :title=>"Section: #{x.section.title}" if x.section %>
 				<% else %>
 				<% end  %>
 			<% end %>

@@ -79,6 +79,7 @@
 					    <li><a class="<%= 'selected' if menu_match admin_info_path %>" href="#tabs4">Runner</a></li>
 						<% end %>
 
+						<li><a href="#tabsRecent">Recent</a></li>
 			  </ul> 
 
 				<div style="float: right">
@@ -110,6 +111,11 @@
 					</div>
 				<% end %>
 				
+			  <div id="tabsRecent">
+				  <% for x in current_user.meta[:recent].reverse %>
+				    <%= menu_link_to raw(x[0]), x[1] %>
+				  <% end %>
+				</div> 
 			
 					
 		
@@ -125,6 +131,7 @@
 
 			<div class="clear"></div>
 			<br/><br/>
+			<%#= debug (current_user.meta||{})[:recent] %>
 		</div>
 
 	</div>

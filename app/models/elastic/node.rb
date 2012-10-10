@@ -46,6 +46,7 @@ module Elastic
     before_save :inc_version_cnt
     before_destroy :wake_destroyable?
 
+    after_save :mirror_to_disk!, :if=>lambda{ |x| x.section.form == 'files' }
   
     scope :published, where(:is_published=>true).order('ancestry_depth,position')
     scope :roots, where(:ancestry=>nil).order('ancestry_depth,position')
@@ -59,6 +60,14 @@ module Elastic
     with_toggles :star, :locked, :published, :pin
 
     #    .section.form=='blog' ? reorder("published_at") : reorder("ancestry_depth,position DESC"
+    
+    def to_s
+      "[N] #{title_loc}"
+    end
+    
+    def to_nice
+      "<span style=''>#{title_dynamic||key}</span>"
+    end
     
     # -- key --
     
@@ -77,7 +86,6 @@ module Elastic
       # means "home"
       the_key ||= x
       
-
       n = section.nodes.find_by_key the_key
       self.parent_key = n ? the_key : nil
       self.parent_id = n ? n.id : nil
@@ -176,6 +184,8 @@ module Elastic
       end
     end
     
+    # -- publishing --
+    
     def publish_version!(the_version)
       self.update_attribute :published_version_id, the_version.id
       timestamp = the_version.created_at
@@ -197,20 +207,25 @@ module Elastic
       self.save!
     end
     
-    # def published_at_str 
-    #   published_at.to_s
-    # end
-    # 
-    # def published_at_str=(x)
-    #   DateTime.parse x
-    # end
-  
+    # -- mirroring --
     
-    # def keep_context
-    #   self.site_id = Context.site.id
-    #   self.locale = Context.locale if section.localization == 'free' if locale.blank?
-    # end
-
+    def mirror_to_disk!
+      raise RuntimeError, "Key is blank. Can not mirror." if key.blank?
+      raise RuntimeError, "Section key is blank. Can not mirror." if section.key.blank?
+      
+      filepath = ancestors.map{|x| x.key }.join('/')      
+      filepath = File.join site.home_dir, 'themes', section.key, filepath #, key
+      
+      FileUtils.mkdir_p filepath # create directory from ancestrors
+            
+      if contents.first and !has_children? 
+        filepath = File.join filepath, key
+        text = contents.first.text
+        File.open(filepath, 'w') { |file| file.write text }
+      end
+    end
+    
+    
     # -- wake --
   
     def wake_includes
@@ -223,3 +238,25 @@ module Elastic
     
   end
 end
+
+
+
+
+
+
+
+
+
+# def published_at_str 
+#   published_at.to_s
+# end
+# 
+# def published_at_str=(x)
+#   DateTime.parse x
+# end
+
+
+# def keep_context
+#   self.site_id = Context.site.id
+#   self.locale = Context.locale if section.localization == 'free' if locale.blank?
+# end

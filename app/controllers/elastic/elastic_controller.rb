@@ -143,6 +143,8 @@ module Elastic
       Context.ctrl= self
       @site = Context.site
       
+      params[:key] = params[:key]+'.'+params[:format] if params[:format]
+      
       @site.copy_themes! if ELASTIC_CONFIG['copy_themes']
       
       if %w{ edit update }.include? params[:action]

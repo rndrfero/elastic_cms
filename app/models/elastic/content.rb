@@ -15,6 +15,27 @@ module Elastic
   
     belongs_to :content_config, :readonly=>true
     belongs_to :node
+    
+    after_save :create_autogallery!
+    after_destroy :destroy_autogallery!
+    
+    
+    def create_autogallery!
+      return if not content_config.form == 'autogallery'
+      return if reference.is_a? Gallery
+    
+      g = Gallery.create! :site_id=>node.site_id, :is_hidden=>true,
+        :title=>"A [#{node.key}][#{content_config.key}]"
+        
+      update_attributes :reference_id=>g.id, :reference_type=>"Elastic::Gallery"
+    end
+    
+    def destroy_autogallery!
+      return if not content_config.form == 'autogallery'
+      return if not reference.is_a? Gallery
+      reference.destroy
+    end
+    
       
     def file=(x)
       @file = x
@@ -38,7 +59,6 @@ module Elastic
       @published_reference = nil if reload
       @published_reference ||= published_reference_type.constantize.find_by_id published_reference_id
     end
-
     
     def reference=(x)
       if x == nil

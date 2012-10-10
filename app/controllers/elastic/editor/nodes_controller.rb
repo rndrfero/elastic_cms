@@ -141,10 +141,13 @@ module Elastic
       super
       if @section.form == 'tree'
         @items = @items.tree_ordered.where(:section_id=>@section.id)
+      elsif @section.form == 'files'
+        @items = @items.tree_ordered.where(:section_id=>@section.id)
       elsif @section.form == 'blog'
         @items = @items.date_ordered.where(:section_id=>@section.id)
       end
       @items = @items.localized if @section.localization == 'free'
+      current_user[:meta][:last_viewed_section_id] = @section.id
     end
 
 

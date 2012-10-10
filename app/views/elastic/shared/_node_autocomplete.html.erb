@@ -1,6 +1,6 @@
 <script>
 jQuery(document).ready( function(){
-	var data = <%=raw nodes.all.map{ |x| "#{x.title_dynamic} [#{x.key}]" }.to_json %>;
+	var data = <%=raw nodes.map{ |x| "#{x.title_dynamic} [#{x.key}]" }.to_json %>;
 	$("<%= selector %>").autocomplete({
 		source: data
 	});

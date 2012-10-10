@@ -26,7 +26,11 @@ module Elastic
     end
     
     def gsub(x,regexp_str,str='')
-      x.gsub Regexp.new(regexp_str), str
+      if x.is_a? Array
+        x.map { |xx| xx.gsub Regexp.new(regexp_str), str }
+      else
+        x.gsub Regexp.new(regexp_str), str
+      end
     end
     
     def md(x)

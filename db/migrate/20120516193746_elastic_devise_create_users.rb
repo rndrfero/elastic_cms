@@ -37,6 +37,8 @@ class ElasticDeviseCreateUsers < ActiveRecord::Migration
       t.string :name
       t.integer :site_id
       t.string :locale
+      t.text :meta
+      
 
       t.timestamps
     end

@@ -20,8 +20,10 @@ module Elastic
       :image => %w{ gallery_key variant },
       :node => %w{ section_key },
       :gallery => %w{ },
-      :tinymce => %w{ cols rows config_file }
+      :tinymce => %w{ cols rows config_file },
+      :autogallery => %w{ }
     }    
+    REFERENCING_FORMS = %w{ image node gallery autogallery } # forms that are referencing somewhere
   
     belongs_to :section  
     has_many :contents

@@ -14,7 +14,7 @@ module Elastic
     attr_accessible :title, :key, :localization, :content_configs_attributes, :form, :position, :site_id, :section_id
     
     LOCALIZATIONS = %w{ free mirrored none }
-    FORMS = %w{ blog tree }
+    FORMS = %w{ blog tree files }
 
     belongs_to :site
     belongs_to :section
@@ -41,6 +41,14 @@ module Elastic
     
     scope :ordered, order(:position)
   
+    def to_s
+      "[S] #{title}"
+    end
+
+    def to_nice
+      "<span style='color: #008996'>#{title}</span>"
+    end
+    
     # --
         
     def structural_nodes
@@ -77,7 +85,26 @@ module Elastic
       nodes
     end
     
-  
+    # -- file mirroring --
+
+    # # file mirroring
+    # def mirror_to_disk!
+      # raise RuntimeError, "Key is blank. Where to save?" if key.blank?
+      # raise RuntimeError, "Section key is blank. Where to save?" if section.key.blank?
+    # end
+    
+    # def mirror!
+    #   raise RuntimeError, "Section form 'files' expected. Can not mirror." unless form == 'files'
+    #   raise RuntimeError, "Blank section key. Can not mirror." if key.blank?
+    #   
+    #   for n in nodes
+    #     the_path = File.join site.home_dir, 'themes', key, "fakof.txt"
+    #     
+    #     Rails.logger.info "path #{the_path}"
+    #   end
+    #   
+    # end
+    #   
     # -- wake --
   
     def wake_destroyable?

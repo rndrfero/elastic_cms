@@ -3,3 +3,7 @@
 <%= form_helper.select 'reference_id', [['',nil]]+Elastic::Context.site.galleries.map{ |x| [x.title,x.id] }, :selected=>content.reference_id %>
 
 <%= form_helper.hidden_field 'reference_type', :value=>'Elastic::Gallery' %>
+
+<% if content.reference.is_a? Elastic::Gallery %>
+	<%= link_to ico(:link)+'GO TO GALLERY', editor_gallery_path(content.reference_id), :class=>'button' %>
+<% end %>
