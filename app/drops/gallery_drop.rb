@@ -2,6 +2,7 @@ class GalleryDrop < Liquid::Drop
 
   def initialize(x)
     @gallery = x
+#    Elastic::Context.ctrl.add_reference @gallery
   end
 
   for x in %w{ title path is_star? }

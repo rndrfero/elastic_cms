@@ -56,7 +56,7 @@ module Elastic
     end
 
     def to_nice
-      "<span style='color: #B1B100'>#{title}</span>"
+      "<span style='color: #B1B100'><span class='iconic apperture'></span> #{title}</span>"
     end
         
     def dir(the_key=key)

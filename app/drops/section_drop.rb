@@ -2,6 +2,7 @@ class SectionDrop < Liquid::Drop
 
   def initialize(x)
     @section = x
+#    Elastic::Context.ctrl.add_reference @section
   end
 
   for x in %w{ title key localization }

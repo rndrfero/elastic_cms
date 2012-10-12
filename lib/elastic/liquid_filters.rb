@@ -56,6 +56,10 @@ module Elastic
       # doc.xpath(css).first.content
     end
     
+    def strftime(x,format)
+      x.strftime(format)
+    end
+    
   end
 
   Liquid::Template.register_filter LiquidFilters

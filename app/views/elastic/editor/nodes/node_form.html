@@ -83,6 +83,12 @@
 		  <%= f.text_field 'published_at', :value=>@item.published_at||Time.now, :size=>22 %>
 		<% end %>
 		
+		<% if !@item.new_record? and @item.locale and @item.locale != Elastic::Context.locale %>
+		  <br/><br/>
+		  <%=werror "Locale of this node is not '#{Elastic::Context.locale}'."%>
+		  You can move nodes between locales by changing url above.
+		<% end %>
+		
 
 		<br/><br/><br/>
 

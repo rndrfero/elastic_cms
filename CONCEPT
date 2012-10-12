@@ -13,6 +13,7 @@ co sekcia?
 
 
 tzn kazdy nod ma
+
  - boolean ci sa v listingu zobrazuje do hlby alebo nie
  - kazda site = najvrchnejsi nod ??
  - subnody ... 
@@ -25,3 +26,14 @@ aj obrazky v galerii by mali byt poprehadzovatelne, takze poprehadzovatelnost, r
 
 
 nejaky logger, ktory by fungoval tak, ze ked dana akcia ma nieco prepocitat (napr synchro ked vchadzam do galerie), alebo ked sa proste len dlho caka, aby som tam videl nejaky progress co sa deje ...
+
+
+tie farby (tagy) oznacovanie by bolo super, napr. mohol by som si oznacit ktora stranka je home nejakou farbou abo tagom
+
+
+
+kazda entita, by mala mat svoju farbu a ikonku v systeme.
+
+
+ziadne drops by sa nemali inicializovat zbytocne, tzn. na zaciatku budem mat len drop 'site' a budem pristupovat k site.section_pages, nie rovno k section pages. tym padom budem moct kontrolovat linky na danej stranke.
+

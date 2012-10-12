@@ -30,7 +30,15 @@
 	    <% else %>
 			  <%= link_to "#{@node.title}", editor_section_node_path(@section, @node), :class=>'colorNode',
 			     :title=>"Section: #{@node.section.title}" %>
+			
+				<% node_refs = @node.contents.select{ |x| x.reference.is_a? Elastic::Gallery } %>
+				<small>&rarr;
+				  <% for x in node_refs %>
+						<%= link_to x.content_config.title, editor_gallery_path(x.reference_id), :class=>"colorGallery" %>
+				  <% end %>
+			  </small>
 		  <% end %>
+		
 		<% elsif @section %>
 			<%= link_to "#{@section.title}", editor_section_nodes_path(@section), :class=>"colorSection" %>
 		<% else %>
@@ -60,6 +68,8 @@
 				<% elsif x.is_a? Elastic::Node %>
 				  <% next if @node and @node.id == x.id %>
 					<%= link_to raw(x.title_dynamic.blank? ? "<small>key:</small> #{x.key}" : x.title_dynamic), editor_section_node_path(x.section,x), :class=>'colorNode', :title=>"Section: #{x.section.title}" if x.section %>
+				<% elsif x.is_a? Elastic::Section %>
+					<%= link_to "#{x.title}", editor_section_nodes_path(x.id), :class=>"colorSection" %>
 				<% else %>
 				<% end  %>
 			<% end %>

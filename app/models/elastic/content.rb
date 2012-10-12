@@ -25,7 +25,7 @@ module Elastic
       return if reference.is_a? Gallery
     
       g = Gallery.create! :site_id=>node.site_id, :is_hidden=>true,
-        :title=>"A [#{node.key}][#{content_config.key}]"
+        :title=>"A[#{node.key}][#{content_config.key}]"
         
       update_attributes :reference_id=>g.id, :reference_type=>"Elastic::Gallery"
     end

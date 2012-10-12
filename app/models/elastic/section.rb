@@ -46,7 +46,7 @@ module Elastic
     end
 
     def to_nice
-      "<span style='color: #008996'>#{title}</span>"
+      "<span style='color: #008996'><span class='iconic cog'></span> #{title}</span>"
     end
     
     # --

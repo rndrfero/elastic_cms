@@ -4,7 +4,7 @@ class NodeDrop < Liquid::Drop
     @node = x
   end
   
-  for x in %w{ id key redirect is_star? }
+  for x in %w{ id key redirect is_star? published_at }
     module_eval "def #{x}; @node.#{x}; end"    
   end  
   
@@ -95,7 +95,7 @@ class NodeDrop < Liquid::Drop
     module_eval "def #{x}; @node.#{x}; end"    
   end  
 
-  for x in %w{ ancestors children siblings descendants subtree }
+  for x in %w{ ancestors children siblings descendants subtree  }
     module_eval "def #{x}; @node.#{x}.published.map{ |x| NodeDrop.new x }; end"    
   end  
   
