@@ -1,3 +1,22 @@
+--------------=[ JHRADEC ]=-------------
+
+- uvodnu fotku fixed alebo kazdy den ina? 
+
+- google analytics
+
+- editor sync
+
+- adjust map
+
+title image, preloader off, instd ajax
+
+----------------------------------------
+
+
+
+
+dobre by bolo, aby sa zmena kluca distribuovala do automaticky vygenerovanych galerii napr., takze asi schopnost nodu, dedit kludc - pridal by sa len nejaky prefix. Alebo iny pripad: po zmene kluca sa uz nedostanem na home/redirect.
+
 datetimepicker do datumovnikov
 
 nejake fasa tlacitko back
@@ -21,9 +40,14 @@ aj content config by mal mat link na galleriu, nie len key
 
 --------------------
 
+potencionalny utok cez imagemagick filename bash injection
+
 dynamicky liquid
 
 od sekcie k suborom a naopak - viz. "default" thema
+
+
+ta nebolo by dobre prepinat medzi galerijnym a tabulkovym vypisom?
 
 
 

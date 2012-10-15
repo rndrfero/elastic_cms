@@ -37,3 +37,15 @@ kazda entita, by mala mat svoju farbu a ikonku v systeme.
 
 ziadne drops by sa nemali inicializovat zbytocne, tzn. na zaciatku budem mat len drop 'site' a budem pristupovat k site.section_pages, nie rovno k section pages. tym padom budem moct kontrolovat linky na danej stranke.
 
+
+
+NODE
+ - is online/offline
+ - is published
+ - is descended (vidim jeho synov)
+ - has color
+ - is star
+ - export: No, With content, Without content
+ - sortable/tree
+ - versioned
+

@@ -27,6 +27,11 @@ module Elastic
         :command => Proc.new{ |x| "-level #{x[:black_point]}%,#{x[:white_point]}%  +dither -colors #{x[:colors]} " }, 
         :parameters => { :black_point => :percentage, :white_point => :percentage, :colors => :number }
       },
+      :jpeg => {
+        :description => "Saves .jpeg quality control.",
+        :command => Proc.new{ |x| "-quality #{x[:quality]} " },
+        :parameters => { :quality =>:percentage }
+      }
             
     }    
 

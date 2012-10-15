@@ -34,7 +34,7 @@ module Elastic
     end
   
     def max_tn(src, dest, max_w, max_h)
-      Rails.logger.debug.info "max_tn: #{src.inspect}"
+      Rails.logger.debug "max_tn: #{src.inspect}"
     
       GC.start
       orig = Magick::ImageList.new( src)

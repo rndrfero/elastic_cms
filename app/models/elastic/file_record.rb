@@ -131,7 +131,11 @@ module Elastic
           # we have to generate thumbnails
           if w and h            
 #            raise "#{w} #{h}"
-            gallery_tn filepath(v), filepath(v), w, h 
+            if v == 'img'
+              max_tn filepath(v), filepath(v), w, h 
+            else
+              gallery_tn filepath(v), filepath(v), w, h 
+            end
           end
           # we have to process them
 #            Efx.process! filepath(v), filepath(v), 'sepia', :intensity=>2
