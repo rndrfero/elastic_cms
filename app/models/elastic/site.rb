@@ -1,6 +1,8 @@
 require_dependency 'elastic/tincan'
 require_dependency 'elastic/with_directory'
 
+require 'find'
+
 module Elastic  
   class Site < ActiveRecord::Base
     include Tincan
@@ -119,7 +121,17 @@ module Elastic
     end
     
     def du
-      `du -s #{home_dir}`.to_f / 1000.0
+      total_size = 0
+      Find.find(home_dir) do |path|
+        if FileTest.directory?(path)
+          File.basename(path)[0] == '..' ? Find.prune : next
+        else
+          total_size += FileTest.size(path)
+        end
+      end
+      total_size / (1024*1024)      
+#      File.size(home_dir)
+#      `du -s #{home_dir}`.to_f / 1000.0
     end
     
     # def du # disk usage
