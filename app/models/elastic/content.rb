@@ -21,6 +21,7 @@ module Elastic
     
     
     def create_autogallery!
+      return if not content_config
       return if not content_config.form == 'autogallery'
       return if reference.is_a? Gallery
     

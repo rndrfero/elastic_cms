@@ -46,7 +46,7 @@ module Elastic
     before_save :inc_version_cnt
     before_destroy :wake_destroyable?
 
-    after_save :mirror_to_disk!, :if=>lambda{ |x| x.section.form == 'files' }
+    after_save :mirror_to_disk!, :if=>lambda{ |x| x.section and x.section.form == 'files' }
   
     scope :published, where(:is_published=>true).order('ancestry_depth,position')
     scope :roots, where(:ancestry=>nil).order('ancestry_depth,position')
