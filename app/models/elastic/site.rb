@@ -126,7 +126,7 @@ module Elastic
         if FileTest.directory?(path)
           File.basename(path)[0] == '..' ? Find.prune : next
         else
-          total_size += FileTest.size(path)
+          total_size += FileTest.size(path) if not FileTest.symlink?(path) 
         end
       end
       total_size / (1024*1024)      
