@@ -1,3 +1,5 @@
+problem: co node.root vs. article.root ? 
+
 kazdy node aj kontent by mal mat nejake callbacky
   (pripad autogallery)
 
@@ -10,6 +12,8 @@ vlastne clanok ma contenty: texty a referencie na nody
 galeria ma contenty: subory a images (ktore ale maju varianty) 
 
 co sekcia? 
+
+co kopirovanie nodov vs. kopirovanie suborov v ramci galerii? 
 
 
 tzn kazdy nod ma
@@ -38,6 +42,8 @@ kazda entita, by mala mat svoju farbu a ikonku v systeme.
 ziadne drops by sa nemali inicializovat zbytocne, tzn. na zaciatku budem mat len drop 'site' a budem pristupovat k site.section_pages, nie rovno k section pages. tym padom budem moct kontrolovat linky na danej stranke.
 
 
+na dbs urovni zriesit import / export ?
+
 
 NODE
  - is online/offline
@@ -48,4 +54,10 @@ NODE
  - export: No, With content, Without content
  - sortable/tree
  - versioned
+ - exportable
+ - can be associated with n other nodes
+ - ma copy, delete, move, duplicate
+ - ma unikatny typ v ramci site id a svojho typu
+
+je to v podstate orientovany graf ... alebo nie? co ine okrem content<->contentconfig vazba?
 

@@ -30,6 +30,10 @@ class ContentDrop < Liquid::Drop
     @content.content_config.meta
   end
   
+  def blank?
+    text.blank?
+  end
+  
   def to_s
 #    false 
     text
