@@ -1,39 +1,32 @@
+vlastne meta tagy mozu byt tiez ako sekcia
+
+
+
+nazvy adresarov galerii su necitatelne bez medzier !!
+
+pri key generation ide diakritka zle dole
+
 --------------=[ JHRADEC ]=-------------
 
-- co domena? => v mejli
+LOGO ziskat vo vektoroch 
 
 opengraph
 
 klikanie na bkground 
 
-balanc kvality / rozlisenia => zatial nechame tak
-
 text selectovanie disablnut
 
-o zviratech -> vela fotiek, o produktech -> malo fotiek
-
-taze zvierata rozdelime do 3 podclankov
-
-BIO logo
-
-nahrat tam niekde certifikat ?
+render :file=>  je CACHED !!!
 
 ===== p o t o m ==============
 
 - uvodnu fotku fixed alebo kazdy den ina? => titulka cez hviezdicky
   => plugin to nepodporuje.
 
-- google analytics:
-  farmavelkyjindrichov@gmail.com
-  !carodej
-
-
 ----------------------------------------
 
 
 preco gem z gitu wake robi kokotiny?
-
-pri pridavani liniek do tinymce mi robi processing ../..
 
 
 

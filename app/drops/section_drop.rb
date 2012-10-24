@@ -14,11 +14,20 @@ class SectionDrop < Liquid::Drop
   end
 
   def nodes
-    @section.nodes.localized.published.map{ |x| NodeDrop.new(x) }
+#    @section.nodes.localized.published.map{ |x| NodeDrop.new(x) }
+    if @section.localization == 'mirrored'
+      @section.nodes.published.map{ |x| NodeDrop.new(x) }
+    else
+      @section.nodes.localized.published.map{ |x| NodeDrop.new(x) }
+    end
   end
 
   def roots
-    @section.nodes.roots.localized.published.map{ |x| NodeDrop.new(x) }
+    if @section.localization == 'mirrored'
+      @section.nodes.roots.localized.published.map{ |x| NodeDrop.new(x) }
+    else
+      @section.nodes.roots.published.map{ |x| NodeDrop.new(x) }
+    end
   end
   
   # def starry_nodes
