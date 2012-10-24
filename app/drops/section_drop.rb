@@ -24,9 +24,9 @@ class SectionDrop < Liquid::Drop
 
   def roots
     if @section.localization == 'mirrored'
-      @section.nodes.roots.localized.published.map{ |x| NodeDrop.new(x) }
-    else
       @section.nodes.roots.published.map{ |x| NodeDrop.new(x) }
+    else
+      @section.nodes.roots.localized.published.map{ |x| NodeDrop.new(x) }
     end
   end
   
