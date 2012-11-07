@@ -24,8 +24,7 @@ class GalleryDrop < Liquid::Drop
 
   def non_images
     @gallery.file_records.non_images.map{ |x| FileRecordDrop.new x }
-  end
-  
+  end  
 
   def images_paths_orig
     @gallery.file_records.images.map{ |x| x.path(:orig) }

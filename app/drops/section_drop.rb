@@ -12,6 +12,14 @@ class SectionDrop < Liquid::Drop
   def path
     "/#{Elastic::Context.locale}/section/#{@section.key}"
   end
+  
+  def size
+    if @section.localization == 'mirrored'
+      @section.nodes.published.count
+    else
+      @section.nodes.localized.published.count
+    end
+  end
 
   def nodes
 #    @section.nodes.localized.published.map{ |x| NodeDrop.new(x) }

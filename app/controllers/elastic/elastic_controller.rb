@@ -191,6 +191,12 @@ module Elastic
       begin # rendering block
         
         out = TemplateCache.render template_name, drops
+        
+        # ----- LEVEL 2 rendering -----
+        out = Liquid::Template.parse out
+        out = out.render drops
+        # ----- LEVEL 2 rendering -----
+        
         out = postprocess out, template_name
       
         @head = TemplateCache.render 'current_theme/head.liquid' , drops if File.exists?(@site.theme_dir+'head.liquid')

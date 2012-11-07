@@ -127,6 +127,10 @@ a:hover { text-decoration: underline; }
 .wakeThemeGallery .fileItem .ext { font-weight: bold; }
 .wakeThemeGallery .fileItem.active .ext { display: none; }
 
+.wakeThemeGallery .fileItem.title { padding: 6px; margin: 5px; border: 4px solid #00528D; }
+.wakeThemeGallery .fileItem.active.title { padding: 6px; margin: 5px; border: 4px solid #77C02E; }
+
+
 	
 .hidden { height: 0px; overflow: hidden; }
 

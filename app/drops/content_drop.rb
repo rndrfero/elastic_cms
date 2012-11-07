@@ -34,6 +34,10 @@ class ContentDrop < Liquid::Drop
     text.blank?
   end
   
+  # def liquid
+  #   Liquid::Template.parse text
+  # end
+  
   def to_s
 #    false 
     text

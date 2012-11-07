@@ -59,6 +59,8 @@
 			<%= link_to ico(:pen), edit_editor_gallery_file_record_path(gallery,item), :remote=>true %>
 			&nbsp;
 			<%= link_to ico(:download), item.path('orig') %>
+			&nbsp;
+			<%= link_to ico(:camera), toggle_title_editor_gallery_file_record_path(gallery,item), :method=>:post %>		
 		</div>
 
 		<div class="details" onclick="$('#<%=dom_id fr%>').toggleClass('active');">			

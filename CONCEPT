@@ -1,5 +1,28 @@
-linked gallery cez content je trochu picovina
+image.width
+image.height
 
+
+tzn kazdy nod (typ nodu) definuje:
+  - akych moze mat synov
+ANALOGIA PREPAJANIA S DATAFLOW, takym sposobom si vyrobim sajtu
+
+no nebolo by fasa, keby sa sipky dali zobrazovat rovno cez to, tzn prepajanie ala reason
+
+pri clanku zobrazovat vystrahu:
+  - vsetky kontenty su prazdne
+  - niektory s konktentou je prazdny
+  ALEBO LEN JEDNODUCHU BITMAPU, KTORA BY ZOBRAZOVALA PRITOMNOST/NEPRITOMNOST (TU JE NAPORUdzi keby mal kazdy s typov kontentov svoju farbu, ale to je asi zbytocne)
+
+lepsi jazyk nez liquid: ruty
+
+preskumat moznos multiple key reference.
+
+bola tu taka idea, na zrusenie dvojiteho referencovania content a content config, ze by boli len contenty, ktore by mali svoj vlastny config na kopirovacom principe. pritom zalozenie noveho clanku je vlastne duplikacia existujuceho. tym padom splynie nod a config daneho nodu.
+
+tym padom by boli urcite veci fixne (neodstranitelne), potom needitovatelne, dalej nevidetelne ...
+
+
+linked gallery cez content je trochu picovina
 
 problem: co node.root vs. article.root ? 
 
