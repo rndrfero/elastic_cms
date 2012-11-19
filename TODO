@@ -1,23 +1,25 @@
+---------------=[ VARGA ]=-------------
+
+FE: - nova grafika
+    - event. zmena formatu fotky / fotobanka
+    
+BE: - system vkladania tabuliek
+    - prerobit novinky do zrozumitelneho systemu
+    - vsade tinymce
+    - loginovacie logo poriadne
+    - over tooltipy nad ovladacimi prvkami (ikonkami)
+
+bude to editovat typek, takze slabo!
+
 --------------=[ PYECKA ]=-------------
 
-Q: blog ?
+- nejake miesto na footer - kde bude?
 
-Q: menu hover
+- na prvej stranke 8 noviniek
 
-Q: skontrolovat like buttony
-
-Q: je vazne az taky dobry napad davat na listing news like/tweet buttons? NENI!!!
-
-- dumy do titulky novinky
-
-- deployment
-
-- typografia / editovanie
-
-- custom colorbox controls
+- vsetky contenty aby boli dobre
 
 ---------------------------------------
-
 
 vlastne meta tagy mozu byt tiez ako sekcia
 

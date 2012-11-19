@@ -16,7 +16,8 @@ Elastic::Engine.routes.draw do
   match '/:locale/section/:key' => 'elastic#section', :as=>'section'  
 
   # filesystem construction style
-  match '/:locale/l/*filepath' => 'elastic#liquid', :as=>'liquid'
+  match '/:locale/ln/*filepath' => 'elastic#liquid_nolayout', :as=>'liquid_nolayout'
+  match '/:locale/ll/*filepath' => 'elastic#liquid_layout', :as=>'liquid_layout'
   
   # edit in show
   match '/:locale/edit/:content_id' => 'elastic#edit', :as=>'edit_index'

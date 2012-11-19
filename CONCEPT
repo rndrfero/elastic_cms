@@ -2,6 +2,10 @@ image.width
 image.height
 
 
+kontetny by mali byt dostupne aj podla kluca, tzn:
+node.content['list'], node.contents['image'], aj podla index node.contents[0], resp. node.content0
+
+
 tzn kazdy nod (typ nodu) definuje:
   - akych moze mat synov
 ANALOGIA PREPAJANIA S DATAFLOW, takym sposobom si vyrobim sajtu

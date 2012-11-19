@@ -24,8 +24,8 @@ gem 'nokogiri'
 
 gem 'kaminari'
 
-gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
-#gem 'wake', :path => '~/rails_gems/wake'
+#gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
+gem 'wake', :path => '~/rails_gems/wake'
 
 gem 'bcrypt-ruby'
 gem 'devise'

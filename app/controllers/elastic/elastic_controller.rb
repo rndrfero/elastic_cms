@@ -92,15 +92,23 @@ module Elastic
       end
     end
     
-    def liquid
-      filepath = "#{params[:filepath]}.liquid"
-      filepath.gsub!(RegexFilepath, '')
-      x = File.join @site.home_dir + filepath
+    def liquid_layout
+      filepath = "#{params[:filepath]}.liquid".gsub(RegexFilepath, '')
 
-      if File.exists? x
+      if File.exists? @site.home_dir + filepath
         render_liquid filepath
       else
         render_404 filepath
+      end
+    end
+    
+    def liquid_nolayout
+      filepath = "#{params[:filepath]}.liquid".gsub(RegexFilepath, '')
+
+      if File.exists? @site.home_dir + filepath
+        render_liquid filepath, {}, :layout=>false
+      else
+        render :status => 404
       end
     end
       
@@ -127,7 +135,7 @@ module Elastic
     # -- private ---
 
     private
-    
+        
     def redirect_or_render_node
       if @node and !@node.redirect.blank?
         redirect_to @node.redirect #if @node.redirect =~ /(http|https|ftp).*/
@@ -143,7 +151,7 @@ module Elastic
       Context.ctrl= self
       @site = Context.site
       
-      params[:key] = params[:key]+'.'+params[:format] if params[:format]
+#      params[:key] = params[:key]+'.'+params[:format] if params[:format]
       
       @site.copy_themes! if ELASTIC_CONFIG['copy_themes']
       
@@ -160,12 +168,11 @@ module Elastic
       end
     end
 
-    def render_liquid(template_name=nil, add_drops={})
+    def render_liquid(template_name=nil, add_drops={}, options={})
       # node_drop = NodeDrop.new @node
       # section_drop = SectionDrop.new @node.section
       x = @action=='index' ? @site.theme_index : @site.theme_template
       template_name ||=  x.blank? ? 'current_theme/'+@site.theme+'.liquid' : 'current_theme/'+x
-      
 
       drops = {
         'test' => "This is a test.",
@@ -180,7 +187,8 @@ module Elastic
         'locale' => Context.locale.to_s,
         'action' => @action,
         'key' => params[:key],
-        'user' => (Context.user ? Context.user.name : nil)
+        'user' => (Context.user ? Context.user.name : nil),
+        'localhost' => ''
       }
 
       for s in @site.sections
@@ -201,7 +209,9 @@ module Elastic
       
         @head = TemplateCache.render 'current_theme/head.liquid' , drops if File.exists?(@site.theme_dir+'head.liquid')
       
-        if @site.theme_layout.blank?
+        if options[:layout] == false
+          render :text=>out, :layout=>false
+        elsif @site.theme_layout.blank?
           render :text=>out, :layout=>"/elastic/public/html5"
         else      
           controls = render_to_string :partial=>'/elastic/public/controls'
