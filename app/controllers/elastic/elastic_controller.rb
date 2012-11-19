@@ -201,8 +201,10 @@ module Elastic
         out = TemplateCache.render template_name, drops
         
         # ----- LEVEL 2 rendering -----
-        out = Liquid::Template.parse out
-        out = out.render drops
+        if not @edit
+          out = Liquid::Template.parse out
+          out = out.render drops
+        end
         # ----- LEVEL 2 rendering -----
         
         out = postprocess out, template_name
