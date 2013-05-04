@@ -1,3 +1,14 @@
+
+nie je dobre miesat do jedneho tabu strukturne a uzivatelske galerie
+
+star status pri images sa neex/importuje
+
+lepsie zarovnanie navigatoru na stred mozno, hm ??
+
+keby bol nejaky thrash, na podobnom systeme ako orig
+
+MANUAL, miesto pre manual
+
 ---------------=[ VARGA ]=-------------
 
 FE: - nova grafika
@@ -13,8 +24,64 @@ bude to editovat typek, takze slabo!
 
 --------------=[ PYECKA ]=-------------
 
+-> aby hociktory clanok mohol byt akoby sekcia
+-> vyhladavacie okno
+-> prelinkovanie: expositions <-> news
+-> dvojjazycnost v menu, nejak 
+
+-> dvojjazycnost v menu, nejak -> ci jak?
+-> cakam na gr. navrh
+
+-> 2x loadingy, vyskusat.
+
+
+AD loading: fakt hnusnejsi si si nevedel vybrat?
+
+AD tlacitka: nejde ich posunut mimo obrazok. navyse je to celkom blby napad davat cierny obrazok na cierne pozadie. Skus na to ist inac: mas plnu kontrolu nad obrazkom, tie sipky mozu byt transparentne alebo polotransparentne. nemusi to byt taky nasilny kockaty vyrez ako teraz.
+
+viz. http://www.jacklmoore.com/colorbox/example3/
+
+este by sa teoreticky dalo odrazit od tohoto stylu:
+
+http://www.jacklmoore.com/colorbox/example2/
+
+a hodit to cele do ciernej, ale ta moc sa mi do toho nechces, lebo nase riesenie mi pride a) lepsie b) hotove. Len to chce nakreslit menej nasilne tlacitka.
+
+   
+   - - - - - - - 
+
+
+- ze nie cierne, ale so sedeho fade in novinky, proste 
+"nech tam nie je cierny stvorec, ale len fade in novinky"
+
+ala http://www.thefoxisblack.com/
+
+- menu level 2 tiez over effect
+
+- nove controlsi
+
+- bez cierneho borderu, ked kliknes na thumbnail (ked pozeras obrazok)
+
+- logo sac nove, logo studio nove
+
+- fadeout na hover menu
+
+- fixovat to menu http://cfye.com (podmenu sa nemusi)
+
+- over na dropshadowy
+
+- linky sivsie by mali byt
+
+pyecka.com -> old.pyecka.com
+
+
+
+
+- cross browser testing
+
 - sync s tinymce css !
 
+- 8 noviniek hned sa zobrazi
 
 - nejake miesto na footer - kde bude?
 

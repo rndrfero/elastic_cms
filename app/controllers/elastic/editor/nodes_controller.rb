@@ -138,6 +138,7 @@ module Elastic
     end
   
     def wake_list
+      params[:wake][:order] ||= 'published_at DESC' if @section.form == 'blog'
       super
       if @section.form == 'tree'
         @items = @items.tree_ordered.where(:section_id=>@section.id)

@@ -44,6 +44,7 @@ module Elastic
     def to_s
       "[S] #{title}"
     end
+    alias :name :to_s
 
     def to_nice
       "<span style='color: #008996'><span class='iconic cog'></span> #{title}</span>"

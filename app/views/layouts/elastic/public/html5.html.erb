@@ -3,17 +3,19 @@
 	<head>
 		<meta charset="utf-8">		
 		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-	
-		<!-- Elastic-CMS html5 rails LAYOUT -->
-		<!-- <meta name="keywords" content="<%= (@node and !@node.meta_keywords.blank?) ? @node.meta_keywords : Elastic::Context.site.meta_keywords %>" /> -->
-		<!-- <meta name="description" content="<%= (@node and !@node.meta_description.blank?) ? @node.meta_description : Elastic::Context.site.meta_description %>" /> -->
-	
+		
 		<link type="text/css" rel="Stylesheet" media="all" href="/t/<%= @site.theme %>.css"/>		
 		
 		<%=raw @head %>
 	</head>
 
-	<body>		
+	<!--[if lt IE 7 ]>   <body class="ie6">          <![endif]-->
+	<!--[if IE 7 ]>      <body class="ie7">          <![endif]-->
+	<!--[if IE 8 ]>      <body class="ie8">          <![endif]-->
+	<!--[if IE 9 ]>      <body class="ie9">          <![endif]-->
+	<!--[if (gt IE 9) ]> <body class="modern">       <![endif]-->
+	<!--[!(IE)]><!-->    <body class="notIE modern"> <!--<![endif]-->		
+		
 		<%= yield %>		
 		<%= render :partial=>'elastic/public/controls' %>
 	</body>
