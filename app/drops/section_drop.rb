@@ -29,7 +29,7 @@ class SectionDrop < Liquid::Drop
     #   @section.nodes.localized.published.ordered.map{ |x| NodeDrop.new(x) }
     # end
     ret = @section.nodes.published
-    ret = ret.localized if @section.localization == 'mirrored'
+    ret = ret.localized if not @section.localization == 'mirrored'
     ret = ret.reorder('published_at DESC') if @section.form == 'blog'
     ret.map{ |x| NodeDrop.new(x) }
   end
@@ -42,7 +42,7 @@ class SectionDrop < Liquid::Drop
     # end
 
     ret = @section.nodes.roots.published
-    ret = ret.localized if @section.localization == 'mirrored'
+    ret = ret.localized if not @section.localization == 'mirrored'
     ret = ret.reorder('published_at DESC') if @section.form == 'blog'
     ret.map{ |x| NodeDrop.new(x) }
   end

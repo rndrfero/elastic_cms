@@ -108,7 +108,7 @@ module Elastic
       if File.exists? @site.home_dir + filepath
         render_liquid filepath, {}, :layout=>false
       else
-        render :status => 404
+        render_404
       end
     end
       

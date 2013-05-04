@@ -11,6 +11,10 @@ MANUAL, miesto pre manual
 
 dobre by bolo mat restove http api, napr kvoli nasypaniu clankov pri migracii so stareho web
 
+bude NUTNE napisat testy, napr testovat v ramci testovacej webky, ci liquid dropy vracaju to co sa od nich ocakava ...
+
+musi byt UPLNE izolovany FE a BE
+
 ---------------=[ VARGA ]=-------------
 
 FE: - nova grafika
