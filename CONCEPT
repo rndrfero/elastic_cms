@@ -1,6 +1,7 @@
 image.width
 image.height
 
+to by bolo krasne, keby aj ZAP mal undo
 
 kontetny by mali byt dostupne aj podla kluca, tzn:
 node.content['list'], node.contents['image'], aj podla index node.contents[0], resp. node.content0
