@@ -1,3 +1,7 @@
+pri listingu v galeriach pouzit taky ten google-style, ze drzis vysku ale menis sirku ... aby to bolo pekne + hore nejake prepinatko, ze aku variantu obrazku vidis ... aby sa ti vsetky naraz zmenili . aby nezalezalo na rozmere aky nastavis v galerii ale galerky vizerali tak nejak konzistentne
+
+fulltext search / Sphinx ... mozno v postgre uz netreba (viz. FF)
+
 image.width
 image.height
 

@@ -1,5 +1,5 @@
 class String
-  def tt
-    I18n.translate(self, :default=>self)
+  def tt(options={})
+    I18n.translate(self, {:default=>self}.merge(options))
   end
 end

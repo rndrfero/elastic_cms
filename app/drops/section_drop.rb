@@ -23,19 +23,28 @@ class SectionDrop < Liquid::Drop
 
   def nodes
 #    @section.nodes.localized.published.map{ |x| NodeDrop.new(x) }
-    if @section.localization == 'mirrored'
-      @section.nodes.published.map{ |x| NodeDrop.new(x) }
-    else
-      @section.nodes.localized.published.map{ |x| NodeDrop.new(x) }
-    end
+    # if @section.localization == 'mirrored'
+    #   @section.nodes.published.ordered.map{ |x| NodeDrop.new(x) }
+    # else
+    #   @section.nodes.localized.published.ordered.map{ |x| NodeDrop.new(x) }
+    # end
+    ret = @section.nodes.published
+    ret = ret.localized if not @section.localization == 'mirrored'
+    ret = ret.reorder('published_at DESC') if @section.form == 'blog'
+    ret.map{ |x| NodeDrop.new(x) }
   end
 
   def roots
-    if @section.localization == 'mirrored'
-      @section.nodes.roots.published.map{ |x| NodeDrop.new(x) }
-    else
-      @section.nodes.roots.localized.published.map{ |x| NodeDrop.new(x) }
-    end
+    # if @section.localization == 'mirrored'
+    #   @section.nodes.roots.published.map{ |x| NodeDrop.new(x) }
+    # else
+    #   @section.nodes.roots.localized.published.ordered.map{ |x| NodeDrop.new(x) }
+    # end
+
+    ret = @section.nodes.roots.published
+    ret = ret.localized if not @section.localization == 'mirrored'
+    ret = ret.reorder('published_at DESC') if @section.form == 'blog'
+    ret.map{ |x| NodeDrop.new(x) }
   end
   
   # def starry_nodes

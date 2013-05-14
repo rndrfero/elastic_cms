@@ -64,6 +64,7 @@ module Elastic
     def to_s
       "The Site"
     end
+    alias :name :to_s
     
     def to_nice
       "The Site"

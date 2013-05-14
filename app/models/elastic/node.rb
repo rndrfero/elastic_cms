@@ -52,7 +52,8 @@ module Elastic
     scope :roots, where(:ancestry=>nil).order('ancestry_depth,position')
     scope :localized, lambda { where(:locale=>Context.locale) }
     scope :tree_ordered, :order=>"ancestry_depth,position DESC"
-    scope :date_ordered, :order=>"published_at"
+    scope :date_ordered, :order=>"published_at DESC"
+    #scope :ordered, :order=>lambda{ |x| section.form == 'blog' ? 'published_at DESC' : 'ancestry_depth,position DESC' }
     scope :starry, where(:is_star=>true)
     scope :with_pin, where(:is_pin=>true)
     scope :in_public, lambda { includes(:contents=>:content_config).where(:site_id=>Context.site.id) }
@@ -67,6 +68,10 @@ module Elastic
     
     def to_nice
       "<span style=''>#{title_dynamic||key}</span>"
+    end
+
+    def name
+      to_s
     end
     
     # -- key --

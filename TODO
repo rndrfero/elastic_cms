@@ -1,7 +1,26 @@
+<<<<<<< HEAD
+=======
+
+nie je dobre miesat do jedneho tabu strukturne a uzivatelske galerie
+
+>>>>>>> b1d81f988897a510ebf502ad8dc8cb1d0577b4b9
 star status pri images sa neex/importuje
 
 lepsie zarovnanie navigatoru na stred mozno, hm ??
 
+<<<<<<< HEAD
+=======
+keby bol nejaky thrash, na podobnom systeme ako orig
+
+MANUAL, miesto pre manual
+
+dobre by bolo mat restove http api, napr kvoli nasypaniu clankov pri migracii so stareho web
+
+bude NUTNE napisat testy, napr testovat v ramci testovacej webky, ci liquid dropy vracaju to co sa od nich ocakava ...
+
+musi byt UPLNE izolovany FE a BE
+
+>>>>>>> b1d81f988897a510ebf502ad8dc8cb1d0577b4b9
 ---------------=[ VARGA ]=-------------
 
 FE: - nova grafika
