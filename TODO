@@ -15,6 +15,18 @@ bude NUTNE napisat testy, napr testovat v ramci testovacej webky, ci liquid drop
 
 musi byt UPLNE izolovany FE a BE
 
+nech si to samo zdetekuje reloading TEMY
+
+chcel by som mat prehlad, kedy sa kto a kde dostava do systemu
+
+chcem mat perfektnu kontrolu ala capistrano jednak nad jednotlivymi temamy, jednak nad systemom
+
+nejaka inteligentna moznost rewritu / ked robim import export
+
+vymazanie cache - liquid cache pre nejaku kontretnu temu nejakym tlacidlom
+
+dobre by bolo aby orig, co niesu procesnute ukazovalo nejak v admine a ze re-process gallery bude len na klik
+
 ---------------=[ VARGA ]=-------------
 
 FE: - nova grafika

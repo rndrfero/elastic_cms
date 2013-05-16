@@ -181,6 +181,10 @@ module Elastic
         
     def file=(x)
       FileUtils.cp x.tempfile.path, File.join(filepath,'orig',x.original_filename)
+      if x.original_filename.downcase == 'archive.zip'
+        
+      end
+
       sync!
     end
             
