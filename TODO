@@ -1,10 +1,15 @@
+<<<<<<< HEAD
+=======
 
 nie je dobre miesat do jedneho tabu strukturne a uzivatelske galerie
 
+>>>>>>> b1d81f988897a510ebf502ad8dc8cb1d0577b4b9
 star status pri images sa neex/importuje
 
 lepsie zarovnanie navigatoru na stred mozno, hm ??
 
+<<<<<<< HEAD
+=======
 keby bol nejaky thrash, na podobnom systeme ako orig
 
 MANUAL, miesto pre manual
@@ -15,6 +20,7 @@ bude NUTNE napisat testy, napr testovat v ramci testovacej webky, ci liquid drop
 
 musi byt UPLNE izolovany FE a BE
 
+<<<<<<< HEAD
 nech si to samo zdetekuje reloading TEMY
 
 chcel by som mat prehlad, kedy sa kto a kde dostava do systemu
@@ -27,6 +33,9 @@ vymazanie cache - liquid cache pre nejaku kontretnu temu nejakym tlacidlom
 
 dobre by bolo aby orig, co niesu procesnute ukazovalo nejak v admine a ze re-process gallery bude len na klik
 
+=======
+>>>>>>> b1d81f988897a510ebf502ad8dc8cb1d0577b4b9
+>>>>>>> a5695c74c9a629cefdfa180fc194ddddbb8e8469
 ---------------=[ VARGA ]=-------------
 
 FE: - nova grafika
