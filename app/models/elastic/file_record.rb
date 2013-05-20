@@ -14,7 +14,7 @@ module Elastic
     
     # -- validations --
     
-    validates_presence_of :gallery
+    validates_presence_of :gallery_id
     validates_presence_of :filename
     #validates_format_of :filename, :with=>/^[a-zA-Z0-9\-._ ]*$/
     
@@ -88,8 +88,8 @@ module Elastic
     # end
     
     def rename_files!
-      return if not filename_changed? # not changed at all
-      return if new_record? 
+      return true if not filename_changed? # not changed at all
+      return true if new_record? 
 #      return if not File.exists? File.join(gallery.path, 'orig', filename_was) # problem is elsewhere (syncing)
         
 #      File.rename *filename_change.map!{ |x| File.join(gallery.path, 'orig', x) }
@@ -100,7 +100,7 @@ module Elastic
 #          raise filename_change.map!{ |x| File.join(gallery.path, which, x) }.inspect
         File.rename *filename_change.map!{ |x| File.join(gallery.filepath, which, x) }
       end
-
+      return true 
     end  
     
     def remove_files!
@@ -151,6 +151,7 @@ module Elastic
       filename.gsub!(/^.*(\\|\/)/, '')
 #      \ / : * ? " <> |
       filename.gsub!(/[\*\:\?\"\<\>\|]*/,'')
+      true
     end
     
     
