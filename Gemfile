@@ -24,8 +24,8 @@ gem 'nokogiri'
 
 gem 'kaminari'
 
-#gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
-gem 'wake', :path => '~/rails_gems/wake'
+gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
+#gem 'wake', :path => '~/rails_gems/wake'
 
 gem 'bcrypt-ruby'
 gem 'devise'
@@ -36,6 +36,8 @@ gem 'thinking-sphinx', '2.0.10'
 gem 'paper_trail', '~> 2'
 
 gem 'exception_notification'
+
+gem 'rubyzip'
 
 
 # Declare any dependencies that are still in development here instead of in

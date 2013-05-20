@@ -169,6 +169,11 @@ module Elastic
     end
 
     def render_liquid(template_name=nil, add_drops={}, options={})
+      # redirection catch
+      #raise @redirect_tag_to.to_yaml
+      #Rails.logger.info "---- redir tag: #{@redirect_tag_to}"
+      
+
       # node_drop = NodeDrop.new @node
       # section_drop = SectionDrop.new @node.section
       x = @action=='index' ? @site.theme_index : @site.theme_template
@@ -211,7 +216,9 @@ module Elastic
       
         @head = TemplateCache.render 'current_theme/head.liquid' , drops if File.exists?(@site.theme_dir+'head.liquid')
       
-        if options[:layout] == false
+        if @redirect_tag_to
+          redirect_to @redirect_tag_to
+        elsif options[:layout] == false
           render :text=>out, :layout=>false
         elsif @site.theme_layout.blank?
           render :text=>out, :layout=>"/elastic/public/html5"

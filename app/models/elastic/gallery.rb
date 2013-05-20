@@ -1,6 +1,8 @@
 require_dependency 'elastic/thumbnail_generators'
 require_dependency 'elastic/tincan'
 
+require 'zip/zip'
+
 module Elastic
   class Gallery < ActiveRecord::Base
     include WithDirectory
@@ -179,10 +181,11 @@ module Elastic
     # end
     
         
-    def file=(x)
-      FileUtils.cp x.tempfile.path, File.join(filepath,'orig',x.original_filename)
+    def file=(x)      
       if x.original_filename.downcase == 'archive.zip'
-        
+        unzip_file x.tempfile.path, File.join(filepath,'orig')
+      else
+        FileUtils.cp x.tempfile.path, File.join(filepath,'orig',x.original_filename)
       end
 
       sync!
@@ -208,6 +211,23 @@ module Elastic
     def wake_destroyable?
       file_records.empty?
     end
+
+    # -- private --
+
+    private
+
+    def unzip_file (file, destination)      
+      Zip::ZipFile.open(file) do |zip_file|
+       zip_file.each do |f|
+          f_path = File.join(destination, f.name)
+          FileUtils.mkdir_p(File.dirname(f_path))
+          #if not f.directory?
+          zip_file.extract(f, f_path) unless File.exist?(f_path)
+          #end
+        end
+      end
+    end    
+
     
   end
 end

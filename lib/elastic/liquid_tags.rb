@@ -110,6 +110,7 @@ module Elastic
       end
     end
   end  
+
   
   class MdTag < Liquid::Block
     def initialize(tag_name, markup, tokens)
@@ -121,6 +122,21 @@ module Elastic
       BlueCloth.new(output).to_html
     end
   end
+
+
+  class RedirectTag < Liquid::Tag
+    def initialize(tag_name, markup, tokens)
+       super 
+       @url =  markup.gsub(/^(&nbsp;| )*/, '').gsub(/(&nbsp;| )*$/, '').strip
+#       CurrentContext.ctrl.logger.info "LKASHDAKLJDH: '#{@url}'"
+    end
+
+    def render(context)
+      #raise 'hovno'
+      Elastic::Context.ctrl.instance_variable_set :@redirect_tag_to, @url
+      #Rails.logger.info "---- setting tag: #{@url}"
+    end    
+  end  
   
 end
 
@@ -128,4 +144,5 @@ Liquid::Template.register_tag 'give_me', Elastic::GiveMeTag
 # Liquid::Template.register_tag 'steal', Elastic::StealTag
 Liquid::Template.register_tag 'raw', Elastic::RawTag
 Liquid::Template.register_tag 'md', Elastic::MdTag
+Liquid::Template.register_tag 'redirect', Elastic::RedirectTag
 

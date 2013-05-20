@@ -7,7 +7,8 @@ Elastic::Engine.routes.draw do
   match '/x/*filepath' => 'elastic#static' #, :as=>'static'
   match '/404' => 'elastic#not_found'# , :as=>'not_found'
 
-  match "/login" => redirect("/users/sign_in")  
+  match "/login" => redirect("/users/sign_in")
+  match "/admin" => redirect("/users/sign_in")  
   match "/logout" => redirect("/users/sign_out")  
 
   
