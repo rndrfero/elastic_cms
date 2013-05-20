@@ -5,7 +5,7 @@ module Elastic
       for x in toggles
         module_eval <<-eos
           def toggle_#{x}!
-            update_attribute :is_#{x}, !is_#{x}
+            update_attribute :is_#{x}, (is_#{x} ? false : true)
           end
         eos
       end
