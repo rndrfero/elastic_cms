@@ -1,7 +1,7 @@
 require_dependency 'elastic/thumbnail_generators'
 require_dependency 'elastic/tincan'
 
-require 'zip/zip'
+require 'zip'
 
 module Elastic
   class Gallery < ActiveRecord::Base
