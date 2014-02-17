@@ -38,6 +38,8 @@ module Liquid
       when SyntaxError
         "Liquid syntax error: #{e.message}"
       else
+        Rails.logger.error e.message
+        Rails.logger.error e.backtrace.join("\n")
         "Liquid error: #{e.message}"
       end
     end

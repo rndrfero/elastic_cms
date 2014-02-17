@@ -23,8 +23,11 @@ module Elastic
     
     def initialize(tag_name, markup, tokens)
       if markup =~ Syntax
-        @what = $1
-        @which = Liquid::Variable.new($2) #$2
+        # MOVING TO RENDER BECAUSE I WANT DYNAMIC
+        # @what = $1
+        # @which = Liquid::Variable.new($2) #$2
+        # @which = $2
+        @markup = markup
       else
         raise Liquid::SyntaxError.new("Syntax Error in 'give_me' - Valid syntax: give_me (gallery|node) key_or_id")
       end
@@ -32,13 +35,12 @@ module Elastic
       super
     end
 
-    def render(context)     
-      # render variable
-      @which = @which.render(context)
-      # array case
-      # return [] if @which == []
-      # @which = @which[ rand(@which.size) ] if @which.is_a? Array
-            
+    def render(context)  
+
+      @markup =~ Syntax
+      @what = $1
+      @which = Liquid::Variable.new($2).render(context)
+
       if @what == 'file'
         @which.gsub! Elastic::RegexFilepath, ''
         filepath = File.join Elastic::Context.site.home_dir, @which
