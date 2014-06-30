@@ -18,14 +18,17 @@ gem 'therubyracer' # javascript runtime
 
 gem 'acts_as_list'
 gem 'ancestry'
-gem 'rmagick', '2.12.1'
+
+#gem 'rmagick', '2.12.1'
+gem 'rmagick', '2.13.2'
+
 gem 'liquid'
 gem 'nokogiri'
 
 gem 'kaminari'
 
-gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
-#gem 'wake', :path => '~/rails_gems/wake'
+#gem 'wake', :git => 'git://github.com/rndrfero/wake.git'
+gem 'wake', :path => '~/rails_gems/wake'
 
 gem 'bcrypt-ruby'
 gem 'devise'
@@ -38,6 +41,7 @@ gem 'paper_trail', '~> 2'
 gem 'exception_notification'
 
 gem 'rubyzip'
+gem 'iconv'
 
 
 

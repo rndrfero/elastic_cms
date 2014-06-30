@@ -1,15 +1,14 @@
-GIT
-  remote: git://github.com/rndrfero/wake.git
-  revision: a3686a1ca0f1dfac2885251dad6a0b7b5eb953bb
-  specs:
-    wake (0.0.1.alpha)
-      rails (~> 3.2)
-
 PATH
   remote: .
   specs:
     elastic (0.0.1)
       rails (~> 3.2.3.rc2)
+
+PATH
+  remote: ~/rails_gems/wake
+  specs:
+    wake (0.0.1.alpha)
+      rails (~> 3.2)
 
 GEM
   remote: http://rubygems.org/
@@ -60,6 +59,7 @@ GEM
     execjs (2.0.2)
     hike (1.2.3)
     i18n (0.6.9)
+    iconv (1.0.4)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -75,7 +75,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     mini_portile (0.5.2)
-    multi_json (1.8.2)
+    multi_json (1.8.4)
     mysql2 (0.3.14)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -111,7 +111,7 @@ GEM
       json (~> 1.4)
     ref (1.0.5)
     riddle (1.5.9)
-    rmagick (2.12.1)
+    rmagick (2.13.2)
     rubyzip (1.1.0)
     sass (3.2.13)
     sass-rails (3.2.6)
@@ -154,13 +154,14 @@ DEPENDENCIES
   devise
   elastic!
   exception_notification
+  iconv
   jquery-rails
   kaminari
   liquid
   mysql2
   nokogiri
   paper_trail (~> 2)
-  rmagick (= 2.12.1)
+  rmagick (= 2.13.2)
   rubyzip
   sass-rails
   sqlite3

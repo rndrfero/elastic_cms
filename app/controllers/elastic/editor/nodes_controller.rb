@@ -141,7 +141,7 @@ module Elastic
       params[:wake][:order] ||= 'published_at DESC' if @section.form == 'blog'
       super
       if @section.form == 'tree'
-        @items = @items.tree_ordered.where(:section_id=>@section.id)
+        @items = @items.tree_ordered.where(:section_id=>@section.id).per(1000)
       elsif @section.form == 'files'
         @items = @items.tree_ordered.where(:section_id=>@section.id)
       elsif @section.form == 'blog'
