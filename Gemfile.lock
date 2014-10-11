@@ -112,7 +112,7 @@ GEM
       json (~> 1.4)
     ref (1.0.5)
     riddle (1.5.9)
-    rmagick (2.13.2)
+    rmagick (2.12.1)
     rubyzip (1.1.0)
     sass (3.2.13)
     sass-rails (3.2.6)
@@ -162,7 +162,7 @@ DEPENDENCIES
   mysql2
   nokogiri
   paper_trail (~> 2)
-  rmagick (= 2.13.2)
+  rmagick (= 2.12.1)
   rubyzip
   sass-rails
   sqlite3
