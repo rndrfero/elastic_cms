@@ -25,31 +25,24 @@ class NodeDrop < Liquid::Drop
   end
   
   # -- contents --
+
+  def content
+    return @hash if @hash # CACHING
+
+    @hash = {}
+    for cc in @node.section.content_configs
+      @hash[cc.key] = content_config_to_drop(cc)
+    end
+    @hash
+  end
   
   def contents
     @contents ||= @node.section.content_configs.map do |x|
-      c = @node.content_getter x
-      if not c
-        nil
-      elsif Elastic::ContentConfig::REFERENCING_FORMS.include? x.form # we are referencing something
-        ref = Elastic::Context.user ? c.reference : (c.published_reference||c.reference)
-        if ref.nil?
-          nil
-        else
-          Elastic::Context.ctrl.add_reference ref
-          case ref.class.to_s
-            when 'Elastic::FileRecord' then FileRecordDrop.new ref
-            when 'Elastic::Gallery' then GalleryDrop.new ref
-            when 'Elastic::Node' then NodeDrop.new ref
-          end
-        end
-      else # standard content                
-        ContentDrop.new(c)
-      end
+      content_config_to_drop x
     end
   end
   
-  
+  # TODO  --------------------------- refactor using content_config_to_drop !!
   def _content(position)  
     x = @node.section.content_configs.where(:position=>position+1).first
     c = @node.content_getter x #_position position
@@ -109,6 +102,29 @@ class NodeDrop < Liquid::Drop
   def ==(x)
     return false if not x.is_a? NodeDrop
     @node.id == x.instance_variable_get(:@node).id
+  end
+
+  private
+
+  def content_config_to_drop(x)
+    c = @node.content_getter x
+    if not c
+      nil
+    elsif Elastic::ContentConfig::REFERENCING_FORMS.include? x.form # we are referencing something
+      ref = Elastic::Context.user ? c.reference : (c.published_reference||c.reference)
+      if ref.nil?
+        nil
+      else
+        Elastic::Context.ctrl.add_reference ref
+        case ref.class.to_s
+          when 'Elastic::FileRecord' then FileRecordDrop.new ref
+          when 'Elastic::Gallery' then GalleryDrop.new ref
+          when 'Elastic::Node' then NodeDrop.new ref
+        end
+      end
+    else # standard content                
+      ContentDrop.new(c)
+    end
   end
   
 end

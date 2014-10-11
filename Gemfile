@@ -20,7 +20,8 @@ gem 'acts_as_list'
 gem 'ancestry'
 
 #gem 'rmagick', '2.12.1'
-gem 'rmagick', '2.13.2'
+#gem 'rmagick', '2.13.2'
+gem 'rmagick', '2.13.3'
 
 gem 'liquid'
 gem 'nokogiri'

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= Elastic::Context.site.host %> - <%= Elastic::Context.site.title %></title>
+  <title><%#= Elastic::Context.site.host %> <%#= Elastic::Context.site.title %>
+  	<% if @item %>
+  		<%= @item %>
+  	<% else %>
+  		<%= controller.class.to_s.gsub(/(.*::)|Controller/, '') %>
+  	<% end %>
+  	- <%= Elastic::Context.site.host %>
+  </title>
 
 	
   <!-- Iconic -->

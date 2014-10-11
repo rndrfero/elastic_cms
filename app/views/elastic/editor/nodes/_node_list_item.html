@@ -38,7 +38,7 @@
   			     toggle_published_editor_section_node_path(@section, item), :method=>:post %>
 			</td>				
 			<% if blog %>
-				<td <%=wo item %> class=""> <%=l item.published_at, :format=>:short %> </td>
+				<td <%=wo item %> class=""> <%=l item.published_at, :format=>:short if item.published_at %> </td>
 			<% end %>
 			
 			<td <%= woitem %> class="hi-visible <% if item.updated_at > Time.now-5.minutes %>blue<% end %>"> 
