@@ -69,7 +69,7 @@ GEM
     kaminari (0.15.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    libv8 (3.16.14.3)
+    libv8 (3.16.14.7)
     liquid (2.6.0)
     mail (2.5.4)
       mime-types (~> 1.16)
