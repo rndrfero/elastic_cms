@@ -103,6 +103,16 @@ class NodeDrop < Liquid::Drop
     NodeDrop.new @node.siblings[ (@node.siblings.index(@node)-1) % size ]
   end
   
+  def next_sibling
+    size = @node.siblings.size
+    NodeDrop.new @node.siblings[ (@node.siblings.index(@node)+1) % size ]
+  end
+
+  def prev_sibling
+    size = @node.siblings.size
+    NodeDrop.new @node.siblings[ (@node.siblings.index(@node)-1) % size ]
+  end
+  
   # def is_star?
   # end
     
