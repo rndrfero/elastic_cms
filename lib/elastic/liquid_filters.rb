@@ -59,6 +59,10 @@ module Elastic
     def strftime(x,format)
       x.strftime(format)
     end
+
+    def math_mod(number, modulus)
+      (number.to_i % modulus.to_i).to_s
+    end
     
   end
 

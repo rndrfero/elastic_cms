@@ -9,8 +9,9 @@ module Elastic
     def gallery_tn(src, dest, tn_w=75, tn_h=75)
       Rails.logger.debug "gallery_tn: #{src.inspect}"
   
-      GC.start
-      large = Magick::ImageList.new(src)
+      #GC.start
+      #large = Magick::ImageList.new(src)
+      large = Magick::Image.read(src).first
       
       x_ratio = tn_w.to_f / large.columns.to_f
       y_ratio = tn_h.to_f / large.rows.to_f
@@ -28,7 +29,7 @@ module Elastic
       tiny.crop!( off_x, off_y, tn_w, tn_h)
       tiny.write(dest)
      
-      GC.start
+      #GC.start
   
       return off_x.to_s+' '+off_y.to_s   
     end
