@@ -63,6 +63,18 @@ module Elastic
     def math_mod(number, modulus)
       (number.to_i % modulus.to_i).to_s
     end
+
+    def loc(string)
+      ret = string
+      for locale in Elastic::Context.site.locales 
+        if locale == Elastic::Context.locale
+          ret = ret.gsub /\[#{locale}\]|\[\/#{locale}\]/, '' 
+        else
+          ret = ret.gsub /\[#{locale}\].*\[\/#{locale}\]/, ''
+        end
+      end
+      ret
+    end
     
   end
 
