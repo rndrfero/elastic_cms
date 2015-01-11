@@ -19,9 +19,9 @@ gem 'therubyracer' # javascript runtime
 gem 'acts_as_list'
 gem 'ancestry'
 
-gem 'rmagick', '2.12.1'
+# gem 'rmagick', '2.12.1' # <--- 2.12.1 toto je na starej zincici
 #gem 'rmagick', '2.12.2'
-#gem 'rmagick', '2.13.3'
+gem 'rmagick', '2.13.3' # <--- toto je u mna na locale
 
 
 gem 'liquid'

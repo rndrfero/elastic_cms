@@ -27,6 +27,7 @@ class CreateElasticSites < ActiveRecord::Migration
       t.string :bg_color
       
       t.boolean :is_reload
+      t.boolean :is_star
 
       
       t.timestamps
