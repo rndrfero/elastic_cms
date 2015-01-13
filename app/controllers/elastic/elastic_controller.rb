@@ -170,7 +170,9 @@ module Elastic
     
     def prepare
       Context.ctrl= self
+
       @site = Context.site
+      @locale = Context.locale
       
 #      params[:key] = params[:key]+'.'+params[:format] if params[:format]
       
@@ -210,7 +212,7 @@ module Elastic
         'theme' => @site.theme,
 
         'params' => params,
-        'locale' => Context.locale.to_s,
+        'locale' => @locale.to_s,
         'action' => @action,
         'key' => params[:key],
         'user' => (Context.user ? Context.user.name : nil),
