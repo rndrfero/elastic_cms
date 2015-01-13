@@ -129,16 +129,27 @@ module Elastic
   class RedirectTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
        super 
-       @url =  markup.gsub(/^(&nbsp;| )*/, '').gsub(/(&nbsp;| )*$/, '').strip
-#       CurrentContext.ctrl.logger.info "LKASHDAKLJDH: '#{@url}'"
+       @url = markup.gsub(/^(&nbsp;| )*/, '').gsub(/(&nbsp;| )*$/, '').strip
     end
 
     def render(context)
-      #raise 'hovno'
       Elastic::Context.ctrl.instance_variable_set :@redirect_tag_to, @url
-      #Rails.logger.info "---- setting tag: #{@url}"
     end    
   end  
+
+
+  class PartialTag < Liquid::Tag
+    def initialize(tag_name, markup, tokens)
+       super
+       # split 'gallery breakfast to tiffany' into 'gallery' and 'breakfast to tiffany'
+       @markup = markup
+       @partial = @markup.strip!.slice!(/\w+/)      
+    end
+
+    def render(context)
+      Elastic::Context.ctrl.send :render_to_string, partial: "/elastic/#{@partial}", object: @markup
+    end    
+  end
   
 end
 
@@ -147,4 +158,6 @@ Liquid::Template.register_tag 'give_me', Elastic::GiveMeTag
 Liquid::Template.register_tag 'raw', Elastic::RawTag
 Liquid::Template.register_tag 'md', Elastic::MdTag
 Liquid::Template.register_tag 'redirect', Elastic::RedirectTag
+
+Liquid::Template.register_tag 'partial', Elastic::PartialTag
 
