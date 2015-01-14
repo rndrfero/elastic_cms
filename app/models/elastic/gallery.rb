@@ -1,5 +1,6 @@
 require_dependency 'elastic/thumbnail_generators'
 require_dependency 'elastic/tincan'
+require_dependency 'elastic/file_record'
 
 require 'zip'
 
@@ -94,7 +95,7 @@ module Elastic
     def sync!
       Elastic.logger_info "@gallery.sync! for #{dir}"
       for f in files
-        ino = File.stat(File.join(filepath,'orig',f)).ino
+        ino = File.stat(File.join(filepath,'orig',f)).ino.to_s
         fr = file_records.where(:filename=>f).first
         if fr        
           fr.update_attribute :ino, ino
