@@ -135,19 +135,32 @@ module Elastic
     def render(context)
       Elastic::Context.ctrl.instance_variable_set :@redirect_tag_to, @url
     end    
-  end  
+  end
 
+  class RailsRenderTag < Liquid::Tag
+    Syntax = /(#{Liquid::QuotedFragment}+)/
 
-  class PartialTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
-       super
-       # split 'gallery breakfast to tiffany' into 'gallery' and 'breakfast to tiffany'
-       @markup = markup
-       @partial = @markup.strip!.slice!(/\w+/)      
+      if markup =~ Syntax
+        @partial = $1
+        @markup = markup
+      else
+        raise "#{self}: syntax error"
+      end      
     end
+  end
 
+  class PartialTag < RailsRenderTag
     def render(context)
-      Elastic::Context.ctrl.send :render_to_string, partial: "/elastic/#{@partial}", object: @markup
+      partial = Liquid::Variable.new(@partial).render(context)
+      Elastic::Context.ctrl.send :render_to_string, partial: "#{partial}", object: @markup
+    end    
+  end
+
+  class TemplateTag < RailsRenderTag
+    def render(context)
+      partial = Liquid::Variable.new(@partial).render(context)
+      Elastic::Context.ctrl.send :render_to_string, template: "#{partial}", layout: false, object: @markup
     end    
   end
   
@@ -160,4 +173,5 @@ Liquid::Template.register_tag 'md', Elastic::MdTag
 Liquid::Template.register_tag 'redirect', Elastic::RedirectTag
 
 Liquid::Template.register_tag 'partial', Elastic::PartialTag
+Liquid::Template.register_tag 'template', Elastic::TemplateTag
 
