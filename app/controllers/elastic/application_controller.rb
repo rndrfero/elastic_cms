@@ -72,6 +72,7 @@ module Elastic
     end
     
     def ensure_ownership
+      Rails.logger.debug "ensure_ownership"
       for x in %w{ item node gallery section }
         var = instance_variable_get '@'+x
         if var and var.respond_to? :site_id and var.site_id!=Context.site.id

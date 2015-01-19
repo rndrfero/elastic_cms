@@ -253,9 +253,11 @@ module Elastic
         end
         
       rescue Errno::ENOENT=>x
-         render_error x.message.gsub @site.home_dir, '/'
+        render_error x.message.gsub @site.home_dir, '/'
       rescue Liquid::SyntaxError=>x
-         render_error "Liquid syntax error: #{x}"
+        render_error "Liquid syntax error: #{x}"
+      else
+        session[:elastic] = { locale: @locale }
       end
     end
     
