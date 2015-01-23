@@ -1,5 +1,16 @@
 module Elastic
   module ElasticHelper
+
+    def give_me(what, key)
+      what = what.to_sym
+
+      if what == :node
+        node = Node.where(site_id: Context.site.id, key: key).first
+        return @the_node = (node ? NodeDrop.new(node) : nil)
+      else
+        raise 'give_me: UNEXPECTED'
+      end
+    end
     
     def exit_path
       if @action == 'show'

@@ -16,6 +16,13 @@ module Elastic
       end
     end
 
+    def goto(x)
+      x = x.to_s
+      return x if !Elastic::Context.user or !Elastic::Context.content
+      Elastic::Context.ctrl.send :render_to_string, partial: '/elastic/public/goto_content',
+          locals: {content: Elastic::Context.content, rendered: x.to_s }
+    end
+
     def random(array)
       return array if Elastic::Context.ctrl.am_i_editing_this_shit?
       if array.is_a? Array
@@ -74,6 +81,10 @@ module Elastic
         end
       end
       ret
+    end
+
+    def t(string)
+      I18n.t(string, locale: Elastic::Context.locale )
     end
     
   end

@@ -126,7 +126,7 @@ module Elastic
     end
   
     def content_getter(cc_id)
-      Rails.logger.debug "content_getter"
+      #Rails.logger.debug "content_getter"
       cc_id = cc_id.id if cc_id.is_a? ContentConfig
       cc_id = cc_id.to_i if cc_id.is_a? String
       if section.localization == 'mirrored'
