@@ -8,6 +8,7 @@ module Elastic
     
     helper :wake
     include ElasticHelper
+    helper LiquidFilters
 
     # index page
     def index

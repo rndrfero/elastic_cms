@@ -83,7 +83,7 @@ module Elastic
       ret
     end
 
-    def t(string)
+    def I18nt(string)
       I18n.t(string, locale: Elastic::Context.locale )
     end
     
