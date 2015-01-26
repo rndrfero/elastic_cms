@@ -5,7 +5,7 @@ require "elastic/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "elastic"
+  s.name        = "elastic_cms"
   s.version     = Elastic::VERSION
   s.authors     = ["Frantisek Psotka"]
   s.email       = ["frantisek.psotka@stylez.sk"]
