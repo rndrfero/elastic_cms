@@ -186,7 +186,10 @@ module Elastic
       if x.original_filename.downcase == 'archive.zip'
         unzip_file x.tempfile.path, File.join(filepath,'orig')
       else
-        FileUtils.cp x.tempfile.path, File.join(filepath,'orig',x.original_filename)
+        the_path = File.join(filepath,'orig',x.original_filename)
+        
+        FileUtils.cp x.tempfile.path, the_path
+        File.chmod 0644, the_path
       end
 
       sync!

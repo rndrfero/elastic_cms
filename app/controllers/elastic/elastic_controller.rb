@@ -2,6 +2,8 @@ require 'open3'
 
 module Elastic
   class ElasticController < Elastic::ApplicationController
+
+#    http_basic_authenticate_with name: "dhh", password: "secret"
     
     skip_before_filter :authenticate_user!
     before_filter :prepare
