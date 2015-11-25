@@ -47,6 +47,26 @@ class SectionDrop < Liquid::Drop
     ret.map{ |x| NodeDrop.new(x) }
   end
   
+# before_depth(depth)     Return nodes that are less deep than depth (node.depth < depth)
+# to_depth(depth)         Return nodes up to a certain depth (node.depth <= depth)
+# at_depth(depth)         Return nodes that are at depth (node.depth == depth)
+# from_depth(depth)       Return nodes starting from a certain depth (node.depth >= depth)
+# after_depth(depth)      Return nodes that are deeper than depth (node.depth > depth)
+
+  def at_depth
+    from = @section.nodes.published
+    from = from.localized if not @section.localization == 'mirrored'
+
+    ret = {}
+    for n in from
+      ret[n.ancestry_depth] ||= []
+      ret[n.ancestry_depth] << NodeDrop.new(n)
+    end
+      
+    ret
+  end
+
+
   # def starry_nodes
   #   @section.nodes.starry.published.map{ |x| NodeDrop.new(x) }
   # end

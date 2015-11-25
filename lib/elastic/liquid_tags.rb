@@ -129,16 +129,40 @@ module Elastic
   class RedirectTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
        super 
-       @url =  markup.gsub(/^(&nbsp;| )*/, '').gsub(/(&nbsp;| )*$/, '').strip
-#       CurrentContext.ctrl.logger.info "LKASHDAKLJDH: '#{@url}'"
+       @url = markup.gsub(/^(&nbsp;| )*/, '').gsub(/(&nbsp;| )*$/, '').strip
     end
 
     def render(context)
-      #raise 'hovno'
       Elastic::Context.ctrl.instance_variable_set :@redirect_tag_to, @url
-      #Rails.logger.info "---- setting tag: #{@url}"
     end    
-  end  
+  end
+
+  class RailsRenderTag < Liquid::Tag
+    Syntax = /(#{Liquid::QuotedFragment}+)/
+
+    def initialize(tag_name, markup, tokens)
+      if markup =~ Syntax
+        @partial = $1
+        @markup = markup
+      else
+        raise "#{self}: syntax error"
+      end      
+    end
+  end
+
+  class PartialTag < RailsRenderTag
+    def render(context)
+      partial = Liquid::Variable.new(@partial).render(context)
+      Elastic::Context.ctrl.send :render_to_string, partial: "#{partial}", object: @markup
+    end    
+  end
+
+  class TemplateTag < RailsRenderTag
+    def render(context)
+      partial = Liquid::Variable.new(@partial).render(context)
+      Elastic::Context.ctrl.send :render_to_string, template: "#{partial}", layout: false, object: @markup
+    end    
+  end
   
 end
 
@@ -147,4 +171,7 @@ Liquid::Template.register_tag 'give_me', Elastic::GiveMeTag
 Liquid::Template.register_tag 'raw', Elastic::RawTag
 Liquid::Template.register_tag 'md', Elastic::MdTag
 Liquid::Template.register_tag 'redirect', Elastic::RedirectTag
+
+Liquid::Template.register_tag 'partial', Elastic::PartialTag
+Liquid::Template.register_tag 'template', Elastic::TemplateTag
 

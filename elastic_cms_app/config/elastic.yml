@@ -1,13 +1,13 @@
 # Elastic CMS configuration file
 
 development:
-  copy_themes: true
+  copy_themes: false
   gallery:
     fallback_tn_w: 120
     fallback_tn_h: 120
   max_contents: 15
   lightning_bolts: true
-  
+
 production:
   copy_themes: false
   gallery:
@@ -15,4 +15,3 @@ production:
     fallback_tn_h: 120
   max_contents: 15
   lightning_bolts: false
-  

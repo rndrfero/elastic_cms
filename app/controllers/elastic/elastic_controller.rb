@@ -1,11 +1,16 @@
+require 'open3'
+
 module Elastic
   class ElasticController < Elastic::ApplicationController
+
+#    http_basic_authenticate_with name: "dhh", password: "secret"
     
     skip_before_filter :authenticate_user!
     before_filter :prepare
     
     helper :wake
     include ElasticHelper
+    helper LiquidFilters
 
     # index page
     def index
@@ -86,14 +91,15 @@ module Elastic
       
       x = File.join @site.home_dir + filepath
       if File.exists? x
-        send_file x, :disposiotion=>'inline' #:formats=>params[:format], :layout=>false, :content_type=>'text/css'
+        #send_file x, :disposiotion=>'inline' #:formats=>params[:format], :layout=>false, :content_type=>'text/css'
+        send_file x, :disposition=>'inline' #:formats=>params[:format], :layout=>false, :content_type=>'text/css'
       else
         render_404
       end
     end
     
     def liquid_layout
-      filepath = "#{params[:filepath]}.liquid".gsub(RegexFilepath, '')
+      filepath = secure_filepath "#{params[:filepath]}.liquid"
 
       if File.exists? @site.home_dir + filepath
         render_liquid filepath
@@ -103,13 +109,31 @@ module Elastic
     end
     
     def liquid_nolayout
-      filepath = "#{params[:filepath]}.liquid".gsub(RegexFilepath, '')
+      filepath = secure_filepath"#{params[:filepath]}.liquid"
 
       if File.exists? @site.home_dir + filepath
         render_liquid filepath, {}, :layout=>false
       else
         render_404
       end
+    end
+
+    def scss
+      filepath = secure_filepath "#{params[:filepath]}"
+
+      scss = File.join @site.home_dir, filepath+'.scss'
+      css = File.join @site.home_dir, filepath+'.css'
+
+      return render_404 if not File.exists? scss
+
+      if !File.exists?(css) or File.mtime(scss) > (mtime=File.mtime(css))
+        Rails.logger.debug "rendering SCSS: #{filepath} "
+        Open3.popen3("sass -l #{scss} &> #{css}") do |stdin, stdout, stderr, wait_thr|
+          stdin.close
+        end
+      end      
+
+      send_file css, :disposition=>'inline' #, :content_type=>'text/css'      
     end
       
     # def not_found
@@ -149,7 +173,9 @@ module Elastic
     
     def prepare
       Context.ctrl= self
+
       @site = Context.site
+      @locale = Context.locale
       
 #      params[:key] = params[:key]+'.'+params[:format] if params[:format]
       
@@ -189,11 +215,12 @@ module Elastic
         'theme' => @site.theme,
 
         'params' => params,
-        'locale' => Context.locale.to_s,
+        'locale' => @locale.to_s,
         'action' => @action,
         'key' => params[:key],
         'user' => (Context.user ? Context.user.name : nil),
-        'localhost' => ''
+        'localhost' => '',
+        'now' => Time.now.to_i 
       }
 
       for s in @site.sections
@@ -229,21 +256,27 @@ module Elastic
         end
         
       rescue Errno::ENOENT=>x
-         render_error x.message.gsub @site.home_dir, '/'
+        render_error x.message.gsub @site.home_dir, '/'
       rescue Liquid::SyntaxError=>x
-         render_error "Liquid syntax error: #{x}"
+        render_error "Liquid syntax error: #{x}"
+      else
+        session[:elastic] = { locale: @locale }
       end
     end
     
     
     
     def render_error(error)
-      render :inline=>"#{error}", :layout=>'elastic/error'
+      render inline: "#{error}", layout: 'elastic/error', status: 500
     end
 
     def render_404(error=nil)
-      render :inline=>(error ? "Elastic CMS: 404 - not found: '#{error}'" : "Elastic CMS: 404 - not found"), :status=>404
+      render inline: (error ? "Elastic CMS: 404 - not found: '#{error}'" : "Elastic CMS: 404 - not found"), status: 404
     end
+
+    # def render_500(error=nil)
+    #   render inline: (error ? "Elastic CMS: 500 - error: \n '#{error}'" : "Elastic CMS: 500 - error"), status: 500
+    # end
 
     def render_access_denied
       render :inline=>"Elastic CMS: Sorry, access denied."
@@ -253,6 +286,14 @@ module Elastic
       return BlueCloth.new(out).to_html if template_name.ends_with? '.md'
       return out = `echo '#{out}' | php` if template_name.ends_with? '.php'
       out
+    end
+
+    # -- -- -- private erotic stuff -- -- --
+
+    private
+
+    def secure_filepath(filepath)      
+      secure_filepath = filepath.gsub(RegexFilepath, '')
     end
         
   end

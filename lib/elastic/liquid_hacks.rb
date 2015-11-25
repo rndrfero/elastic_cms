@@ -20,7 +20,7 @@ module Liquid
       list.collect do |token|
         begin
           x = token.respond_to?(:render) ? token.render(context) : token
-          x.force_encoding('utf-8') if x.respond_to?(:force_encoding)
+          #x.force_encoding('utf-8') if x.respond_to?(:force_encoding)
           x
         rescue ::StandardError => e
           context.handle_error(e)

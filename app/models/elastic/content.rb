@@ -40,7 +40,10 @@ module Elastic
       
     def file=(x)
       @file = x
-      FileUtils.cp x.tempfile.path, File.join(content_config.gallery.filepath,'orig',x.original_filename)      
+      the_path = File.join(content_config.gallery.filepath,'orig',x.original_filename)
+      FileUtils.cp x.tempfile.path, the_path
+      File.chmod 0644, the_path
+
       content_config.gallery.sync!
       self.reference = content_config.gallery.file_records.where(:filename=>x.original_filename).first
     end

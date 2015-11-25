@@ -7,7 +7,8 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
-gem 'mysql2'
+gem 'mysql2', '0.3.10'
+#gem 'activerecord-mysql2-adapter'
 
 group :assets do
   gem 'uglifier'
@@ -19,10 +20,8 @@ gem 'therubyracer' # javascript runtime
 gem 'acts_as_list'
 gem 'ancestry'
 
-#gem 'rmagick', '2.12.1' # original from server
-gem 'rmagick', '2.13.4'
-#gem 'rmagick', '2.12.2'
-#gem 'rmagick', '2.13.3'
+gem 'rmagick', '2.13.4' # head
+#gem 'rmagick', '2.13.3' # <--- toto je u mna na locale  = c6c68a98d4ece487fd74a3cdd750144caef47e97
 
 
 gem 'liquid'
@@ -46,7 +45,7 @@ gem 'exception_notification'
 gem 'rubyzip'
 gem 'iconv'
 
-group :development
+group :development do
   gem 'capistrano', '~> 2.15.5'
   gem 'rvm-capistrano'
 end

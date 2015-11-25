@@ -1,5 +1,6 @@
 require_dependency 'elastic/thumbnail_generators'
 require_dependency 'elastic/tincan'
+require_dependency 'elastic/file_record'
 
 require 'zip'
 
@@ -94,7 +95,7 @@ module Elastic
     def sync!
       Elastic.logger_info "@gallery.sync! for #{dir}"
       for f in files
-        ino = File.stat(File.join(filepath,'orig',f)).ino
+        ino = File.stat(File.join(filepath,'orig',f)).ino.to_s
         fr = file_records.where(:filename=>f).first
         if fr        
           fr.update_attribute :ino, ino
@@ -185,7 +186,10 @@ module Elastic
       if x.original_filename.downcase == 'archive.zip'
         unzip_file x.tempfile.path, File.join(filepath,'orig')
       else
-        FileUtils.cp x.tempfile.path, File.join(filepath,'orig',x.original_filename)
+        the_path = File.join(filepath,'orig',x.original_filename)
+        
+        FileUtils.cp x.tempfile.path, the_path
+        File.chmod 0644, the_path
       end
 
       sync!

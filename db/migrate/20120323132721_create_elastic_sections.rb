@@ -8,6 +8,8 @@ class CreateElasticSections < ActiveRecord::Migration
       
       t.integer :site_id
       t.string :key
+
+      t.integer :section_id
       
       t.boolean :is_star
       t.boolean :is_hidden
