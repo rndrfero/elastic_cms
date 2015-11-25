@@ -19,7 +19,8 @@ gem 'therubyracer' # javascript runtime
 gem 'acts_as_list'
 gem 'ancestry'
 
-gem 'rmagick', '2.12.1'
+#gem 'rmagick', '2.12.1' # original from server
+gem 'rmagick', '2.13.4'
 #gem 'rmagick', '2.12.2'
 #gem 'rmagick', '2.13.3'
 
@@ -45,7 +46,10 @@ gem 'exception_notification'
 gem 'rubyzip'
 gem 'iconv'
 
-
+group :development
+  gem 'capistrano', '~> 2.15.5'
+  gem 'rvm-capistrano'
+end
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
