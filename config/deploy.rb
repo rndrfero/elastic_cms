@@ -9,7 +9,7 @@ set :rvm_ruby_string, 'ruby-2.1.3'
 
 set :application, "elastic-cms"
 
-set :deploy_to, "/home/web/elastic-cms"
+set :deploy_to, "/home/web/sites/elastic-cms"
 
 set :domain, "185.3.94.165" # NI server
 set :user, 'web'
@@ -20,23 +20,30 @@ role :app, domain                          # This may be the same as your `Web` 
 
 set :scm, :git
 
-set :repository, "git@github.com:rndrfero/elastic_cms.git"
+set :repository, "https://github.com/rndrfero/elastic_cms.git"
 set :branch, "deploy"
 set :deploy_via, :remote_cache
 
 
 namespace :deploy do
+    # run("cd #{deploy_to}/current && /usr/bin/env rake `<task_name>` RAILS_ENV=production")
+    desc "rekompile app assets"
+    task :recompile_assets do
+      run "cd #{current_release}/elastic_cms_app && /usr/bin/env bundle exec rake assets:precompile RAILS_ENV=production"
+    end
+
     task :restart do
       run "ln -s #{deploy_to}/#{shared_dir}/sockets #{current_release}/tmp/sockets"
-    run "sudo systemctl restart elastic-cms-unicorn"
+      # run "sudo systemctl restart elastic-cms-unicorn"
     end
     
-    desc "link assets"
-    task :link_assets do
-    # The assets folder must be kept between releases
-        run "ln -s #{deploy_to}/#{shared_dir}/data #{current_release}/public/data"
-        run "ln -s #{deploy_to}/#{shared_dir}/home #{current_release}/home"
+    desc "link stuff"
+    task :link_stuff do
+        run "ln -s #{deploy_to}/#{shared_dir}/database.yml #{current_release}/elastic_cms_app/config/database.yml"
+        run "ln -s #{deploy_to}/#{shared_dir}/home #{current_release}/elastic_cms_app/home"
     end    
 end
 
-after 'deploy:update_code', 'deploy:link_assets'
+after 'deploy:update_code', 'deploy:link_stuff'
+after 'deploy:update_code', 'deploy:recompile_assets'
+
