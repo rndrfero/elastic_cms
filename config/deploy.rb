@@ -33,7 +33,8 @@ namespace :deploy do
     end
 
     task :restart do
-      run "ln -s #{deploy_to}/#{shared_dir}/sockets #{current_release}/tmp/sockets"
+      run "ln -s #{deploy_to}/#{shared_dir}/pids #{current_release}/elastic_cms_app/tmp/pids"
+      run "ln -s #{deploy_to}/#{shared_dir}/sockets #{current_release}/elastic_cms_app/tmp/sockets"
       # run "sudo systemctl restart elastic-cms-unicorn"
     end
     
