@@ -220,7 +220,8 @@ module Elastic
         'key' => params[:key],
         'user' => (Context.user ? Context.user.name : nil),
         'localhost' => '',
-        'now' => Time.now.to_i 
+        'now' => Time.now.to_i,
+        'randomhex' => SecureRandom.hex
       }
 
       for s in @site.sections
