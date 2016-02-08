@@ -42,7 +42,7 @@
 		<% elsif @section %>
 			<%= link_to "#{@section.title}", editor_section_nodes_path(@section), :class=>"colorSection" %>
 		<% else %>
-			<%= link_to 'Config', master_site_path(@site) %>
+			<%= link_to 'Admin', editor_site_path(@locale) %>
 		<% end %>
 		
 		<% if @action == 'show' %>
@@ -60,7 +60,7 @@
 			<%= link_to raw('&reg;'), toggle_reload_path, :class=>"#{'active' if @site.is_reload? }", :title=>"Toggle automatic reloading." %>
 		<% end %>
 
-    <% if @references %>
+    <% if false and @references %>
 		  <small>Links:</small>
 			<% for x in @references %>
 				<% if x.is_a? Elastic::Gallery %>
