@@ -11,7 +11,7 @@ set :application, "elastic-cms"
 
 set :deploy_to, "/home/web/sites/elastic-cms"
 
-set :domain, "185.3.94.165" # NI server
+set :domain, "109.74.199.18" # NI server
 set :user, 'web'
 set :use_sudo, false
 
