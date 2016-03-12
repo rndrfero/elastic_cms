@@ -3,8 +3,12 @@
 	<head>
 		<meta charset="utf-8">		
 		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-		
-		<link type="text/css" rel="Stylesheet" media="all" href="/t/<%= @site.theme %>.css"/>		
+		<% if @site.is_reload_theme %>
+			<link type="text/css" rel="Stylesheet" media="all" href="/t/<%= @site.theme %>.css?<%= Random.rand %>"/>
+		<% else %>
+			<link type="text/css" rel="Stylesheet" media="all" href="/t/<%= @site.theme %>.css"/>
+		<% end %>
+
 		
 		<%=raw @head %>
 	</head>
